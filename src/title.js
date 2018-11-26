@@ -1,8 +1,31 @@
 const express = require('express')
+const zlib = require('zlib')
 
 const app = express()
 
+// Standard inbound JSON deserialization
+
 app.use(express.json())
+
+// Custom outbound JSON serialization that forces compression. Client tries to
+// inflate the response whether you have a Transfer-Encoding header or not -.-
+
+app.use(function (req, resp, next) {
+  resp.json = function (obj) {
+    const str = JSON.stringify(obj)
+    const buf = Buffer.from(str)
+    const comp = zlib.deflateSync(buf)
+
+    resp.set('Content-Type', 'application/json')
+    resp.set('Content-Length', comp.length)
+    resp.set('Transfer-Encoding', 'deflate')
+    resp.send(comp)
+  }
+
+  next()
+})
+
+// Trace requests and responses
 
 app.use(function (req, resp, next) {
   console.log('\n--- Chunithm %s ---\n', req.url)
