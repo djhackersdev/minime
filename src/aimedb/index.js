@@ -10,24 +10,27 @@ async function aimedb(socket) {
       console.log('Aimedb: Decode', req)
 
       const { cmd } = req
-      let payload
 
       switch (cmd) {
-      case 'hello':
-        console.log('Aimedb: Hello')
-        output.write({ cmd, status: 1 })
+        case 'hello':
+          console.log('Aimedb: Hello')
+          output.write({ cmd, status: 1 })
 
-        break
+          break
 
-      case 'goodbye':
-        console.log('Aimedb: Goodbye')
+        case 'lookup':
+          console.log('Aimedb: Mifare lookup', req.luid)
+          output.write({ cmd })
 
-        break
+        case 'goodbye':
+          console.log('Aimedb: Goodbye')
 
-      default:
-        console.log('Aimedb: Handler not implemented!')
+          break
 
-        break
+        default:
+          console.log('Aimedb: Handler not implemented!')
+
+          break
       }
     }
   } catch (e) {
