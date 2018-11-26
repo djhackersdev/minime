@@ -100,14 +100,16 @@ app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
 app.post('/ChuniServlet/GetGameMessageApi', function (req, resp) {
   resp.json({
 	  type: 1,
-	  length: 1,
-	  gameMessageList: [{
-	  	type: 2,
-      id: 1,
-      message: "true",
-	   	startDate: "0",
-      endDate: "0"
-	  }],
+	  length: 0,
+	  gameMessageList: [
+/*      "0": {
+        type: 2,
+        id: 1,
+        message: "true",
+        startDate: "0",
+        endDate: "0"
+      },*/
+    ],
   })
 })
 
