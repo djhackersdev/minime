@@ -10,20 +10,20 @@ class Decoder extends Transform {
   }
 
   static ident(payload) {
-    const gameId = payload.toString('ascii', 2, 6)
-    const keychipId = payload.toString('ascii', 12, 23)
+    const gameId    = payload.toString('ascii', 0x000A, 0x000E)
+    const keychipId = payload.toString('ascii', 0x0014, 0x001F)
 
     return { gameId, keychipId }
   }
 
   _transform(chunk, encoding, callback) {
-    const { cmd, payload } = chunk
+    const cmd = chunk.readUInt16LE(0x04)
 
     switch (cmd) {
       case 0x0064:
         return callback(null, {
           cmd: 'hello',
-          ...Decoder.ident(payload)
+          ...Decoder.ident(chunk)
         })
 
       case 0x0066:

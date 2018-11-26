@@ -17,26 +17,25 @@ class Deframer extends Transform {
       return
     }
 
-    const magic = this.state.readUInt16LE(0)
+    const magic = this.state.readUInt16LE(0x0000)
 
     if (magic != 0xA13E) {
       return callback(new Error(`Invalid magic (decimal ${magic})`))
     }
 
-    const len = this.state.readUInt16LE(6)
+    const len = this.state.readUInt16LE(0x0006)
 
     if (this.state.length < len) {
       return
     }
 
-    console.log('Aimedb: Recv', this.state)
+    const frame = this.state.slice(0, len)
 
-    const cmd = this.state.readUInt16LE(4)
-    const payload = this.state.slice(8, len)
+    console.log('Aimedb: Recv', frame)
 
     this.state = this.state.slice(len)
 
-    return callback(null, { cmd, payload })
+    return callback(null, frame)
   }
 }
 
