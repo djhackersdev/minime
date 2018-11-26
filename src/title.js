@@ -8,20 +8,20 @@ app.use(function (req, resp, next) {
   console.log('\n--- Chunithm %s ---\n', req.url)
   console.log('Request:', req.body)
 
-  const prevSend = resp.send
+  const prevJson = resp.json
 
-  resp.send = function (obj) {
+  resp.json = function (obj) {
     console.log('Response:', obj)
 
-    resp.send = prevSend
-    resp.send.apply(this, arguments)
+    resp.json = prevJson
+    resp.json.apply(this, arguments)
   }
 
   next()
 })
 
 app.post('/ChuniServlet/GetGameSettingApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  gameSetting: {
 		  dataVersion: 1,
 		  isMaintenance: false,
@@ -39,35 +39,35 @@ app.post('/ChuniServlet/GetGameSettingApi', function (req, resp) {
 })
 
 app.post('/ChuniServlet/UpsertClientSettingApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  returnCode: 1,
 	  apiName: "UpsertClientSettingApi"
   })
 })
 
 app.post('/ChuniServlet/UpsertClientBookkeepingApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  returnCode: 1,
 	  apiName: "UpsertClientBookkeepingApi"
   })
 })
 
 app.post('/ChuniServlet/UpsertClientTestmodeApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  returnCode: 1,
 	  apiName: "UpsertClientTestmodeApi"
   })
 })
 
 app.post('/ChuniServlet/UpsertClientErrorApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  returnCode: 1,
 	  apiName: "UpsertClientErrorApi"
   })
 })
 
 app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  returnCode: 1,
 	  apiName: "UpsertClientDevelopApi"
   })
@@ -75,7 +75,7 @@ app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
 
 //There appears to be some issue here - Game hangs on receipt of this response
 app.post('/ChuniServlet/GetGameMessageApi', function (req, resp) {
-  resp.send({
+  resp.json({
 	  type: 1,
 	  length: 1,
 	  gameMessageList: [{
