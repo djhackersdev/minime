@@ -1,8 +1,4 @@
-const bodyParser = require('body-parser')
-const leftPad = require('left-pad') // the infamous...
 const express = require('express')
-const zlib = require('zlib')
-const os = require('os')
 
 const app = express()
 
