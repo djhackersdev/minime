@@ -11,6 +11,10 @@
     "morgan": "^1.9.1"
   },
   "scripts": {
+    "test": "jest",
     "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }
