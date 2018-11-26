@@ -96,13 +96,12 @@ app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
   })
 })
 
-//There appears to be some issue here - Game hangs on receipt of this response
 app.post('/ChuniServlet/GetGameMessageApi', function (req, resp) {
   resp.json({
 	  type: 1,
 	  length: 0,
 	  gameMessageList: [
-/*      "0": {
+/*    {
         type: 2,
         id: 1,
         message: "true",
@@ -110,6 +109,83 @@ app.post('/ChuniServlet/GetGameMessageApi', function (req, resp) {
         endDate: "0"
       },*/
     ],
+  })
+})
+
+app.post('/ChuniServlet/GetGameIdlistApi', function (req, resp) {
+  const { type } = req.body
+
+  resp.json({
+    type,
+    length: 0,
+    gameIdlistList: [],
+  })
+})
+
+app.post('/ChuniServlet/GetGameEventApi', function (req, resp) {
+  resp.json({
+    type: 1,
+    length: 0,
+    gameEventList: [/*
+      {
+        type: 1,
+        id: 1102, // data/A000/event/event00001102
+        startDate: 'STRINGIDK',
+        endDate: 'STRINGIDK',
+      },
+    */],
+  })
+})
+
+app.post('/ChuniServlet/GetGameRankingApi', function (req, resp) {
+  const { type } = req.body
+
+  resp.json({
+    type,
+    gameRankingList: [/*
+      // QWORD fields maybe?
+      {
+        id: 1,
+        point: 1,
+      }
+    */],
+  })
+})
+
+app.post('/ChuniServlet/GetGameSaleApi', function (req, resp) {
+  const { type } = req.body
+
+  resp.json({
+    type,
+    length: 0,
+    gameSaleList: [/*
+      {
+        orderId: 1234,
+        type,
+        id: 4321,
+        rate: 5678,
+        startDate: 'STRINGIDK',
+        endDate: 'STRINGIDK',
+      },
+    */],
+  })
+})
+
+app.post('/ChuniServlet/GetGameChargeApi', function (req, resp) {
+  resp.json({
+    length: 0,
+    gameChargeList: [/*
+      {
+        orderId: 1,
+        chargeId: 1,
+        price: 1,
+        startDate: 'STRINGIDK',
+        endDate: 'STRINGIDK',
+        salePrice:
+        saleStartDate: 'STRINGIDK',
+        saleEndDate: 'STRINGIDK',
+      },
+    */],
   })
 })
 
