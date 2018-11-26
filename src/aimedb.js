@@ -135,9 +135,7 @@ class Framer extends Transform {
   }
 }
 
-async function dispatch(socket) {
-  console.log('Aimedb: Connection opened')
-
+function setup(socket) {
   const input = pipeline(
     socket,
     crypto
@@ -157,6 +155,14 @@ async function dispatch(socket) {
       .setAutoPadding(false),
     socket,
   )
+
+  return { input, output }
+}
+
+async function aimedb(socket) {
+  console.log('Aimedb: Connection opened')
+
+  const { input, output } = setup(socket)
 
   try {
     for await (const req of input) {
@@ -191,4 +197,4 @@ async function dispatch(socket) {
   socket.end()
 }
 
-module.exports = dispatch
+module.exports = aimedb
