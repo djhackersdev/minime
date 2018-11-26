@@ -5,15 +5,27 @@ const zlib = require('zlib')
 const os = require('os')
 
 const app = express()
-/*
-app.use(bodyParser.raw({
-  type: 'application/json'
-}))
-*/
-app.use(express.json())
-app.post('/ChuniServlet/GetGameSettingApi', function (req, resp) {
 
-  const respParams = {
+app.use(express.json())
+
+app.use(function (req, resp, next) {
+  console.log('\n--- Chunithm %s ---\n', req.url)
+  console.log('Request:', req.body)
+
+  const prevSend = resp.send
+
+  resp.send = function (obj) {
+    console.log('Response:', obj)
+
+    resp.send = prevSend
+    resp.send.apply(this, arguments)
+  }
+
+  next()
+})
+
+app.post('/ChuniServlet/GetGameSettingApi', function (req, resp) {
+  resp.send({
 	  gameSetting: {
 		  dataVersion: 1,
 		  isMaintenance: false,
@@ -27,82 +39,57 @@ app.post('/ChuniServlet/GetGameSettingApi', function (req, resp) {
 	  },
 	  isDumpUpload: false,
 	  isAou: false
-  }
-  console.log('\n\nGetGameSettingApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
+  })
 })
 
 app.post('/ChuniServlet/UpsertClientSettingApi', function (req, resp) {
-  const respParams = {
+  resp.send({
 	  returnCode: 1,
 	  apiName: "UpsertClientSettingApi"
-  }
-  console.log('\n\nUpsertClientSettingApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
-})
-app.post('/ChuniServlet/UpsertClientBookkeepingApi', function (req, resp) {
-  const respParams = {
-	  returnCode: 1,
-	  apiName: "UpsertClientBookkeepingApi"
-  }
-  console.log('\n\nUpsertClientBookkeepingApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
-})
-app.post('/ChuniServlet/UpsertClientTestmodeApi', function (req, resp) {
-  const respParams = {
-	  returnCode: 1,
-	  apiName: "UpsertClientTestmodeApi"
-  }
-  console.log('\n\nUpsertClientTestmodeApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
-})
-app.post('/ChuniServlet/UpsertClientErrorApi', function (req, resp) {
-  const respParams = {
-	  returnCode: 1,
-	  apiName: "UpsertClientErrorApi"
-  }
-  console.log('\n\nUpsertClientErrorApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
-})
-app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
-  const respParams = {
-	  returnCode: 1,
-	  apiName: "UpsertClientDevelopApi"
-  }
-  console.log('\n\nUpsertClientDevelopApi')
-  console.log('Request: '+JSON.stringify(req.body, null, 2))
-  console.log('Response: ', respParams)
-  resp.send(respParams)
+  })
 })
 
+app.post('/ChuniServlet/UpsertClientBookkeepingApi', function (req, resp) {
+  resp.send({
+	  returnCode: 1,
+	  apiName: "UpsertClientBookkeepingApi"
+  })
+})
+
+app.post('/ChuniServlet/UpsertClientTestmodeApi', function (req, resp) {
+  resp.send({
+	  returnCode: 1,
+	  apiName: "UpsertClientTestmodeApi"
+  })
+})
+
+app.post('/ChuniServlet/UpsertClientErrorApi', function (req, resp) {
+  resp.send({
+	  returnCode: 1,
+	  apiName: "UpsertClientErrorApi"
+  })
+})
+
+app.post('/ChuniServlet/UpsertClientDevelopApi', function (req, resp) {
+  resp.send({
+	  returnCode: 1,
+	  apiName: "UpsertClientDevelopApi"
+  })
+})
 
 //There appears to be some issue here - Game hangs on receipt of this response
 app.post('/ChuniServlet/GetGameMessageApi', function (req, resp) {
-  const respParams = {
+  resp.send({
 	  type: 1,
 	  length: 1,
 	  gameMessageList: [{
 	  	type: 2,
-		id: 1,
-		message: "true",
+      id: 1,
+      message: "true",
 	   	startDate: "0",
-		endDate: "0"
+      endDate: "0"
 	  }],
-  }
-  console.log('\n\nGetGameMessageApi')
-  console.log('Request:'+JSON.stringify(req.body, null, 2))
-  console.log('Response:', respParams)
-  resp.send(respParams)
-}) 
+  })
+})
 
 module.exports = app
