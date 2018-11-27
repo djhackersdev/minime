@@ -45,7 +45,7 @@ async function aimedb(socket) {
     console.log('Aimedb: Connection error:\n', e)
   }
 
-  console.log('Aimedb: Connection closed')
+  console.log('Aimedb: Connection closed\n')
   socket.end()
 }
 
