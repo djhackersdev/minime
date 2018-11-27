@@ -38,6 +38,12 @@ async function aimedb(socket) {
 
           break
 
+        case 'log':
+          console.log('Aimedb: Log message')
+          output.write({ cmd, status: 1 })
+
+          break
+
         case 'goodbye':
           console.log('Aimedb: Goodbye')
 

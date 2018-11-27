@@ -9,17 +9,36 @@ class Decoder extends Transform {
     })
   }
 
-  static ident(payload) {
-    const gameId    = payload.toString('ascii', 0x000A, 0x000E)
-    const keychipId = payload.toString('ascii', 0x0014, 0x001F)
+  static ident(chunk) {
+    const gameId    = chunk.toString('ascii', 0x000A, 0x000E)
+    const keychipId = chunk.toString('ascii', 0x0014, 0x001F)
 
     return { gameId, keychipId }
   }
 
-  static cardId(payload) {
-    const luid = payload.slice(0x0020, 0x002A)
+  static cardId(chunk) {
+    const luid = chunk.slice(0x0020, 0x002A)
 
-    return { luid, ...Decoder.ident(payload) }
+    return { luid, ...Decoder.ident(chunk) }
+  }
+
+  static log(chunk) {
+    // idk what any of this stuff means yet
+    // field20 and field28 appear to be an aime id but that is all.
+
+    const field20 = chunk.readUInt32LE(0x20)
+    const field24 = chunk.readUInt32LE(0x24)
+    const field28 = chunk.readUInt32LE(0x28)
+    const field2C = chunk.readUInt32LE(0x2C)
+    const field30 = chunk.readUInt32LE(0x30)
+    const field34 = chunk.readUInt32LE(0x34)
+    const field38 = chunk.readUInt32LE(0x38)
+    const field3C = chunk.readUInt32LE(0x3C)
+
+    return {
+      field20, field24, field28, field2C, field30, field34, field38, field3C,
+      ...Decoder.ident(chunk)
+    }
   }
 
   _transform(chunk, encoding, callback) {
@@ -30,6 +49,12 @@ class Decoder extends Transform {
         return callback(null, {
           cmd: 'register',
           ...Decoder.cardId(chunk),
+        })
+
+      case 0x0009:
+        return callback(null, {
+          cmd: 'log',
+          ...Decoder.log(chunk),
         })
 
       case 0x000B:
@@ -124,6 +149,13 @@ class Encoder extends Transform {
         buf.writeUInt16LE(0x0006, 0x0004) // cmd code
         buf.writeUInt16LE(chunk.status, 0x0008)
         buf.writeInt32LE(chunk.aimeId, 0x0020)
+
+        break
+
+      case 'log':
+        buf = Encoder.init(0x0020)
+        buf.writeUInt16LE(0x000A, 0x0004) // cmd code
+        buf.writeUInt16LE(chunk.status, 0x0008)
 
         break
 
