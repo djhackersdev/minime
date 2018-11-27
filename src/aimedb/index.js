@@ -18,9 +18,17 @@ async function aimedb(socket) {
 
           break
 
+        case 'campaign':
+          console.log('Aimedb: Campaign stuff')
+          output.write({ cmd, status: 1 })
+
+          break
+
         case 'lookup':
           console.log('Aimedb: Mifare lookup', req.luid)
-          output.write({ cmd })
+          output.write({ cmd, status: 1 }) // Add aimeId if desired
+
+          break
 
         case 'goodbye':
           console.log('Aimedb: Goodbye')

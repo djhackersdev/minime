@@ -26,6 +26,12 @@ class Decoder extends Transform {
     const cmd = chunk.readUInt16LE(0x04)
 
     switch (cmd) {
+      case 0x000B:
+        return callback(null, {
+          cmd: 'campaign',
+          ...Decoder.ident(chunk),
+        })
+
       case 0x000F:
         return callback(null, {
           cmd: 'lookup',
@@ -44,7 +50,9 @@ class Decoder extends Transform {
         })
 
       default:
-        return callback(new Error(`Unknown AimeDB command ${cmd}`))
+        return callback(null, {
+          cmd: `unknown_${cmd}`,
+        })
     }
   }
 }
@@ -81,6 +89,30 @@ class Encoder extends Transform {
 
         break
 
+      case 'campaign':
+        // Still figuring this out...
+
+        buf = Encoder.init(0x0200)
+        buf.writeUInt16LE(0x000C,       0x0004) // cmd code
+        buf.writeUInt16LE(chunk.status, 0x0008)
+
+        // Campaign array starts at 0x20
+        // Element size is 0xA0
+
+        break
+
+      case 'lookup':
+        // -1 aime id means card is not registered
+        // register level does not seem to matter
+
+        buf = Encoder.init(0x0130)
+        buf.writeUInt16LE(0x0010, 0x0004) // cmd code
+        buf.writeUInt16LE(chunk.status, 0x0008)
+        buf.writeInt32LE(chunk.aimeId || -1, 0x0020)
+        buf.writeUInt8(Encoder.registerLevels[chunk.registerLevel], 0x0024)
+
+        break
+
       default:
         return callback(new Error(`Unimplemented response: ${cmd}`))
     }
@@ -89,6 +121,12 @@ class Encoder extends Transform {
 
     return callback(null, buf)
   }
+}
+
+Encoder.registerLevels = {
+  none: 0,
+  portal: 1,
+  segaid: 2,
 }
 
 module.exports = {
