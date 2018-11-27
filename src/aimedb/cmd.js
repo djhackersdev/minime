@@ -16,10 +16,22 @@ class Decoder extends Transform {
     return { gameId, keychipId }
   }
 
+  static lookup(payload) {
+    const luid = payload.slice(0x0020, 0x002A)
+
+    return { luid, ...Decoder.ident(payload) }
+  }
+
   _transform(chunk, encoding, callback) {
     const cmd = chunk.readUInt16LE(0x04)
 
     switch (cmd) {
+      case 0x000F:
+        return callback(null, {
+          cmd: 'lookup',
+          ...Decoder.lookup(chunk),
+        })
+
       case 0x0064:
         return callback(null, {
           cmd: 'hello',
