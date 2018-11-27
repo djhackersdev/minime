@@ -75,14 +75,14 @@ class Encoder extends Transform {
 
     switch (chunk.cmd) {
       case 'hello':
-        buf = Encoder.init(32)
-        buf.writeInt16LE(0x0065,        0x0004) // cmd code
-        buf.writeInt16LE(chunk.status,  0x0008)
+        buf = Encoder.init(0x0020)
+        buf.writeUInt16LE(0x0065,       0x0004) // cmd code
+        buf.writeUInt16LE(chunk.status, 0x0008)
 
         break
 
       default:
-        return callback(newError(`Unimplemented response: ${cmd}`))
+        return callback(new Error(`Unimplemented response: ${cmd}`))
     }
 
     console.log('Aimedb: Send', buf)
