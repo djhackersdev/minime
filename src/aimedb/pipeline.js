@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const { pipeline } = require('stream')
 
-const { Deframer, Framer } = require('./frame')
+const { Deframer } = require('./frame')
 const { Decoder, Encoder } = require('./cmd')
 
 const K = Buffer.from('Copyright(C)SEGA', 'utf8')
@@ -20,7 +20,6 @@ function setup(socket) {
 
   pipeline(
     output,
-    new Framer(),
     crypto
       .createCipheriv('aes-128-ecb', K, null)
       .setAutoPadding(false),

@@ -58,21 +58,36 @@ class Encoder extends Transform {
     })
   }
 
+  static init(length) {
+    const buf = Buffer.alloc(length)
+
+    buf.writeUInt16LE(0xA13E, 0x0000) // Magic?
+    buf.writeUInt16LE(0x3087, 0x0002) // ???
+    buf.writeUInt16LE(length, 0x0006)
+
+    return buf
+  }
+
   _transform(chunk, encoding, callback) {
     console.log('Aimedb: Encode', chunk)
 
-    let payload
+    let buf
 
     switch (chunk.cmd) {
       case 'hello':
-        payload = Buffer.alloc(24)
-        payload.writeInt16LE(chunk.status)
+        buf = Encoder.init(32)
+        buf.writeInt16LE(0x0065,        0x0004) // cmd code
+        buf.writeInt16LE(chunk.status,  0x0008)
 
-        return callback(null, { cmd: 0x0065, payload })
+        break
 
       default:
         return callback(newError(`Unimplemented response: ${cmd}`))
     }
+
+    console.log('Aimedb: Send', buf)
+
+    return callback(null, buf)
   }
 }
 
