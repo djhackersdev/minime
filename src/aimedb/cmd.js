@@ -16,7 +16,7 @@ class Decoder extends Transform {
     return { gameId, keychipId }
   }
 
-  static lookup(payload) {
+  static cardId(payload) {
     const luid = payload.slice(0x0020, 0x002A)
 
     return { luid, ...Decoder.ident(payload) }
@@ -26,6 +26,12 @@ class Decoder extends Transform {
     const cmd = chunk.readUInt16LE(0x04)
 
     switch (cmd) {
+      case 0x0005:
+        return callback(null, {
+          cmd: 'register',
+          ...Decoder.cardId(chunk),
+        })
+
       case 0x000B:
         return callback(null, {
           cmd: 'campaign',
@@ -35,7 +41,7 @@ class Decoder extends Transform {
       case 0x000F:
         return callback(null, {
           cmd: 'lookup',
-          ...Decoder.lookup(chunk),
+          ...Decoder.cardId(chunk),
         })
 
       case 0x0064:
@@ -110,6 +116,14 @@ class Encoder extends Transform {
         buf.writeUInt16LE(chunk.status, 0x0008)
         buf.writeInt32LE(chunk.aimeId || -1, 0x0020)
         buf.writeUInt8(Encoder.registerLevels[chunk.registerLevel], 0x0024)
+
+        break
+
+      case 'register':
+        buf = Encoder.init(0x0030)
+        buf.writeUInt16LE(0x0006, 0x0004) // cmd code
+        buf.writeUInt16LE(chunk.status, 0x0008)
+        buf.writeInt32LE(chunk.aimeId, 0x0020)
 
         break
 

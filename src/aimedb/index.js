@@ -30,6 +30,14 @@ async function aimedb(socket) {
 
           break
 
+        case 'register':
+          // We get sent here if lookup does not return an aimeId
+
+          console.log('Aimedb: Mifare register', req.luid)
+          output.write({ cmd, status: 1, aimeId: 12345678 })
+
+          break
+
         case 'goodbye':
           console.log('Aimedb: Goodbye')
 
