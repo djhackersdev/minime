@@ -4,6 +4,10 @@ const express = require('express')
 const zlib = require('zlib')
 const os = require('os')
 
+const services = new Map();
+
+services.set("SDBT", 9000); // Chunithm
+
 function decodeRequest(req) {
   const buf = Buffer.from(req, 'base64')
   const bytes = zlib.unzipSync(buf)
@@ -55,7 +59,7 @@ app.post('/sys/servlet/PowerOn', function (req, resp) {
 
   const respParams = {
     stat: 1,
-    uri: `http://${os.hostname()}:9000/`,
+    uri: `http://${os.hostname()}:${services.get(reqParams.game_id)}/`,
     host: '',
     place_id: '123',
     name: 'Name',
