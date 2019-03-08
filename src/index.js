@@ -17,3 +17,5 @@ net.createServer(aimedb).listen(22345);
 http.createServer(startup).listen(80);
 https.createServer(tls, billing).listen(8443);
 http.createServer(chunithm).listen(9000);
+
+console.log("Startup OK");
