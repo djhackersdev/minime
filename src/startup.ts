@@ -4,10 +4,15 @@ import read = require("raw-body");
 import { unzipSync } from "zlib";
 import { hostname } from "os";
 
-const services = new Map();
+const myHost = hostname();
+const uris = new Map<string, string>();
 
-services.set("SDBT", 9000); // Chunithm
-services.set("SBZV", 9001); // Project Diva Future Tone
+uris.set("SDBT", `http://${myHost}:9000/`); // Chunithm
+uris.set("SBZV", `http://${myHost}:9001/`); // Project Diva Future Tone
+
+const hosts = new Map<string, string>();
+
+hosts.set("SDDF", `${myHost}:10000`); // Initial D Zero
 
 const app = express();
 
@@ -60,9 +65,6 @@ app.use(async function(req, res, next) {
 app.post("/sys/servlet/PowerOn", function(req, resp) {
   console.log("\n--- Startup Request ---\n\n", req.body);
 
-  const portNo = services.get(req.body.game_id);
-  const uri = portNo !== undefined ? `http://${hostname()}:${portNo}/` : "";
-
   // Cut milliseconds out of ISO timestamp
 
   const now = new Date();
@@ -71,8 +73,8 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
 
   const resParams = {
     stat: 1,
-    uri,
-    host: "",
+    uri: uris.get(req.body.game_id) || "",
+    host: hosts.get(req.body.game_id) || "",
     place_id: "123",
     name: "Name",
     nickname: "Nick",
