@@ -1,32 +1,28 @@
-const crypto = require('crypto')
-const { pipeline } = require('stream')
+const crypto = require("crypto");
+const { pipeline } = require("stream");
 
-const { Deframer } = require('./frame')
-const { Decoder, Encoder } = require('./cmd')
+const { Deframer } = require("./frame");
+const { Decoder, Encoder } = require("./cmd");
 
-const K = Buffer.from('Copyright(C)SEGA', 'utf8')
+const K = Buffer.from("Copyright(C)SEGA", "utf8");
 
 function setup(socket) {
   const input = pipeline(
     socket,
-    crypto
-      .createDecipheriv('aes-128-ecb', K, null)
-      .setAutoPadding(false),
+    crypto.createDecipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     new Deframer(),
-    new Decoder(),
-  )
+    new Decoder()
+  );
 
-  const output = new Encoder()
+  const output = new Encoder();
 
   pipeline(
     output,
-    crypto
-      .createCipheriv('aes-128-ecb', K, null)
-      .setAutoPadding(false),
-    socket,
-  )
+    crypto.createCipheriv("aes-128-ecb", K, null).setAutoPadding(false),
+    socket
+  );
 
-  return { input, output }
+  return { input, output };
 }
 
-module.exports = setup
+module.exports = setup;

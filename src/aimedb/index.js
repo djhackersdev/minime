@@ -1,66 +1,66 @@
-const setup = require('./pipeline')
+const setup = require("./pipeline");
 
 async function aimedb(socket) {
-  console.log('Aimedb: Connection opened')
+  console.log("Aimedb: Connection opened");
 
-  const { input, output } = setup(socket)
+  const { input, output } = setup(socket);
 
   try {
     for await (const req of input) {
-      console.log('Aimedb: Decode', req)
+      console.log("Aimedb: Decode", req);
 
-      const { cmd } = req
+      const { cmd } = req;
 
       switch (cmd) {
-        case 'hello':
-          console.log('Aimedb: Hello')
-          output.write({ cmd, status: 1 })
+        case "hello":
+          console.log("Aimedb: Hello");
+          output.write({ cmd, status: 1 });
 
-          break
+          break;
 
-        case 'campaign':
-          console.log('Aimedb: Campaign stuff')
-          output.write({ cmd, status: 1 })
+        case "campaign":
+          console.log("Aimedb: Campaign stuff");
+          output.write({ cmd, status: 1 });
 
-          break
+          break;
 
-        case 'lookup':
-          console.log('Aimedb: Mifare lookup', req.luid)
-          output.write({ cmd, status: 1 }) // Add aimeId if desired
+        case "lookup":
+          console.log("Aimedb: Mifare lookup", req.luid);
+          output.write({ cmd, status: 1 }); // Add aimeId if desired
 
-          break
+          break;
 
-        case 'register':
+        case "register":
           // We get sent here if lookup does not return an aimeId
 
-          console.log('Aimedb: Mifare register', req.luid)
-          output.write({ cmd, status: 1, aimeId: 12345678 })
+          console.log("Aimedb: Mifare register", req.luid);
+          output.write({ cmd, status: 1, aimeId: 12345678 });
 
-          break
+          break;
 
-        case 'log':
-          console.log('Aimedb: Log message')
-          output.write({ cmd, status: 1 })
+        case "log":
+          console.log("Aimedb: Log message");
+          output.write({ cmd, status: 1 });
 
-          break
+          break;
 
-        case 'goodbye':
-          console.log('Aimedb: Goodbye')
+        case "goodbye":
+          console.log("Aimedb: Goodbye");
 
-          break
+          break;
 
         default:
-          console.log('Aimedb: Handler not implemented!')
+          console.log("Aimedb: Handler not implemented!");
 
-          break
+          break;
       }
     }
   } catch (e) {
-    console.log('Aimedb: Connection error:\n', e)
+    console.log("Aimedb: Connection error:\n", e);
   }
 
-  console.log('Aimedb: Connection closed\n')
-  socket.end()
+  console.log("Aimedb: Connection closed\n");
+  socket.end();
 }
 
-module.exports = aimedb
+module.exports = aimedb;
