@@ -1,6 +1,6 @@
 {
-  "name": "pki",
-  "version": "1.0.0",
+  "name": "knuckles",
+  "version": "0.1.0",
   "description": "Test server",
   "main": "src/index.js",
   "private": true,
