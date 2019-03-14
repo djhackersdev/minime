@@ -1,12 +1,12 @@
-const fs = require("fs");
-const https = require("https");
-const http = require("http");
-const net = require("net");
+import fs = require("fs");
+import https = require("https");
+import http = require("http");
+import net = require("net");
 
-const aimedb = require("./aimedb");
-const billing = require("./billing");
-const startup = require("./startup");
-const chunithm = require("./chunithm");
+import aimedb from "./aimedb";
+import billing from "./billing";
+import startup from "./startup";
+import chunithm from "./chunithm";
 
 const tls = {
   cert: fs.readFileSync("pki/server.pem"),

@@ -1,6 +1,8 @@
-const { Transform } = require("stream");
+import { Transform } from "stream";
 
-class Deframer extends Transform {
+export class Deframer extends Transform {
+  private state: Buffer;
+
   constructor(options) {
     super({
       readableObjectMode: true,
@@ -38,7 +40,3 @@ class Deframer extends Transform {
     return callback(null, frame);
   }
 }
-
-module.exports = {
-  Deframer,
-};

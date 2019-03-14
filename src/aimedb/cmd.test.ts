@@ -1,7 +1,7 @@
-const { Decoder } = require("./cmd");
+import { Decoder } from "./cmd";
 
 function decode(req) {
-  const decoder = new Decoder();
+  const decoder = new Decoder({});
 
   decoder.write(req);
 

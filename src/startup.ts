@@ -1,14 +1,17 @@
-const bodyParser = require("body-parser");
-const leftPad = require("left-pad"); // the infamous...
-const express = require("express");
-const zlib = require("zlib");
-const os = require("os");
+import bodyParser = require("body-parser");
+import express = require("express");
+import * as zlib from "zlib";
+import * as os from "os";
+
+interface Kvps {
+  [key: string]: string;
+}
 
 const services = new Map();
 
 services.set("SDBT", 9000); // Chunithm
 
-function decodeRequest(req) {
+function decodeRequest(req): Kvps {
   const buf = Buffer.from(req, "base64");
   const bytes = zlib.unzipSync(buf);
   const str = bytes.toString().trim();
@@ -89,4 +92,4 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
   resp.send(respStrZ);
 });
 
-module.exports = app;
+export default app;

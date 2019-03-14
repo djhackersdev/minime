@@ -1,5 +1,5 @@
-const express = require("express");
-const zlib = require("zlib");
+import express = require("express");
+import * as zlib from "zlib";
 
 const app = express();
 
@@ -17,9 +17,11 @@ app.use(function(req, resp, next) {
     const comp = zlib.deflateSync(buf);
 
     resp.set("Content-Type", "application/json");
-    resp.set("Content-Length", comp.length);
+    resp.set("Content-Length", comp.length.toString());
     resp.set("Transfer-Encoding", "deflate");
     resp.send(comp);
+
+    return resp;
   };
 
   next();
@@ -38,6 +40,8 @@ app.use(function(req, resp, next) {
 
     resp.json = prevJson;
     resp.json.apply(this, arguments);
+
+    return resp;
   };
 
   next();
@@ -197,4 +201,4 @@ app.post("/ChuniServlet/GetGameChargeApi", function(req, resp) {
   });
 });
 
-module.exports = app;
+export default app;

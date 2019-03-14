@@ -1,6 +1,6 @@
-const { Transform } = require("stream");
+import { Transform } from "stream";
 
-class Decoder extends Transform {
+export class Decoder extends Transform {
   constructor(options) {
     super({
       readableObjectMode: true,
@@ -95,7 +95,13 @@ class Decoder extends Transform {
   }
 }
 
-class Encoder extends Transform {
+const registerLevels = {
+  none: 0,
+  portal: 1,
+  segaid: 2,
+};
+
+export class Encoder extends Transform {
   constructor(options) {
     super({
       readableObjectMode: true,
@@ -147,7 +153,7 @@ class Encoder extends Transform {
         buf.writeUInt16LE(0x0010, 0x0004); // cmd code
         buf.writeUInt16LE(chunk.status, 0x0008);
         buf.writeInt32LE(chunk.aimeId || -1, 0x0020);
-        buf.writeUInt8(Encoder.registerLevels[chunk.registerLevel], 0x0024);
+        buf.writeUInt8(registerLevels[chunk.registerLevel], 0x0024);
 
         break;
 
@@ -167,7 +173,7 @@ class Encoder extends Transform {
         break;
 
       default:
-        return callback(new Error(`Unimplemented response: ${cmd}`));
+        return callback(new Error(`Unimplemented response: ${chunk.cmd}`));
     }
 
     console.log("Aimedb: Send", buf);
@@ -175,14 +181,3 @@ class Encoder extends Transform {
     return callback(null, buf);
   }
 }
-
-Encoder.registerLevels = {
-  none: 0,
-  portal: 1,
-  segaid: 2,
-};
-
-module.exports = {
-  Decoder,
-  Encoder,
-};

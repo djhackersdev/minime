@@ -1,6 +1,6 @@
-const setup = require("./pipeline");
+import { setup } from "./pipeline";
 
-async function aimedb(socket) {
+export default async function aimedb(socket) {
   console.log("Aimedb: Connection opened");
 
   const { input, output } = setup(socket);
@@ -62,5 +62,3 @@ async function aimedb(socket) {
   console.log("Aimedb: Connection closed\n");
   socket.end();
 }
-
-module.exports = aimedb;
