@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Test server",
   "main": "src/index.js",
-  "license": "MIT",
+  "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
