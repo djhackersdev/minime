@@ -1,40 +1,12 @@
-import bodyParser = require("body-parser");
 import express = require("express");
-import * as zlib from "zlib";
-import * as os from "os";
+import read = require("raw-body");
 
-interface Kvps {
-  [key: string]: string;
-}
+import { unzipSync } from "zlib";
+import { hostname } from "os";
 
 const services = new Map();
 
 services.set("SDBT", 9000); // Chunithm
-
-function decodeRequest(req): Kvps {
-  const buf = Buffer.from(req, "base64");
-  const bytes = zlib.unzipSync(buf);
-  const str = bytes.toString().trim();
-
-  const kvps = str.split("&");
-  const params = {};
-
-  kvps.forEach(kvp => {
-    const [key, val] = kvp.split("=");
-
-    params[key] = val;
-  });
-
-  return params;
-}
-
-function encodeResponse(params) {
-  const str = Object.entries(params)
-    .map(([key, val]) => key + "=" + val)
-    .join("&"); // Keys and values are not URL-escaped
-
-  return str + "\r\n";
-}
 
 const app = express();
 
@@ -42,27 +14,63 @@ const app = express();
 // So in the absence of any exotic Transfer-Encoding headers this Content-Type
 // is incorrect and we have to override Express' built-in handling.
 
-app.use(
-  bodyParser.raw({
-    type: "application/x-www-form-urlencoded",
-  })
-);
+app.use(async function(req, res, next) {
+  if (req.method !== "POST") {
+    return res.status(405).end();
+  }
+
+  if (!req.is("application/x-www-form-urlencoded")) {
+    return next();
+  }
+
+  const base64 = await read(req, { encoding: "ascii" });
+  const zbytes = Buffer.from(base64, "base64");
+  const bytes = unzipSync(zbytes);
+  const str = bytes.toString("ascii").trim();
+
+  const kvps = str.split("&");
+  const reqParams = {};
+
+  // Keys and values are not URL-escaped
+
+  kvps.forEach(kvp => {
+    const [key, val] = kvp.split("=");
+
+    reqParams[key] = val;
+  });
+
+  const send_ = res.send;
+
+  req.body = reqParams;
+  res.send = resParams => {
+    const str =
+      Object.entries(resParams)
+        .map(([key, val]) => key + "=" + val)
+        .join("&") + "\n";
+
+    res.set("content-type", "text/plain");
+
+    return send_.apply(res, [str]);
+  };
+
+  return next();
+});
 
 app.post("/sys/servlet/PowerOn", function(req, resp) {
-  const reqParams = decodeRequest(req.body.toString());
+  console.log("\n--- Startup Request ---\n\n", req.body);
 
-  console.log("\n--- Startup Request ---\n\n", reqParams);
-
-  const now = new Date();
+  const portNo = services.get(req.body.game_id);
+  const uri = portNo !== undefined ? `http://${hostname()}:${portNo}/` : "";
 
   // Cut milliseconds out of ISO timestamp
 
+  const now = new Date();
   const isoStrWithMs = now.toISOString();
   const isoStr = isoStrWithMs.substr(0, 19) + "Z";
 
-  const respParams = {
+  const resParams = {
     stat: 1,
-    uri: `http://${os.hostname()}:${services.get(reqParams.game_id)}/`,
+    uri,
     host: "",
     place_id: "123",
     name: "Name",
@@ -82,14 +90,12 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
     utc_time: isoStr,
     setting: "",
     res_ver: "3",
-    token: reqParams.token,
+    token: req.body.token,
   };
 
-  console.log("\n--- Startup Response ---\n\n", respParams);
+  console.log("\n--- Startup Response ---\n\n", resParams);
 
-  const respStrZ = encodeResponse(respParams);
-
-  resp.send(respStrZ);
+  resp.send(resParams);
 });
 
 export default app;
