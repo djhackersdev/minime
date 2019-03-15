@@ -15,7 +15,7 @@ export function setup(socket) {
     new Decoder({})
   );
 
-  const output = new Encoder({});
+  const output = new Encoder();
 
   pipeline(
     output,

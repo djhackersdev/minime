@@ -1,11 +1,10 @@
 import { Transform } from "stream";
 
 export class Decoder extends Transform {
-  constructor(options) {
+  constructor() {
     super({
       readableObjectMode: true,
       writableObjectMode: true,
-      ...options,
     });
   }
 
