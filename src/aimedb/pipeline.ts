@@ -12,7 +12,7 @@ export function setup(socket) {
     socket,
     crypto.createDecipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     new Deframer({}),
-    new Decoder({})
+    new Decoder()
   );
 
   const output = new Encoder();

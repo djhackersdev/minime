@@ -7,11 +7,10 @@ const registerLevels = {
 };
 
 export class Encoder extends Transform {
-  constructor(options) {
+  constructor() {
     super({
       readableObjectMode: true,
       writableObjectMode: true,
-      ...options,
     });
   }
 
