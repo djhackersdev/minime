@@ -1,31 +1,15 @@
+import compression = require("compression");
 import express = require("express");
-import * as zlib from "zlib";
 
 const app = express();
 
-// Standard inbound JSON deserialization
+// Thankfully we can use standard middleware for JSON I/O. We have to use a
+// zlib middleware as well because compression is non-optional: the client will
+// attempt to inflate whatever response we send to it whether there's a
+// Transfer-Encoding header or not.
 
+app.use(compression());
 app.use(express.json());
-
-// Custom outbound JSON serialization that forces compression. Client tries to
-// inflate the response whether you have a Transfer-Encoding header or not -.-
-
-app.use(function(req, resp, next) {
-  resp.json = function(obj) {
-    const str = JSON.stringify(obj);
-    const buf = Buffer.from(str);
-    const comp = zlib.deflateSync(buf);
-
-    resp.set("Content-Type", "application/json");
-    resp.set("Content-Length", comp.length.toString());
-    resp.set("Transfer-Encoding", "deflate");
-    resp.send(comp);
-
-    return resp;
-  };
-
-  next();
-});
 
 // Trace requests and responses
 
