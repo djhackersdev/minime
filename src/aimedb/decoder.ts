@@ -1,5 +1,82 @@
 import { Transform } from "stream";
 
+import * as Request from "./request";
+
+function begin(msg: Buffer): Request.AimeRequestBase {
+  const gameId = msg.toString("ascii", 0x000a, 0x000e);
+  const keychipId = msg.toString("ascii", 0x0014, 0x001f);
+
+  return { gameId, keychipId };
+}
+
+function readerRegisterRequest(msg: Buffer): Request.RegisterRequest {
+  const luid = msg.slice(0x0020, 0x002a).toString("hex");
+
+  return {
+    ...begin(msg),
+    type: "register",
+    luid,
+  };
+}
+
+function readLogRequest(msg: Buffer): Request.LogRequest {
+  // idk what any of this stuff means yet
+  // field20 and field28 appear to be an aime id but that is all.
+
+  return {
+    ...begin(msg),
+    type: "log",
+    field20: msg.readUInt32LE(0x20),
+    field24: msg.readUInt32LE(0x24),
+    field28: msg.readUInt32LE(0x28),
+    field2C: msg.readUInt32LE(0x2c),
+    field30: msg.readUInt32LE(0x30),
+    field34: msg.readUInt32LE(0x34),
+    field38: msg.readUInt32LE(0x38),
+    field3C: msg.readUInt32LE(0x3c),
+  };
+}
+
+function readCampaignRequest(msg: Buffer): Request.CampaignRequest {
+  return {
+    ...begin(msg),
+    type: "campaign",
+  };
+}
+
+function readLookupRequest(msg: Buffer): Request.LookupRequest {
+  const luid = msg.slice(0x0020, 0x002a).toString("hex");
+
+  return {
+    ...begin(msg),
+    type: "lookup",
+    luid,
+  };
+}
+
+function readHelloRequest(msg: Buffer): Request.HelloRequest {
+  return {
+    ...begin(msg),
+    type: "hello",
+  };
+}
+
+function readGoodbyeRequest(msg: Buffer): Request.GoodbyeRequest {
+  return {
+    ...begin(msg),
+    type: "goodbye",
+  };
+}
+
+const readers = new Map<number, (msg: Buffer) => Request.AimeRequest>();
+
+readers.set(0x0005, readerRegisterRequest);
+readers.set(0x0009, readLogRequest);
+readers.set(0x000b, readCampaignRequest);
+readers.set(0x000f, readLookupRequest);
+readers.set(0x0064, readHelloRequest);
+readers.set(0x0066, readGoodbyeRequest);
+
 export class Decoder extends Transform {
   constructor() {
     super({
@@ -8,88 +85,16 @@ export class Decoder extends Transform {
     });
   }
 
-  static ident(chunk) {
-    const gameId = chunk.toString("ascii", 0x000a, 0x000e);
-    const keychipId = chunk.toString("ascii", 0x0014, 0x001f);
+  _transform(msg: Buffer, encoding, callback) {
+    const code = msg.readUInt16LE(0x04);
+    const reader = readers.get(code);
 
-    return { gameId, keychipId };
-  }
-
-  static cardId(chunk) {
-    const luid = chunk.slice(0x0020, 0x002a);
-
-    return { luid, ...Decoder.ident(chunk) };
-  }
-
-  static log(chunk) {
-    // idk what any of this stuff means yet
-    // field20 and field28 appear to be an aime id but that is all.
-
-    const field20 = chunk.readUInt32LE(0x20);
-    const field24 = chunk.readUInt32LE(0x24);
-    const field28 = chunk.readUInt32LE(0x28);
-    const field2C = chunk.readUInt32LE(0x2c);
-    const field30 = chunk.readUInt32LE(0x30);
-    const field34 = chunk.readUInt32LE(0x34);
-    const field38 = chunk.readUInt32LE(0x38);
-    const field3C = chunk.readUInt32LE(0x3c);
-
-    return {
-      field20,
-      field24,
-      field28,
-      field2C,
-      field30,
-      field34,
-      field38,
-      field3C,
-      ...Decoder.ident(chunk),
-    };
-  }
-
-  _transform(chunk, encoding, callback) {
-    const cmd = chunk.readUInt16LE(0x04);
-
-    switch (cmd) {
-      case 0x0005:
-        return callback(null, {
-          cmd: "register",
-          ...Decoder.cardId(chunk),
-        });
-
-      case 0x0009:
-        return callback(null, {
-          cmd: "log",
-          ...Decoder.log(chunk),
-        });
-
-      case 0x000b:
-        return callback(null, {
-          cmd: "campaign",
-          ...Decoder.ident(chunk),
-        });
-
-      case 0x000f:
-        return callback(null, {
-          cmd: "lookup",
-          ...Decoder.cardId(chunk),
-        });
-
-      case 0x0064:
-        return callback(null, {
-          cmd: "hello",
-          ...Decoder.ident(chunk),
-        });
-
-      case 0x0066:
-        return callback(null, {
-          cmd: "goodbye",
-        });
-
-      default:
-        return callback(null, {
-          cmd: `unknown_${cmd}`,
-        });
+    if (reader === undefined) {
+      return callback(
+        new Error(`Unknown command code 0x${code.toString(16)}`)
+      );
     }
+
+    return callback(null, reader(msg));
   }
 }

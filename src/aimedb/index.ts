@@ -1,3 +1,4 @@
+import { AimeRequest } from "./request";
 import { setup } from "./pipeline";
 
 export default async function aimedb(socket) {
@@ -6,27 +7,27 @@ export default async function aimedb(socket) {
   const { input, output } = setup(socket);
 
   try {
-    for await (const req of input) {
+    for await (const obj of input) {
+      const req = obj as AimeRequest;
+
       console.log("Aimedb: Decode", req);
 
-      const { cmd } = req;
-
-      switch (cmd) {
+      switch (req.type) {
         case "hello":
           console.log("Aimedb: Hello");
-          output.write({ cmd, status: 1 });
+          output.write({ type: req.type, status: 1 });
 
           break;
 
         case "campaign":
           console.log("Aimedb: Campaign stuff");
-          output.write({ cmd, status: 1 });
+          output.write({ type: req.type, status: 1 });
 
           break;
 
         case "lookup":
           console.log("Aimedb: Mifare lookup", req.luid);
-          output.write({ cmd, status: 1 }); // Add aimeId if desired
+          output.write({ type: req.type, status: 1 }); // Add aimeId if desired
 
           break;
 
@@ -34,13 +35,13 @@ export default async function aimedb(socket) {
           // We get sent here if lookup does not return an aimeId
 
           console.log("Aimedb: Mifare register", req.luid);
-          output.write({ cmd, status: 1, aimeId: 12345678 });
+          output.write({ type: req.type, status: 1, aimeId: 12345678 });
 
           break;
 
         case "log":
           console.log("Aimedb: Log message");
-          output.write({ cmd, status: 1 });
+          output.write({ type: req.type, status: 1 });
 
           break;
 

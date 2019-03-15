@@ -1,7 +1,7 @@
 import { Decoder } from "./decoder";
 
 function decode(req) {
-  const decoder = new Decoder({});
+  const decoder = new Decoder();
 
   decoder.write(req);
 
