@@ -46,7 +46,7 @@ test("decode hello", () => {
 
   const obj = decode(req);
 
-  expect(obj.cmd).toBe("hello");
+  expect(obj.type).toBe("hello");
   expect(obj.gameId).toBe("SDBT");
   expect(obj.keychipId).toBe("A69E01A9999");
 });
@@ -105,10 +105,8 @@ test("decode lookup", () => {
 
   const obj = decode(req);
 
-  expect(obj.cmd).toBe("lookup");
+  expect(obj.type).toBe("lookup");
   expect(obj.gameId).toBe("SDBT");
   expect(obj.keychipId).toBe("A69E01A9999");
-  expect(obj.luid).toEqual(
-    Buffer.from([0x01, 0x03, 0x64, 0x95, 0x85, 0x05, 0x23, 0x03, 0x06, 0x76])
-  );
+  expect(obj.luid).toBe("01036495850523030676");
 });
