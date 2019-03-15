@@ -1,65 +1,68 @@
-import bodyParser = require("body-parser");
+import read = require("raw-body");
 import express = require("express");
-import * as crypto from "crypto";
-import * as zlib from "zlib";
-import * as fs from "fs";
+
+import { createSign } from "crypto";
+import { inflateRawSync } from "zlib";
+import { readFileSync } from "fs";
 
 interface Kvps {
   [key: string]: string;
 }
 
-const billingKeyPair = fs.readFileSync("pki/billing.key");
+const billingKeyPair = readFileSync("pki/billing.key");
+
+// nearfull: high 16 bits is billing mode, low 16 bits is actual nearfull val.
 
 const playlimit = 1024;
 const nearfull = 0x00010200;
 
-// nearfull: high 16 bits is billing mode, low 16 bits is actual nearfull val.
-
 const app = express();
 
-function decodeRequest(buf): Kvps[] {
-  const reqBytes = zlib.inflateRawSync(buf);
-  const reqStr = reqBytes.toString();
+app.use(async function(req, res, next) {
+  const reqBytesZ = await read(req);
+  const reqBytes = inflateRawSync(reqBytesZ);
+  const reqStr = reqBytes.toString("ascii");
 
-  return reqStr
+  req.body = reqStr
     .trim()
     .split("\r\n")
     .map(line => {
-      // Crack key-value pairs
-
+      // Crack key-value pairs. There is no URI encoding here.
       const params = {};
 
       for (const kvp of line.split("&")) {
         const [key, val] = kvp.split("=");
+
         params[key] = val;
       }
 
       return params;
     });
-}
 
-function encodeResponse(items) {
-  return (
-    items
-      .map(item =>
-        Object.entries(item)
-          .map(
-            ([key, val]) => key + "=" + val // Keys,vals are not url escaped
-          )
-          .join("&")
-      )
-      .join("\r\n") + "\r\n"
-  );
-}
+  const send_ = res.send;
 
-app.use(bodyParser.raw());
+  res.send = (lines: Kvps[]) => {
+    const str =
+      lines
+        .map(line =>
+          Object.entries(line)
+            .map(([key, val]) => key + "=" + val)
+            .join("&")
+        )
+        .join("\r\n") + "\r\n";
 
-app.post("/request/", function(req, resp) {
-  const reqItems = decodeRequest(req.body);
+    res.set("content-type", "text/plain");
 
-  console.log("\n--- Billing Request ---\n\n", reqItems);
+    return send_.apply(res, [str]);
+  };
 
-  const first = reqItems[0];
+  return next();
+});
+
+app.post("/request/", function(req, res) {
+  console.log("\n--- Billing Request ---\n\n", req.body);
+
+  const first = req.body[0];
 
   // Do cryptographic signatures
 
@@ -69,17 +72,16 @@ app.post("/request/", function(req, resp) {
     buf.writeInt32LE(value, 0);
     buf.write(first.keychipid, 4);
 
-    return crypto
-      .createSign("RSA-SHA1")
+    return createSign("RSA-SHA1")
       .update(buf)
       .sign(billingKeyPair, "hex");
   });
 
   // Assemble other params
 
-  const respItems: Kvps[] = [];
+  const resItems: Kvps[] = [];
 
-  respItems.push({
+  resItems.push({
     // 0 or 6 is success, anything else is an error
     result: "0",
 
@@ -131,12 +133,10 @@ app.post("/request/", function(req, resp) {
     playhistory: "000000/0:000000/0:000000/0",
   });
 
-  console.log("\n--- Billing Response ---\n\n", respItems);
+  console.log("\n--- Billing Response ---\n\n", resItems);
 
-  const respStr = encodeResponse(respItems);
-
-  resp.set("content-type", "text/plain");
-  resp.send(respStr);
+  res.set("content-type", "text/plain");
+  res.send(resItems);
 });
 
 export default app;
