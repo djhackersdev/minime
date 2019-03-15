@@ -1,8 +1,9 @@
 import * as crypto from "crypto";
 import { pipeline } from "stream";
 
-import { Decoder, Encoder } from "./cmd";
+import { Decoder } from "./decoder";
 import { Deframer } from "./frame";
+import { Encoder } from "./encoder";
 
 const K = Buffer.from("Copyright(C)SEGA", "utf8");
 

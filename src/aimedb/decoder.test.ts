@@ -1,4 +1,4 @@
-import { Decoder } from "./cmd";
+import { Decoder } from "./decoder";
 
 function decode(req) {
   const decoder = new Decoder({});
