@@ -63,7 +63,6 @@ function readHelloRequest(msg: Buffer): Request.HelloRequest {
 
 function readGoodbyeRequest(msg: Buffer): Request.GoodbyeRequest {
   return {
-    ...begin(msg),
     type: "goodbye",
   };
 }

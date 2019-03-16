@@ -33,7 +33,7 @@ export interface HelloRequest extends AimeRequestBase {
   type: "hello";
 }
 
-export interface GoodbyeRequest extends AimeRequestBase {
+export interface GoodbyeRequest {
   type: "goodbye";
 }
 
