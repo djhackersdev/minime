@@ -7,6 +7,7 @@ import { hostname } from "os";
 const services = new Map();
 
 services.set("SDBT", 9000); // Chunithm
+services.set("SBZV", 9001); // Project Diva Future Tone
 
 const app = express();
 
