@@ -9,7 +9,7 @@ function begin(msg: Buffer): Request.AimeRequestBase {
   return { gameId, keychipId };
 }
 
-function readerRegisterRequest(msg: Buffer): Request.RegisterRequest {
+function readRegisterRequest(msg: Buffer): Request.RegisterRequest {
   const luid = msg.slice(0x0020, 0x002a).toString("hex");
 
   return {
@@ -69,7 +69,7 @@ function readGoodbyeRequest(msg: Buffer): Request.GoodbyeRequest {
 
 const readers = new Map<number, (msg: Buffer) => Request.AimeRequest>();
 
-readers.set(0x0005, readerRegisterRequest);
+readers.set(0x0005, readRegisterRequest);
 readers.set(0x0009, readLogRequest);
 readers.set(0x000b, readCampaignRequest);
 readers.set(0x000f, readLookupRequest);
