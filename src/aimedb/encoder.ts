@@ -56,6 +56,17 @@ export class Encoder extends Transform {
         // register level does not seem to matter
 
         buf = begin(0x0130);
+        buf.writeUInt16LE(0x0006, 0x0004); // cmd code
+        buf.writeUInt16LE(msg.status, 0x0008);
+        buf.writeInt32LE(msg.aimeId || -1, 0x0020);
+        buf.writeUInt8(registerLevels[msg.registerLevel], 0x0024);
+
+        break;
+
+      case "lookup2":
+        // Seems identical to the above? Just with a different command code.
+
+        buf = begin(0x0130);
         buf.writeUInt16LE(0x0010, 0x0004); // cmd code
         buf.writeUInt16LE(msg.status, 0x0008);
         buf.writeInt32LE(msg.aimeId || -1, 0x0020);
@@ -64,6 +75,8 @@ export class Encoder extends Transform {
         break;
 
       case "register":
+        // Same response code as v1 lookup command!
+
         buf = begin(0x0030);
         buf.writeUInt16LE(0x0006, 0x0004); // cmd code
         buf.writeUInt16LE(msg.status, 0x0008);

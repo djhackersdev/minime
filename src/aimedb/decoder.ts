@@ -54,6 +54,16 @@ function readLookupRequest(msg: Buffer): Request.LookupRequest {
   };
 }
 
+function readLookupRequest2(msg: Buffer): Request.LookupRequest2 {
+  const luid = msg.slice(0x0020, 0x002a).toString("hex");
+
+  return {
+    ...begin(msg),
+    type: "lookup2",
+    luid,
+  };
+}
+
 function readHelloRequest(msg: Buffer): Request.HelloRequest {
   return {
     ...begin(msg),
@@ -69,10 +79,12 @@ function readGoodbyeRequest(msg: Buffer): Request.GoodbyeRequest {
 
 const readers = new Map<number, (msg: Buffer) => Request.AimeRequest>();
 
+readers.set(0x0004, readLookupRequest);
 readers.set(0x0005, readRegisterRequest);
 readers.set(0x0009, readLogRequest);
 readers.set(0x000b, readCampaignRequest);
-readers.set(0x000f, readLookupRequest);
+readers.set(0x000d, readRegisterRequest);
+readers.set(0x000f, readLookupRequest2);
 readers.set(0x0064, readHelloRequest);
 readers.set(0x0066, readGoodbyeRequest);
 

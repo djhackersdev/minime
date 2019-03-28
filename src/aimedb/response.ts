@@ -22,6 +22,12 @@ export interface LookupResponse extends AimeResponseBase {
   registerLevel: RegisterLevel;
 }
 
+export interface LookupResponse2 extends AimeResponseBase {
+  type: "lookup2";
+  aimeId?: number;
+  registerLevel: RegisterLevel;
+}
+
 export interface RegisterResponse extends AimeResponseBase {
   type: "register";
   aimeId: number;
@@ -32,4 +38,5 @@ export type AimeResponse =
   | HelloResponse
   | LogResponse
   | LookupResponse
+  | LookupResponse2
   | RegisterResponse;

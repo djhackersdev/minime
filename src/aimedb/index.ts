@@ -26,6 +26,7 @@ export default async function aimedb(socket) {
           break;
 
         case "lookup":
+        case "lookup2":
           console.log("Aimedb: Mifare lookup", req.luid);
           output.write({ type: req.type, status: 1 }); // Add aimeId if desired
 

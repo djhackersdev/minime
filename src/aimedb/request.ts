@@ -29,6 +29,11 @@ export interface LookupRequest extends AimeRequestBase {
   luid: string;
 }
 
+export interface LookupRequest2 extends AimeRequestBase {
+  type: "lookup2";
+  luid: string;
+}
+
 export interface HelloRequest extends AimeRequestBase {
   type: "hello";
 }
@@ -43,4 +48,5 @@ export type AimeRequest =
   | HelloRequest
   | LogRequest
   | LookupRequest
+  | LookupRequest2
   | RegisterRequest;
