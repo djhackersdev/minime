@@ -9,7 +9,7 @@ export default async function idz(socket) {
 
   try {
     for await (const msg of input) {
-      switch (msg.payload.type) {
+      switch (msg.type) {
         case "get_server_list_req":
           const myHost = hostname();
 

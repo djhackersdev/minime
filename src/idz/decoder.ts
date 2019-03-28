@@ -1,24 +1,27 @@
 import { Transform } from "stream";
 
 import { MSG, MSG_LEN } from "./defs";
+import { Request } from "./request";
 
-const readers = new Map();
+type ReaderFn = (buf: Buffer) => Request;
 
-function readHeader(buf) {
+const readers = new Map<number, ReaderFn>();
+
+function readHeader(buf: Buffer) {
   return {
     blah: "blah",
   };
 }
 
-readers.set(MSG.GET_CONFIG_DATA_REQ, buf => {
+readers.set(MSG.GET_CONFIG_DATA_REQ, () => {
   return { type: "get_config_data_req" };
 });
 
-readers.set(MSG.GET_CONFIG_DATA_2_REQ, buf => {
+readers.set(MSG.GET_CONFIG_DATA_2_REQ, () => {
   return { type: "get_config_data_2_req" };
 });
 
-readers.set(MSG.GET_SERVER_LIST_REQ, buf => {
+readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
 });
 
@@ -34,7 +37,7 @@ export class Decoder extends Transform {
     this.state = Buffer.alloc(0);
   }
 
-  _transform(chunk, encoding, callback) {
+  _transform(chunk: Buffer, encoding, callback) {
     this.state = Buffer.concat([this.state, chunk]);
 
     // Read header
@@ -86,6 +89,6 @@ export class Decoder extends Transform {
     console.log("Idz: Header:", header);
     console.log("Idz: Payload:", payload);
 
-    return callback(null, { header, payload });
+    return callback(null, payload);
   }
 }

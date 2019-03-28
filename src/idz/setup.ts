@@ -5,8 +5,12 @@ import { pipeline } from "stream";
 import { byteString, modPow } from "./bigint";
 import { Decoder } from "./decoder";
 import { Encoder } from "./encoder";
+import { Request } from "./request";
+import { Response } from "./response";
 
-// Proof-of-concept, so we only ever use one of the ten RSA keys
+// Proof-of-concept, so we only ever use one of the ten RSA key pairs
+// (SEGA shipped their central server private keys for god knows what reason)
+
 const key = {
   N: 4922323266120814292574970172377860734034664704992758249880018618131907367614177800329506877981986877921220485681998287752778495334541127048495486311792061n,
   d: 1163847742215766215216916151663017691387519688859977157498780867776436010396072628219119707788340687440419444081289736279466637153082223960965411473296473n,
@@ -25,7 +29,14 @@ console.log("RSA ENC    :", byteString(test1, 0x40).toString("hex"));
 console.log("RSA ENCDEC :", byteString(test2, 0x40).toString("hex"));
 // -- TEST --
 
-export default function setup(socket: Socket) {
+interface Session {
+  input: AsyncIterable<Request>;
+  output: {
+    write: (res: Response) => void;
+  };
+}
+
+export default function setup(socket: Socket): Session {
   //
   // Construct and transmit setup message
   //
