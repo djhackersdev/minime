@@ -36,7 +36,7 @@ export default async function aimedb(socket) {
           // We get sent here if lookup does not return an aimeId
 
           console.log("Aimedb: Mifare register", req.luid);
-          output.write({ type: req.type, status: 1, aimeId: 12345678 });
+          output.write({ type: req.type, status: 1, aimeId: 0x55667788 });
 
           break;
 

@@ -1,8 +1,7 @@
 export interface AccountLockRequest {
   type: "account_lock_req";
-  field_0002: number;
-  field_0004: number;
-  field_0008: Buffer;
+  aimeId: number;
+  pcbId: string;
   field_0018: number;
 }
 

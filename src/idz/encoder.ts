@@ -12,11 +12,20 @@ export class Encoder extends Transform {
   }
 
   _transform(obj: Response, encoding, callback) {
-    console.log("Idz: Response:", obj);
+    console.log("Idz: Res: Object:", obj);
 
     let buf: Buffer;
 
     switch (obj.type) {
+      case "account_lock_res":
+        buf = Buffer.alloc(0x0020);
+        buf.writeUInt16LE(MSG.ACCOUNT_LOCK_RES, 0x0000);
+        buf.writeInt8(obj.field_0018, 0x0018);
+        buf.writeInt16LE(obj.field_001A, 0x001a);
+        buf.writeUInt32LE(obj.field_001C.getTime() / 1000, 0x001c);
+
+        break;
+
       case "get_config_data_res":
         buf = Buffer.alloc(0x01a0);
         buf.writeUInt16LE(MSG.GET_CONFIG_DATA_RES, 0x0000);
@@ -61,6 +70,12 @@ export class Encoder extends Transform {
 
       default:
         return callback(new Error(`No writer fn for ${obj["type"]}`));
+    }
+
+    console.log("Idz: Res: Encoded:", buf.toString("hex"));
+
+    if (buf.readInt16LE(0) === 0) {
+      throw new Error("MESSAGE TYPE CODE YOU FUCKING IDIOT");
     }
 
     return callback(null, buf);

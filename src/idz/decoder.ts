@@ -13,6 +13,15 @@ function readHeader(buf: Buffer) {
   };
 }
 
+readers.set(MSG.ACCOUNT_LOCK_REQ, buf => {
+  return {
+    type: "account_lock_req",
+    aimeId: buf.readInt32LE(0x0004),
+    pcbId: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
+    field_0018: buf.readInt16LE(0x0018),
+  };
+});
+
 readers.set(MSG.GET_CONFIG_DATA_REQ, () => {
   return { type: "get_config_data_req" };
 });
@@ -68,9 +77,8 @@ export class Decoder extends Transform {
 
     const msgCode = this.state.readUInt16LE(0x30);
     const msgLen = MSG_LEN.get(msgCode);
-    const reader = readers.get(msgCode);
 
-    if (msgLen === undefined || reader === undefined) {
+    if (msgLen === undefined) {
       return callback(
         new Error(
           `Unknown command code ${msgCode.toString(16)}, cannot continue`
@@ -82,12 +90,23 @@ export class Decoder extends Transform {
       return callback(null);
     }
 
-    const reqBuf = this.state.slice(0x30, 0x30 + msgLen);
-    const payload = reader(reqBuf);
+    const reqBuf = this.state.slice(0, 0x30 + msgLen);
+    const payloadBuf = reqBuf.slice(0x30);
 
-    console.log("Idz: RAW:", reqBuf.toString("hex"));
-    console.log("Idz: Header:", header);
-    console.log("Idz: Payload:", payload);
+    console.log("Idz: Req: Raw:", reqBuf.toString("hex"));
+    console.log("Idz: Req: Header:", header);
+
+    const reader = readers.get(msgCode);
+
+    if (reader === undefined) {
+      return callback(
+        new Error(`No reader for command code ${msgCode.toString(16)}`)
+      );
+    }
+
+    const payload = reader(payloadBuf);
+
+    console.log("Idz: Req: Payload:", payload);
 
     return callback(null, payload);
   }

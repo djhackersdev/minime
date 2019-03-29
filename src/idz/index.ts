@@ -1,8 +1,9 @@
+import { Socket } from "net";
 import { hostname } from "os";
 
 import setup from "./setup";
 
-export default async function idz(socket) {
+export default async function idz(socket: Socket) {
   const { input, output } = setup(socket);
 
   console.log("Idz: Connection opened");
@@ -10,6 +11,16 @@ export default async function idz(socket) {
   try {
     for await (const msg of input) {
       switch (msg.type) {
+        case "account_lock_req":
+          output.write({
+            type: "account_lock_res",
+            field_0018: 1,
+            field_001A: -1,
+            field_001C: new Date(Date.now() + 3600000),
+          });
+
+          break;
+
         case "get_server_list_req":
           const myHost = hostname();
 
