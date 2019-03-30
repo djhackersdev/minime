@@ -15,8 +15,16 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "account_lock_res",
             field_0018: 1,
-            field_001A: -1,
+            field_001A: 0xffff,
             field_001C: new Date(Date.now() + 3600000),
+          });
+
+          break;
+
+        case "create_record_req":
+          output.write({
+            type: "generic_res",
+            field_0004: 1,
           });
 
           break;
@@ -86,6 +94,14 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "get_config_2_res",
             status: 1,
+          });
+
+          break;
+
+        case "update_record_req":
+          output.write({
+            type: "generic_res",
+            field_0004: 1,
           });
 
           break;

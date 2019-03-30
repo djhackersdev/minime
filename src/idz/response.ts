@@ -5,6 +5,11 @@ export interface AccountLockResponse {
   field_001C: Date;
 }
 
+export interface GenericResponse {
+  type: "generic_res";
+  field_0004: number;
+}
+
 export interface CreateTeamResponse {
   type: "create_team_res";
   name: string;
@@ -63,6 +68,7 @@ export interface GetServerListResponse {
 export type Response =
   | AccountLockResponse
   | CreateTeamResponse
+  | GenericResponse
   | GetConfigResponse
   | GetConfigResponse2
   | GetServerListResponse;

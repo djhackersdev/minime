@@ -16,18 +16,48 @@ function readHeader(buf: Buffer) {
 readers.set(MSG.ACCOUNT_LOCK_REQ, buf => {
   return {
     type: "account_lock_req",
-    aimeId: buf.readInt32LE(0x0004),
+    aimeId: buf.readUInt32LE(0x0004),
     pcbId: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
-    field_0018: buf.readInt16LE(0x0018),
+    field_0018: buf.readUInt16LE(0x0018),
+  };
+});
+
+readers.set(MSG.CREATE_RECORD_REQ, buf => {
+  return {
+    type: "create_record_req",
+    aimeId: buf.readInt32LE(0x0004),
+    luid: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
+    field_0018: buf.slice(0x0018, 0x0034),
+    field_0034: buf.readUInt32LE(0x0034),
+    field_0040: buf.slice(0x0040, 0x0084),
+    field_0084: buf.readUInt16LE(0x0084),
+    field_0086: buf.readUInt16LE(0x0086),
+    field_0088: buf.readUInt16LE(0x0088),
+    field_008A: buf.readUInt16LE(0x008a),
+    field_008C: buf.readUInt16LE(0x008c),
+    field_0090:
+      BigInt(buf.readUInt32LE(0x0090)) |
+      (BigInt(buf.readUInt32LE(0x0094)) << 32n),
+    field_009C: buf.readUInt16LE(0x009c),
+    field_00A0: buf.readUInt16LE(0x00a0),
+    field_00A2: buf.readUInt16LE(0x00a2),
+    field_00A4: buf.readUInt16LE(0x00a4),
+    field_00A6: buf.readUInt16LE(0x00a6),
+    field_00A8: buf.readUInt16LE(0x00a8),
+    field_00AA: buf.readUInt16LE(0x00aa),
+    field_00AC: buf.readUInt16LE(0x00ac),
+    field_00AE: buf.readUInt16LE(0x00ae),
+    field_00B0: buf.readUInt16LE(0x00b0),
+    field_00B2: buf.readUInt8(0x00b2),
   };
 });
 
 readers.set(MSG.CREATE_TEAM_REQ, buf => {
   return {
     type: "create_team_req",
-    field_0004: buf.readInt32LE(0x0004),
-    field_0008: buf.readInt32LE(0x0008),
-    field_000C: buf.readInt8(0x000c),
+    field_0004: buf.readUInt32LE(0x0004),
+    field_0008: buf.readUInt32LE(0x0008),
+    field_000C: buf.readUInt8(0x000c),
   };
 });
 
@@ -41,6 +71,13 @@ readers.set(MSG.GET_CONFIG_DATA_2_REQ, () => {
 
 readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
+});
+
+readers.set(MSG.UPDATE_RECORD_REQ, buf => {
+  return {
+    type: "update_record_req",
+    payload: buf, // hack
+  };
 });
 
 export class Decoder extends Transform {

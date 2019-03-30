@@ -23,9 +23,16 @@ export class Encoder extends Transform {
       case "account_lock_res":
         buf = Buffer.alloc(0x0020);
         buf.writeUInt16LE(MSG.ACCOUNT_LOCK_RES, 0x0000);
-        buf.writeInt8(obj.field_0018, 0x0018);
-        buf.writeInt16LE(obj.field_001A, 0x001a);
+        buf.writeUInt8(obj.field_0018, 0x0018);
+        buf.writeUInt16LE(obj.field_001A, 0x001a);
         buf.writeUInt32LE(obj.field_001C.getTime() / 1000, 0x001c);
+
+        break;
+
+      case "generic_res":
+        buf = Buffer.alloc(0x0020);
+        buf.writeUInt16LE(MSG.GENERIC_RES, 0x0000);
+        buf.writeUInt32LE(obj.field_0004, 0x0004);
 
         break;
 
