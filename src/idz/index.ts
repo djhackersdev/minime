@@ -2,6 +2,7 @@ import { Socket } from "net";
 import { hostname } from "os";
 
 import setup from "./setup";
+import { objectExpression } from "@babel/types";
 
 export default async function idz(socket: Socket) {
   const { input, output } = setup(socket);
@@ -94,6 +95,19 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "get_config_2_res",
             status: 1,
+          });
+
+          break;
+
+        case "update_provisional_store_rank_req":
+          output.write({
+            type: "update_provisional_store_rank_res",
+            rows: [10, 11, 12, 13].map(rank => ({
+              field_0000: rank,
+              field_0004: msg.aimeId + rank - 11,
+              field_0010: `x${rank}`,
+              field_003B: `y${rank}`,
+            })),
           });
 
           break;

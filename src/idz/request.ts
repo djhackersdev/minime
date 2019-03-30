@@ -50,9 +50,14 @@ export interface GetServerListRequest {
   type: "get_server_list_req";
 }
 
+export interface UpdateProvisionalStoreRankRequest {
+  type: "update_provisional_store_rank_req";
+  aimeId: number;
+}
+
 export interface UpdateRecordRequest {
   type: "update_record_req";
-  payload: Buffer;
+  // TODO
 }
 
 export type Request =
@@ -62,4 +67,5 @@ export type Request =
   | GetConfigRequest
   | GetConfigRequest2
   | GetServerListRequest
+  | UpdateProvisionalStoreRankRequest
   | UpdateRecordRequest;

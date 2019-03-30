@@ -73,10 +73,16 @@ readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
 });
 
+readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
+  return {
+    type: "update_provisional_store_rank_req",
+    aimeId: buf.readUInt32LE(0x0004),
+  };
+});
+
 readers.set(MSG.UPDATE_RECORD_REQ, buf => {
   return {
     type: "update_record_req",
-    payload: buf, // hack
   };
 });
 

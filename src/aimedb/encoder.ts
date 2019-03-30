@@ -95,7 +95,7 @@ export class Encoder extends Transform {
         return callback(new Error("Unimplemented response type"));
     }
 
-    console.log("Aimedb: Send", buf);
+    console.log("Aimedb: Send", buf.toString("hex"));
 
     return callback(null, buf);
   }

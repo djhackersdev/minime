@@ -29,17 +29,17 @@ export class Encoder extends Transform {
 
         break;
 
-      case "generic_res":
-        buf = Buffer.alloc(0x0020);
-        buf.writeUInt16LE(MSG.GENERIC_RES, 0x0000);
-        buf.writeUInt32LE(obj.field_0004, 0x0004);
-
-        break;
-
       case "create_team_res":
         buf = Buffer.alloc(0x0ca0);
         buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
         iconv.encode(obj.name, sjis).copy(buf, 0x0024);
+
+        break;
+
+      case "generic_res":
+        buf = Buffer.alloc(0x0020);
+        buf.writeUInt16LE(MSG.GENERIC_RES, 0x0000);
+        buf.writeUInt32LE(obj.field_0004, 0x0004);
 
         break;
 
@@ -82,6 +82,24 @@ export class Encoder extends Transform {
         buf.writeUInt16LE(obj.echo2.udp, 0x39e);
         buf.write(obj.newsUrl, 0x03a0);
         buf.write(obj.reportErrorUrl, 0x0424);
+
+        break;
+
+      case "update_provisional_store_rank_res":
+        buf = Buffer.alloc(0x02b0);
+        buf.writeUInt16LE(MSG.UPDATE_PROVISIONAL_STORE_RANK_RES, 0x0000);
+
+        for (let i = 0; i < 10; i++) {
+          const offset = 0x44 + i;
+          const row = obj.rows[i];
+
+          if (row !== undefined) {
+            buf.writeUInt16LE(row.field_0000, offset + 0x0000);
+            buf.writeUInt32LE(row.field_0004, offset + 0x0004);
+            iconv.encode(row.field_0010, sjis).copy(buf, offset + 0x0010);
+            iconv.encode(row.field_003B, sjis).copy(buf, offset + 0x003b);
+          }
+        }
 
         break;
 
