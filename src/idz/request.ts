@@ -5,12 +5,19 @@ export interface AccountLockRequest {
   field_0018: number;
 }
 
-export interface GetConfigDataRequest {
-  type: "get_config_data_req";
+export interface CreateTeamRequest {
+  type: "create_team_req";
+  field_0004: number;
+  field_0008: number;
+  field_000C: number;
 }
 
-export interface GetConfigDataRequest2 {
-  type: "get_config_data_2_req";
+export interface GetConfigRequest {
+  type: "get_config_req";
+}
+
+export interface GetConfigRequest2 {
+  type: "get_config_2_req";
 }
 
 export interface GetServerListRequest {
@@ -19,6 +26,7 @@ export interface GetServerListRequest {
 
 export type Request =
   | AccountLockRequest
-  | GetConfigDataRequest
-  | GetConfigDataRequest2
+  | CreateTeamRequest
+  | GetConfigRequest
+  | GetConfigRequest2
   | GetServerListRequest;

@@ -1,7 +1,10 @@
+import iconv = require("iconv-lite");
 import { Transform } from "stream";
 
 import { MSG } from "./defs";
 import { Response } from "./response";
+
+const sjis = "shift_jis";
 
 export class Encoder extends Transform {
   constructor() {
@@ -26,14 +29,21 @@ export class Encoder extends Transform {
 
         break;
 
-      case "get_config_data_res":
+      case "create_team_res":
+        buf = Buffer.alloc(0x0ca0);
+        buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
+        iconv.encode(obj.name, sjis).copy(buf, 0x0024);
+
+        break;
+
+      case "get_config_res":
         buf = Buffer.alloc(0x01a0);
-        buf.writeUInt16LE(MSG.GET_CONFIG_DATA_RES, 0x0000);
+        buf.writeUInt16LE(MSG.GET_CONFIG_RES, 0x0000);
         buf.writeUInt16LE(obj.status, 0x0002);
 
         break;
 
-      case "get_config_data_2_res":
+      case "get_config_2_res":
         buf = Buffer.alloc(0x230);
         buf.writeUInt16LE(MSG.GET_CONFIG_DATA_2_RES, 0x0000);
         buf.writeUInt16LE(obj.status, 0x0002);

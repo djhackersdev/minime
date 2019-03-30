@@ -21,6 +21,14 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "create_team_req":
+          output.write({
+            type: "create_team_res",
+            name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+          });
+
+          break;
+
         case "get_server_list_req":
           const myHost = hostname();
 
@@ -66,17 +74,17 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_config_data_req":
+        case "get_config_req":
           output.write({
-            type: "get_config_data_res",
+            type: "get_config_res",
             status: 1,
           });
 
           break;
 
-        case "get_config_data_2_req":
+        case "get_config_2_req":
           output.write({
-            type: "get_config_data_2_res",
+            type: "get_config_2_res",
             status: 1,
           });
 

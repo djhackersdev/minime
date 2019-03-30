@@ -1,6 +1,6 @@
 import { Transform } from "stream";
 
-import { MSG, MSG_LEN } from "./defs";
+import { MSG, REQ_LEN } from "./defs";
 import { Request } from "./request";
 
 type ReaderFn = (buf: Buffer) => Request;
@@ -22,12 +22,21 @@ readers.set(MSG.ACCOUNT_LOCK_REQ, buf => {
   };
 });
 
-readers.set(MSG.GET_CONFIG_DATA_REQ, () => {
-  return { type: "get_config_data_req" };
+readers.set(MSG.CREATE_TEAM_REQ, buf => {
+  return {
+    type: "create_team_req",
+    field_0004: buf.readInt32LE(0x0004),
+    field_0008: buf.readInt32LE(0x0008),
+    field_000C: buf.readInt8(0x000c),
+  };
+});
+
+readers.set(MSG.GET_CONFIG_REQ, () => {
+  return { type: "get_config_req" };
 });
 
 readers.set(MSG.GET_CONFIG_DATA_2_REQ, () => {
-  return { type: "get_config_data_2_req" };
+  return { type: "get_config_2_req" };
 });
 
 readers.set(MSG.GET_SERVER_LIST_REQ, () => {
@@ -76,7 +85,7 @@ export class Decoder extends Transform {
     }
 
     const msgCode = this.state.readUInt16LE(0x30);
-    const msgLen = MSG_LEN.get(msgCode);
+    const msgLen = REQ_LEN.get(msgCode);
 
     if (msgLen === undefined) {
       return callback(

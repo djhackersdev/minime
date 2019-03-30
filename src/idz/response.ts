@@ -5,13 +5,18 @@ export interface AccountLockResponse {
   field_001C: Date;
 }
 
-export interface GetConfigDataResponse {
-  type: "get_config_data_res";
+export interface CreateTeamResponse {
+  type: "create_team_res";
+  name: string;
+}
+
+export interface GetConfigResponse {
+  type: "get_config_res";
   status: number;
 }
 
-export interface GetConfigDataResponse2 {
-  type: "get_config_data_2_res";
+export interface GetConfigResponse2 {
+  type: "get_config_2_res";
   status: number;
 }
 
@@ -57,6 +62,7 @@ export interface GetServerListResponse {
 
 export type Response =
   | AccountLockResponse
-  | GetConfigDataResponse
-  | GetConfigDataResponse2
+  | CreateTeamResponse
+  | GetConfigResponse
+  | GetConfigResponse2
   | GetServerListResponse;
