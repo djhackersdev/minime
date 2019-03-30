@@ -5,6 +5,12 @@ export interface AccountLockRequest {
   field_0018: number;
 }
 
+export interface AccountUnlockRequest {
+  type: "account_unlock_req";
+  aimeId: number;
+  pcbId: string;
+}
+
 export interface CreateRecordRequest {
   type: "create_record_req";
   aimeId: number;
@@ -62,6 +68,7 @@ export interface UpdateRecordRequest {
 
 export type Request =
   | AccountLockRequest
+  | AccountUnlockRequest
   | CreateRecordRequest
   | CreateTeamRequest
   | GetConfigRequest

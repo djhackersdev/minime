@@ -5,9 +5,14 @@ export interface AccountLockResponse {
   field_001C: Date;
 }
 
+export interface AccountUnlockResponse {
+  type: "account_unlock_res";
+  status: number;
+}
+
 export interface GenericResponse {
   type: "generic_res";
-  field_0004: number;
+  status: number;
 }
 
 export interface CreateTeamResponse {
@@ -79,6 +84,7 @@ export interface UpdateProvisionalStoreRankResponse {
 
 export type Response =
   | AccountLockResponse
+  | AccountUnlockResponse
   | CreateTeamResponse
   | GenericResponse
   | GetConfigResponse

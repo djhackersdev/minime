@@ -22,6 +22,14 @@ readers.set(MSG.ACCOUNT_LOCK_REQ, buf => {
   };
 });
 
+readers.set(MSG.ACCOUNT_UNLOCK_REQ, buf => {
+  return {
+    type: "account_unlock_req",
+    aimeId: buf.readUInt32LE(0x0004),
+    pcbId: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
+  };
+});
+
 readers.set(MSG.CREATE_RECORD_REQ, buf => {
   return {
     type: "create_record_req",

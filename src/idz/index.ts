@@ -22,10 +22,18 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "account_unlock_req":
+          output.write({
+            type: "account_unlock_res",
+            status: 1,
+          });
+
+          break;
+
         case "create_record_req":
           output.write({
             type: "generic_res",
-            field_0004: 1,
+            status: 1,
           });
 
           break;
@@ -115,7 +123,7 @@ export default async function idz(socket: Socket) {
         case "update_record_req":
           output.write({
             type: "generic_res",
-            field_0004: 1,
+            status: 1,
           });
 
           break;

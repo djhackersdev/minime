@@ -29,6 +29,13 @@ export class Encoder extends Transform {
 
         break;
 
+      case "account_unlock_res":
+        buf = Buffer.alloc(0x0010);
+        buf.writeUInt16LE(MSG.ACCOUNT_UNLOCK_RES, 0x0000);
+        buf.writeUInt8(obj.status, 0x0004);
+
+        break;
+
       case "create_team_res":
         buf = Buffer.alloc(0x0ca0);
         buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
@@ -39,7 +46,7 @@ export class Encoder extends Transform {
       case "generic_res":
         buf = Buffer.alloc(0x0020);
         buf.writeUInt16LE(MSG.GENERIC_RES, 0x0000);
-        buf.writeUInt32LE(obj.field_0004, 0x0004);
+        buf.writeUInt32LE(obj.status, 0x0004);
 
         break;
 
