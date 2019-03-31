@@ -40,6 +40,11 @@ export interface GetExistRecordResponse {
   result: boolean;
 }
 
+export interface GetGeneralRewardResponse {
+  type: "get_general_reward_res";
+  // TODO
+}
+
 export interface GetRecordResponse1 {
   type: "get_record_v1_res";
   // giga TODO
@@ -138,6 +143,7 @@ export type Response =
   | GetConfigResponse
   | GetConfigResponse2
   | GetExistRecordResponse
+  | GetGeneralRewardResponse
   | GetRecordResponse1
   | GetRecordResponse2
   | GetRewardTableResponse

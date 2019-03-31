@@ -77,6 +77,13 @@ export class Encoder extends Transform {
 
         break;
 
+      case "get_general_reward_res":
+        // A generic response is acceptable too so why even bother with this..
+        buf = Buffer.alloc(0x0330);
+        buf.writeUInt16LE(MSG.GET_GENERAL_REWARD_RES, 0x0000);
+
+        break;
+
       case "get_record_v1_res":
         buf = Buffer.alloc(0x0c60);
         buf.writeUInt16LE(MSG.GET_RECORD_V1_RES, 0x0000);
@@ -87,7 +94,7 @@ export class Encoder extends Transform {
       case "get_record_v2_res":
         buf = Buffer.alloc(0x0d30);
         buf.writeUInt16LE(MSG.GET_RECORD_V2_RES, 0x0000);
-        iconv.encode("てすと", sjis).copy(buf, 0x03ea);
+        iconv.encode("てすと", sjis).copy(buf, 0x03ee);
 
         break;
 

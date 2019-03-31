@@ -77,6 +77,15 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "get_general_reward_req":
+          // A non-generic response is also accepted, but why bother?
+          output.write({
+            type: "generic_res",
+            status: 1, // not even checked but let's be consistent
+          });
+
+          break;
+
         case "get_record_req":
           output.write({
             type: "get_record_v2_res",

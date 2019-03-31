@@ -64,6 +64,11 @@ export interface GetExistRecordRequest {
   aimeId: number;
 }
 
+export interface GetGeneralRewardRequest {
+  type: "get_general_reward_req";
+  field_0004: number;
+}
+
 export interface GetRecordRequest {
   type: "get_record_req";
   aimeId: number;
@@ -85,8 +90,8 @@ export interface GetStockerRequest {
 
 export interface GetTeamRequest {
   type: "get_team_req";
-  aimeId: number;
-  teamId: number; // guess
+  field_0004: number;
+  field_0008: number;
 }
 
 export interface UpdateProvisionalStoreRankRequest {
@@ -117,6 +122,7 @@ export type Request =
   | GetConfigRequest
   | GetConfigRequest2
   | GetExistRecordRequest
+  | GetGeneralRewardRequest
   | GetRecordRequest
   | GetRewardTableRequest
   | GetServerListRequest

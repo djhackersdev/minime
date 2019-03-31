@@ -95,6 +95,13 @@ readers.set(MSG.GET_EXIST_RECORD_REQ, buf => {
   };
 });
 
+readers.set(MSG.GET_GENERAL_REWARD_REQ, buf => {
+  return {
+    type: "get_general_reward_req",
+    field_0004: buf.readUInt32LE(0x0004),
+  };
+});
+
 readers.set(MSG.GET_RECORD_REQ, buf => {
   return {
     type: "get_record_req",
@@ -123,8 +130,8 @@ readers.set(MSG.GET_SERVER_LIST_REQ, () => {
 readers.set(MSG.GET_TEAM_REQ, buf => {
   return {
     type: "get_team_req",
-    aimeId: buf.readUInt32LE(0x0004),
-    teamId: buf.readUInt32LE(0x0008),
+    field_0004: buf.readUInt32LE(0x0004),
+    field_0008: buf.readUInt32LE(0x0008),
   };
 });
 
