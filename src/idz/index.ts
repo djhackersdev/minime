@@ -46,6 +46,13 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "get_2on2_req":
+          output.write({
+            type: "get_2on2_res",
+          });
+
+          break;
+
         case "get_config_req":
           output.write({
             type: "get_config_res",
@@ -133,6 +140,14 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "get_stocker_res",
             status: 1,
+          });
+
+          break;
+
+        case "get_team_req":
+          output.write({
+            type: "get_team_res",
+            name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
           });
 
           break;

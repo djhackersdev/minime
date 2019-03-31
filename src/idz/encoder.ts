@@ -50,6 +50,12 @@ export class Encoder extends Transform {
 
         break;
 
+      case "get_2on2_res":
+        buf = Buffer.alloc(0x04c0);
+        buf.writeUInt16LE(MSG.GET_2ON2_RES, 0x0000);
+
+        break;
+
       case "get_config_res":
         buf = Buffer.alloc(0x01a0);
         buf.writeUInt16LE(MSG.GET_CONFIG_RES, 0x0000);
@@ -123,6 +129,13 @@ export class Encoder extends Transform {
         buf = Buffer.alloc(0x00a0);
         buf.writeUInt16LE(MSG.GET_STOCKER_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
+
+        break;
+
+      case "get_team_res":
+        buf = Buffer.alloc(0x0ca0);
+        buf.writeUInt16LE(MSG.GET_TEAM_RES, 0x0000);
+        iconv.encode(obj.name, sjis).copy(buf, 0x0024);
 
         break;
 

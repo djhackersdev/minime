@@ -20,6 +20,11 @@ export interface CreateTeamResponse {
   name: string;
 }
 
+export interface Get2on2Response {
+  type: "get_2on2_res";
+  // TODO?
+}
+
 export interface GetConfigResponse {
   type: "get_config_res";
   status: number;
@@ -96,6 +101,12 @@ export interface GetStockerResponse {
   // mega TODO
 }
 
+export interface GetTeamResponse {
+  type: "get_team_res";
+  name: string;
+  // giga TODO
+}
+
 export interface UpdateProvisionalStoreRankResponseRow {
   field_0000: number;
   field_0004: number;
@@ -123,6 +134,7 @@ export type Response =
   | AccountUnlockResponse
   | CreateTeamResponse
   | GenericResponse
+  | Get2on2Response
   | GetConfigResponse
   | GetConfigResponse2
   | GetExistRecordResponse
@@ -131,6 +143,7 @@ export type Response =
   | GetRewardTableResponse
   | GetServerListResponse
   | GetStockerResponse
+  | GetTeamResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | UpdateTopicResponse;

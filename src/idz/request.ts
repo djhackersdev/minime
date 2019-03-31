@@ -44,6 +44,13 @@ export interface CreateTeamRequest {
   field_000C: number;
 }
 
+export interface Get2on2Request {
+  type: "get_2on2_req";
+  field_0002: number;
+  field_0004: number;
+  field_0008: number;
+}
+
 export interface GetConfigRequest {
   type: "get_config_req";
 }
@@ -76,6 +83,12 @@ export interface GetStockerRequest {
   aimeId: number;
 }
 
+export interface GetTeamRequest {
+  type: "get_team_req";
+  aimeId: number;
+  teamId: number; // guess
+}
+
 export interface UpdateProvisionalStoreRankRequest {
   type: "update_provisional_store_rank_req";
   aimeId: number;
@@ -100,6 +113,7 @@ export type Request =
   | AccountUnlockRequest
   | CreateRecordRequest
   | CreateTeamRequest
+  | Get2on2Request
   | GetConfigRequest
   | GetConfigRequest2
   | GetExistRecordRequest
@@ -107,6 +121,7 @@ export type Request =
   | GetRewardTableRequest
   | GetServerListRequest
   | GetStockerRequest
+  | GetTeamRequest
   | UpdateProvisionalStoreRankRequest
   | UpdateRecordRequest
   | UpdateStoryClearNumRequest

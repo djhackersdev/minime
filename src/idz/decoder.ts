@@ -71,6 +71,15 @@ readers.set(MSG.CREATE_TEAM_REQ, buf => {
   };
 });
 
+readers.set(MSG.GET_2ON2_REQ, buf => {
+  return {
+    type: "get_2on2_req",
+    field_0002: buf.readUInt16LE(0x0002),
+    field_0004: buf.readUInt32LE(0x0004),
+    field_0008: buf.readUInt32LE(0x0008),
+  };
+});
+
 readers.set(MSG.GET_CONFIG_REQ, () => {
   return { type: "get_config_req" };
 });
@@ -109,6 +118,14 @@ readers.set(MSG.GET_REWARD_TABLE_REQ, () => {
 
 readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
+});
+
+readers.set(MSG.GET_TEAM_REQ, buf => {
+  return {
+    type: "get_team_req",
+    aimeId: buf.readUInt32LE(0x0004),
+    teamId: buf.readUInt32LE(0x0008),
+  };
 });
 
 readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
