@@ -35,6 +35,16 @@ export interface GetExistRecordResponse {
   result: boolean;
 }
 
+export interface GetRecordResponse1 {
+  type: "get_record_v1_res";
+  // giga TODO
+}
+
+export interface GetRecordResponse2 {
+  type: "get_record_v2_res";
+  // giga TODO
+}
+
 export interface GetRewardTableResponse {
   type: "get_reward_table_res";
   // TODO
@@ -80,6 +90,12 @@ export interface GetServerListResponse {
   reportErrorUrl: string;
 }
 
+export interface GetStockerResponse {
+  type: "get_stocker_res";
+  status: number;
+  // mega TODO
+}
+
 export interface UpdateProvisionalStoreRankResponseRow {
   field_0000: number;
   field_0004: number;
@@ -90,6 +106,11 @@ export interface UpdateProvisionalStoreRankResponseRow {
 export interface UpdateProvisionalStoreRankResponse {
   type: "update_provisional_store_rank_res";
   rows: UpdateProvisionalStoreRankResponseRow[];
+}
+
+export interface UpdateStoryClearNumResponse {
+  type: "update_story_clear_num_res";
+  // TODO, looks like a table of 9 * 10 u32 fields
 }
 
 export interface UpdateTopicResponse {
@@ -105,7 +126,11 @@ export type Response =
   | GetConfigResponse
   | GetConfigResponse2
   | GetExistRecordResponse
+  | GetRecordResponse1
+  | GetRecordResponse2
   | GetRewardTableResponse
   | GetServerListResponse
+  | GetStockerResponse
   | UpdateProvisionalStoreRankResponse
+  | UpdateStoryClearNumResponse
   | UpdateTopicResponse;

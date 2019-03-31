@@ -86,6 +86,21 @@ readers.set(MSG.GET_EXIST_RECORD_REQ, buf => {
   };
 });
 
+readers.set(MSG.GET_RECORD_REQ, buf => {
+  return {
+    type: "get_record_req",
+    aimeId: buf.readUInt32LE(0x0004),
+    pcbId: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
+  };
+});
+
+readers.set(MSG.GET_STOCKER_REQ, buf => {
+  return {
+    type: "get_stocker_req",
+    aimeId: buf.readUInt32LE(0x0004),
+  };
+});
+
 readers.set(MSG.GET_REWARD_TABLE_REQ, () => {
   return {
     type: "get_reward_table_req",
@@ -107,6 +122,12 @@ readers.set(MSG.UPDATE_RECORD_REQ, buf => {
   return {
     type: "update_record_req",
     // mega TODO
+  };
+});
+
+readers.set(MSG.UPDATE_STORY_CLEAR_NUM_REQ, () => {
+  return {
+    type: "update_story_clear_num_req",
   };
 });
 

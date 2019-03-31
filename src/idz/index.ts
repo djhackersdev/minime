@@ -62,6 +62,21 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "get_exist_record_req":
+          output.write({
+            type: "get_exist_record_res",
+            result: true,
+          });
+
+          break;
+
+        case "get_record_req":
+          output.write({
+            type: "get_record_v2_res",
+          });
+
+          break;
+
         case "get_reward_table_req":
           output.write({
             type: "get_reward_table_res",
@@ -114,10 +129,10 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_exist_record_req":
+        case "get_stocker_req":
           output.write({
-            type: "get_exist_record_res",
-            result: false,
+            type: "get_stocker_res",
+            status: 1,
           });
 
           break;
@@ -138,12 +153,24 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "update_story_clear_num_req":
+          output.write({
+            type: "update_story_clear_num_res",
+          });
+
+          break;
+
         case "update_topic_req":
           output.write({
             type: "update_topic_res",
           });
 
           break;
+
+        default:
+          const exhaustCheck: never = msg;
+
+          throw new Error(`Unhandled message ${msg["type"]}`);
       }
     }
   } catch (e) {

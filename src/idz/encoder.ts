@@ -53,14 +53,14 @@ export class Encoder extends Transform {
       case "get_config_res":
         buf = Buffer.alloc(0x01a0);
         buf.writeUInt16LE(MSG.GET_CONFIG_RES, 0x0000);
-        buf.writeUInt16LE(obj.status, 0x0002);
+        buf.writeUInt8(obj.status, 0x0002);
 
         break;
 
       case "get_config_2_res":
         buf = Buffer.alloc(0x230);
         buf.writeUInt16LE(MSG.GET_CONFIG_DATA_2_RES, 0x0000);
-        buf.writeUInt16LE(obj.status, 0x0002);
+        buf.writeUInt8(obj.status, 0x0002);
 
         break;
 
@@ -68,6 +68,20 @@ export class Encoder extends Transform {
         buf = Buffer.alloc(0x0010);
         buf.writeUInt16LE(MSG.GET_EXIST_RECORD_RES, 0x0000);
         buf.writeUInt8(obj.result ? 1 : 0, 0x0004);
+
+        break;
+
+      case "get_record_v1_res":
+        buf = Buffer.alloc(0x0c60);
+        buf.writeUInt16LE(MSG.GET_RECORD_V1_RES, 0x0000);
+        //iconv.encode("てすと", sjis).copy(buf, 0x03ea);
+
+        break;
+
+      case "get_record_v2_res":
+        buf = Buffer.alloc(0x0d30);
+        buf.writeUInt16LE(MSG.GET_RECORD_V2_RES, 0x0000);
+        iconv.encode("てすと", sjis).copy(buf, 0x03ea);
 
         break;
 
@@ -105,6 +119,13 @@ export class Encoder extends Transform {
 
         break;
 
+      case "get_stocker_res":
+        buf = Buffer.alloc(0x00a0);
+        buf.writeUInt16LE(MSG.GET_STOCKER_RES, 0x0000);
+        buf.writeUInt8(obj.status, 0x0002);
+
+        break;
+
       case "update_provisional_store_rank_res":
         buf = Buffer.alloc(0x02b0);
         buf.writeUInt16LE(MSG.UPDATE_PROVISIONAL_STORE_RANK_RES, 0x0000);
@@ -120,6 +141,12 @@ export class Encoder extends Transform {
             iconv.encode(row.field_003B, sjis).copy(buf, offset + 0x003b);
           }
         }
+
+        break;
+
+      case "update_story_clear_num_res":
+        buf = Buffer.alloc(0x0220);
+        buf.writeUInt16LE(MSG.UPDATE_STORY_CLEAR_NUM_RES, 0x0000);
 
         break;
 

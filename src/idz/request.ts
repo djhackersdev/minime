@@ -57,12 +57,23 @@ export interface GetExistRecordRequest {
   aimeId: number;
 }
 
+export interface GetRecordRequest {
+  type: "get_record_req";
+  aimeId: number;
+  pcbId: string;
+}
+
 export interface GetRewardTableRequest {
   type: "get_reward_table_req";
 }
 
 export interface GetServerListRequest {
   type: "get_server_list_req";
+}
+
+export interface GetStockerRequest {
+  type: "get_stocker_req";
+  aimeId: number;
 }
 
 export interface UpdateProvisionalStoreRankRequest {
@@ -73,6 +84,10 @@ export interface UpdateProvisionalStoreRankRequest {
 export interface UpdateRecordRequest {
   type: "update_record_req";
   // TODO
+}
+
+export interface UpdateStoryClearNumRequest {
+  type: "update_story_clear_num_req";
 }
 
 export interface UpdateTopicRequest {
@@ -88,8 +103,11 @@ export type Request =
   | GetConfigRequest
   | GetConfigRequest2
   | GetExistRecordRequest
+  | GetRecordRequest
   | GetRewardTableRequest
   | GetServerListRequest
+  | GetStockerRequest
   | UpdateProvisionalStoreRankRequest
   | UpdateRecordRequest
+  | UpdateStoryClearNumRequest
   | UpdateTopicRequest;
