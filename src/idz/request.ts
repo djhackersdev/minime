@@ -15,7 +15,7 @@ export interface CreateRecordRequest {
   type: "create_record_req";
   aimeId: number;
   luid: string;
-  field_0018: Buffer;
+  name: string;
   field_0034: number;
   field_0040: Buffer;
   field_0084: number;
@@ -57,6 +57,10 @@ export interface GetExistRecordRequest {
   aimeId: number;
 }
 
+export interface GetRewardTableRequest {
+  type: "get_reward_table_req";
+}
+
 export interface GetServerListRequest {
   type: "get_server_list_req";
 }
@@ -71,6 +75,11 @@ export interface UpdateRecordRequest {
   // TODO
 }
 
+export interface UpdateTopicRequest {
+  type: "update_topic_req";
+  aimeId?: number;
+}
+
 export type Request =
   | AccountLockRequest
   | AccountUnlockRequest
@@ -79,6 +88,8 @@ export type Request =
   | GetConfigRequest
   | GetConfigRequest2
   | GetExistRecordRequest
+  | GetRewardTableRequest
   | GetServerListRequest
   | UpdateProvisionalStoreRankRequest
-  | UpdateRecordRequest;
+  | UpdateRecordRequest
+  | UpdateTopicRequest;

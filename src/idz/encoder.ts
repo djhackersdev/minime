@@ -71,6 +71,12 @@ export class Encoder extends Transform {
 
         break;
 
+      case "get_reward_table_res":
+        buf = Buffer.alloc(0x01c0);
+        buf.writeUInt16LE(MSG.GET_REWARD_TABLE_RES, 0x0000);
+
+        break;
+
       case "get_server_list_res":
         buf = Buffer.alloc(0x04b0);
         buf.writeUInt16LE(MSG.GET_SERVER_LIST_RES, 0x0000);
@@ -114,6 +120,12 @@ export class Encoder extends Transform {
             iconv.encode(row.field_003B, sjis).copy(buf, offset + 0x003b);
           }
         }
+
+        break;
+
+      case "update_topic_res":
+        buf = Buffer.alloc(0x05d0);
+        buf.writeUInt16LE(MSG.UPDATE_TOPIC_RES, 0x0000);
 
         break;
 

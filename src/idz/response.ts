@@ -35,6 +35,11 @@ export interface GetExistRecordResponse {
   result: boolean;
 }
 
+export interface GetRewardTableResponse {
+  type: "get_reward_table_res";
+  // TODO
+}
+
 export interface GetServerListResponse {
   type: "get_server_list_res";
   status: number;
@@ -87,6 +92,11 @@ export interface UpdateProvisionalStoreRankResponse {
   rows: UpdateProvisionalStoreRankResponseRow[];
 }
 
+export interface UpdateTopicResponse {
+  type: "update_topic_res";
+  // mega TODO
+}
+
 export type Response =
   | AccountLockResponse
   | AccountUnlockResponse
@@ -95,5 +105,7 @@ export type Response =
   | GetConfigResponse
   | GetConfigResponse2
   | GetExistRecordResponse
+  | GetRewardTableResponse
   | GetServerListResponse
-  | UpdateProvisionalStoreRankResponse;
+  | UpdateProvisionalStoreRankResponse
+  | UpdateTopicResponse;

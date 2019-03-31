@@ -1,3 +1,4 @@
+import iconv = require("iconv-lite");
 import { Transform } from "stream";
 
 import { MSG, REQ_LEN } from "./defs";
@@ -5,6 +6,7 @@ import { Request } from "./request";
 
 type ReaderFn = (buf: Buffer) => Request;
 
+const sjis = "shift_jis";
 const readers = new Map<number, ReaderFn>();
 
 function readHeader(buf: Buffer) {
@@ -35,7 +37,7 @@ readers.set(MSG.CREATE_RECORD_REQ, buf => {
     type: "create_record_req",
     aimeId: buf.readInt32LE(0x0004),
     luid: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
-    field_0018: buf.slice(0x0018, 0x0034),
+    name: iconv.decode(buf.slice(0x001e, buf.indexOf("\0", 0x001e)), sjis),
     field_0034: buf.readUInt32LE(0x0034),
     field_0040: buf.slice(0x0040, 0x0084),
     field_0084: buf.readUInt16LE(0x0084),
@@ -84,6 +86,12 @@ readers.set(MSG.GET_EXIST_RECORD_REQ, buf => {
   };
 });
 
+readers.set(MSG.GET_REWARD_TABLE_REQ, () => {
+  return {
+    type: "get_reward_table_req",
+  };
+});
+
 readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
 });
@@ -98,6 +106,16 @@ readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
 readers.set(MSG.UPDATE_RECORD_REQ, buf => {
   return {
     type: "update_record_req",
+    // mega TODO
+  };
+});
+
+readers.set(MSG.UPDATE_TOPIC_REQ, buf => {
+  const aimeId = buf.readUInt32LE(0x0004);
+
+  return {
+    type: "update_topic_req",
+    aimeId: aimeId !== 0xffffffff ? aimeId : undefined,
   };
 });
 

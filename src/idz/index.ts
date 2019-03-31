@@ -62,6 +62,13 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "get_reward_table_req":
+          output.write({
+            type: "get_reward_table_res",
+          });
+
+          break;
+
         case "get_server_list_req":
           const myHost = hostname();
 
@@ -118,12 +125,7 @@ export default async function idz(socket: Socket) {
         case "update_provisional_store_rank_req":
           output.write({
             type: "update_provisional_store_rank_res",
-            rows: [10, 11, 12, 13].map(rank => ({
-              field_0000: rank,
-              field_0004: msg.aimeId + rank - 11,
-              field_0010: `x${rank}`,
-              field_003B: `y${rank}`,
-            })),
+            rows: [],
           });
 
           break;
@@ -132,6 +134,13 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "generic_res",
             status: 1,
+          });
+
+          break;
+
+        case "update_topic_req":
+          output.write({
+            type: "update_topic_res",
           });
 
           break;
