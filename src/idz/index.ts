@@ -46,6 +46,22 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "get_config_req":
+          output.write({
+            type: "get_config_res",
+            status: 1,
+          });
+
+          break;
+
+        case "get_config_2_req":
+          output.write({
+            type: "get_config_2_res",
+            status: 1,
+          });
+
+          break;
+
         case "get_server_list_req":
           const myHost = hostname();
 
@@ -91,18 +107,10 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_config_req":
+        case "get_exist_record_req":
           output.write({
-            type: "get_config_res",
-            status: 1,
-          });
-
-          break;
-
-        case "get_config_2_req":
-          output.write({
-            type: "get_config_2_res",
-            status: 1,
+            type: "get_exist_record_res",
+            result: false,
           });
 
           break;

@@ -30,6 +30,11 @@ export interface GetConfigResponse2 {
   status: number;
 }
 
+export interface GetExistRecordResponse {
+  type: "get_exist_record_res";
+  result: boolean;
+}
+
 export interface GetServerListResponse {
   type: "get_server_list_res";
   status: number;
@@ -89,5 +94,6 @@ export type Response =
   | GenericResponse
   | GetConfigResponse
   | GetConfigResponse2
+  | GetExistRecordResponse
   | GetServerListResponse
   | UpdateProvisionalStoreRankResponse;

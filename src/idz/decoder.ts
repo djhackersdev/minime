@@ -77,6 +77,13 @@ readers.set(MSG.GET_CONFIG_DATA_2_REQ, () => {
   return { type: "get_config_2_req" };
 });
 
+readers.set(MSG.GET_EXIST_RECORD_REQ, buf => {
+  return {
+    type: "get_exist_record_req",
+    aimeId: buf.readUInt32LE(0x0004),
+  };
+});
+
 readers.set(MSG.GET_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
 });

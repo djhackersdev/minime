@@ -52,6 +52,11 @@ export interface GetConfigRequest2 {
   type: "get_config_2_req";
 }
 
+export interface GetExistRecordRequest {
+  type: "get_exist_record_req";
+  aimeId: number;
+}
+
 export interface GetServerListRequest {
   type: "get_server_list_req";
 }
@@ -73,6 +78,7 @@ export type Request =
   | CreateTeamRequest
   | GetConfigRequest
   | GetConfigRequest2
+  | GetExistRecordRequest
   | GetServerListRequest
   | UpdateProvisionalStoreRankRequest
   | UpdateRecordRequest;

@@ -64,6 +64,13 @@ export class Encoder extends Transform {
 
         break;
 
+      case "get_exist_record_res":
+        buf = Buffer.alloc(0x0010);
+        buf.writeUInt16LE(MSG.GET_EXIST_RECORD_RES, 0x0000);
+        buf.writeUInt8(obj.result ? 1 : 0, 0x0004);
+
+        break;
+
       case "get_server_list_res":
         buf = Buffer.alloc(0x04b0);
         buf.writeUInt16LE(MSG.GET_SERVER_LIST_RES, 0x0000);
@@ -111,6 +118,8 @@ export class Encoder extends Transform {
         break;
 
       default:
+        const exhaustCheck: never = obj;
+
         return callback(new Error(`No writer fn for ${obj["type"]}`));
     }
 
