@@ -52,6 +52,10 @@ export interface GetRecordResponse1 {
 
 export interface GetRecordResponse2 {
   type: "get_record_v2_res";
+  name: string;
+  lv: number;
+  fame: number;
+  dpoint: number;
   // giga TODO
 }
 

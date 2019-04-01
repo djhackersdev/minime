@@ -89,6 +89,10 @@ export default async function idz(socket: Socket) {
         case "get_record_req":
           output.write({
             type: "get_record_v2_res",
+            name: "てすと",
+            lv: 69,
+            fame: 1234,
+            dpoint: 54321,
           });
 
           break;
