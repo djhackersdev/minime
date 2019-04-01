@@ -18,14 +18,14 @@ export interface CreateRecordRequest {
   name: string;
   field_0034: number;
   field_0040: Buffer;
-  field_0084: number;
-  field_0086: number;
-  field_0088: number;
+  car_type: number;
+  car_color: number;
+  transmission: "auto" | "manual";
   field_008A: number;
   field_008C: number;
   field_0090: bigint;
   field_009C: number;
-  field_00A0: number;
+  gender: "male" | "female";
   field_00A2: number;
   field_00A4: number;
   field_00A6: number;
