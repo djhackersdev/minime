@@ -90,6 +90,7 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "get_record_v2_res",
             name: "てすと",
+            teamId: 0x11223344,
             lv: 69,
             fame: 1234,
             dpoint: 54321,

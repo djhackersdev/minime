@@ -88,7 +88,6 @@ export class Encoder extends Transform {
         // Sending this causes an error
         buf = Buffer.alloc(0x0c60);
         buf.writeUInt16LE(MSG.GET_RECORD_V1_RES, 0x0000);
-        //iconv.encode("てすと", sjis).copy(buf, 0x03ea);
 
         break;
 
@@ -96,6 +95,7 @@ export class Encoder extends Transform {
         buf = Buffer.alloc(0x0d30);
         //buf.fill(1, 0x0000, 0x0698); // -------- SPRAYING -----------
         buf.writeUInt16LE(MSG.GET_RECORD_V2_RES, 0x0000);
+        buf.writeUInt32LE(obj.teamId, 4 + 0x3b4);
         buf.writeUInt16LE(obj.lv, 4 + 0x03c8);
         buf.writeUInt32LE(obj.dpoint, 4 + 0x03e4);
         buf.writeUInt32LE(obj.fame, 4 + 0x0400);

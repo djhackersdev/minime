@@ -53,6 +53,7 @@ export interface GetRecordResponse1 {
 export interface GetRecordResponse2 {
   type: "get_record_v2_res";
   name: string;
+  teamId: number;
   lv: number;
   fame: number;
   dpoint: number;

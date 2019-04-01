@@ -85,12 +85,12 @@ export interface GetServerListRequest {
 
 export interface GetStockerRequest {
   type: "get_stocker_req";
-  aimeId: number;
+  field_0004: number;
 }
 
 export interface GetTeamRequest {
   type: "get_team_req";
-  field_0004: number;
+  teamId: number;
   field_0008: number;
 }
 
