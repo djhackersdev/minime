@@ -123,7 +123,12 @@ export class Encoder extends Transform {
 
       case "get_record_v2_res":
         buf = Buffer.alloc(0x0d30);
-        //buf.fill(1, 0x0000, 0x0698); // -------- SPRAYING -----------
+        //buf.fill(1, 0x01a6, 0x0279); // -------- SPRAYING -----------
+
+        for (let i = 0x1a; i < 0x26; i++) {
+          //buf.writeUInt8(1, 0x0206 + i);
+        }
+
         buf.writeUInt16LE(MSG.GET_RECORD_V2_RES, 0x0000);
         buf.writeUInt32LE(obj.teamId, 4 + 0x3b4);
         buf.writeUInt16LE(obj.lv, 4 + 0x03c8);
@@ -171,6 +176,13 @@ export class Encoder extends Transform {
         buf = Buffer.alloc(0x00a0);
         buf.writeUInt16LE(MSG.GET_STOCKER_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
+
+        break;
+
+      case "update_expedition_res":
+        buf = Buffer.alloc(0x17c0);
+        buf.writeUInt16LE(MSG.UPDATE_EXPEDITION_RES, 0x0000);
+        // in awe of the size of this lad
 
         break;
 

@@ -135,6 +135,13 @@ readers.set(MSG.GET_TEAM_REQ, buf => {
   };
 });
 
+readers.set(MSG.UPDATE_EXPEDITION_REQ, buf => {
+  return {
+    type: "update_expedition_req",
+    field_0004: buf.readUInt32LE(0x0004),
+  };
+});
+
 readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
   return {
     type: "update_provisional_store_rank_req",

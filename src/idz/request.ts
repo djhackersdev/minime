@@ -94,6 +94,11 @@ export interface GetTeamRequest {
   field_0008: number;
 }
 
+export interface UpdateExpeditionRequest {
+  type: "update_expedition_req";
+  field_0004: number;
+}
+
 export interface UpdateProvisionalStoreRankRequest {
   type: "update_provisional_store_rank_req";
   aimeId: number;
@@ -128,6 +133,7 @@ export type Request =
   | GetServerListRequest
   | GetStockerRequest
   | GetTeamRequest
+  | UpdateExpeditionRequest
   | UpdateProvisionalStoreRankRequest
   | UpdateRecordRequest
   | UpdateStoryClearNumRequest

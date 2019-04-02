@@ -29,6 +29,7 @@ export interface AccountUnlockResponse {
 export interface GenericResponse {
   type: "generic_res";
   status: number;
+  // a bunch of other stuff here! total size is 0x20
 }
 
 export interface CreateTeamResponse extends BaseTeamResponse {
@@ -130,6 +131,11 @@ export interface GetTeamResponse extends BaseTeamResponse {
   type: "get_team_res";
 }
 
+export interface UpdateExpeditionResponse {
+  type: "update_expedition_res";
+  // tera TODO
+}
+
 export interface UpdateProvisionalStoreRankResponseRow {
   field_0000: number;
   field_0004: number;
@@ -168,6 +174,7 @@ export type Response =
   | GetServerListResponse
   | GetStockerResponse
   | GetTeamResponse
+  | UpdateExpeditionResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | UpdateTopicResponse;

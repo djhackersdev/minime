@@ -174,6 +174,20 @@ export default async function idz(socket: Socket) {
 
           break;
 
+        case "update_expedition_req":
+          if (msg.field_0004 === 0) {
+            output.write({
+              type: "generic_res",
+              status: 0,
+            });
+          } else {
+            output.write({
+              type: "update_expedition_res",
+            });
+          }
+
+          break;
+
         case "update_provisional_store_rank_req":
           output.write({
             type: "update_provisional_store_rank_res",
