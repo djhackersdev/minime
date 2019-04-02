@@ -32,7 +32,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "create_record_req":
+        case "create_profile_req":
           res = {
             type: "generic_res",
             status: 1,
@@ -49,14 +49,14 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_2on2_req":
+        case "load_2on2_req":
           res = {
             type: "get_2on2_res",
           };
 
           break;
 
-        case "get_config_req":
+        case "load_config_req":
           res = {
             type: "get_config_res",
             status: 1,
@@ -64,7 +64,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_config_2_req":
+        case "load_config_v2_req":
           res = {
             type: "get_config_2_res",
             status: 1,
@@ -72,7 +72,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_exist_record_req":
+        case "discover_profile_req":
           res = {
             type: "get_exist_record_res",
             result: true,
@@ -80,7 +80,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_general_reward_req":
+        case "load_general_reward_req":
           // A non-generic response is also accepted, but why bother?
           res = {
             type: "generic_res",
@@ -89,7 +89,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_record_req":
+        case "load_profile_req":
           res = {
             type: "get_record_v2_res",
             name: "てすと",
@@ -101,14 +101,14 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_reward_table_req":
+        case "load_reward_table_req":
           res = {
             type: "get_reward_table_res",
           };
 
           break;
 
-        case "get_server_list_req":
+        case "load_server_list_req":
           const myHost = hostname();
 
           res = {
@@ -153,7 +153,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_stocker_req":
+        case "load_stocker_req":
           res = {
             type: "get_stocker_res",
             status: 1,
@@ -161,7 +161,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "get_team_req":
+        case "load_team_req":
           res = {
             type: "get_team_res",
             name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
@@ -176,7 +176,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "update_expedition_req":
+        case "save_expedition_req":
           if (req.field_0004 === 0) {
             res = {
               type: "generic_res",
@@ -198,7 +198,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "update_record_req":
+        case "save_profile_req":
           res = {
             type: "generic_res",
             status: 1,
@@ -213,7 +213,7 @@ export default async function idz(socket: Socket) {
 
           break;
 
-        case "update_topic_req":
+        case "save_topic_req":
           res = {
             type: "update_topic_res",
           };

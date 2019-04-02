@@ -34,7 +34,7 @@ readers.set(MSG.ACCOUNT_UNLOCK_REQ, buf => {
 
 readers.set(MSG.CREATE_PROFILE_REQ, buf => {
   return {
-    type: "create_record_req",
+    type: "create_profile_req",
     aimeId: buf.readInt32LE(0x0004),
     luid: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
     name: iconv.decode(buf.slice(0x001e, buf.indexOf("\0", 0x001e)), sjis),
@@ -73,7 +73,7 @@ readers.set(MSG.CREATE_TEAM_REQ, buf => {
 
 readers.set(MSG.LOAD_2ON2_REQ, buf => {
   return {
-    type: "get_2on2_req",
+    type: "load_2on2_req",
     field_0002: buf.readUInt16LE(0x0002),
     field_0004: buf.readUInt32LE(0x0004),
     field_0008: buf.readUInt32LE(0x0008),
@@ -81,30 +81,30 @@ readers.set(MSG.LOAD_2ON2_REQ, buf => {
 });
 
 readers.set(MSG.LOAD_CONFIG_REQ, () => {
-  return { type: "get_config_req" };
+  return { type: "load_config_req" };
 });
 
 readers.set(MSG.LOAD_CONFIG_V2_REQ, () => {
-  return { type: "get_config_2_req" };
+  return { type: "load_config_v2_req" };
 });
 
 readers.set(MSG.DISCOVER_PROFILE_REQ, buf => {
   return {
-    type: "get_exist_record_req",
+    type: "discover_profile_req",
     aimeId: buf.readUInt32LE(0x0004),
   };
 });
 
 readers.set(MSG.LOAD_GENERAL_REWARD_REQ, buf => {
   return {
-    type: "get_general_reward_req",
+    type: "load_general_reward_req",
     field_0004: buf.readUInt32LE(0x0004),
   };
 });
 
-readers.set(MSG.LOAD_RECORD_REQ, buf => {
+readers.set(MSG.LOAD_PROFILE_REQ, buf => {
   return {
-    type: "get_record_req",
+    type: "load_profile_req",
     aimeId: buf.readUInt32LE(0x0004),
     pcbId: buf.slice(0x0008, buf.indexOf("\0", 0x0008)).toString("ascii"),
   };
@@ -112,24 +112,24 @@ readers.set(MSG.LOAD_RECORD_REQ, buf => {
 
 readers.set(MSG.LOAD_STOCKER_REQ, buf => {
   return {
-    type: "get_stocker_req",
+    type: "load_stocker_req",
     field_0004: buf.readUInt32LE(0x0004),
   };
 });
 
 readers.set(MSG.LOAD_REWARD_TABLE_REQ, () => {
   return {
-    type: "get_reward_table_req",
+    type: "load_reward_table_req",
   };
 });
 
 readers.set(MSG.LOAD_SERVER_LIST_REQ, () => {
-  return { type: "get_server_list_req" };
+  return { type: "load_server_list_req" };
 });
 
 readers.set(MSG.LOAD_TEAM_REQ, buf => {
   return {
-    type: "get_team_req",
+    type: "load_team_req",
     teamId: buf.readUInt32LE(0x0004),
     field_0008: buf.readUInt32LE(0x0008),
   };
@@ -137,7 +137,7 @@ readers.set(MSG.LOAD_TEAM_REQ, buf => {
 
 readers.set(MSG.SAVE_EXPEDITION_REQ, buf => {
   return {
-    type: "update_expedition_req",
+    type: "save_expedition_req",
     field_0004: buf.readUInt32LE(0x0004),
   };
 });
@@ -151,7 +151,7 @@ readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
 
 readers.set(MSG.SAVE_RECORD_REQ, buf => {
   return {
-    type: "update_record_req",
+    type: "save_profile_req",
     // mega TODO
   };
 });
@@ -166,7 +166,7 @@ readers.set(MSG.SAVE_TOPIC_REQ, buf => {
   const aimeId = buf.readUInt32LE(0x0004);
 
   return {
-    type: "update_topic_req",
+    type: "save_topic_req",
     aimeId: aimeId !== 0xffffffff ? aimeId : undefined,
   };
 });

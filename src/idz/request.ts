@@ -12,7 +12,7 @@ export interface AccountUnlockRequest {
 }
 
 export interface CreateRecordRequest {
-  type: "create_record_req";
+  type: "create_profile_req";
   aimeId: number;
   luid: string;
   name: string;
@@ -45,57 +45,57 @@ export interface CreateTeamRequest {
 }
 
 export interface Get2on2Request {
-  type: "get_2on2_req";
+  type: "load_2on2_req";
   field_0002: number;
   field_0004: number;
   field_0008: number;
 }
 
 export interface GetConfigRequest {
-  type: "get_config_req";
+  type: "load_config_req";
 }
 
 export interface GetConfigRequest2 {
-  type: "get_config_2_req";
+  type: "load_config_v2_req";
 }
 
 export interface GetExistRecordRequest {
-  type: "get_exist_record_req";
+  type: "discover_profile_req";
   aimeId: number;
 }
 
 export interface GetGeneralRewardRequest {
-  type: "get_general_reward_req";
+  type: "load_general_reward_req";
   field_0004: number;
 }
 
 export interface GetRecordRequest {
-  type: "get_record_req";
+  type: "load_profile_req";
   aimeId: number;
   pcbId: string;
 }
 
 export interface GetRewardTableRequest {
-  type: "get_reward_table_req";
+  type: "load_reward_table_req";
 }
 
 export interface GetServerListRequest {
-  type: "get_server_list_req";
+  type: "load_server_list_req";
 }
 
 export interface GetStockerRequest {
-  type: "get_stocker_req";
+  type: "load_stocker_req";
   field_0004: number;
 }
 
 export interface GetTeamRequest {
-  type: "get_team_req";
+  type: "load_team_req";
   teamId: number;
   field_0008: number;
 }
 
 export interface UpdateExpeditionRequest {
-  type: "update_expedition_req";
+  type: "save_expedition_req";
   field_0004: number;
 }
 
@@ -105,7 +105,7 @@ export interface UpdateProvisionalStoreRankRequest {
 }
 
 export interface UpdateRecordRequest {
-  type: "update_record_req";
+  type: "save_profile_req";
   // TODO
 }
 
@@ -114,7 +114,7 @@ export interface UpdateStoryClearNumRequest {
 }
 
 export interface UpdateTopicRequest {
-  type: "update_topic_req";
+  type: "save_topic_req";
   aimeId?: number;
 }
 
