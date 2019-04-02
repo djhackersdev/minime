@@ -11,7 +11,7 @@ export interface AccountUnlockRequest {
   pcbId: string;
 }
 
-export interface CreateRecordRequest {
+export interface CreateProfileRequest {
   type: "create_profile_req";
   aimeId: number;
   luid: string;
@@ -44,57 +44,57 @@ export interface CreateTeamRequest {
   field_000C: number;
 }
 
-export interface Get2on2Request {
+export interface Load2on2Request {
   type: "load_2on2_req";
   field_0002: number;
   field_0004: number;
   field_0008: number;
 }
 
-export interface GetConfigRequest {
+export interface LoadConfigRequest {
   type: "load_config_req";
 }
 
-export interface GetConfigRequest2 {
+export interface LoadConfigRequest2 {
   type: "load_config_v2_req";
 }
 
-export interface GetExistRecordRequest {
+export interface DiscoverProfileRequest {
   type: "discover_profile_req";
   aimeId: number;
 }
 
-export interface GetGeneralRewardRequest {
+export interface LoadGeneralRewardRequest {
   type: "load_general_reward_req";
   field_0004: number;
 }
 
-export interface GetRecordRequest {
+export interface LoadProfileRequest {
   type: "load_profile_req";
   aimeId: number;
   pcbId: string;
 }
 
-export interface GetRewardTableRequest {
+export interface LoadRewardTableRequest {
   type: "load_reward_table_req";
 }
 
-export interface GetServerListRequest {
+export interface LoadServerListRequest {
   type: "load_server_list_req";
 }
 
-export interface GetStockerRequest {
+export interface LoadStockerRequest {
   type: "load_stocker_req";
   field_0004: number;
 }
 
-export interface GetTeamRequest {
+export interface LoadTeamRequest {
   type: "load_team_req";
   teamId: number;
   field_0008: number;
 }
 
-export interface UpdateExpeditionRequest {
+export interface SaveExpeditionRequest {
   type: "save_expedition_req";
   field_0004: number;
 }
@@ -104,7 +104,7 @@ export interface UpdateProvisionalStoreRankRequest {
   aimeId: number;
 }
 
-export interface UpdateRecordRequest {
+export interface SaveProfileRequest {
   type: "save_profile_req";
   // TODO
 }
@@ -113,7 +113,7 @@ export interface UpdateStoryClearNumRequest {
   type: "update_story_clear_num_req";
 }
 
-export interface UpdateTopicRequest {
+export interface SaveTopicRequest {
   type: "save_topic_req";
   aimeId?: number;
 }
@@ -121,20 +121,20 @@ export interface UpdateTopicRequest {
 export type Request =
   | AccountLockRequest
   | AccountUnlockRequest
-  | CreateRecordRequest
+  | CreateProfileRequest
   | CreateTeamRequest
-  | Get2on2Request
-  | GetConfigRequest
-  | GetConfigRequest2
-  | GetExistRecordRequest
-  | GetGeneralRewardRequest
-  | GetRecordRequest
-  | GetRewardTableRequest
-  | GetServerListRequest
-  | GetStockerRequest
-  | GetTeamRequest
-  | UpdateExpeditionRequest
+  | Load2on2Request
+  | LoadConfigRequest
+  | LoadConfigRequest2
+  | DiscoverProfileRequest
+  | LoadGeneralRewardRequest
+  | LoadProfileRequest
+  | LoadRewardTableRequest
+  | LoadServerListRequest
+  | LoadStockerRequest
+  | LoadTeamRequest
+  | SaveExpeditionRequest
   | UpdateProvisionalStoreRankRequest
-  | UpdateRecordRequest
+  | SaveProfileRequest
   | UpdateStoryClearNumRequest
-  | UpdateTopicRequest;
+  | SaveTopicRequest;
