@@ -68,7 +68,7 @@ export class Encoder extends Transform {
         if (obj.type === "create_team_res") {
           buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
         } else {
-          buf.writeUInt16LE(MSG.GET_TEAM_RES, 0x0000);
+          buf.writeUInt16LE(MSG.LOAD_TEAM_RES, 0x0000);
         }
 
         break;
@@ -82,27 +82,27 @@ export class Encoder extends Transform {
 
       case "get_2on2_res":
         buf = Buffer.alloc(0x04c0);
-        buf.writeUInt16LE(MSG.GET_2ON2_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_2ON2_RES, 0x0000);
 
         break;
 
       case "get_config_res":
         buf = Buffer.alloc(0x01a0);
-        buf.writeUInt16LE(MSG.GET_CONFIG_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_CONFIG_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
 
         break;
 
       case "get_config_2_res":
         buf = Buffer.alloc(0x230);
-        buf.writeUInt16LE(MSG.GET_CONFIG_DATA_2_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_CONFIG_V2_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
 
         break;
 
       case "get_exist_record_res":
         buf = Buffer.alloc(0x0010);
-        buf.writeUInt16LE(MSG.GET_EXIST_RECORD_RES, 0x0000);
+        buf.writeUInt16LE(MSG.DISCOVER_PROFILE_RES, 0x0000);
         buf.writeUInt8(obj.result ? 1 : 0, 0x0004);
 
         break;
@@ -110,14 +110,14 @@ export class Encoder extends Transform {
       case "get_general_reward_res":
         // A generic response is acceptable too so why even bother with this..
         buf = Buffer.alloc(0x0330);
-        buf.writeUInt16LE(MSG.GET_GENERAL_REWARD_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_GENERAL_REWARD_RES, 0x0000);
 
         break;
 
       case "get_record_v1_res":
         // Sending this causes an error
         buf = Buffer.alloc(0x0c60);
-        buf.writeUInt16LE(MSG.GET_RECORD_V1_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_PROFILE_V1_RES, 0x0000);
 
         break;
 
@@ -129,7 +129,7 @@ export class Encoder extends Transform {
           //buf.writeUInt8(1, 0x0206 + i);
         }
 
-        buf.writeUInt16LE(MSG.GET_RECORD_V2_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_PROFILE_V2_RES, 0x0000);
         buf.writeUInt32LE(obj.teamId, 4 + 0x3b4);
         buf.writeUInt16LE(obj.lv, 4 + 0x03c8);
         buf.writeUInt32LE(obj.dpoint, 4 + 0x03e4);
@@ -140,13 +140,13 @@ export class Encoder extends Transform {
 
       case "get_reward_table_res":
         buf = Buffer.alloc(0x01c0);
-        buf.writeUInt16LE(MSG.GET_REWARD_TABLE_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_REWARD_TABLE_RES, 0x0000);
 
         break;
 
       case "get_server_list_res":
         buf = Buffer.alloc(0x04b0);
-        buf.writeUInt16LE(MSG.GET_SERVER_LIST_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_SERVER_LIST_RES, 0x0000);
         buf.writeUInt16LE(obj.status, 0x0002);
         buf.write(obj.userDb.addr, 0x0004);
         buf.writeUInt16LE(obj.userDb.tcp, 0x0084);
@@ -174,14 +174,14 @@ export class Encoder extends Transform {
 
       case "get_stocker_res":
         buf = Buffer.alloc(0x00a0);
-        buf.writeUInt16LE(MSG.GET_STOCKER_RES, 0x0000);
+        buf.writeUInt16LE(MSG.LOAD_STOCKER_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
 
         break;
 
       case "update_expedition_res":
         buf = Buffer.alloc(0x17c0);
-        buf.writeUInt16LE(MSG.UPDATE_EXPEDITION_RES, 0x0000);
+        buf.writeUInt16LE(MSG.SAVE_EXPEDITION_RES, 0x0000);
         // in awe of the size of this lad
 
         break;
@@ -212,7 +212,7 @@ export class Encoder extends Transform {
 
       case "update_topic_res":
         buf = Buffer.alloc(0x05d0);
-        buf.writeUInt16LE(MSG.UPDATE_TOPIC_RES, 0x0000);
+        buf.writeUInt16LE(MSG.SAVE_TOPIC_RES, 0x0000);
 
         break;
 

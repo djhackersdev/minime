@@ -32,7 +32,7 @@ readers.set(MSG.ACCOUNT_UNLOCK_REQ, buf => {
   };
 });
 
-readers.set(MSG.CREATE_RECORD_REQ, buf => {
+readers.set(MSG.CREATE_PROFILE_REQ, buf => {
   return {
     type: "create_record_req",
     aimeId: buf.readInt32LE(0x0004),
@@ -71,7 +71,7 @@ readers.set(MSG.CREATE_TEAM_REQ, buf => {
   };
 });
 
-readers.set(MSG.GET_2ON2_REQ, buf => {
+readers.set(MSG.LOAD_2ON2_REQ, buf => {
   return {
     type: "get_2on2_req",
     field_0002: buf.readUInt16LE(0x0002),
@@ -80,29 +80,29 @@ readers.set(MSG.GET_2ON2_REQ, buf => {
   };
 });
 
-readers.set(MSG.GET_CONFIG_REQ, () => {
+readers.set(MSG.LOAD_CONFIG_REQ, () => {
   return { type: "get_config_req" };
 });
 
-readers.set(MSG.GET_CONFIG_DATA_2_REQ, () => {
+readers.set(MSG.LOAD_CONFIG_V2_REQ, () => {
   return { type: "get_config_2_req" };
 });
 
-readers.set(MSG.GET_EXIST_RECORD_REQ, buf => {
+readers.set(MSG.DISCOVER_PROFILE_REQ, buf => {
   return {
     type: "get_exist_record_req",
     aimeId: buf.readUInt32LE(0x0004),
   };
 });
 
-readers.set(MSG.GET_GENERAL_REWARD_REQ, buf => {
+readers.set(MSG.LOAD_GENERAL_REWARD_REQ, buf => {
   return {
     type: "get_general_reward_req",
     field_0004: buf.readUInt32LE(0x0004),
   };
 });
 
-readers.set(MSG.GET_RECORD_REQ, buf => {
+readers.set(MSG.LOAD_RECORD_REQ, buf => {
   return {
     type: "get_record_req",
     aimeId: buf.readUInt32LE(0x0004),
@@ -110,24 +110,24 @@ readers.set(MSG.GET_RECORD_REQ, buf => {
   };
 });
 
-readers.set(MSG.GET_STOCKER_REQ, buf => {
+readers.set(MSG.LOAD_STOCKER_REQ, buf => {
   return {
     type: "get_stocker_req",
     field_0004: buf.readUInt32LE(0x0004),
   };
 });
 
-readers.set(MSG.GET_REWARD_TABLE_REQ, () => {
+readers.set(MSG.LOAD_REWARD_TABLE_REQ, () => {
   return {
     type: "get_reward_table_req",
   };
 });
 
-readers.set(MSG.GET_SERVER_LIST_REQ, () => {
+readers.set(MSG.LOAD_SERVER_LIST_REQ, () => {
   return { type: "get_server_list_req" };
 });
 
-readers.set(MSG.GET_TEAM_REQ, buf => {
+readers.set(MSG.LOAD_TEAM_REQ, buf => {
   return {
     type: "get_team_req",
     teamId: buf.readUInt32LE(0x0004),
@@ -135,7 +135,7 @@ readers.set(MSG.GET_TEAM_REQ, buf => {
   };
 });
 
-readers.set(MSG.UPDATE_EXPEDITION_REQ, buf => {
+readers.set(MSG.SAVE_EXPEDITION_REQ, buf => {
   return {
     type: "update_expedition_req",
     field_0004: buf.readUInt32LE(0x0004),
@@ -149,7 +149,7 @@ readers.set(MSG.UPDATE_PROVISIONAL_STORE_RANK_REQ, buf => {
   };
 });
 
-readers.set(MSG.UPDATE_RECORD_REQ, buf => {
+readers.set(MSG.SAVE_RECORD_REQ, buf => {
   return {
     type: "update_record_req",
     // mega TODO
@@ -162,7 +162,7 @@ readers.set(MSG.UPDATE_STORY_CLEAR_NUM_REQ, () => {
   };
 });
 
-readers.set(MSG.UPDATE_TOPIC_REQ, buf => {
+readers.set(MSG.SAVE_TOPIC_REQ, buf => {
   const aimeId = buf.readUInt32LE(0x0004);
 
   return {
