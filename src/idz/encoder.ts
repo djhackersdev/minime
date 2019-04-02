@@ -37,9 +37,39 @@ export class Encoder extends Transform {
         break;
 
       case "create_team_res":
+      case "get_team_res":
         buf = Buffer.alloc(0x0ca0);
-        buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
         iconv.encode(obj.name, sjis).copy(buf, 0x0024);
+
+        for (let i = 0; i < 6; i++) {
+          const base = 0x011c + i * 0x004c;
+          const member = obj.members[i];
+
+          if (member === undefined) {
+            break;
+          }
+
+          buf.writeUInt32LE(1, base + 0x0000); // Presence
+          iconv.encode(member.name + "\0", sjis).copy(buf, base + 0x0004);
+          buf.writeUInt32LE(member.lv, base + 0x0018);
+          buf.writeUInt32LE(member.monthPoints, base + 0x0024);
+        }
+
+        // xM
+
+        /*
+        buf.writeUInt16LE(0x00001, 0x0344 + 0x0000);
+        buf.writeUInt8(0x02, 0x0344 + 0x0003);
+        buf.writeUInt32LE(0x00000003, 0x0344 + 0x0004);
+        iconv.encode("str\0", sjis).copy(buf, 0x0344 + 0x0008);
+        buf.writeUInt32LE(0x00000004, 0x0344 + 0x001c);
+        */
+
+        if (obj.type === "create_team_res") {
+          buf.writeUInt16LE(MSG.CREATE_TEAM_RES, 0x0000);
+        } else {
+          buf.writeUInt16LE(MSG.GET_TEAM_RES, 0x0000);
+        }
 
         break;
 
@@ -141,13 +171,6 @@ export class Encoder extends Transform {
         buf = Buffer.alloc(0x00a0);
         buf.writeUInt16LE(MSG.GET_STOCKER_RES, 0x0000);
         buf.writeUInt8(obj.status, 0x0002);
-
-        break;
-
-      case "get_team_res":
-        buf = Buffer.alloc(0x0ca0);
-        buf.writeUInt16LE(MSG.GET_TEAM_RES, 0x0000);
-        iconv.encode(obj.name, sjis).copy(buf, 0x0024);
 
         break;
 

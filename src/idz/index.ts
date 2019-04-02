@@ -42,6 +42,7 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "create_team_res",
             name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+            members: [],
           });
 
           break;
@@ -162,6 +163,13 @@ export default async function idz(socket: Socket) {
           output.write({
             type: "get_team_res",
             name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+            members: [
+              {
+                name: "てすと",
+                lv: 69,
+                monthPoints: 1234,
+              },
+            ],
           });
 
           break;

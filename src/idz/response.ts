@@ -1,3 +1,19 @@
+//
+// Common defs
+//
+
+export interface TeamMember {
+  name: string;
+  lv: number;
+  monthPoints: number;
+}
+
+export interface BaseTeamResponse {
+  name: string;
+  members: TeamMember[];
+  // giga TODO
+}
+
 export interface AccountLockResponse {
   type: "account_lock_res";
   field_0018: number;
@@ -15,9 +31,8 @@ export interface GenericResponse {
   status: number;
 }
 
-export interface CreateTeamResponse {
+export interface CreateTeamResponse extends BaseTeamResponse {
   type: "create_team_res";
-  name: string;
 }
 
 export interface Get2on2Response {
@@ -111,10 +126,8 @@ export interface GetStockerResponse {
   // mega TODO
 }
 
-export interface GetTeamResponse {
+export interface GetTeamResponse extends BaseTeamResponse {
   type: "get_team_res";
-  name: string;
-  // giga TODO
 }
 
 export interface UpdateProvisionalStoreRankResponseRow {
