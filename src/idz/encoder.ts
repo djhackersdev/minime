@@ -168,7 +168,7 @@ export class Encoder extends Transform {
 
         break;
 
-      case "get_stocker_res":
+      case "load_stocker_res":
         buf = Buffer.alloc(0x00a0);
         buf.writeInt16LE(MSG.LOAD_STOCKER_RES, 0x0000);
         buf.writeInt8(obj.status, 0x0002);

@@ -156,7 +156,7 @@ export default async function idz(socket: Socket) {
 
         case "load_stocker_req":
           res = {
-            type: "get_stocker_res",
+            type: "load_stocker_res",
             status: 1,
           };
 

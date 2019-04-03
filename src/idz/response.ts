@@ -36,36 +36,36 @@ export interface CreateTeamResponse extends BaseTeamResponse {
   type: "create_team_res";
 }
 
-export interface Get2on2Response {
+export interface Load2on2Response {
   type: "load_2on2_res";
   // TODO?
 }
 
-export interface GetConfigResponse {
+export interface LoadConfigResponse {
   type: "load_config_res";
   status: number;
 }
 
-export interface GetConfigResponse2 {
+export interface LoadConfigResponse2 {
   type: "load_config_v2_res";
   status: number;
 }
 
-export interface GetExistRecordResponse {
+export interface DiscoverProfileResponse {
   type: "discover_profile_res";
   result: boolean;
 }
 
-export interface GetGeneralRewardResponse {
+export interface LoadGeneralRewardResponse {
   type: "load_general_reward_res";
   // TODO
 }
 
-export interface GetRecordResponse1 {
+export interface LoadRecordResponse1 {
   type: "load_record_v1_res";
 }
 
-export interface GetRecordResponse2 {
+export interface LoadRecordResponse2 {
   type: "load_record_v2_res";
   name: string;
   profileId: number;
@@ -76,12 +76,12 @@ export interface GetRecordResponse2 {
   // giga TODO
 }
 
-export interface GetRewardTableResponse {
+export interface LoadRewardTableResponse {
   type: "load_reward_table_res";
   // TODO
 }
 
-export interface GetServerListResponse {
+export interface LoadServerListResponse {
   type: "load_server_list_res";
   status: number;
   userDb: {
@@ -121,13 +121,13 @@ export interface GetServerListResponse {
   reportErrorUrl: string;
 }
 
-export interface GetStockerResponse {
-  type: "get_stocker_res";
+export interface LoadStockerResponse {
+  type: "load_stocker_res";
   status: number;
   // mega TODO
 }
 
-export interface GetTeamResponse extends BaseTeamResponse {
+export interface LoadTeamResponse extends BaseTeamResponse {
   type: "load_team_res";
 }
 
@@ -153,7 +153,7 @@ export interface UpdateStoryClearNumResponse {
   // TODO, looks like a table of 9 * 10 u32 fields
 }
 
-export interface UpdateTopicResponse {
+export interface SaveTopicResponse {
   type: "save_topic_res";
   // mega TODO
 }
@@ -163,18 +163,18 @@ export type Response =
   | AccountUnlockResponse
   | CreateTeamResponse
   | GenericResponse
-  | Get2on2Response
-  | GetConfigResponse
-  | GetConfigResponse2
-  | GetExistRecordResponse
-  | GetGeneralRewardResponse
-  | GetRecordResponse1
-  | GetRecordResponse2
-  | GetRewardTableResponse
-  | GetServerListResponse
-  | GetStockerResponse
-  | GetTeamResponse
+  | Load2on2Response
+  | LoadConfigResponse
+  | LoadConfigResponse2
+  | DiscoverProfileResponse
+  | LoadGeneralRewardResponse
+  | LoadRecordResponse1
+  | LoadRecordResponse2
+  | LoadRewardTableResponse
+  | LoadServerListResponse
+  | LoadStockerResponse
+  | LoadTeamResponse
   | UpdateExpeditionResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
-  | UpdateTopicResponse;
+  | SaveTopicResponse;
