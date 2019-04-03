@@ -91,7 +91,7 @@ export default async function idz(socket: Socket) {
 
         case "load_profile_req":
           res = {
-            type: "load_record_v2_res",
+            type: "load_profile_v2_res",
             name: "てすと",
             profileId: 0x11223344,
             lv: 69,

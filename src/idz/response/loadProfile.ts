@@ -1,3 +1,3 @@
 export interface LoadProfileResponse {
-  type: "load_record_v1_res";
+  type: "load_profile_v1_res";
 }

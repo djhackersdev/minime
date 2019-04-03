@@ -13,9 +13,9 @@ import { LoadRewardTableResponse } from "./loadRewardTable";
 import { LoadServerListResponse } from "./loadServerList";
 import { LoadStockerResponse } from "./loadStocker";
 import { LoadTeamResponse } from "./loadTeam";
-import { UpdateExpeditionResponse } from "./updateExpedition";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
+import { SaveExpeditionResponse } from "./saveExpedition";
 import { SaveTopicResponse } from "./saveTopic";
 
 export type Response =
@@ -34,7 +34,7 @@ export type Response =
   | LoadServerListResponse
   | LoadStockerResponse
   | LoadTeamResponse
-  | UpdateExpeditionResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
+  | SaveExpeditionResponse
   | SaveTopicResponse;
