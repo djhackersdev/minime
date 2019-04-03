@@ -51,14 +51,14 @@ export default async function idz(socket: Socket) {
 
         case "load_2on2_req":
           res = {
-            type: "get_2on2_res",
+            type: "load_2on2_res",
           };
 
           break;
 
         case "load_config_req":
           res = {
-            type: "get_config_res",
+            type: "load_config_res",
             status: 1,
           };
 
@@ -66,7 +66,7 @@ export default async function idz(socket: Socket) {
 
         case "load_config_v2_req":
           res = {
-            type: "get_config_2_res",
+            type: "load_config_v2_res",
             status: 1,
           };
 
@@ -74,7 +74,7 @@ export default async function idz(socket: Socket) {
 
         case "discover_profile_req":
           res = {
-            type: "get_exist_record_res",
+            type: "discover_profile_res",
             result: true,
           };
 
@@ -91,7 +91,7 @@ export default async function idz(socket: Socket) {
 
         case "load_profile_req":
           res = {
-            type: "get_record_v2_res",
+            type: "load_record_v2_res",
             name: "てすと",
             profileId: 0x11223344,
             lv: 69,
@@ -104,7 +104,7 @@ export default async function idz(socket: Socket) {
 
         case "load_reward_table_req":
           res = {
-            type: "get_reward_table_res",
+            type: "load_reward_table_res",
           };
 
           break;
@@ -113,7 +113,7 @@ export default async function idz(socket: Socket) {
           const myHost = hostname();
 
           res = {
-            type: "get_server_list_res",
+            type: "load_server_list_res",
             status: 1,
             userDb: {
               addr: myHost,
@@ -164,7 +164,7 @@ export default async function idz(socket: Socket) {
 
         case "load_team_req":
           res = {
-            type: "get_team_res",
+            type: "load_team_res",
             name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
             members: [
               {
@@ -185,7 +185,7 @@ export default async function idz(socket: Socket) {
             };
           } else {
             res = {
-              type: "update_expedition_res",
+              type: "save_expedition_res",
             };
           }
 
@@ -224,7 +224,7 @@ export default async function idz(socket: Socket) {
 
         case "save_topic_req":
           res = {
-            type: "update_topic_res",
+            type: "save_topic_res",
           };
 
           break;

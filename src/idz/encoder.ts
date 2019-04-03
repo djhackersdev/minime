@@ -37,7 +37,7 @@ export class Encoder extends Transform {
         break;
 
       case "create_team_res":
-      case "get_team_res":
+      case "load_team_res":
         buf = Buffer.alloc(0x0ca0);
         iconv.encode(obj.name, sjis).copy(buf, 0x0024);
 
@@ -80,48 +80,48 @@ export class Encoder extends Transform {
 
         break;
 
-      case "get_2on2_res":
+      case "load_2on2_res":
         buf = Buffer.alloc(0x04c0);
         buf.writeInt16LE(MSG.LOAD_2ON2_RES, 0x0000);
 
         break;
 
-      case "get_config_res":
+      case "load_config_res":
         buf = Buffer.alloc(0x01a0);
         buf.writeInt16LE(MSG.LOAD_CONFIG_RES, 0x0000);
         buf.writeInt8(obj.status, 0x0002);
 
         break;
 
-      case "get_config_2_res":
+      case "load_config_v2_res":
         buf = Buffer.alloc(0x230);
         buf.writeInt16LE(MSG.LOAD_CONFIG_V2_RES, 0x0000);
         buf.writeInt8(obj.status, 0x0002);
 
         break;
 
-      case "get_exist_record_res":
+      case "discover_profile_res":
         buf = Buffer.alloc(0x0010);
         buf.writeInt16LE(MSG.DISCOVER_PROFILE_RES, 0x0000);
         buf.writeInt8(obj.result ? 1 : 0, 0x0004);
 
         break;
 
-      case "get_general_reward_res":
+      case "load_general_reward_res":
         // A generic response is acceptable too so why even bother with this..
         buf = Buffer.alloc(0x0330);
         buf.writeInt16LE(MSG.LOAD_GENERAL_REWARD_RES, 0x0000);
 
         break;
 
-      case "get_record_v1_res":
+      case "load_record_v1_res":
         // Sending this causes an error
         buf = Buffer.alloc(0x0c60);
         buf.writeInt16LE(MSG.LOAD_PROFILE_V1_RES, 0x0000);
 
         break;
 
-      case "get_record_v2_res":
+      case "load_record_v2_res":
         buf = Buffer.alloc(0x0d30);
 
         buf.writeInt16LE(MSG.LOAD_PROFILE_V2_RES, 0x0000);
@@ -134,13 +134,13 @@ export class Encoder extends Transform {
 
         break;
 
-      case "get_reward_table_res":
+      case "load_reward_table_res":
         buf = Buffer.alloc(0x01c0);
         buf.writeInt16LE(MSG.LOAD_REWARD_TABLE_RES, 0x0000);
 
         break;
 
-      case "get_server_list_res":
+      case "load_server_list_res":
         buf = Buffer.alloc(0x04b0);
         buf.writeInt16LE(MSG.LOAD_SERVER_LIST_RES, 0x0000);
         buf.writeInt16LE(obj.status, 0x0002);
@@ -175,7 +175,7 @@ export class Encoder extends Transform {
 
         break;
 
-      case "update_expedition_res":
+      case "save_expedition_res":
         buf = Buffer.alloc(0x17c0);
         buf.writeInt16LE(MSG.SAVE_EXPEDITION_RES, 0x0000);
         // in awe of the size of this lad
@@ -206,7 +206,7 @@ export class Encoder extends Transform {
 
         break;
 
-      case "update_topic_res":
+      case "save_topic_res":
         buf = Buffer.alloc(0x05d0);
         buf.writeInt16LE(MSG.SAVE_TOPIC_RES, 0x0000);
 

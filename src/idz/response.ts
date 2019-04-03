@@ -37,37 +37,36 @@ export interface CreateTeamResponse extends BaseTeamResponse {
 }
 
 export interface Get2on2Response {
-  type: "get_2on2_res";
+  type: "load_2on2_res";
   // TODO?
 }
 
 export interface GetConfigResponse {
-  type: "get_config_res";
+  type: "load_config_res";
   status: number;
 }
 
 export interface GetConfigResponse2 {
-  type: "get_config_2_res";
+  type: "load_config_v2_res";
   status: number;
 }
 
 export interface GetExistRecordResponse {
-  type: "get_exist_record_res";
+  type: "discover_profile_res";
   result: boolean;
 }
 
 export interface GetGeneralRewardResponse {
-  type: "get_general_reward_res";
+  type: "load_general_reward_res";
   // TODO
 }
 
 export interface GetRecordResponse1 {
-  type: "get_record_v1_res";
-  // giga TODO
+  type: "load_record_v1_res";
 }
 
 export interface GetRecordResponse2 {
-  type: "get_record_v2_res";
+  type: "load_record_v2_res";
   name: string;
   profileId: number;
   lv: number;
@@ -78,12 +77,12 @@ export interface GetRecordResponse2 {
 }
 
 export interface GetRewardTableResponse {
-  type: "get_reward_table_res";
+  type: "load_reward_table_res";
   // TODO
 }
 
 export interface GetServerListResponse {
-  type: "get_server_list_res";
+  type: "load_server_list_res";
   status: number;
   userDb: {
     addr: string;
@@ -129,11 +128,11 @@ export interface GetStockerResponse {
 }
 
 export interface GetTeamResponse extends BaseTeamResponse {
-  type: "get_team_res";
+  type: "load_team_res";
 }
 
 export interface UpdateExpeditionResponse {
-  type: "update_expedition_res";
+  type: "save_expedition_res";
   // tera TODO
 }
 
@@ -155,7 +154,7 @@ export interface UpdateStoryClearNumResponse {
 }
 
 export interface UpdateTopicResponse {
-  type: "update_topic_res";
+  type: "save_topic_res";
   // mega TODO
 }
 
