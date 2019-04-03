@@ -130,8 +130,8 @@ readers.set(MSG.LOAD_SERVER_LIST_REQ, () => {
 readers.set(MSG.LOAD_TEAM_REQ, buf => {
   return {
     type: "load_team_req",
-    teamId: buf.readUInt32LE(0x0004),
-    field_0008: buf.readUInt32LE(0x0008),
+    profileId: buf.readUInt32LE(0x0004),
+    teamId: buf.readUInt32LE(0x0008),
   };
 });
 
@@ -153,6 +153,20 @@ readers.set(MSG.SAVE_RECORD_REQ, buf => {
   return {
     type: "save_profile_req",
     // mega TODO
+  };
+});
+
+readers.set(MSG.SAVE_SETTINGS_REQ, buf => {
+  return {
+    type: "save_settings_req",
+    field_0002: buf.readUInt16LE(0x0002),
+    profileId: buf.readUInt32LE(0x0004),
+    dpoint: buf.readUInt32LE(0x0008),
+    field_000C: buf.readUInt32LE(0x000c),
+    field_0010: buf.readUInt8(0x0010),
+    field_0011: buf.readUInt8(0x0011),
+    field_0012: buf.readUInt8(0x0012),
+    field_0013: buf.readUInt8(0x0013),
   };
 });
 

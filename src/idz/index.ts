@@ -18,7 +18,7 @@ export default async function idz(socket: Socket) {
           res = {
             type: "account_lock_res",
             field_0018: 1,
-            field_001A: 0xffff,
+            field_001A: -1,
             field_001C: new Date(Date.now() + 3600000),
           };
 
@@ -93,10 +93,11 @@ export default async function idz(socket: Socket) {
           res = {
             type: "get_record_v2_res",
             name: "てすと",
-            teamId: 0x11223344,
+            profileId: 0x11223344,
             lv: 69,
             fame: 1234,
             dpoint: 54321,
+            teamId: 0x22334455,
           };
 
           break;
@@ -202,6 +203,14 @@ export default async function idz(socket: Socket) {
           res = {
             type: "generic_res",
             status: 1,
+          };
+
+          break;
+
+        case "save_settings_req":
+          res = {
+            type: "generic_res",
+            status: 1, // ignored but whatever
           };
 
           break;

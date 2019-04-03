@@ -90,8 +90,8 @@ export interface LoadStockerRequest {
 
 export interface LoadTeamRequest {
   type: "load_team_req";
+  profileId: number;
   teamId: number;
-  field_0008: number;
 }
 
 export interface SaveExpeditionRequest {
@@ -113,6 +113,18 @@ export interface UpdateStoryClearNumRequest {
   type: "update_story_clear_num_req";
 }
 
+export interface SaveSettingsRequest {
+  type: "save_settings_req";
+  field_0002: number;
+  profileId: number;
+  dpoint: number; // ?? why
+  field_000C: number;
+  field_0010: number;
+  field_0011: number;
+  field_0012: number;
+  field_0013: number;
+}
+
 export interface SaveTopicRequest {
   type: "save_topic_req";
   aimeId?: number;
@@ -123,10 +135,10 @@ export type Request =
   | AccountUnlockRequest
   | CreateProfileRequest
   | CreateTeamRequest
+  | DiscoverProfileRequest
   | Load2on2Request
   | LoadConfigRequest
   | LoadConfigRequest2
-  | DiscoverProfileRequest
   | LoadGeneralRewardRequest
   | LoadProfileRequest
   | LoadRewardTableRequest
@@ -134,7 +146,8 @@ export type Request =
   | LoadStockerRequest
   | LoadTeamRequest
   | SaveExpeditionRequest
-  | UpdateProvisionalStoreRankRequest
   | SaveProfileRequest
-  | UpdateStoryClearNumRequest
-  | SaveTopicRequest;
+  | SaveSettingsRequest
+  | SaveTopicRequest
+  | UpdateProvisionalStoreRankRequest
+  | UpdateStoryClearNumRequest;
