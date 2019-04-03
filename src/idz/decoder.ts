@@ -1,7 +1,7 @@
 import iconv = require("iconv-lite");
 import { Transform } from "stream";
 
-import { MSG, REQ_LEN } from "./defs";
+import { MSG, RequestId, getRequestLength } from "./defs";
 import { Request } from "./request";
 
 type ReaderFn = (buf: Buffer) => Request;
@@ -226,8 +226,8 @@ export class Decoder extends Transform {
       return callback(null);
     }
 
-    const msgCode = this.state.readUInt16LE(0x30);
-    const msgLen = REQ_LEN.get(msgCode);
+    const msgCode = this.state.readUInt16LE(0x30) as RequestId;
+    const msgLen = getRequestLength(msgCode);
 
     if (msgLen === undefined) {
       return callback(
