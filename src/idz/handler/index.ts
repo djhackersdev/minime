@@ -16,6 +16,7 @@ import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
+import { saveStocker } from "./saveStocker";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
@@ -91,6 +92,9 @@ export function dispatch(w: World, req: Request): Response {
 
     case "save_topic_req":
       return saveTopic(w, req);
+
+    case "save_stocker_req":
+      return saveStocker(w, req);
 
     case "unlock_profile_req":
       return unlockProfile(w, req);

@@ -18,6 +18,7 @@ import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
+import { saveStocker } from "./saveStocker";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
@@ -53,6 +54,7 @@ const funcList: ReaderFn[] = [
   saveExpedition,
   saveProfile,
   saveSettings,
+  saveStocker,
   saveTopic,
   updateProvisionalStoreRank,
   updateStoryClearNum,
