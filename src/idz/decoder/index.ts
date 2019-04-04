@@ -13,6 +13,7 @@ import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeam } from "./loadTeam";
 import { loadTeamRanking, loadTeamRanking2 } from "./loadTeamRanking";
+import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
@@ -47,6 +48,7 @@ const funcList: ReaderFn[] = [
   loadTeamRanking,
   loadTeamRanking2,
   loadTopTen,
+  lockGarage,
   lockProfile,
   saveExpedition,
   saveProfile,

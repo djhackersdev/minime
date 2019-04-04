@@ -6,6 +6,6 @@ loadTopTen.msgLen = 0x00e0;
 
 export function loadTopTen(buf: Buffer): LoadTopTenRequest {
   return {
-    type: "load_top_ten",
+    type: "load_top_ten_req",
   };
 }

@@ -11,6 +11,7 @@ import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
+import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
@@ -63,6 +64,9 @@ export function dispatch(w: World, req: Request): Response {
 
     case "load_top_ten_req":
       return loadTopTen(w, req);
+
+    case "lock_garage_request":
+      return lockGarage(w, req);
 
     case "lock_profile_req":
       return lockProfile(w, req);
