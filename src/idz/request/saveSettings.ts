@@ -1,9 +1,16 @@
 export interface SaveSettingsRequest {
   type: "save_settings_req";
-  field_0002: number;
+  bgMusic: number;
   profileId: number;
   dpoint: number; // ?? why
-  field_000C: number;
+  forceQuitEn: boolean;
+  steeringForce: number;
+  bgVolume: number;
+  seVolume: number;
+  cornerGuide: boolean;
+  lineGuide: boolean;
+  ghostEn: boolean;
+  taResultSkip: boolean; // TA = Time Attack presumably
   field_0010: number;
   field_0011: number;
   field_0012: number;
