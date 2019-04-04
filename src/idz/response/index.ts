@@ -1,5 +1,3 @@
-import { AccountLockResponse } from "./accountLock";
-import { AccountUnlockResponse } from "./accountUnlock";
 import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
@@ -13,14 +11,15 @@ import { LoadRewardTableResponse } from "./loadRewardTable";
 import { LoadServerListResponse } from "./loadServerList";
 import { LoadStockerResponse } from "./loadStocker";
 import { LoadTeamResponse } from "./loadTeam";
+import { LockProfileResponse } from "./lockProfile";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
+import { UnlockProfileResponse } from "./unlockProfile";
 import { SaveExpeditionResponse } from "./saveExpedition";
 import { SaveTopicResponse } from "./saveTopic";
 
 export type Response =
-  | AccountLockResponse
-  | AccountUnlockResponse
+  | UnlockProfileResponse
   | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
@@ -34,6 +33,7 @@ export type Response =
   | LoadServerListResponse
   | LoadStockerResponse
   | LoadTeamResponse
+  | LockProfileResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse

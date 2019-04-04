@@ -1,6 +1,6 @@
-import { AccountUnlockResponse } from "../response/accountUnlock";
+import { UnlockProfileResponse } from "../response/unlockProfile";
 
-export function accountUnlock(res: AccountUnlockResponse) {
+export function unlockProfile(res: UnlockProfileResponse) {
   const buf = Buffer.alloc(0x0010);
 
   buf.writeInt16LE(0x0070, 0x0000);

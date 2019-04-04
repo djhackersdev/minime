@@ -1,5 +1,4 @@
-import { AccountLockRequest } from "./accountLock";
-import { AccountUnlockRequest } from "./accountUnlock";
+import { UnlockProfileRequest } from "./unlockProfile";
 import { CreateProfileRequest } from "./createProfile";
 import { CreateTeamRequest } from "./createTeam";
 import { Load2on2Request } from "./load2on2";
@@ -12,6 +11,7 @@ import { LoadRewardTableRequest } from "./loadRewardTable";
 import { LoadServerListRequest } from "./loadServerList";
 import { LoadStockerRequest } from "./loadStocker";
 import { LoadTeamRequest } from "./loadTeam";
+import { LockAccountRequest } from "./lockProfile";
 import { SaveExpeditionRequest } from "./saveExpedition";
 import { UpdateProvisionalStoreRankRequest } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumRequest } from "./updateStoryClearNum";
@@ -20,8 +20,6 @@ import { SaveSettingsRequest } from "./saveSettings";
 import { SaveTopicRequest } from "./saveTopic";
 
 export type Request =
-  | AccountLockRequest
-  | AccountUnlockRequest
   | CreateProfileRequest
   | CreateTeamRequest
   | DiscoverProfileRequest
@@ -34,9 +32,11 @@ export type Request =
   | LoadServerListRequest
   | LoadStockerRequest
   | LoadTeamRequest
+  | LockAccountRequest
   | SaveExpeditionRequest
   | SaveProfileRequest
   | SaveSettingsRequest
   | SaveTopicRequest
+  | UnlockProfileRequest
   | UpdateProvisionalStoreRankRequest
   | UpdateStoryClearNumRequest;

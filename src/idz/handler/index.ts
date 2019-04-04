@@ -1,34 +1,28 @@
-import { Request } from "../request";
-import { Response } from "../response";
-import { World } from "../world";
-import { accountLock } from "./accountLock";
-import { accountUnlock } from "./accountUnlock";
-import { createProfile } from "./createProfile";
 import { _team } from "./_team";
+import { createProfile } from "./createProfile";
+import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
-import { discoverProfile } from "./discoverProfile";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadProfile } from "./loadProfile";
 import { loadReward as loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
+import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
-import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
-import { updateStoryClearNum } from "./updateStoryClearNum";
 import { saveTopic } from "./saveTopic";
+import { unlockProfile } from "./unlockProfile";
+import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
+import { updateStoryClearNum } from "./updateStoryClearNum";
+import { Request } from "../request";
+import { Response } from "../response";
+import { World } from "../world";
 
 export function dispatch(w: World, req: Request): Response {
   switch (req.type) {
-    case "account_lock_req":
-      return accountLock(w, req);
-
-    case "account_unlock_req":
-      return accountUnlock(w, req);
-
     case "create_profile_req":
       return createProfile(w, req);
 
@@ -65,6 +59,9 @@ export function dispatch(w: World, req: Request): Response {
     case "load_team_req":
       return _team(w, req);
 
+    case "lock_profile_req":
+      return lockProfile(w, req);
+
     case "save_expedition_req":
       return saveExpedition(w, req);
 
@@ -82,6 +79,9 @@ export function dispatch(w: World, req: Request): Response {
 
     case "save_topic_req":
       return saveTopic(w, req);
+
+    case "unlock_profile_req":
+      return unlockProfile(w, req);
 
     default:
       const exhaustCheck: never = req;

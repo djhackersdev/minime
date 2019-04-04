@@ -1,8 +1,8 @@
 import { Transform } from "stream";
 
 import { _team } from "./_team";
-import { accountLock } from "./accountLock";
-import { accountUnlock } from "./accountUnlock";
+import { lockProfile } from "./lockProfile";
+import { unlockProfile } from "./unlockProfile";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
 import { load2on2 } from "./load2on2";
@@ -22,12 +22,6 @@ import { Response } from "../response";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
-    case "account_lock_res":
-      return accountLock(res);
-
-    case "account_unlock_res":
-      return accountUnlock(res);
-
     case "create_team_res":
       return _team(res);
 
@@ -67,8 +61,14 @@ function encode(res: Response): Buffer {
     case "load_team_res":
       return _team(res);
 
+    case "lock_profile_res":
+      return lockProfile(res);
+
     case "save_expedition_res":
       return saveExpedition(res);
+
+    case "unlock_profile_res":
+      return unlockProfile(res);
 
     case "update_provisional_store_rank_res":
       return updateProvisionalStoreRank(res);

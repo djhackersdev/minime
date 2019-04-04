@@ -1,7 +1,5 @@
 import { Transform } from "stream";
 
-import { accountLock } from "./accountLock";
-import { accountUnlock } from "./accountUnlock";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
@@ -14,10 +12,12 @@ import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeam } from "./loadTeam";
+import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveTopic } from "./saveTopic";
+import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { RequestCode } from "../defs";
@@ -29,8 +29,7 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 };
 
 const funcList: ReaderFn[] = [
-  accountLock,
-  accountUnlock,
+  unlockProfile,
   createProfile,
   createTeam,
   discoverProfile,
@@ -43,6 +42,7 @@ const funcList: ReaderFn[] = [
   loadServerList,
   loadStocker,
   loadTeam,
+  lockProfile,
   saveExpedition,
   saveProfile,
   saveSettings,
