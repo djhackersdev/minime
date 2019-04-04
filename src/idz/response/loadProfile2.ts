@@ -1,3 +1,5 @@
+import { Settings } from "../model/settings";
+
 export interface LoadProfileResponse2 {
   type: "load_profile_v2_res";
   name: string;
@@ -6,5 +8,6 @@ export interface LoadProfileResponse2 {
   fame: number;
   dpoint: number;
   teamId: number;
+  settings: Settings;
   // giga TODO
 }
