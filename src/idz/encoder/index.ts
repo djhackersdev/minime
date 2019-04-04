@@ -14,11 +14,13 @@ import { loadProfile2 } from "./loadProfile2";
 import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
+import { loadTeamRanking } from "./loadTeamRanking";
 import { saveExpedition } from "./saveExpedition";
 import { saveTopic } from "./saveTopic";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { Response } from "../response";
+import { loadTopTen } from "./loadTopTen";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
@@ -60,6 +62,12 @@ function encode(res: Response): Buffer {
 
     case "load_team_res":
       return _team(res);
+
+    case "load_team_ranking_res":
+      return loadTeamRanking(res);
+
+    case "load_top_ten_res":
+      return loadTopTen(res);
 
     case "lock_profile_res":
       return lockProfile(res);

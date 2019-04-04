@@ -11,6 +11,8 @@ import { LoadRewardTableRequest } from "./loadRewardTable";
 import { LoadServerListRequest } from "./loadServerList";
 import { LoadStockerRequest } from "./loadStocker";
 import { LoadTeamRequest } from "./loadTeam";
+import { LoadTeamRankingRequest } from "./loadTeamRanking";
+import { LoadTopTenRequest } from "./loadTopTen";
 import { LockAccountRequest } from "./lockProfile";
 import { SaveExpeditionRequest } from "./saveExpedition";
 import { UpdateProvisionalStoreRankRequest } from "./updateProvisionalStoreRank";
@@ -32,6 +34,8 @@ export type Request =
   | LoadServerListRequest
   | LoadStockerRequest
   | LoadTeamRequest
+  | LoadTeamRankingRequest
+  | LoadTopTenRequest
   | LockAccountRequest
   | SaveExpeditionRequest
   | SaveProfileRequest

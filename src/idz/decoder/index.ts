@@ -12,6 +12,7 @@ import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeam } from "./loadTeam";
+import { loadTeamRanking, loadTeamRanking2 } from "./loadTeamRanking";
 import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
 import { saveProfile } from "./saveProfile";
@@ -22,6 +23,7 @@ import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { RequestCode } from "../defs";
 import { Request } from "../request";
+import { loadTopTen } from "./loadTopTen";
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
   msgCode: RequestCode;
@@ -42,6 +44,9 @@ const funcList: ReaderFn[] = [
   loadServerList,
   loadStocker,
   loadTeam,
+  loadTeamRanking,
+  loadTeamRanking2,
+  loadTopTen,
   lockProfile,
   saveExpedition,
   saveProfile,

@@ -11,6 +11,8 @@ import { LoadRewardTableResponse } from "./loadRewardTable";
 import { LoadServerListResponse } from "./loadServerList";
 import { LoadStockerResponse } from "./loadStocker";
 import { LoadTeamResponse } from "./loadTeam";
+import { LoadTeamRankingResponse } from "./loadTeamRanking";
+import { LoadTopTenResponse } from "./loadTopTen";
 import { LockProfileResponse } from "./lockProfile";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
@@ -33,7 +35,9 @@ export type Response =
   | LoadServerListResponse
   | LoadStockerResponse
   | LoadTeamResponse
+  | LoadTeamRankingResponse
   | LockProfileResponse
+  | LoadTopTenResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse
