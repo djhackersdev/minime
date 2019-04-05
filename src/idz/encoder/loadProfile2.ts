@@ -1,5 +1,6 @@
 import iconv = require("iconv-lite");
 
+import { car } from "./_car";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
 
 export function loadProfile2(res: LoadProfileResponse2) {
@@ -24,6 +25,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
   buf.writeInt32LE(res.teamId, 0x07e0);
+  car(res.car).copy(buf, 0xc5c);
 
   return buf;
 }

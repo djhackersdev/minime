@@ -18,6 +18,7 @@ import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
 import { UnlockProfileResponse } from "./unlockProfile";
 import { SaveExpeditionResponse } from "./saveExpedition";
+import { SaveGarageResponse } from "./saveGarage";
 import { SaveTopicResponse } from "./saveTopic";
 
 export type Response =
@@ -41,4 +42,5 @@ export type Response =
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse
+  | SaveGarageResponse
   | SaveTopicResponse;

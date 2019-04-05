@@ -2,6 +2,7 @@ import iconv = require("iconv-lite");
 
 import { RequestCode } from "../defs";
 import { CreateProfileRequest } from "../request/createProfile";
+import { car } from "./_car";
 
 createProfile.msgCode = 0x0066 as RequestCode;
 createProfile.msgLen = 0x00c0;
@@ -16,16 +17,7 @@ export function createProfile(buf: Buffer): CreateProfileRequest {
       "shift_jis"
     ),
     field_0034: buf.readUInt32LE(0x0034),
-    field_0040: buf.slice(0x0040, 0x0084),
-    car_type: buf.readUInt16LE(0x0084),
-    car_color: buf.readUInt16LE(0x0086),
-    transmission: buf.readUInt16LE(0x0088) === 0 ? "auto" : "manual",
-    field_008A: buf.readUInt16LE(0x008a),
-    field_008C: buf.readUInt16LE(0x008c),
-    field_0090:
-      BigInt(buf.readUInt32LE(0x0090)) |
-      (BigInt(buf.readUInt32LE(0x0094)) << 32n),
-    field_009C: buf.readUInt16LE(0x009c),
+    car: car(buf.slice(0x0040, 0x00a0)),
     gender: buf.readUInt16LE(0x00a0) === 0 ? "male" : "female",
     field_00A2: buf.readUInt16LE(0x00a2),
     field_00A4: buf.readUInt16LE(0x00a4),

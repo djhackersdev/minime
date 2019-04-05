@@ -16,6 +16,7 @@ import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeamRanking } from "./loadTeamRanking";
 import { saveExpedition } from "./saveExpedition";
+import { saveGarage } from "./saveGarage";
 import { saveTopic } from "./saveTopic";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
@@ -74,6 +75,9 @@ function encode(res: Response): Buffer {
 
     case "save_expedition_res":
       return saveExpedition(res);
+
+    case "save_garage_res":
+      return saveGarage(res);
 
     case "unlock_profile_res":
       return unlockProfile(res);

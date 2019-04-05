@@ -16,6 +16,7 @@ import { LoadTopTenRequest } from "./loadTopTen";
 import { LockAccountRequest } from "./lockProfile";
 import { LockGarageRequest } from "./lockGarage";
 import { SaveExpeditionRequest } from "./saveExpedition";
+import { SaveGarageRequest } from "./saveGarage";
 import { SaveProfileRequest } from "./saveProfile";
 import { SaveSettingsRequest } from "./saveSettings";
 import { SaveStockerRequest } from "./saveStocker";
@@ -41,6 +42,7 @@ export type Request =
   | LockAccountRequest
   | LockGarageRequest
   | SaveExpeditionRequest
+  | SaveGarageRequest
   | SaveProfileRequest
   | SaveSettingsRequest
   | SaveStockerRequest

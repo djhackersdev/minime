@@ -14,6 +14,7 @@ import { loadTopTen } from "./loadTopTen";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
+import { saveGarage } from "./saveGarage";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
@@ -80,6 +81,9 @@ export function dispatch(w: World, req: Request): Response {
 
     case "update_provisional_store_rank_req":
       return updateProvisionalStoreRank(w, req);
+
+    case "save_garage_req":
+      return saveGarage(w, req);
 
     case "save_profile_req":
       return saveProfile(w, req);

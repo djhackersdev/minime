@@ -8,6 +8,6 @@ export function discoverProfile(
 ): DiscoverProfileResponse {
   return {
     type: "discover_profile_res",
-    result: true,
+    exists: true,
   };
 }

@@ -16,6 +16,7 @@ import { loadTeamRanking, loadTeamRanking2 } from "./loadTeamRanking";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
 import { saveExpedition } from "./saveExpedition";
+import { saveGarage } from "./saveGarage";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
@@ -52,6 +53,7 @@ const funcList: ReaderFn[] = [
   lockGarage,
   lockProfile,
   saveExpedition,
+  saveGarage,
   saveProfile,
   saveSettings,
   saveStocker,

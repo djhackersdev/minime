@@ -1,17 +1,12 @@
+import { Car } from "../model/car";
+
 export interface CreateProfileRequest {
   type: "create_profile_req";
   aimeId: number;
   luid: string;
   name: string;
   field_0034: number;
-  field_0040: Buffer;
-  car_type: number;
-  car_color: number;
-  transmission: "auto" | "manual";
-  field_008A: number;
-  field_008C: number;
-  field_0090: bigint;
-  field_009C: number;
+  car: Car;
   gender: "male" | "female";
   field_00A2: number;
   field_00A4: number;
