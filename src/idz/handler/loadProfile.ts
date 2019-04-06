@@ -1,7 +1,6 @@
 import { LoadProfileRequest } from "../request/loadProfile";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
 import { World } from "../world";
-import { Car } from "../model/car";
 
 export function loadProfile(
   w: World,
@@ -26,6 +25,18 @@ export function loadProfile(
       ghostEn: false,
       taResultSkip: false,
     },
+    chara: {
+      gender: "male",
+      clothing: 0,
+      mouth: 0,
+      field_06: 0,
+      field_08: 0,
+      field_0A: 0,
+      field_0C: 0,
+      field_0E: 0,
+    },
+    background: 0,
+    title: 0,
     car: {
       field_00: 0,
       field_02: 0,

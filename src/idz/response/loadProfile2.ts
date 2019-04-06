@@ -1,5 +1,6 @@
-import { Settings } from "../model/settings";
 import { Car } from "../model/car";
+import { Chara } from "../model/chara";
+import { Settings } from "../model/settings";
 
 export interface LoadProfileResponse2 {
   type: "load_profile_v2_res";
@@ -10,6 +11,9 @@ export interface LoadProfileResponse2 {
   dpoint: number;
   teamId: number;
   settings: Settings;
+  chara: Chara;
+  background: number;
+  title: number;
   car: Car;
   // giga TODO
 }

@@ -10,13 +10,7 @@ export function _team(
 ): CreateTeamResponse | LoadTeamResponse {
   const bits = {
     name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
-    members: [
-      {
-        name: "てすと",
-        lv: 69,
-        monthPoints: 1234,
-      },
-    ],
+    members: [],
   };
 
   if (req.type === "create_team_req") {

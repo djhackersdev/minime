@@ -1,4 +1,5 @@
 import { Car } from "../model/car";
+import { Chara } from "../model/chara";
 
 export interface CreateProfileRequest {
   type: "create_profile_req";
@@ -7,14 +8,7 @@ export interface CreateProfileRequest {
   name: string;
   field_0034: number;
   car: Car;
-  gender: "male" | "female";
-  field_00A2: number;
-  field_00A4: number;
-  field_00A6: number;
-  field_00A8: number;
-  field_00AA: number;
-  field_00AC: number;
-  field_00AE: number;
+  chara: Chara;
   field_00B0: number;
   field_00B2: number;
 }

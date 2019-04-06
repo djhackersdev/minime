@@ -19,5 +19,5 @@ export default async function idz(socket: Socket) {
     console.log("Idz: Error", e);
   }
 
-  console.log("Idz: Connection closed");
+  console.log("Idz: Connection closed\n");
 }
