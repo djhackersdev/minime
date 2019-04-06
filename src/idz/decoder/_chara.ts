@@ -1,3 +1,4 @@
+import { BackgroundCode, TitleCode } from "../model/base";
 import { Chara } from "../model/chara";
 
 export function chara(buf: Buffer): Chara {
@@ -10,5 +11,7 @@ export function chara(buf: Buffer): Chara {
     field_0A: buf.readUInt16LE(0x0a),
     field_0C: buf.readUInt16LE(0x0c),
     field_0E: buf.readUInt16LE(0x0e),
+    title: buf.readUInt16LE(0x10) as TitleCode, // Swapped on load
+    background: buf.readUInt16LE(0x12) as BackgroundCode, // Swapped on load
   };
 }

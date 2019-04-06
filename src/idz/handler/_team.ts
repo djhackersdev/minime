@@ -1,3 +1,5 @@
+import { Id } from "../model/base";
+import { Team } from "../model/team";
 import { CreateTeamRequest } from "../request/createTeam";
 import { LoadTeamRequest } from "../request/loadTeam";
 import { CreateTeamResponse } from "../response/createTeam";
@@ -9,7 +11,10 @@ export function _team(
   req: CreateTeamRequest | LoadTeamRequest
 ): CreateTeamResponse | LoadTeamResponse {
   const bits = {
-    name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+    team: {
+      id: 2 as Id<Team>,
+      name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+    },
     members: [],
   };
 

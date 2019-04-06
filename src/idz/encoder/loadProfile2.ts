@@ -1,16 +1,13 @@
 import iconv = require("iconv-lite");
 
+import { bitmap } from "./_bitmap";
 import { car } from "./_car";
 import { chara } from "./_chara";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
-import { bitmap } from "./_bitmap";
 
 export function loadProfile2(res: LoadProfileResponse2) {
   // Story stuff
   //buf.writeUInt32LE(0x1ff, 0x0228);
-
-  // Flairs (bitmap)
-  // buf.fill(0xff, 0x071c, 0x071c + 0xb4);
 
   const settingsPack =
     ((res.settings.forceQuitEn ? 1 : 0) << 0) |
@@ -33,10 +30,8 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
   chara(res.chara).copy(buf, 0x070c);
-  buf.writeUInt16LE(res.background, 0x071c);
-  buf.writeUInt16LE(res.title, 0x071e);
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
-  buf.writeInt32LE(res.teamId, 0x07e0);
+  buf.writeInt32LE(res.teamId || 0, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
 
   return buf;

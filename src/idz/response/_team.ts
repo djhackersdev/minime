@@ -1,3 +1,5 @@
+import { Team } from "../model/team";
+
 export interface TeamMember {
   name: string;
   lv: number;
@@ -5,7 +7,7 @@ export interface TeamMember {
 }
 
 export interface BaseTeamResponse {
-  name: string;
+  team: Team;
   members: TeamMember[];
   // giga TODO
 }

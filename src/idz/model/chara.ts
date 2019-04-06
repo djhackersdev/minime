@@ -1,3 +1,5 @@
+import { BackgroundCode, TitleCode } from "./base";
+
 export interface Chara {
   gender: "male" | "female";
   clothing: number;
@@ -7,4 +9,6 @@ export interface Chara {
   field_0A: number;
   field_0C: number;
   field_0E: number;
+  title: TitleCode;
+  background: BackgroundCode;
 }

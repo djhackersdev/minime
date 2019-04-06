@@ -5,7 +5,8 @@ import { LoadTeamResponse } from "../response/loadTeam";
 export function _team(res: CreateTeamResponse | LoadTeamResponse) {
   const buf = Buffer.alloc(0x0ca0);
 
-  iconv.encode(res.name, "shift_jis").copy(buf, 0x0024);
+  buf.writeUInt32LE(res.team.id, 0x000c);
+  iconv.encode(res.team.name, "shift_jis").copy(buf, 0x0024);
 
   for (let i = 0; i < 6; i++) {
     const base = 0x011c + i * 0x004c;

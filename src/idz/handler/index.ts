@@ -26,7 +26,7 @@ import { Request } from "../request";
 import { Response } from "../response";
 import { World } from "../world";
 
-export function dispatch(w: World, req: Request): Response {
+export async function dispatch(w: World, req: Request): Promise<Response> {
   switch (req.type) {
     case "create_profile_req":
       return createProfile(w, req);

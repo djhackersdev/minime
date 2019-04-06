@@ -1,5 +1,7 @@
+import { AimeId } from "../model/base";
+
 export interface LoadProfileRequest {
   type: "load_profile_req";
-  aimeId: number;
+  aimeId: AimeId;
   pcbId: string;
 }

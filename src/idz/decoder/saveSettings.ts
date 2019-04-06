@@ -1,4 +1,6 @@
 import { RequestCode } from "./_defs";
+import { Id } from "../model/base";
+import { Profile } from "../model/profile";
 import { SaveSettingsRequest } from "../request/saveSettings";
 
 saveSettings.msgCode = 0x00a5 as RequestCode;
@@ -11,7 +13,7 @@ export function saveSettings(buf: Buffer): SaveSettingsRequest {
 
   return {
     type: "save_settings_req",
-    profileId: buf.readUInt32LE(0x0004),
+    profileId: buf.readUInt32LE(0x0004) as Id<Profile>,
     dpoint: buf.readUInt32LE(0x0008),
     settings: {
       bgMusic: buf.readUInt16LE(0x0002),

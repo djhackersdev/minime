@@ -2,12 +2,12 @@ import { DiscoverProfileRequest } from "../request/discoverProfile";
 import { DiscoverProfileResponse } from "../response/discoverProfile";
 import { World } from "../world";
 
-export function discoverProfile(
+export async function discoverProfile(
   w: World,
   req: DiscoverProfileRequest
-): DiscoverProfileResponse {
+): Promise<DiscoverProfileResponse> {
   return {
     type: "discover_profile_res",
-    exists: true,
+    exists: await w.profile().discoverByAimeId(req.aimeId),
   };
 }

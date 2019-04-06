@@ -9,6 +9,4 @@ export interface CreateProfileRequest {
   field_0034: number;
   car: Car;
   chara: Chara;
-  field_00B0: number;
-  field_00B2: number;
 }

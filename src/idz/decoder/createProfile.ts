@@ -19,8 +19,6 @@ export function createProfile(buf: Buffer): CreateProfileRequest {
     ),
     field_0034: buf.readUInt32LE(0x0034),
     car: car(buf.slice(0x0040, 0x00a0)),
-    chara: chara(buf.slice(0x00a0, 0x00b0)),
-    field_00B0: buf.readUInt16LE(0x00b0),
-    field_00B2: buf.readUInt8(0x00b2),
+    chara: chara(buf.slice(0x00a0, 0x00b4)),
   };
 }
