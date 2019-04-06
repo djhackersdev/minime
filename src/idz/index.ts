@@ -1,7 +1,7 @@
 import { Socket } from "net";
 
 import { dispatch } from "./handler";
-import setup from "./setup";
+import { setup } from "./setup";
 import { World } from "./world";
 
 const world = new World();

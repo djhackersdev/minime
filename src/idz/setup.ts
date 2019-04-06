@@ -36,7 +36,7 @@ interface Session {
   };
 }
 
-export default function setup(socket: Socket): Session {
+export function setup(socket: Socket): Session {
   //
   // Construct and transmit setup message
   //
