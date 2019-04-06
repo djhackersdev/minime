@@ -14,6 +14,7 @@ export interface LoadProfileResponse2 {
   chara: Chara;
   background: number;
   title: number;
+  titles: number[];
   car: Car;
   // giga TODO
 }

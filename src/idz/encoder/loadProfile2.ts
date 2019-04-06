@@ -3,6 +3,7 @@ import iconv = require("iconv-lite");
 import { car } from "./_car";
 import { chara } from "./_chara";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
+import { bitmap } from "./_bitmap";
 
 export function loadProfile2(res: LoadProfileResponse2) {
   // Story stuff
@@ -34,6 +35,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   chara(res.chara).copy(buf, 0x070c);
   buf.writeUInt16LE(res.background, 0x071c);
   buf.writeUInt16LE(res.title, 0x071e);
+  bitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeInt32LE(res.teamId, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
 

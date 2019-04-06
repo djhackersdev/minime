@@ -9,5 +9,6 @@ export function loadStocker(
   return {
     type: "load_stocker_res",
     status: 1,
+    backgrounds: [],
   };
 }

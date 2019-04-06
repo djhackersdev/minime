@@ -37,6 +37,7 @@ export function loadProfile(
     },
     background: 0,
     title: 0,
+    titles: [],
     car: {
       field_00: 0,
       field_02: 0,

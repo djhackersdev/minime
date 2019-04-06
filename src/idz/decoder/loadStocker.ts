@@ -7,6 +7,6 @@ loadStocker.msgLen = 0x0010;
 export function loadStocker(buf: Buffer): LoadStockerRequest {
   return {
     type: "load_stocker_req",
-    field_0004: buf.readUInt32LE(0x0004),
+    profileId: buf.readUInt32LE(0x0004),
   };
 }
