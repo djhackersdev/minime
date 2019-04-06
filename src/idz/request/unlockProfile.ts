@@ -1,5 +1,5 @@
 export interface UnlockProfileRequest {
   type: "unlock_profile_req";
-  aimeId: number;
+  profileId: number;
   pcbId: string;
 }
