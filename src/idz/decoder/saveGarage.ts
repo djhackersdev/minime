@@ -1,5 +1,5 @@
 import { car } from "./_car";
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveGarageRequest } from "../request/saveGarage";
 
 saveGarage.msgCode = 0x008e as RequestCode;

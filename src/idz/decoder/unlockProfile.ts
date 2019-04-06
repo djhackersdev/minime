@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { UnlockProfileRequest } from "../request/unlockProfile";
 
 unlockProfile.msgCode = 0x006f as RequestCode;

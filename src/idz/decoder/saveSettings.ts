@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveSettingsRequest } from "../request/saveSettings";
 
 saveSettings.msgCode = 0x00a5 as RequestCode;

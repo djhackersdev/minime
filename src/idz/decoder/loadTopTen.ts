@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadTopTenRequest } from "../request/loadTopTen";
 
 loadTopTen.msgCode = 0x00b5 as RequestCode;

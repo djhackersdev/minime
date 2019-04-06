@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveStockerRequest } from "../request/saveStocker";
 
 saveStocker.msgCode = 0x00a6 as RequestCode;

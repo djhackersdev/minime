@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadRewardTableRequest } from "../request/loadRewardTable";
 
 loadRewardTable.msgCode = 0x0086 as RequestCode;

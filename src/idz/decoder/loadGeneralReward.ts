@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadGeneralRewardRequest } from "../request/loadGeneralReward";
 
 loadGeneralReward.msgCode = 0x009c as RequestCode;

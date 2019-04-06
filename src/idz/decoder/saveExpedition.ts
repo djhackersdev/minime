@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveExpeditionRequest } from "../request/saveExpedition";
 
 saveExpedition.msgCode = 0x008c as RequestCode;

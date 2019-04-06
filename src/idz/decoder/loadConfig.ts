@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadConfigRequest } from "../request/loadConfig";
 
 loadConfig.msgCode = 0x0004 as RequestCode;

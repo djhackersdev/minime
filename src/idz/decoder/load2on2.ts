@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { Load2on2Request } from "../request/load2on2";
 
 load2on2.msgCode = 0x00b0 as RequestCode;

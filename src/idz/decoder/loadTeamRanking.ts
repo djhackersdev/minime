@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadTeamRankingRequest } from "../request/loadTeamRanking";
 
 loadTeamRanking.msgCode = 0x00b9 as RequestCode;

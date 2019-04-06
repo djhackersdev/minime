@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LockGarageRequest } from "../request/lockGarage";
 
 lockGarage.msgCode = 0x00a9 as RequestCode;

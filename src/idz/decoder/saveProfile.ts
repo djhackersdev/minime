@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveProfileRequest } from "../request/saveProfile";
 
 saveProfile.msgCode = 0x0068 as RequestCode;

@@ -24,7 +24,7 @@ import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { Request } from "../request";
 import { loadTopTen } from "./loadTopTen";
 

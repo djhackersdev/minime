@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { CreateTeamRequest } from "../request/createTeam";
 
 createTeam.msgCode = 0x007b as RequestCode;

@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LockAccountRequest } from "../request/lockProfile";
 
 lockProfile.msgCode = 0x0069 as RequestCode;

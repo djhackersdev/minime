@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { UpdateStoryClearNumRequest } from "../request/updateStoryClearNum";
 
 updateStoryClearNum.msgCode = 0x007f as RequestCode;

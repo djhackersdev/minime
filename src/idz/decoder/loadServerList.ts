@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadServerListRequest } from "../request/loadServerList";
 
 loadServerList.msgCode = 0x0006 as RequestCode;

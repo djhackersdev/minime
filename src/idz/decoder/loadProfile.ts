@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadProfileRequest } from "../request/loadProfile";
 
 loadProfile.msgCode = 0x0067 as RequestCode;

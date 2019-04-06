@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { LoadStockerRequest } from "../request/loadStocker";
 
 loadStocker.msgCode = 0x00a7 as RequestCode;

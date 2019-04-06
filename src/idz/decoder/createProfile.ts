@@ -1,6 +1,6 @@
 import iconv = require("iconv-lite");
 
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { CreateProfileRequest } from "../request/createProfile";
 import { car } from "./_car";
 import { chara } from "./_chara";

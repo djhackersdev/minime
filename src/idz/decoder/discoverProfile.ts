@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { DiscoverProfileRequest } from "../request/discoverProfile";
 
 discoverProfile.msgCode = 0x006b as RequestCode;

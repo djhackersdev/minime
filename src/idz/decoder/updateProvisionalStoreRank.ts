@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { UpdateProvisionalStoreRankRequest } from "../request/updateProvisionalStoreRank";
 
 updateProvisionalStoreRank.msgCode = 0x0082 as RequestCode;

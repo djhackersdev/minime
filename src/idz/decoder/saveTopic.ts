@@ -1,4 +1,4 @@
-import { RequestCode } from "../defs";
+import { RequestCode } from "./_defs";
 import { SaveTopicRequest } from "../request/saveTopic";
 
 saveTopic.msgCode = 0x009a as RequestCode;
