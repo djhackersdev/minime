@@ -1,5 +1,6 @@
 import { Transform } from "stream";
 
+import { checkRank } from "./checkRank";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
@@ -27,6 +28,9 @@ import { updateStoryClearNum } from "./updateStoryClearNum";
 import { RequestCode } from "./_defs";
 import { Request } from "../request";
 import { loadTopTen } from "./loadTopTen";
+import { updateResult } from "./updateResult";
+import { updateTeamPoints } from "./updateTeamPoints";
+import { updateUiReport } from "./updateUiReport";
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
   msgCode: RequestCode;
@@ -34,7 +38,7 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 };
 
 const funcList: ReaderFn[] = [
-  unlockProfile,
+  checkRank,
   createProfile,
   createTeam,
   discoverProfile,
@@ -58,8 +62,12 @@ const funcList: ReaderFn[] = [
   saveSettings,
   saveStocker,
   saveTopic,
+  unlockProfile,
   updateProvisionalStoreRank,
+  updateResult,
   updateStoryClearNum,
+  updateTeamPoints,
+  updateUiReport,
 ];
 
 const readerFns = new Map<RequestCode, ReaderFn>();

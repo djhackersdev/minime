@@ -1,4 +1,4 @@
-import { UnlockProfileRequest } from "./unlockProfile";
+import { CheckRankRequest } from "./checkRank";
 import { CreateProfileRequest } from "./createProfile";
 import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
@@ -21,10 +21,15 @@ import { SaveProfileRequest } from "./saveProfile";
 import { SaveSettingsRequest } from "./saveSettings";
 import { SaveStockerRequest } from "./saveStocker";
 import { SaveTopicRequest } from "./saveTopic";
+import { UnlockProfileRequest } from "./unlockProfile";
 import { UpdateProvisionalStoreRankRequest } from "./updateProvisionalStoreRank";
+import { UpdateResultRequest } from "./updateResult";
 import { UpdateStoryClearNumRequest } from "./updateStoryClearNum";
+import { UpdateTeamPointsRequest } from "./updateTeamPoints";
+import { UpdateUiReportRequest } from "./updateUiReport";
 
 export type Request =
+  | CheckRankRequest
   | CreateProfileRequest
   | CreateTeamRequest
   | DiscoverProfileRequest
@@ -49,4 +54,7 @@ export type Request =
   | SaveTopicRequest
   | UnlockProfileRequest
   | UpdateProvisionalStoreRankRequest
-  | UpdateStoryClearNumRequest;
+  | UpdateResultRequest
+  | UpdateStoryClearNumRequest
+  | UpdateTeamPointsRequest
+  | UpdateUiReportRequest;

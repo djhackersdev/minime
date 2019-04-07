@@ -1,4 +1,5 @@
 import { _team } from "./_team";
+import { checkRank } from "./checkRank";
 import { createProfile } from "./createProfile";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
@@ -21,13 +22,19 @@ import { saveStocker } from "./saveStocker";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
+import { updateResult } from "./updateResult";
 import { updateStoryClearNum } from "./updateStoryClearNum";
+import { updateTeamPoints } from "./updateTeamPoints";
+import { updateUiReport } from "./updateUiReport";
 import { Request } from "../request";
 import { Response } from "../response";
 import { World } from "../world";
 
 export async function dispatch(w: World, req: Request): Promise<Response> {
   switch (req.type) {
+    case "check_rank_req":
+      return checkRank(w, req);
+
     case "create_profile_req":
       return createProfile(w, req);
 
@@ -79,9 +86,6 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
     case "save_expedition_req":
       return saveExpedition(w, req);
 
-    case "update_provisional_store_rank_req":
-      return updateProvisionalStoreRank(w, req);
-
     case "save_garage_req":
       return saveGarage(w, req);
 
@@ -91,9 +95,6 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
     case "save_settings_req":
       return saveSettings(w, req);
 
-    case "update_story_clear_num_req":
-      return updateStoryClearNum(w, req);
-
     case "save_topic_req":
       return saveTopic(w, req);
 
@@ -102,6 +103,21 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "unlock_profile_req":
       return unlockProfile(w, req);
+
+    case "update_provisional_store_rank_req":
+      return updateProvisionalStoreRank(w, req);
+
+    case "update_result_req":
+      return updateResult(req);
+
+    case "update_story_clear_num_req":
+      return updateStoryClearNum(w, req);
+
+    case "update_team_points_req":
+      return updateTeamPoints(w, req);
+
+    case "update_ui_report_req":
+      return updateUiReport(w, req);
 
     default:
       const exhaustCheck: never = req;

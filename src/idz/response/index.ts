@@ -1,3 +1,4 @@
+import { CheckRankResponse } from "./checkRank";
 import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
@@ -22,7 +23,7 @@ import { SaveGarageResponse } from "./saveGarage";
 import { SaveTopicResponse } from "./saveTopic";
 
 export type Response =
-  | UnlockProfileResponse
+  | CheckRankResponse
   | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
@@ -39,6 +40,7 @@ export type Response =
   | LoadTeamRankingResponse
   | LockProfileResponse
   | LoadTopTenResponse
+  | UnlockProfileResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse

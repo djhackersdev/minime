@@ -1,10 +1,10 @@
 import { Transform } from "stream";
 
 import { _team } from "./_team";
-import { lockProfile } from "./lockProfile";
-import { unlockProfile } from "./unlockProfile";
+import { checkRank } from "./checkRank";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
+import { lockProfile } from "./lockProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
@@ -15,16 +15,20 @@ import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeamRanking } from "./loadTeamRanking";
+import { loadTopTen } from "./loadTopTen";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
 import { saveTopic } from "./saveTopic";
+import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { Response } from "../response";
-import { loadTopTen } from "./loadTopTen";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
+    case "check_rank_res":
+      return checkRank(res);
+
     case "create_team_res":
       return _team(res);
 
