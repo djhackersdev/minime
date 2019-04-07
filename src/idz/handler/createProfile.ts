@@ -19,7 +19,7 @@ export async function createProfile(
   };
 
   const settings = {
-    bgMusic: 15,
+    bgMusic: 0,
     forceQuitEn: false,
     steeringForce: 4,
     bgVolume: 10,

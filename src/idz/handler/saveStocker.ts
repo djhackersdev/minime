@@ -9,8 +9,5 @@ export async function saveStocker(
   await w.backgrounds().save(req.profileId, req.backgrounds);
   await w.chara().save(req.profileId, req.chara);
 
-  return {
-    type: "generic_res",
-    status: 1, // ignored
-  };
+  return { type: "generic_res" };
 }

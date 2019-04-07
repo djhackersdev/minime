@@ -7,8 +7,5 @@ export function loadGeneralReward(
   req: LoadGeneralRewardRequest
 ): GenericResponse {
   // A non-generic response is also accepted, but why bother
-  return {
-    type: "generic_res",
-    status: 1, // not even checked but let's be consistent
-  };
+  return { type: "generic_res" };
 }

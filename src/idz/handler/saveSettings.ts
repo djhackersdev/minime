@@ -8,8 +8,5 @@ export async function saveSettings(
 ): Promise<GenericResponse> {
   await w.settings().save(req.profileId, req.settings);
 
-  return {
-    type: "generic_res",
-    status: 1, // ignored but whatever
-  };
+  return { type: "generic_res" };
 }
