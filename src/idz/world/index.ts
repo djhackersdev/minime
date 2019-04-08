@@ -43,6 +43,13 @@ class WorldImpl implements World {
     );
   }
 
+  story() {
+    return new SingletonJsonRepo<Model.Story, Model.Profile>(
+      this._root,
+      "story"
+    );
+  }
+
   titles() {
     return new SingletonTextRepo<Model.TitleCode[], Model.Profile>(
       this._root,

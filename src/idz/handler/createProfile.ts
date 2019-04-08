@@ -1,5 +1,7 @@
 import { Id } from "../model/base";
 import { Profile } from "../model/profile";
+import { Settings } from "../model/settings";
+import { Story } from "../model/story";
 import { Team } from "../model/team";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
@@ -14,11 +16,12 @@ export async function createProfile(
     teamId: 2 as Id<Team>,
     name: req.name,
     lv: 1,
+    exp: 0,
     fame: 0,
     dpoint: 0,
   };
 
-  const settings = {
+  const settings: Settings = {
     bgMusic: 0,
     forceQuitEn: false,
     steeringForce: 4,
@@ -29,6 +32,8 @@ export async function createProfile(
     ghostEn: false,
     taResultSkip: false,
   };
+
+  const story: Story = { x: 0, y: 0, rows: [] };
 
   await Promise.all([
     w.profile().save(profile.id, profile),

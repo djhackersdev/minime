@@ -25,5 +25,7 @@ export interface World {
 
   settings(): Repository<Model.Settings, Model.Profile>;
 
+  story(): Repository<Model.Story, Model.Profile>;
+
   titles(): Repository<Model.TitleCode[], Model.Profile>;
 }

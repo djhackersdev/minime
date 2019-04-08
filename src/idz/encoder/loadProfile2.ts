@@ -6,9 +6,6 @@ import { chara } from "./_chara";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
 
 export function loadProfile2(res: LoadProfileResponse2) {
-  // Story stuff
-  //buf.writeUInt32LE(0x1ff, 0x0228);
-
   const settingsPack =
     ((res.settings.forceQuitEn ? 1 : 0) << 0) |
     (res.settings.steeringForce << 1) |
@@ -21,6 +18,24 @@ export function loadProfile2(res: LoadProfileResponse2) {
 
   const buf = Buffer.alloc(0x0d30);
 
+  //buf.writeUInt16LE(0x0001, 0x06bc); // story_X
+  //buf.writeUInt8(0x00, 0x0670); // story_Y
+  //buf.writeUInt16LE(0x0001, 0x0228 + 0); // records[0].pairs[0].a
+  //buf.writeUInt16LE(0x0003, 0x0228 + 2); // records[0].pairs[0].b
+
+  for (let i = 0; i < 9 && i < res.story.rows.length; i++) {
+    const row = res.story.rows[i];
+    const rowOffset = 0x0228 + i * 0x26;
+
+    for (let j = 0; j < 9 && j < row.cells.length; j++) {
+      const cell = row.cells[j];
+      const cellOffset = rowOffset + j * 4;
+
+      buf.writeUInt16LE(cell.a, cellOffset + 0);
+      buf.writeUInt16LE(cell.b, cellOffset + 2);
+    }
+  }
+
   buf.writeInt16LE(0x0065, 0x0000);
   buf.writeInt32LE(res.profileId, 0x03b8);
   buf.writeUInt16LE(res.settings.bgMusic, 0x03c8);
@@ -29,6 +44,8 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeInt32LE(res.dpoint, 0x03e8);
   buf.writeInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
+  buf.writeUInt16LE(res.story.x, 0x06bc);
+  buf.writeUInt8(res.story.y, 0x0670);
   chara(res.chara).copy(buf, 0x070c);
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeInt32LE(res.teamId || 0, 0x07e0);

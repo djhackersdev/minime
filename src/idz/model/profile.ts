@@ -6,6 +6,7 @@ export interface Profile {
   teamId?: Id<Team>;
   name: string;
   lv: number;
+  exp: number;
   fame: number;
   dpoint: number;
 }

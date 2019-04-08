@@ -14,6 +14,7 @@ import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
+import { msg00AD } from "./msg00AD";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
 import { saveProfile } from "./saveProfile";
@@ -82,6 +83,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "load_team_ranking_req":
       return loadTeamRanking(w, req);
+
+    case "msg_00AD_req":
+      return msg00AD(w, req);
 
     case "save_expedition_req":
       return saveExpedition(w, req);
