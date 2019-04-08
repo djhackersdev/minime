@@ -36,13 +36,14 @@ export function loadProfile2(res: LoadProfileResponse2) {
     }
   }
 
-  buf.writeInt16LE(0x0065, 0x0000);
-  buf.writeInt32LE(res.profileId, 0x03b8);
+  buf.writeUInt16LE(0x0065, 0x0000);
+  buf.writeUInt32LE(res.profileId, 0x03b8);
   buf.writeUInt16LE(res.settings.bgMusic, 0x03c8);
-  buf.writeInt16LE(res.lv, 0x03cc);
+  buf.writeUInt16LE(res.lv, 0x03cc);
+  buf.writeUInt32LE(res.exp, 0x03d0);
   buf.writeUInt32LE(settingsPack, 0x3d8);
-  buf.writeInt32LE(res.dpoint, 0x03e8);
-  buf.writeInt32LE(res.fame, 0x0404);
+  buf.writeUInt32LE(res.dpoint, 0x03e8);
+  buf.writeUInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
   buf.writeUInt16LE(res.story.x, 0x06bc);
   buf.writeUInt8(res.story.y, 0x0670);

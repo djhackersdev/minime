@@ -1,4 +1,5 @@
 import { Id, TitleCode } from "../model/base";
+import { Car } from "../model/car";
 import { Profile } from "../model/profile";
 import { Story } from "../model/story";
 
@@ -10,5 +11,6 @@ export interface SaveProfileRequest {
   fame: number;
   dpoint: number;
   titles: TitleCode[];
+  car: Car;
   story: Story;
 }

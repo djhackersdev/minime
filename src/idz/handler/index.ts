@@ -27,6 +27,7 @@ import { updateResult } from "./updateResult";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
+import { updateUserLog } from "./updateUserLog";
 import { Request } from "../request";
 import { Response } from "../response";
 import { World } from "../world";
@@ -122,6 +123,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "update_ui_report_req":
       return updateUiReport(w, req);
+
+    case "update_user_log_req":
+      return updateUserLog(w, req);
 
     default:
       const exhaustCheck: never = req;

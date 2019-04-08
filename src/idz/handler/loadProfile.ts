@@ -21,6 +21,7 @@ export async function loadProfile(
     name: profile.name,
     profileId: profile.id,
     lv: profile.lv,
+    exp: profile.exp,
     fame: profile.fame,
     dpoint: profile.dpoint,
     teamId: profile.teamId,

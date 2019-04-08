@@ -16,6 +16,7 @@ export async function saveProfile(
       fame: req.fame,
       dpoint: req.dpoint,
     }),
+    w.car().save(req.profileId, req.car),
     w.story().save(req.profileId, req.story),
     w.titles().save(req.profileId, req.titles),
   ]);

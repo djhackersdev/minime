@@ -28,6 +28,7 @@ import { UpdateResultRequest } from "./updateResult";
 import { UpdateStoryClearNumRequest } from "./updateStoryClearNum";
 import { UpdateTeamPointsRequest } from "./updateTeamPoints";
 import { UpdateUiReportRequest } from "./updateUiReport";
+import { UpdateUserLogRequest } from "./updateUserLog";
 
 export type Request =
   | CheckRankRequest
@@ -59,4 +60,5 @@ export type Request =
   | UpdateResultRequest
   | UpdateStoryClearNumRequest
   | UpdateTeamPointsRequest
-  | UpdateUiReportRequest;
+  | UpdateUiReportRequest
+  | UpdateUserLogRequest;

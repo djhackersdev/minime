@@ -32,6 +32,7 @@ import { loadTopTen } from "./loadTopTen";
 import { updateResult } from "./updateResult";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
+import { updateUserLog } from "./updateUserLog";
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
   msgCode: RequestCode;
@@ -70,6 +71,7 @@ const funcList: ReaderFn[] = [
   updateStoryClearNum,
   updateTeamPoints,
   updateUiReport,
+  updateUserLog,
 ];
 
 const readerFns = new Map<RequestCode, ReaderFn>();

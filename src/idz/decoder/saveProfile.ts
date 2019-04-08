@@ -1,3 +1,4 @@
+import { car } from "./_car";
 import { RequestCode } from "./_defs";
 import { Id, TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
@@ -35,6 +36,7 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     fame: buf.readUInt32LE(0x0468),
     dpoint: buf.readUInt32LE(0x0464),
     titles: bitmap(buf.slice(0x0042, 0x00f6)) as TitleCode[],
+    car: car(buf.slice(0x0834, 0x0894)),
     story: {
       x: buf.readUInt16LE(0x06fc),
       y: buf.readUInt8(0x06e0),

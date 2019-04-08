@@ -10,6 +10,7 @@ export interface LoadProfileResponse2 {
   name: string;
   profileId: Id<Profile>;
   lv: number;
+  exp: number;
   fame: number;
   dpoint: number;
   teamId?: number;

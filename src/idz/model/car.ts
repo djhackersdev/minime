@@ -2,9 +2,9 @@ export interface Car {
   field_00: number;
   field_02: number;
   field_04: number[];
-  model: number;
-  color: number;
-  transmission: number;
+  field_44: number;
+  field_46: number;
+  field_48: number;
   field_4A: number;
   field_4C: number;
   field_50_lo: number;
