@@ -6,6 +6,7 @@ import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadGeneralReward } from "./loadGeneralReward";
+import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
 import { loadReward as loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
@@ -57,6 +58,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "load_general_reward_req":
       return loadGeneralReward(w, req);
+
+    case "load_ghost_req":
+      return loadGhost(w, req);
 
     case "load_profile_req":
       return loadProfile(w, req);

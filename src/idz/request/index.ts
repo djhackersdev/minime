@@ -6,6 +6,7 @@ import { Load2on2Request } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadConfigRequest2 } from "./loadConfig2";
 import { LoadGeneralRewardRequest } from "./loadGeneralReward";
+import { LoadGhostRequest } from "./loadGhost";
 import { LoadProfileRequest } from "./loadProfile";
 import { LoadRewardTableRequest } from "./loadRewardTable";
 import { LoadServerListRequest } from "./loadServerList";
@@ -39,6 +40,7 @@ export type Request =
   | LoadConfigRequest
   | LoadConfigRequest2
   | LoadGeneralRewardRequest
+  | LoadGhostRequest
   | LoadProfileRequest
   | LoadRewardTableRequest
   | LoadServerListRequest

@@ -9,6 +9,7 @@ import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadGeneralReward } from "./loadGeneralReward";
+import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
 import { loadProfile2 } from "./loadProfile2";
 import { loadRewardTable } from "./loadRewardTable";
@@ -49,6 +50,9 @@ function encode(res: Response): Buffer {
 
     case "load_general_reward_res":
       return loadGeneralReward(res);
+
+    case "load_ghost_res":
+      return loadGhost(res);
 
     case "load_profile_v1_res":
       return loadProfile(res);

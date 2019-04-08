@@ -8,6 +8,7 @@ import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadGeneralReward } from "./loadGeneralReward";
+import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
 import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
@@ -48,6 +49,7 @@ const funcList: ReaderFn[] = [
   loadConfig,
   loadConfig2,
   loadGeneralReward,
+  loadGhost,
   loadProfile,
   loadRewardTable,
   loadServerList,
