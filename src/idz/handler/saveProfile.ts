@@ -7,6 +7,7 @@ export async function saveProfile(
   req: SaveProfileRequest
 ): Promise<GenericResponse> {
   const profile = await w.profile().load(req.profileId);
+  const chara = await w.chara().load(req.profileId);
 
   await Promise.all([
     w.profile().save(req.profileId, {
@@ -15,6 +16,11 @@ export async function saveProfile(
       exp: req.exp,
       fame: req.fame,
       dpoint: req.dpoint,
+    }),
+    w.chara().save(req.profileId, {
+      ...chara,
+      title: req.title,
+      background: req.background,
     }),
     w.car().save(req.profileId, req.car),
     w.story().save(req.profileId, req.story),
