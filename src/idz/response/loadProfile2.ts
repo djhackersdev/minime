@@ -1,4 +1,4 @@
-import { Id } from "../model/base";
+import { Id, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { Chara } from "../model/chara";
 import { Profile } from "../model/profile";
@@ -16,7 +16,8 @@ export interface LoadProfileResponse2 {
   teamId?: number;
   settings: Settings;
   chara: Chara;
-  titles: number[];
+  titles: TitleCode[];
+  coursePlays: number[];
   car: Car;
   story: Story;
   // giga TODO

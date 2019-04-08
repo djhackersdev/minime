@@ -13,6 +13,7 @@ export interface SaveProfileRequest {
   title: TitleCode;
   titles: TitleCode[];
   background: BackgroundCode;
+  coursePlays: number[];
   car: Car;
   story: Story;
 }

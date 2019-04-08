@@ -32,6 +32,13 @@ class WorldImpl implements World {
     );
   }
 
+  coursePlays() {
+    return new SingletonTextRepo<number[], Model.Profile>(
+      this._root,
+      "coursePlays"
+    );
+  }
+
   profile() {
     return new ProfileRepositoryImpl(this._root);
   }

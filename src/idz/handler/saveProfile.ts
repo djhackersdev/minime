@@ -23,6 +23,7 @@ export async function saveProfile(
       background: req.background,
     }),
     w.car().save(req.profileId, req.car),
+    w.coursePlays().save(req.profileId, req.coursePlays),
     w.story().save(req.profileId, req.story),
     w.titles().save(req.profileId, req.titles),
   ]);

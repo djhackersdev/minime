@@ -21,6 +21,8 @@ export interface World {
 
   chara(): Repository<Model.Chara, Model.Profile>;
 
+  coursePlays(): Repository<number[], Model.Profile>;
+
   profile(): ProfileRepository;
 
   settings(): Repository<Model.Settings, Model.Profile>;

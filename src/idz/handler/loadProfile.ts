@@ -13,6 +13,7 @@ export async function loadProfile(
   const settings = await w.settings().load(profile.id);
   const chara = await w.chara().load(profile.id);
   const titles = await w.titles().load(profile.id);
+  const coursePlays = await w.coursePlays().load(profile.id);
   const car = await w.car().load(profile.id);
   const story = await w.story().load(profile.id);
 
@@ -28,6 +29,7 @@ export async function loadProfile(
     settings,
     chara,
     titles,
+    coursePlays,
     car,
     story,
   };

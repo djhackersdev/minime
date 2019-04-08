@@ -18,11 +18,6 @@ export function loadProfile2(res: LoadProfileResponse2) {
 
   const buf = Buffer.alloc(0x0d30);
 
-  //buf.writeUInt16LE(0x0001, 0x06bc); // story_X
-  //buf.writeUInt8(0x00, 0x0670); // story_Y
-  //buf.writeUInt16LE(0x0001, 0x0228 + 0); // records[0].pairs[0].a
-  //buf.writeUInt16LE(0x0003, 0x0228 + 2); // records[0].pairs[0].b
-
   for (let i = 0; i < 9 && i < res.story.rows.length; i++) {
     const row = res.story.rows[i];
     const rowOffset = 0x0228 + i * 0x26;
@@ -34,6 +29,10 @@ export function loadProfile2(res: LoadProfileResponse2) {
       buf.writeUInt16LE(cell.a, cellOffset + 0);
       buf.writeUInt16LE(cell.b, cellOffset + 2);
     }
+  }
+
+  for (let i = 0; i < 16 && i < res.coursePlays.length; i++) {
+    buf.writeUInt16LE(res.coursePlays[i], 0x0460 + 2 * i);
   }
 
   buf.writeUInt16LE(0x0065, 0x0000);

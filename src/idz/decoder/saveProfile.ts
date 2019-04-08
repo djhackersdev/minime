@@ -28,6 +28,12 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     storyRows.push(row);
   }
 
+  const coursePlays = new Array();
+
+  for (let i = 0x0000; i < 0x0020; i += 2) {
+    coursePlays.push(buf.readUInt16LE(0x04c0 + i));
+  }
+
   return {
     type: "save_profile_req",
     profileId: buf.readUInt32LE(0x0004) as Id<Profile>,
@@ -38,6 +44,7 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     title: buf.readUInt16LE(0x0040) as TitleCode,
     titles: bitmap(buf.slice(0x0042, 0x00f6)) as TitleCode[],
     background: buf.readUInt8(0x0750) as BackgroundCode,
+    coursePlays,
     car: car(buf.slice(0x0834, 0x0894)),
     story: {
       x: buf.readUInt16LE(0x06fc),
