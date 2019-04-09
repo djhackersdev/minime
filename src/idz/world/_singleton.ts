@@ -66,8 +66,8 @@ export class SingletonTextRepo<T extends number[], K = T>
     }
 
     const text = await readFile(this._path, { encoding: "utf8" });
-    const lines = text.split("\n");
-    const codes = lines.map(parseInt);
+    const lines = text.split("\n").filter(x => x !== "");
+    const codes = lines.map(x => parseInt(x)); // .map(parseInt) yields NaNs??
 
     return codes as T;
   }
