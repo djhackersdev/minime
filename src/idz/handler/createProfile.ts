@@ -1,4 +1,5 @@
 import { Id } from "../model/base";
+import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
@@ -21,6 +22,11 @@ export async function createProfile(
     dpoint: 0,
   };
 
+  const missions: MissionState = {
+    team: [],
+    solo: [],
+  };
+
   const settings: Settings = {
     bgMusic: 0,
     forceQuitEn: false,
@@ -39,6 +45,7 @@ export async function createProfile(
     w.profile().save(profile.id, profile),
     w.chara().save(profile.id, req.chara),
     w.car().save(profile.id, req.car),
+    w.missions().save(profile.id, missions),
     w.settings().save(profile.id, settings),
   ]);
 

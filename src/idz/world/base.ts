@@ -23,6 +23,8 @@ export interface World {
 
   coursePlays(): Repository<number[], Model.Profile>;
 
+  missions(): Repository<Model.MissionState, Model.Profile>;
+
   profile(): ProfileRepository;
 
   settings(): Repository<Model.Settings, Model.Profile>;

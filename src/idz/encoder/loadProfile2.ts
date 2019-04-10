@@ -3,6 +3,7 @@ import iconv = require("iconv-lite");
 import { bitmap } from "./_bitmap";
 import { car } from "./_car";
 import { chara } from "./_chara";
+import { mission } from "./_mission";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
 
 export function loadProfile2(res: LoadProfileResponse2) {
@@ -36,6 +37,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   }
 
   buf.writeUInt16LE(0x0065, 0x0000);
+  mission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt32LE(res.profileId, 0x03b8);
   buf.writeUInt16LE(res.settings.bgMusic, 0x03c8);
   buf.writeUInt16LE(res.lv, 0x03cc);
@@ -46,6 +48,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
   buf.writeUInt16LE(res.story.x, 0x06bc);
   buf.writeUInt8(res.story.y, 0x0670);
+  mission(res.missions.solo).copy(buf, 0x06e4);
   chara(res.chara).copy(buf, 0x070c);
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeInt32LE(res.teamId || 0, 0x07e0);

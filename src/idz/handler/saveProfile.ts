@@ -24,6 +24,7 @@ export async function saveProfile(
     }),
     w.car().save(req.profileId, req.car),
     w.coursePlays().save(req.profileId, req.coursePlays),
+    w.missions().save(req.profileId, req.missions),
     w.story().save(req.profileId, req.story),
     w.titles().save(req.profileId, req.titles),
   ]);

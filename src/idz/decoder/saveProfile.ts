@@ -1,4 +1,5 @@
 import { car } from "./_car";
+import { mission } from "./_mission";
 import { RequestCode } from "./_defs";
 import { BackgroundCode, Id, TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
@@ -45,6 +46,10 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     titles: bitmap(buf.slice(0x0042, 0x00f6)) as TitleCode[],
     background: buf.readUInt8(0x0750) as BackgroundCode,
     coursePlays,
+    missions: {
+      team: mission(buf.slice(0x03c4, 0x03e6)),
+      solo: mission(buf.slice(0x0724, 0x0746)),
+    },
     car: car(buf.slice(0x0834, 0x0894)),
     story: {
       x: buf.readUInt16LE(0x06fc),

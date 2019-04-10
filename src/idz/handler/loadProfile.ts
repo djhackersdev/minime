@@ -14,6 +14,7 @@ export async function loadProfile(
   const chara = await w.chara().load(profile.id);
   const titles = await w.titles().load(profile.id);
   const coursePlays = await w.coursePlays().load(profile.id);
+  const missions = await w.missions().load(profile.id);
   const car = await w.car().load(profile.id);
   const story = await w.story().load(profile.id);
 
@@ -30,6 +31,7 @@ export async function loadProfile(
     chara,
     titles,
     coursePlays,
+    missions,
     car,
     story,
   };

@@ -39,6 +39,13 @@ class WorldImpl implements World {
     );
   }
 
+  missions() {
+    return new SingletonJsonRepo<Model.MissionState, Model.Profile>(
+      this._root,
+      "missions"
+    );
+  }
+
   profile() {
     return new ProfileRepositoryImpl(this._root);
   }
