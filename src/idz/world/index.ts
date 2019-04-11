@@ -70,6 +70,13 @@ class WorldImpl implements World {
       "titles"
     );
   }
+
+  unlocks() {
+    return new SingletonJsonRepo<Model.Unlocks, Model.Profile>(
+      this._root,
+      "unlocks"
+    );
+  }
 }
 
 export async function createWorld(root: string): Promise<World> {

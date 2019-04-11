@@ -3,6 +3,7 @@ import { Car } from "../model/car";
 import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Story } from "../model/story";
+import { Unlocks } from "../model/unlocks";
 
 export interface SaveProfileRequest {
   type: "save_profile_req";
@@ -18,4 +19,5 @@ export interface SaveProfileRequest {
   missions: MissionState;
   car: Car;
   story: Story;
+  unlocks: Unlocks;
 }

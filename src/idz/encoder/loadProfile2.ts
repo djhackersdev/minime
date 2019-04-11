@@ -19,6 +19,17 @@ export function loadProfile2(res: LoadProfileResponse2) {
 
   const buf = Buffer.alloc(0x0d30);
 
+  // FLAMETHROWER ANALYSIS (watch out for C strings)
+  //buf.fill(0xff, 0x0000, 0x08f4);
+  //buf.fill(0xff, 0x0c20, 0x0c2a);
+
+  // B0-C0: Cup and gauges
+  // B8-C0: All gauges, no cup
+  buf.fill(0xff, 0x00b4, 0x00b6);
+  buf.writeUInt8(0xff, 0x00b4); // PAPER CUP
+  buf.writeUInt16LE(0xffff, 0x00b8);
+  buf.writeUInt16LE(0x0009, 0x01ec); // MUSIC UNLOCKS
+
   for (let i = 0; i < 9 && i < res.story.rows.length; i++) {
     const row = res.story.rows[i];
     const rowOffset = 0x0228 + i * 0x26;
@@ -37,6 +48,9 @@ export function loadProfile2(res: LoadProfileResponse2) {
   }
 
   buf.writeUInt16LE(0x0065, 0x0000);
+  buf.writeUInt8(res.unlocks.cup, 0x00b4);
+  buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);
+  buf.writeUInt16LE(res.unlocks.music, 0x01ec);
   mission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt32LE(res.profileId, 0x03b8);
   buf.writeUInt16LE(res.settings.bgMusic, 0x03c8);

@@ -56,5 +56,10 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
       y: buf.readUInt8(0x06e0),
       rows: storyRows,
     },
+    unlocks: {
+      cup: buf.readUInt8(0x0110),
+      gauges: buf.readUInt16LE(0x0114),
+      music: buf.readUInt16LE(0x0140),
+    },
   };
 }

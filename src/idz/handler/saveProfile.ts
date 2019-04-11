@@ -27,6 +27,7 @@ export async function saveProfile(
     w.missions().save(req.profileId, req.missions),
     w.story().save(req.profileId, req.story),
     w.titles().save(req.profileId, req.titles),
+    w.unlocks().save(req.profileId, req.unlocks),
   ]);
 
   return {

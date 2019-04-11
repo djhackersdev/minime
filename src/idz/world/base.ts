@@ -32,4 +32,6 @@ export interface World {
   story(): Repository<Model.Story, Model.Profile>;
 
   titles(): Repository<Model.TitleCode[], Model.Profile>;
+
+  unlocks(): Repository<Model.Unlocks, Model.Profile>;
 }

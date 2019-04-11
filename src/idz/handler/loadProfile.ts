@@ -17,6 +17,7 @@ export async function loadProfile(
   const missions = await w.missions().load(profile.id);
   const car = await w.car().load(profile.id);
   const story = await w.story().load(profile.id);
+  const unlocks = await w.unlocks().load(profile.id);
 
   return {
     type: "load_profile_v2_res",
@@ -34,5 +35,6 @@ export async function loadProfile(
     missions,
     car,
     story,
+    unlocks,
   };
 }
