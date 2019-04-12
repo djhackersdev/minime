@@ -4,6 +4,7 @@ import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Team } from "../model/team";
+import { TimeAttackState } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
@@ -42,6 +43,8 @@ export async function createProfile(
 
   const story: Story = { x: 0, y: 0, rows: [] };
 
+  const timeAttack: TimeAttackState = { courses: [] };
+
   const unlocks: Unlocks = { cup: 0, gauges: 0, music: 0 };
 
   await Promise.all([
@@ -50,6 +53,8 @@ export async function createProfile(
     w.car().save(profile.id, req.car),
     w.missions().save(profile.id, missions),
     w.settings().save(profile.id, settings),
+    w.story().save(profile.id, story),
+    w.timeAttack().save(profile.id, timeAttack),
     w.unlocks().save(profile.id, unlocks),
   ]);
 

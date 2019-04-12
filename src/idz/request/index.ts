@@ -1,4 +1,3 @@
-import { CheckRankRequest } from "./checkRank";
 import { CreateProfileRequest } from "./createProfile";
 import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
@@ -22,6 +21,7 @@ import { SaveGarageRequest } from "./saveGarage";
 import { SaveProfileRequest } from "./saveProfile";
 import { SaveSettingsRequest } from "./saveSettings";
 import { SaveStockerRequest } from "./saveStocker";
+import { SaveTimeAttackRequest } from "./saveTimeAttack";
 import { SaveTopicRequest } from "./saveTopic";
 import { UnlockProfileRequest } from "./unlockProfile";
 import { UpdateProvisionalStoreRankRequest } from "./updateProvisionalStoreRank";
@@ -32,7 +32,6 @@ import { UpdateUiReportRequest } from "./updateUiReport";
 import { UpdateUserLogRequest } from "./updateUserLog";
 
 export type Request =
-  | CheckRankRequest
   | CreateProfileRequest
   | CreateTeamRequest
   | DiscoverProfileRequest
@@ -56,6 +55,7 @@ export type Request =
   | SaveProfileRequest
   | SaveSettingsRequest
   | SaveStockerRequest
+  | SaveTimeAttackRequest
   | SaveTopicRequest
   | UnlockProfileRequest
   | UpdateProvisionalStoreRankRequest

@@ -5,6 +5,7 @@ import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
+import { TimeAttackState } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 
 export interface LoadProfileResponse2 {
@@ -21,6 +22,7 @@ export interface LoadProfileResponse2 {
   titles: TitleCode[];
   coursePlays: number[];
   missions: MissionState;
+  timeAttack: TimeAttackState;
   car: Car;
   story: Story;
   unlocks: Unlocks;

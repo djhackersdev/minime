@@ -6,4 +6,5 @@ export { Profile } from "./profile";
 export { Settings } from "./settings";
 export { Story } from "./story";
 export { Team } from "./team";
+export { TimeAttackState, TimeAttackCourse } from "./timeAttack";
 export { Unlocks } from "./unlocks";

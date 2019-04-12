@@ -64,6 +64,13 @@ class WorldImpl implements World {
     );
   }
 
+  timeAttack() {
+    return new SingletonJsonRepo<Model.TimeAttackState, Model.Profile>(
+      this._root,
+      "timeAttack"
+    );
+  }
+
   titles() {
     return new SingletonTextRepo<Model.TitleCode[], Model.Profile>(
       this._root,

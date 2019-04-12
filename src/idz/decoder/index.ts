@@ -1,6 +1,6 @@
 import { Transform } from "stream";
 
-import { checkRank } from "./checkRank";
+import { saveTimeAttack } from "./saveTimeAttack";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
@@ -41,7 +41,6 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 };
 
 const funcList: ReaderFn[] = [
-  checkRank,
   createProfile,
   createTeam,
   discoverProfile,
@@ -66,6 +65,7 @@ const funcList: ReaderFn[] = [
   saveProfile,
   saveSettings,
   saveStocker,
+  saveTimeAttack,
   saveTopic,
   unlockProfile,
   updateProvisionalStoreRank,

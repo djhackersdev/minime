@@ -1,7 +1,6 @@
 import { Transform } from "stream";
 
 import { _team } from "./_team";
-import { checkRank } from "./checkRank";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
 import { lockProfile } from "./lockProfile";
@@ -19,6 +18,7 @@ import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
+import { saveTimeAttack } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
@@ -27,9 +27,6 @@ import { Response } from "../response";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
-    case "check_rank_res":
-      return checkRank(res);
-
     case "create_team_res":
       return _team(res);
 
@@ -86,6 +83,9 @@ function encode(res: Response): Buffer {
 
     case "save_garage_res":
       return saveGarage(res);
+
+    case "save_time_attack_res":
+      return saveTimeAttack(res);
 
     case "unlock_profile_res":
       return unlockProfile(res);

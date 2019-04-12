@@ -31,6 +31,9 @@ export interface World {
 
   story(): Repository<Model.Story, Model.Profile>;
 
+  // this is godawful do a real repo layer already jfc
+  timeAttack(): Repository<Model.TimeAttackState, Model.Profile>;
+
   titles(): Repository<Model.TitleCode[], Model.Profile>;
 
   unlocks(): Repository<Model.Unlocks, Model.Profile>;

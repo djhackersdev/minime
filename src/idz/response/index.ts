@@ -1,4 +1,3 @@
-import { CheckRankResponse } from "./checkRank";
 import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
@@ -16,15 +15,15 @@ import { LoadTeamResponse } from "./loadTeam";
 import { LoadTeamRankingResponse } from "./loadTeamRanking";
 import { LoadTopTenResponse } from "./loadTopTen";
 import { LockProfileResponse } from "./lockProfile";
+import { SaveExpeditionResponse } from "./saveExpedition";
+import { SaveGarageResponse } from "./saveGarage";
+import { SaveTimeAttackResponse } from "./saveTimeAttack";
+import { SaveTopicResponse } from "./saveTopic";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
 import { UnlockProfileResponse } from "./unlockProfile";
-import { SaveExpeditionResponse } from "./saveExpedition";
-import { SaveGarageResponse } from "./saveGarage";
-import { SaveTopicResponse } from "./saveTopic";
 
 export type Response =
-  | CheckRankResponse
   | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
@@ -47,4 +46,5 @@ export type Response =
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse
   | SaveGarageResponse
+  | SaveTimeAttackResponse
   | SaveTopicResponse;

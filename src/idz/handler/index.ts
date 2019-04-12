@@ -1,5 +1,5 @@
 import { _team } from "./_team";
-import { checkRank } from "./checkRank";
+import { saveTimeAttack } from "./saveTimeAttack";
 import { createProfile } from "./createProfile";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
@@ -35,9 +35,6 @@ import { World } from "../world";
 
 export async function dispatch(w: World, req: Request): Promise<Response> {
   switch (req.type) {
-    case "check_rank_req":
-      return checkRank(w, req);
-
     case "create_profile_req":
       return createProfile(w, req);
 
@@ -109,6 +106,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "save_stocker_req":
       return saveStocker(w, req);
+
+    case "save_time_attack_req":
+      return saveTimeAttack(w, req);
 
     case "unlock_profile_req":
       return unlockProfile(w, req);
