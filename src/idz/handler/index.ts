@@ -38,7 +38,7 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
     case "create_profile_req":
       return createProfile(w, req);
 
-    case "create_team_req":
+    case "join_auto_team_req":
       return _team(w, req);
 
     case "load_2on2_req":

@@ -1,8 +1,8 @@
 import iconv = require("iconv-lite");
-import { CreateTeamResponse } from "../response/createTeam";
+import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 
-export function _team(res: CreateTeamResponse | LoadTeamResponse) {
+export function _team(res: JoinAutoTeamResponse | LoadTeamResponse) {
   const buf = Buffer.alloc(0x0ca0);
 
   buf.writeUInt32LE(res.team.id, 0x000c);
@@ -32,7 +32,7 @@ export function _team(res: CreateTeamResponse | LoadTeamResponse) {
   buf.writeInt32LE(0x00000004, 0x0344 + 0x001c);
   */
 
-  if (res.type === "create_team_res") {
+  if (res.type === "join_auto_team_res") {
     buf.writeInt16LE(0x007c, 0x0000);
   } else {
     buf.writeInt16LE(0x0078, 0x0000);

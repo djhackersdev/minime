@@ -93,7 +93,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeUInt8(res.settings.paperCup, 0x07d9);
   buf.writeUInt8(res.settings.gauges, 0x07da);
-  buf.writeInt32LE(res.teamId || 0, 0x07e0);
+  buf.writeUInt32LE(res.teamId || 0xffffffff, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
 
   return buf;

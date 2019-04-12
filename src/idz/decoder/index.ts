@@ -2,7 +2,7 @@ import { Transform } from "stream";
 
 import { saveTimeAttack } from "./saveTimeAttack";
 import { createProfile } from "./createProfile";
-import { createTeam } from "./createTeam";
+import { joinAutoTeam } from "./joinAutoTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
@@ -42,7 +42,7 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 
 const funcList: ReaderFn[] = [
   createProfile,
-  createTeam,
+  joinAutoTeam,
   discoverProfile,
   load2on2,
   loadConfig,

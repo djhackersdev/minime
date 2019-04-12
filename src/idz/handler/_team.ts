@@ -1,15 +1,15 @@
 import { Id } from "../model/base";
 import { Team } from "../model/team";
-import { CreateTeamRequest } from "../request/createTeam";
+import { JoinAutoTeamRequest } from "../request/joinAutoTeam";
 import { LoadTeamRequest } from "../request/loadTeam";
-import { CreateTeamResponse } from "../response/createTeam";
+import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 import { World } from "../world";
 
 export function _team(
   w: World,
-  req: CreateTeamRequest | LoadTeamRequest
-): CreateTeamResponse | LoadTeamResponse {
+  req: JoinAutoTeamRequest | LoadTeamRequest
+): JoinAutoTeamResponse | LoadTeamResponse {
   const bits = {
     team: {
       id: 2 as Id<Team>,
@@ -18,8 +18,8 @@ export function _team(
     members: [],
   };
 
-  if (req.type === "create_team_req") {
-    return { type: "create_team_res", ...bits };
+  if (req.type === "join_auto_team_req") {
+    return { type: "join_auto_team_res", ...bits };
   } else {
     return { type: "load_team_res", ...bits };
   }

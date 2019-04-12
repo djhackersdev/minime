@@ -1,6 +1,6 @@
-import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
+import { JoinAutoTeamResponse } from "./joinAutoTeam";
 import { Load2on2Response } from "./load2on2";
 import { LoadConfigResponse } from "./loadConfig";
 import { LoadConfigResponse2 } from "./loadConfig2";
@@ -24,9 +24,9 @@ import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
 import { UnlockProfileResponse } from "./unlockProfile";
 
 export type Response =
-  | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
+  | JoinAutoTeamResponse
   | Load2on2Response
   | LoadConfigResponse
   | LoadConfigResponse2

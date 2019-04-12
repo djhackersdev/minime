@@ -27,11 +27,11 @@ import { Response } from "../response";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
-    case "create_team_res":
-      return _team(res);
-
     case "discover_profile_res":
       return discoverProfile(res);
+
+    case "join_auto_team_res":
+      return _team(res);
 
     case "generic_res":
       return generic(res);

@@ -1,6 +1,6 @@
 import { CreateProfileRequest } from "./createProfile";
-import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
+import { JoinAutoTeamRequest } from "./joinAutoTeam";
 import { Load2on2Request } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadConfigRequest2 } from "./loadConfig2";
@@ -33,8 +33,8 @@ import { UpdateUserLogRequest } from "./updateUserLog";
 
 export type Request =
   | CreateProfileRequest
-  | CreateTeamRequest
   | DiscoverProfileRequest
+  | JoinAutoTeamRequest
   | Load2on2Request
   | LoadConfigRequest
   | LoadConfigRequest2
