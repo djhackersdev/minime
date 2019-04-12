@@ -6,21 +6,23 @@ export async function saveTimeAttack(
   w: World,
   req: SaveTimeAttackRequest
 ): Promise<SaveTimeAttackResponse> {
-  const state = await w.timeAttack().load(req.profileId);
-  const existing = state.courses.find(
-    course => course.courseId === req.payload.courseId
-  );
-
-  if (existing === undefined || existing.totalMsec > req.payload.totalMsec) {
-    const newCourses = state.courses.filter(
-      course => course.courseId !== req.payload.courseId
+  if (req.payload.totalMsec > 0) {
+    const state = await w.timeAttack().load(req.profileId);
+    const existing = state.courses.find(
+      course => course.courseId === req.payload.courseId
     );
 
-    newCourses.push(req.payload);
+    if (existing === undefined || existing.totalMsec > req.payload.totalMsec) {
+      const newCourses = state.courses.filter(
+        course => course.courseId !== req.payload.courseId
+      );
 
-    const newState = { courses: newCourses };
+      newCourses.push(req.payload);
 
-    await w.timeAttack().save(req.profileId, newState);
+      const newState = { courses: newCourses };
+
+      await w.timeAttack().save(req.profileId, newState);
+    }
   }
 
   return {

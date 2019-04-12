@@ -61,5 +61,11 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
       gauges: buf.readUInt16LE(0x0114),
       music: buf.readUInt16LE(0x0140),
     },
+    settings: {
+      music: buf.readUInt16LE(0x045a),
+      pack: buf.readUInt32LE(0x0034),
+      paperCup: buf.readUInt8(0x00f6),
+      gauges: buf.readUInt8(0x00f7),
+    },
   };
 }

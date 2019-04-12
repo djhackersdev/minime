@@ -7,16 +7,6 @@ import { mission } from "./_mission";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
 
 export function loadProfile2(res: LoadProfileResponse2) {
-  const settingsPack =
-    ((res.settings.forceQuitEn ? 1 : 0) << 0) |
-    (res.settings.steeringForce << 1) |
-    (res.settings.bgVolume << 5) |
-    (res.settings.seVolume << 9) |
-    ((res.settings.cornerGuide ? 1 : 0) << 13) |
-    ((res.settings.lineGuide ? 1 : 0) << 14) |
-    ((res.settings.ghostEn ? 1 : 0) << 15) |
-    ((res.settings.taResultSkip ? 1 : 0) << 16);
-
   const buf = Buffer.alloc(0x0d30);
 
   // FLAMETHROWER ANALYSIS (watch out for C strings)
@@ -89,10 +79,10 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt16LE(res.unlocks.music, 0x01ec);
   mission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt32LE(res.profileId, 0x03b8);
-  buf.writeUInt16LE(res.settings.bgMusic, 0x03c8);
+  buf.writeUInt16LE(res.settings.music, 0x03c8);
   buf.writeUInt16LE(res.lv, 0x03cc);
   buf.writeUInt32LE(res.exp, 0x03d0);
-  buf.writeUInt32LE(settingsPack, 0x3d8);
+  buf.writeUInt32LE(res.settings.pack, 0x3d8);
   buf.writeUInt32LE(res.dpoint, 0x03e8);
   buf.writeUInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
@@ -101,6 +91,8 @@ export function loadProfile2(res: LoadProfileResponse2) {
   mission(res.missions.solo).copy(buf, 0x06e4);
   chara(res.chara).copy(buf, 0x070c);
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
+  buf.writeUInt8(res.settings.paperCup, 0x07d9);
+  buf.writeUInt8(res.settings.gauges, 0x07da);
   buf.writeInt32LE(res.teamId || 0, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
 
