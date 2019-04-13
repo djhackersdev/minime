@@ -16,6 +16,7 @@ export async function saveProfile(
       exp: req.exp,
       fame: req.fame,
       dpoint: req.dpoint,
+      mileage: req.mileage,
     }),
     w.chara().save(req.profileId, {
       ...chara,

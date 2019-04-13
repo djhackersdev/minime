@@ -16,6 +16,7 @@ export interface LoadProfileResponse2 {
   exp: number;
   fame: number;
   dpoint: number;
+  mileage: number;
   teamId?: number;
   settings: Settings;
   chara: Chara;

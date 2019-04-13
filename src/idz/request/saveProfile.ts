@@ -13,6 +13,7 @@ export interface SaveProfileRequest {
   exp: number;
   fame: number;
   dpoint: number;
+  mileage: number;
   title: TitleCode;
   titles: TitleCode[];
   background: BackgroundCode;

@@ -22,6 +22,7 @@ export async function createProfile(
     exp: 0,
     fame: 0,
     dpoint: 0,
+    mileage: 0,
   };
 
   const missions: MissionState = { team: [], solo: [] };

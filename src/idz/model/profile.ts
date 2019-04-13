@@ -9,4 +9,5 @@ export interface Profile {
   exp: number;
   fame: number;
   dpoint: number;
+  mileage: number;
 }

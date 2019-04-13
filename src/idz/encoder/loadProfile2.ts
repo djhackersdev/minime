@@ -57,10 +57,11 @@ export function loadProfile2(res: LoadProfileResponse2) {
   mission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt16LE(0xffff, 0x0388); // [1]
   buf.writeUInt32LE(res.profileId, 0x03b8);
+  buf.writeUInt32LE(res.mileage, 0x03bc);
   buf.writeUInt16LE(res.settings.music, 0x03c8);
   buf.writeUInt16LE(res.lv, 0x03cc);
   buf.writeUInt32LE(res.exp, 0x03d0);
-  buf.writeUInt32LE(res.settings.pack, 0x3d8);
+  buf.writeUInt32LE(res.settings.pack, 0x03d8);
   buf.writeUInt32LE(res.dpoint, 0x03e8);
   buf.writeUInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
