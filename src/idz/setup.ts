@@ -1,12 +1,17 @@
 import { createCipheriv, createDecipheriv } from "crypto";
 import { Socket } from "net";
-import { pipeline } from "stream";
+import { pipeline as pipelineWithCallback } from "stream";
+import { promisify } from "util";
 
 import { byteString, modPow } from "./bigint";
 import { Decoder } from "./decoder";
 import { Encoder } from "./encoder";
 import { Request } from "./request";
 import { Response } from "./response";
+
+// Drops the stupid mandatory callback parameter crap
+
+const pipeline = promisify(pipelineWithCallback);
 
 // Proof-of-concept, so we only ever use one of the ten RSA key pairs
 // (SEGA shipped their central server private keys for god knows what reason)
@@ -54,14 +59,15 @@ export function setup(socket: Socket): Session {
   // Set up pipeline
   //
 
+  const input = new Decoder();
+  const output = new Encoder();
   const keybuf = byteString(sessionKey, 0x10);
-  const input = pipeline(
+
+  pipeline(
     socket,
     createDecipheriv("aes-128-ecb", keybuf, null).setAutoPadding(false),
-    new Decoder()
+    input
   );
-
-  const output = new Encoder();
 
   pipeline(
     output,
