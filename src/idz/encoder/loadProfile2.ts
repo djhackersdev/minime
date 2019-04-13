@@ -13,29 +13,6 @@ export function loadProfile2(res: LoadProfileResponse2) {
   //buf.fill(0xff, 0x0000, 0x08f4);
   //buf.fill(0xff, 0x0c20, 0x0c2a);
 
-  // Lake Akina CCW
-  /*
-  buf.writeUInt32LE(1555012398, 0x00e4); // Epoch sec?
-  buf.writeUInt16LE(5678, 0x0164); // National rank
-  buf.writeUInt32LE(146570, 0x04e0); // Time (msec)
-  buf.writeUInt8(5, 0x05a0); // Flags (Meaning unknown)
-  buf.writeUInt16LE(16010, 0x05c0); // Checkpoint msec 0 (div by 4)
-  buf.writeUInt16LE(16020, 0x05c2); // Checkpoint msec 1 (div by 4)
-  buf.writeUInt16LE(16030, 0x05c4); // Checkpoint msec 1 (div by 4)
-
-  // Lake Akina CW
-  buf.writeUInt32LE(1555012398, 0x00e4 + 4); // Epoch sec?
-  buf.writeUInt16LE(5678, 0x0164 + 2); // National rank
-  buf.writeUInt32LE(145072, 0x04e0 + 4); // Time (msec)
-  buf.writeUInt8(5, 0x05a0 + 1); // Flags (Meaning unknown)
-
-  // Akina DH
-  buf.writeUInt32LE(1555012398, 0x00e4 + 24); // Epoch sec?
-  buf.writeUInt16LE(5678, 0x0164 + 12); // National rank
-  buf.writeUInt32LE(222736, 0x04e0 + 24); // Time (msec)
-  buf.writeUInt8(5, 0x05a0 + 6); // Flags (Meaning unknown)
-  */
-
   for (const course of res.timeAttack.courses) {
     const { courseId } = course;
 
