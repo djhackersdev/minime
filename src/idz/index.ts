@@ -15,8 +15,10 @@ export default async function idz(socket: Socket) {
       output.write(await dispatch(world, req));
     }
   } catch (e) {
-    console.log("Idz: Error", e);
+    console.log("Idz: Error:", e);
   }
 
   console.log("Idz: Connection closed\n");
+
+  input.end();
 }

@@ -35,11 +35,15 @@ console.log("RSA ENCDEC :", byteString(test2, 0x40).toString("hex"));
 // -- TEST --
 
 interface Session {
-  input: AsyncIterable<Request>;
+  input: AsyncIterable<Request> & {
+    end: () => void;
+  };
   output: {
     write: (res: Response) => void;
   };
 }
+
+function doNothing() {}
 
 export function setup(socket: Socket): Session {
   //
@@ -67,13 +71,13 @@ export function setup(socket: Socket): Session {
     socket,
     createDecipheriv("aes-128-ecb", keybuf, null).setAutoPadding(false),
     input
-  );
+  ).catch(doNothing);
 
   pipeline(
     output,
     createCipheriv("aes-128-ecb", keybuf, null).setAutoPadding(false),
     socket
-  );
+  ).catch(doNothing);
 
   return { input, output };
 }
