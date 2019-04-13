@@ -19,7 +19,7 @@ export function car(car: Car): Buffer {
   buf.writeUInt16LE(car.field_4A, 0x004a);
   buf.writeUInt32LE(car.field_4C, 0x004c);
   buf.writeUInt32LE(car.field_50_lo, 0x0050);
-  buf.writeUInt32LE(car.field_50_hi, 0x0050);
+  buf.writeUInt32LE(car.field_50_hi, 0x0054);
   buf.writeUInt16LE(car.field_58, 0x0058);
   buf.writeUInt8(car.field_5A, 0x005a);
   buf.writeUInt8(car.field_5B, 0x005b);
