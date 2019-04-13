@@ -1,3 +1,5 @@
+import { CheckTeamNameResponse } from "./checkTeamName";
+import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
 import { JoinAutoTeamResponse } from "./joinAutoTeam";
@@ -24,6 +26,8 @@ import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
 import { UnlockProfileResponse } from "./unlockProfile";
 
 export type Response =
+  | CheckTeamNameResponse
+  | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
   | JoinAutoTeamResponse

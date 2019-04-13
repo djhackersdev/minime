@@ -1,6 +1,7 @@
 import { _team } from "./_team";
-import { saveTimeAttack } from "./saveTimeAttack";
+import { checkTeamName } from "./checkTeamName";
 import { createProfile } from "./createProfile";
+import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
@@ -21,6 +22,7 @@ import { saveGarage } from "./saveGarage";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
+import { saveTimeAttack } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
@@ -35,8 +37,14 @@ import { World } from "../world";
 
 export async function dispatch(w: World, req: Request): Promise<Response> {
   switch (req.type) {
+    case "check_team_name_req":
+      return checkTeamName(w, req);
+
     case "create_profile_req":
       return createProfile(w, req);
+
+    case "create_team_req":
+      return createTeam(w, req);
 
     case "join_auto_team_req":
       return _team(w, req);

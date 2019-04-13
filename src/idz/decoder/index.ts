@@ -1,7 +1,8 @@
 import { Transform } from "stream";
 
-import { saveTimeAttack } from "./saveTimeAttack";
+import { checkTeamName } from "./checkTeamName";
 import { createProfile } from "./createProfile";
+import { createTeam } from "./createTeam";
 import { joinAutoTeam } from "./joinAutoTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
@@ -23,6 +24,7 @@ import { saveGarage } from "./saveGarage";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
+import { saveTimeAttack } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
@@ -41,7 +43,9 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 };
 
 const funcList: ReaderFn[] = [
+  checkTeamName,
   createProfile,
+  createTeam,
   joinAutoTeam,
   discoverProfile,
   load2on2,

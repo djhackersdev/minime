@@ -1,4 +1,6 @@
+import { CheckTeamNameRequest } from "./checkTeamName";
 import { CreateProfileRequest } from "./createProfile";
+import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
 import { JoinAutoTeamRequest } from "./joinAutoTeam";
 import { Load2on2Request } from "./load2on2";
@@ -32,7 +34,9 @@ import { UpdateUiReportRequest } from "./updateUiReport";
 import { UpdateUserLogRequest } from "./updateUserLog";
 
 export type Request =
+  | CheckTeamNameRequest
   | CreateProfileRequest
+  | CreateTeamRequest
   | DiscoverProfileRequest
   | JoinAutoTeamRequest
   | Load2on2Request

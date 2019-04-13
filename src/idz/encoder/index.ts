@@ -1,6 +1,8 @@
 import { Transform } from "stream";
 
 import { _team } from "./_team";
+import { checkTeamName } from "./checkTeamName";
+import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
 import { lockProfile } from "./lockProfile";
@@ -27,6 +29,12 @@ import { Response } from "../response";
 
 function encode(res: Response): Buffer {
   switch (res.type) {
+    case "check_team_name_res":
+      return checkTeamName(res);
+
+    case "create_team_res":
+      return createTeam(res);
+
     case "discover_profile_res":
       return discoverProfile(res);
 
