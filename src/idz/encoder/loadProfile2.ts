@@ -78,6 +78,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);
   buf.writeUInt16LE(res.unlocks.music, 0x01ec);
   mission(res.missions.team).copy(buf, 0x038a);
+  buf.writeUInt16LE(0xffff, 0x0388); // [1]
   buf.writeUInt32LE(res.profileId, 0x03b8);
   buf.writeUInt16LE(res.settings.music, 0x03c8);
   buf.writeUInt16LE(res.lv, 0x03cc);
@@ -95,6 +96,9 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt8(res.settings.gauges, 0x07da);
   buf.writeUInt32LE(res.teamId || 0xffffffff, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
+
+  // [1] Currently unknown, but if this field is zero then the player will have
+  //     a "model record" emblem in their profile card.
 
   return buf;
 }
