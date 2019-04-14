@@ -6,6 +6,7 @@ import { JoinAutoTeamResponse } from "./joinAutoTeam";
 import { Load2on2Response } from "./load2on2";
 import { LoadConfigResponse } from "./loadConfig";
 import { LoadConfigResponse2 } from "./loadConfig2";
+import { LoadGarageResponse } from "./loadGarage";
 import { LoadGeneralRewardResponse } from "./loadGeneralReward";
 import { LoadGhostResponse } from "./loadGhost";
 import { LoadProfileResponse } from "./loadProfile";
@@ -19,6 +20,7 @@ import { LoadTopTenResponse } from "./loadTopTen";
 import { LockProfileResponse } from "./lockProfile";
 import { SaveExpeditionResponse } from "./saveExpedition";
 import { SaveGarageResponse } from "./saveGarage";
+import { SaveNewCarResponse } from "./saveNewCar";
 import { SaveTimeAttackResponse } from "./saveTimeAttack";
 import { SaveTopicResponse } from "./saveTopic";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
@@ -34,6 +36,7 @@ export type Response =
   | Load2on2Response
   | LoadConfigResponse
   | LoadConfigResponse2
+  | LoadGarageResponse
   | LoadGeneralRewardResponse
   | LoadGhostResponse
   | LoadProfileResponse
@@ -50,5 +53,6 @@ export type Response =
   | UpdateStoryClearNumResponse
   | SaveExpeditionResponse
   | SaveGarageResponse
+  | SaveNewCarResponse
   | SaveTimeAttackResponse
   | SaveTopicResponse;

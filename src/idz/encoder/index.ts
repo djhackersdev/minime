@@ -9,6 +9,7 @@ import { lockProfile } from "./lockProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
+import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
@@ -20,6 +21,7 @@ import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
+import { saveNewCar } from "./saveNewCar";
 import { saveTimeAttack } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
@@ -52,6 +54,9 @@ function encode(res: Response): Buffer {
 
     case "load_config_v2_res":
       return loadConfig2(res);
+
+    case "load_garage_res":
+      return loadGarage(res);
 
     case "load_general_reward_res":
       return loadGeneralReward(res);
@@ -91,6 +96,9 @@ function encode(res: Response): Buffer {
 
     case "save_garage_res":
       return saveGarage(res);
+
+    case "save_new_car_res":
+      return saveNewCar(res);
 
     case "save_time_attack_res":
       return saveTimeAttack(res);

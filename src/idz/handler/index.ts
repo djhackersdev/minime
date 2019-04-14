@@ -6,6 +6,7 @@ import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
+import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
@@ -19,6 +20,7 @@ import { lockProfile } from "./lockProfile";
 import { msg00AD } from "./msg00AD";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
+import { saveNewCar } from "./saveNewCar";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
@@ -61,6 +63,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
     case "discover_profile_req":
       return discoverProfile(w, req);
 
+    case "load_garage_req":
+      return loadGarage(w, req);
+
     case "load_general_reward_req":
       return loadGeneralReward(w, req);
 
@@ -102,6 +107,9 @@ export async function dispatch(w: World, req: Request): Promise<Response> {
 
     case "save_garage_req":
       return saveGarage(w, req);
+
+    case "save_new_car_req":
+      return saveNewCar(w, req);
 
     case "save_profile_req":
       return saveProfile(w, req);

@@ -6,6 +6,7 @@ import { JoinAutoTeamRequest } from "./joinAutoTeam";
 import { Load2on2Request } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadConfigRequest2 } from "./loadConfig2";
+import { LoadGarageRequest } from "./loadGarage";
 import { LoadGeneralRewardRequest } from "./loadGeneralReward";
 import { LoadGhostRequest } from "./loadGhost";
 import { LoadProfileRequest } from "./loadProfile";
@@ -20,6 +21,7 @@ import { LockGarageRequest } from "./lockGarage";
 import { Message00AD } from "./msg00AD";
 import { SaveExpeditionRequest } from "./saveExpedition";
 import { SaveGarageRequest } from "./saveGarage";
+import { SaveNewCarRequest } from "./saveNewCar";
 import { SaveProfileRequest } from "./saveProfile";
 import { SaveSettingsRequest } from "./saveSettings";
 import { SaveStockerRequest } from "./saveStocker";
@@ -42,6 +44,7 @@ export type Request =
   | Load2on2Request
   | LoadConfigRequest
   | LoadConfigRequest2
+  | LoadGarageRequest
   | LoadGeneralRewardRequest
   | LoadGhostRequest
   | LoadProfileRequest
@@ -56,6 +59,7 @@ export type Request =
   | Message00AD
   | SaveExpeditionRequest
   | SaveGarageRequest
+  | SaveNewCarRequest
   | SaveProfileRequest
   | SaveSettingsRequest
   | SaveStockerRequest

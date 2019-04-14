@@ -8,6 +8,7 @@ import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
+import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
@@ -21,6 +22,7 @@ import { lockProfile } from "./lockProfile";
 import { msg00AD } from "./msg00AD";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
+import { saveNewCar } from "./saveNewCar";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
@@ -51,6 +53,7 @@ const funcList: ReaderFn[] = [
   load2on2,
   loadConfig,
   loadConfig2,
+  loadGarage,
   loadGeneralReward,
   loadGhost,
   loadProfile,
@@ -66,6 +69,7 @@ const funcList: ReaderFn[] = [
   msg00AD,
   saveExpedition,
   saveGarage,
+  saveNewCar,
   saveProfile,
   saveSettings,
   saveStocker,

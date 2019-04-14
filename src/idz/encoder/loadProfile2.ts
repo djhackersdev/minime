@@ -74,6 +74,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt8(res.settings.gauges, 0x07da);
   buf.writeUInt32LE(res.teamId || 0xffffffff, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
+  buf.writeUInt32LE(1, 0x0c58); // Cars in garage
 
   // [1] Currently unknown, but if this field is zero then the player will have
   //     a "model record" emblem in their profile card.
