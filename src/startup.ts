@@ -63,7 +63,7 @@ app.use(async function(req, res, next) {
 });
 
 app.post("/sys/servlet/PowerOn", function(req, resp) {
-  console.log("\n--- Startup Request ---\n\n", req.body);
+  console.log("--- Startup Request ---\n\n", req.body);
 
   // Cut milliseconds out of ISO timestamp
 
@@ -97,6 +97,7 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
   };
 
   console.log("\n--- Startup Response ---\n\n", resParams);
+  console.log("");
 
   resp.send(resParams);
 });

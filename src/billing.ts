@@ -60,7 +60,7 @@ app.use(async function(req, res, next) {
 });
 
 app.post("/request/", function(req, res) {
-  console.log("\n--- Billing Request ---\n\n", req.body);
+  console.log("--- Billing Request ---\n\n", req.body);
 
   const first = req.body[0];
 
@@ -134,6 +134,7 @@ app.post("/request/", function(req, res) {
   });
 
   console.log("\n--- Billing Response ---\n\n", resItems);
+  console.log("");
 
   res.set("content-type", "text/plain");
   res.send(resItems);
