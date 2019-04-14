@@ -2,7 +2,8 @@ import express = require("express");
 import read = require("raw-body");
 
 import { unzipSync } from "zlib";
-import { hostname } from "os";
+
+import { hostname } from "./hostname";
 
 const myHost = hostname();
 const uris = new Map<string, string>();

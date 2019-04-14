@@ -1,8 +1,7 @@
-import { hostname } from "os";
-
 import { LoadServerListRequest } from "../request/loadServerList";
 import { LoadServerListResponse } from "../response/loadServerList";
 import { World } from "../world";
+import { hostname } from "../../hostname";
 
 export function loadServerList(
   w: World,
