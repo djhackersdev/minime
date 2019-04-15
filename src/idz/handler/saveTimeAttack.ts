@@ -7,21 +7,12 @@ export async function saveTimeAttack(
   req: SaveTimeAttackRequest
 ): Promise<SaveTimeAttackResponse> {
   if (req.payload.totalMsec > 0) {
-    const state = await w.timeAttack().load(req.profileId);
-    const existing = state.courses.find(
-      course => course.courseId === req.payload.courseId
-    );
+    const existing = await w
+      .timeAttack()
+      .load(req.profileId, req.payload.courseId);
 
     if (existing === undefined || existing.totalMsec > req.payload.totalMsec) {
-      const newCourses = state.courses.filter(
-        course => course.courseId !== req.payload.courseId
-      );
-
-      newCourses.push(req.payload);
-
-      const newState = { courses: newCourses };
-
-      await w.timeAttack().save(req.profileId, newState);
+      await w.timeAttack().save(req.profileId, req.payload);
     }
   }
 

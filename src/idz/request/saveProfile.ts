@@ -17,7 +17,7 @@ export interface SaveProfileRequest {
   title: TitleCode;
   titles: TitleCode[];
   background: BackgroundCode;
-  coursePlays: number[];
+  coursePlays: Map<number, number>;
   missions: MissionState;
   car: Car;
   story: Story;

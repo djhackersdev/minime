@@ -1,49 +1,40 @@
 import * as fs from "fs";
-import { promisify } from "util";
 
-import { World } from "./base";
+import { FacetRepositoryImpl } from "./_facet";
+import { FlagRepositoryImpl } from "./_flag";
+import { CarRepositoryImpl } from "./car";
+import { CoursePlaysRepositoryImpl } from "./coursePlays";
+import { World } from "./defs";
 import { ProfileRepositoryImpl } from "./profile";
-import { SingletonJsonRepo, SingletonTextRepo } from "./_singleton";
+import { TimeAttackRepositoryImpl } from "./timeAttack";
 import * as Model from "../model";
 
 export { World };
-
-const exists = promisify(fs.exists);
-const mkdir = promisify(fs.mkdir);
 
 class WorldImpl implements World {
   constructor(private readonly _root: string) {}
 
   backgrounds() {
-    return new SingletonTextRepo<Model.BackgroundCode[], Model.Profile>(
+    return new FlagRepositoryImpl<Model.BackgroundCode>(
       this._root,
       "backgrounds"
     );
   }
 
   car() {
-    return new SingletonJsonRepo<Model.Car, Model.Profile>(this._root, "car");
+    return new CarRepositoryImpl(this._root);
   }
 
   chara() {
-    return new SingletonJsonRepo<Model.Chara, Model.Profile>(
-      this._root,
-      "chara"
-    );
+    return new FacetRepositoryImpl<Model.Chara>(this._root, "chara");
   }
 
   coursePlays() {
-    return new SingletonTextRepo<number[], Model.Profile>(
-      this._root,
-      "coursePlays"
-    );
+    return new CoursePlaysRepositoryImpl(this._root);
   }
 
   missions() {
-    return new SingletonJsonRepo<Model.MissionState, Model.Profile>(
-      this._root,
-      "missions"
-    );
+    return new FacetRepositoryImpl<Model.MissionState>(this._root, "missions");
   }
 
   profile() {
@@ -51,46 +42,29 @@ class WorldImpl implements World {
   }
 
   settings() {
-    return new SingletonJsonRepo<Model.Settings, Model.Profile>(
-      this._root,
-      "settings"
-    );
+    return new FacetRepositoryImpl<Model.Settings>(this._root, "settings");
   }
 
   story() {
-    return new SingletonJsonRepo<Model.Story, Model.Profile>(
-      this._root,
-      "story"
-    );
+    return new FacetRepositoryImpl<Model.Story>(this._root, "story");
   }
 
   timeAttack() {
-    return new SingletonJsonRepo<Model.TimeAttackState, Model.Profile>(
-      this._root,
-      "timeAttack"
-    );
+    return new TimeAttackRepositoryImpl(this._root);
   }
 
   titles() {
-    return new SingletonTextRepo<Model.TitleCode[], Model.Profile>(
-      this._root,
-      "titles"
-    );
+    return new FlagRepositoryImpl<Model.TitleCode>(this._root, "titles");
   }
 
   unlocks() {
-    return new SingletonJsonRepo<Model.Unlocks, Model.Profile>(
-      this._root,
-      "unlocks"
-    );
+    return new FacetRepositoryImpl<Model.Unlocks>(this._root, "unlocks");
   }
 }
 
 export async function createWorld(root: string): Promise<World> {
-  const doesExist = await exists(root);
-
-  if (!doesExist) {
-    await mkdir(root);
+  if (!fs.existsSync(root)) {
+    fs.mkdirSync(root);
   }
 
   return new WorldImpl(root);

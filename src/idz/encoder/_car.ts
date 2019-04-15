@@ -13,7 +13,7 @@ export function car(car: Car): Buffer {
     );
   }
 
-  buf.writeUInt16LE(car.field_44, 0x0044);
+  buf.writeUInt16LE(car.selector, 0x0044);
   buf.writeUInt16LE(car.field_46, 0x0046);
   buf.writeUInt16LE(car.field_48, 0x0048);
   buf.writeUInt16LE(car.field_4A, 0x004a);

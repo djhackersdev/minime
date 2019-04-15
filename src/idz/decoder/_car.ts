@@ -1,4 +1,4 @@
-import { Car } from "../model/car";
+import { Car, CarSelector } from "../model/car";
 
 export function car(buf: Buffer): Car {
   const field_04: number[] = [];
@@ -11,7 +11,7 @@ export function car(buf: Buffer): Car {
     field_00: buf.readUInt16LE(0x0000),
     field_02: buf.readUInt16LE(0x0002),
     field_04,
-    field_44: buf.readUInt16LE(0x0044),
+    selector: buf.readUInt16LE(0x0044) as CarSelector,
     field_46: buf.readUInt16LE(0x0046),
     field_48: buf.readUInt16LE(0x0048),
     field_4A: buf.readUInt16LE(0x004a),

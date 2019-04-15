@@ -1,8 +1,11 @@
+// See base.ts for information about branding.
+export type CarSelector = number & { __brand: "car_selector" };
+
 export interface Car {
   field_00: number;
   field_02: number;
   field_04: number[];
-  field_44: number;
+  selector: CarSelector;
   field_46: number;
   field_48: number;
   field_4A: number;

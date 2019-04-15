@@ -29,10 +29,10 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     storyRows.push(row);
   }
 
-  const coursePlays = new Array();
+  const coursePlays = new Map<number, number>();
 
-  for (let i = 0x0000; i < 0x0020; i += 2) {
-    coursePlays.push(buf.readUInt16LE(0x04c0 + i));
+  for (let i = 0; i < 16; i++) {
+    coursePlays.set(i, buf.readUInt16LE(0x04c0 + 2 * i));
   }
 
   return {

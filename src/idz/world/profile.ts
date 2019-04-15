@@ -1,19 +1,37 @@
-import { SingletonJsonRepo } from "./_singleton";
-import { ProfileRepository } from "./base";
-import { AimeId } from "../model/base";
+import * as fs from "fs";
+import { promisify } from "util";
+
+import { loadJson, saveJson } from "./_util";
+import { ProfileRepository } from "./defs";
+import { AimeId, Id } from "../model/base";
 import { Profile } from "../model/profile";
 
-export class ProfileRepositoryImpl extends SingletonJsonRepo<Profile>
-  implements ProfileRepository {
+const exists = promisify(fs.exists);
+
+export class ProfileRepositoryImpl implements ProfileRepository {
+  private readonly _path: string;
+
   constructor(root) {
-    super(root, "profile");
+    this._path = root + "/profile.json";
+  }
+
+  async generateId(): Promise<Id<Profile>> {
+    return 1 as Id<Profile>;
   }
 
   discoverByAimeId(id: AimeId): Promise<boolean> {
-    return this._discoverSingleton();
+    return exists(this._path);
   }
 
   loadByAimeId(id: AimeId): Promise<Profile> {
-    return this._loadSingleton();
+    return loadJson(this._path);
+  }
+
+  load(id: Id<Profile>): Promise<Profile> {
+    return loadJson(this._path);
+  }
+
+  save(id: Id<Profile>, profile: Profile): Promise<void> {
+    return saveJson(this._path, profile);
   }
 }

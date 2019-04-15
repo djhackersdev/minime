@@ -5,7 +5,7 @@ import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
-import { TimeAttackState } from "../model/timeAttack";
+import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 
 export interface LoadProfileResponse2 {
@@ -21,10 +21,11 @@ export interface LoadProfileResponse2 {
   settings: Settings;
   chara: Chara;
   titles: TitleCode[];
-  coursePlays: number[];
+  coursePlays: Map<number, number>;
   missions: MissionState;
-  timeAttack: TimeAttackState;
+  timeAttack: TimeAttackScore[];
   car: Car;
+  carCount: number;
   story: Story;
   unlocks: Unlocks;
   // giga TODO

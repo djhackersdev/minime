@@ -13,21 +13,21 @@ export function loadProfile2(res: LoadProfileResponse2) {
   //buf.fill(0xff, 0x0000, 0x08f4);
   //buf.fill(0xff, 0x0c20, 0x0c2a);
 
-  for (const course of res.timeAttack.courses) {
-    const { courseId } = course;
+  for (const score of res.timeAttack) {
+    const { courseId } = score;
 
     buf.writeUInt32LE(
-      (new Date(course.timestamp).getTime() / 1000) | 0, // Date ctor hack
+      (new Date(score.timestamp).getTime() / 1000) | 0, // Date ctor hack
       0x00e4 + courseId * 4
     );
 
     buf.writeUInt16LE(0xffff, 0x0164 + 2 * courseId); // National rank
-    buf.writeUInt32LE(course.totalMsec, 0x04e0 + 4 * courseId);
-    buf.writeUInt8(course.flags, 0x05a0 + courseId);
+    buf.writeUInt32LE(score.totalMsec, 0x04e0 + 4 * courseId);
+    buf.writeUInt8(score.flags, 0x05a0 + courseId);
 
     for (let i = 0; i < 3; i++) {
       buf.writeUInt16LE(
-        course.stageMsec[i] >> 2,
+        score.stageMsec[i] >> 2,
         0x05c0 + 6 * courseId + 2 * i
       );
     }
@@ -46,8 +46,12 @@ export function loadProfile2(res: LoadProfileResponse2) {
     }
   }
 
-  for (let i = 0; i < 16 && i < res.coursePlays.length; i++) {
-    buf.writeUInt16LE(res.coursePlays[i], 0x0460 + 2 * i);
+  for (const [courseId, playCount] of res.coursePlays.entries()) {
+    if (courseId < 0 || courseId >= 16) {
+      throw new Error(`Course id out of range: ${courseId}`);
+    }
+
+    buf.writeUInt16LE(playCount, 0x0460 + 2 * courseId);
   }
 
   buf.writeUInt16LE(0x0065, 0x0000);
@@ -74,7 +78,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt8(res.settings.gauges, 0x07da);
   buf.writeUInt32LE(res.teamId || 0xffffffff, 0x07e0);
   car(res.car).copy(buf, 0x0c5c);
-  buf.writeUInt32LE(1, 0x0c58); // Cars in garage
+  buf.writeUInt32LE(res.carCount, 0x0c58);
 
   // [1] Currently unknown, but if this field is zero then the player will have
   //     a "model record" emblem in their profile card.
