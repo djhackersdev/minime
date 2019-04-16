@@ -4,6 +4,7 @@ import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
+import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
 
 export interface SaveProfileRequest {
@@ -22,5 +23,6 @@ export interface SaveProfileRequest {
   car: Car;
   story: Story;
   unlocks: Unlocks;
+  tickets: Tickets;
   settings: Settings;
 }

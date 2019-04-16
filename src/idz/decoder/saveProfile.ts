@@ -35,6 +35,15 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     coursePlays.set(i, buf.readUInt16LE(0x04c0 + 2 * i));
   }
 
+  const freeCar = {
+    validFrom: buf.readUInt32LE(0x0138),
+  };
+
+  const freeContinue = {
+    validFrom: buf.readUInt32LE(0x0038),
+    validTo: buf.readUInt32LE(0x003c),
+  };
+
   return {
     type: "save_profile_req",
     profileId: buf.readUInt32LE(0x0004) as Id<Profile>,
@@ -62,6 +71,21 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
       gauges: buf.readUInt16LE(0x0114),
       music: buf.readUInt16LE(0x0140),
       lastMileageReward: buf.readUInt32LE(0x013c),
+    },
+    tickets: {
+      freeCar:
+        freeCar.validFrom !== 0
+          ? {
+              validFrom: new Date(freeCar.validFrom * 1000),
+            }
+          : undefined,
+      freeContinue:
+        freeContinue.validFrom !== 0 && freeContinue.validTo !== 0
+          ? {
+              validFrom: new Date(freeContinue.validFrom * 1000),
+              validTo: new Date(freeContinue.validTo * 1000),
+            }
+          : undefined,
     },
     settings: {
       music: buf.readUInt16LE(0x045a),

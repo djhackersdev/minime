@@ -54,6 +54,17 @@ export function loadProfile2(res: LoadProfileResponse2) {
     buf.writeUInt16LE(playCount, 0x0460 + 2 * courseId);
   }
 
+  const { freeCar, freeContinue } = res.tickets;
+
+  if (freeCar) {
+    buf.writeUInt32LE((freeCar.validFrom.getTime() / 1000) | 0, 0x01e4);
+  }
+
+  if (freeContinue) {
+    buf.writeUInt32LE((freeContinue.validFrom.getTime() / 1000) | 0, 0x03dc);
+    buf.writeUInt32LE((freeContinue.validTo.getTime() / 1000) | 0, 0x03e0);
+  }
+
   buf.writeUInt16LE(0x0065, 0x0000);
   buf.writeUInt8(res.unlocks.cup, 0x00b4);
   buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);

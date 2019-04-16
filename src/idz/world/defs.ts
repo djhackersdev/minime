@@ -84,6 +84,8 @@ export interface World {
   // Also not a facet. w/e one step at a time.
   story(): FacetRepository<Model.Story>;
 
+  tickets(): FacetRepository<Model.Tickets>;
+
   timeAttack(): TimeAttackRepository;
 
   titles(): FlagRepository<Model.TitleCode>;

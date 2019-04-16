@@ -4,7 +4,6 @@ import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Team } from "../model/team";
-import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
@@ -46,6 +45,7 @@ export async function createProfile(
     w.settings().save(profile.id, settings),
     w.story().save(profile.id, story),
     w.unlocks().save(profile.id, unlocks),
+    w.tickets().save(profile.id, {}),
   ]);
 
   return {

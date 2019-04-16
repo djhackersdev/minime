@@ -20,6 +20,7 @@ export async function loadProfile(
   const story = await w.story().load(profile.id);
   const timeAttack = await w.timeAttack().loadAll(profile.id);
   const unlocks = await w.unlocks().load(profile.id);
+  const tickets = await w.tickets().load(profile.id);
 
   return {
     type: "load_profile_v2_res",
@@ -41,5 +42,6 @@ export async function loadProfile(
     carCount,
     story,
     unlocks,
+    tickets,
   };
 }

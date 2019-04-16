@@ -5,6 +5,7 @@ import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
+import { Tickets } from "../model/tickets";
 import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 
@@ -28,5 +29,6 @@ export interface LoadProfileResponse2 {
   carCount: number;
   story: Story;
   unlocks: Unlocks;
+  tickets: Tickets;
   // giga TODO
 }

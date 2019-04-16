@@ -6,6 +6,7 @@ import { CarRepositoryImpl } from "./car";
 import { CoursePlaysRepositoryImpl } from "./coursePlays";
 import { World } from "./defs";
 import { ProfileRepositoryImpl } from "./profile";
+import { TicketsRepositoryImpl } from "./tickets";
 import { TimeAttackRepositoryImpl } from "./timeAttack";
 import * as Model from "../model";
 
@@ -47,6 +48,10 @@ class WorldImpl implements World {
 
   story() {
     return new FacetRepositoryImpl<Model.Story>(this._root, "story");
+  }
+
+  tickets() {
+    return new TicketsRepositoryImpl(this._root);
   }
 
   timeAttack() {

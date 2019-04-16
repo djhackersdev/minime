@@ -30,6 +30,7 @@ export async function saveProfile(
     w.titles().saveAll(req.profileId, req.titles),
     w.unlocks().save(req.profileId, req.unlocks),
     w.settings().save(req.profileId, req.settings),
+    w.tickets().save(req.profileId, req.tickets),
   ]);
 
   return {
