@@ -57,6 +57,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt16LE(0x0065, 0x0000);
   buf.writeUInt8(res.unlocks.cup, 0x00b4);
   buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);
+  buf.writeUInt32LE(res.unlocks.lastMileageReward, 0x01e8);
   buf.writeUInt16LE(res.unlocks.music, 0x01ec);
   mission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt16LE(0xffff, 0x0388); // [1]

@@ -30,7 +30,12 @@ export async function createProfile(
   const missions: MissionState = { team: [], solo: [] };
   const settings: Settings = { music: 0, pack: 13640, paperCup: 0, gauges: 5 };
   const story: Story = { x: 0, y: 0, rows: [] };
-  const unlocks: Unlocks = { cup: 0, gauges: 0, music: 0 };
+  const unlocks: Unlocks = {
+    cup: 0,
+    gauges: 1 << 5,
+    music: 0,
+    lastMileageReward: 0,
+  };
 
   await Promise.all([
     w.profile().save(profile.id, profile),

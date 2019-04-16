@@ -61,6 +61,7 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
       cup: buf.readUInt8(0x0110),
       gauges: buf.readUInt16LE(0x0114),
       music: buf.readUInt16LE(0x0140),
+      lastMileageReward: buf.readUInt32LE(0x013c),
     },
     settings: {
       music: buf.readUInt16LE(0x045a),
