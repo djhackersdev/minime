@@ -13,6 +13,9 @@ export function loadProfile2(res: LoadProfileResponse2) {
   //buf.fill(0xff, 0x0000, 0x08f4);
   //buf.fill(0xff, 0x0c20, 0x0c2a);
 
+  // Initialize all TA grades to Bronze
+  buf.fill(4, 0x0680, 0x06a0);
+
   for (const score of res.timeAttack) {
     const { courseId } = score;
 
