@@ -26,14 +26,6 @@ const key = {
 // Proof-of-concept, so we only use one fixed session key
 const sessionKey = 0xffddeeccbbaa99887766554433221100n;
 
-// -- TEST --
-const test1 = modPow(sessionKey, key.e, key.N);
-const test2 = modPow(test1, key.d, key.N);
-
-console.log("RSA ENC    :", byteString(test1, 0x40).toString("hex"));
-console.log("RSA ENCDEC :", byteString(test2, 0x40).toString("hex"));
-// -- TEST --
-
 interface Session {
   input: AsyncIterable<Request> & {
     end: () => void;
