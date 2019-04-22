@@ -4,4 +4,5 @@ export interface TimeAttackScore {
   flags: number;
   totalMsec: number;
   stageMsec: number[];
+  grade: number;
 }

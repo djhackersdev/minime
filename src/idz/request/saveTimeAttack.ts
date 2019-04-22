@@ -15,5 +15,4 @@ export interface SaveTimeAttackRequest {
   field_005D: number; // u8
   field_005E: number; // u16
   field_0060: number; // u16
-  field_0062: number; // u8
 }

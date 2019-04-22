@@ -21,6 +21,7 @@ export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
         buf.readUInt32LE(0x0028),
         buf.readUInt32LE(0x002c),
       ],
+      grade: buf.readUInt8(0x0062),
     },
     field_0002: buf.readUInt16LE(0x0002),
     field_0008: buf.readUInt32LE(0x0008),
@@ -30,6 +31,5 @@ export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
     field_005D: buf.readUInt8(0x005d),
     field_005E: buf.readUInt16LE(0x005e),
     field_0060: buf.readUInt16LE(0x0060),
-    field_0062: buf.readUInt8(0x0062),
   };
 }

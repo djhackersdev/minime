@@ -21,9 +21,11 @@ export function loadProfile2(res: LoadProfileResponse2) {
       0x00e4 + courseId * 4
     );
 
+    buf.writeUInt16LE(0, 0x0560 + 2 * courseId); // ???
     buf.writeUInt16LE(0xffff, 0x0164 + 2 * courseId); // National rank
     buf.writeUInt32LE(score.totalMsec, 0x04e0 + 4 * courseId);
     buf.writeUInt8(score.flags, 0x05a0 + courseId);
+    buf.writeUInt8(score.grade, 0x0680 + courseId);
 
     for (let i = 0; i < 3; i++) {
       buf.writeUInt16LE(
