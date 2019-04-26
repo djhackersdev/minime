@@ -1,3 +1,5 @@
+import { existsSync } from "fs";
+
 import { loadJson, saveJson } from "./_util";
 import { CarRepository } from "./defs";
 import { Id } from "../model/base";
@@ -5,7 +7,7 @@ import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 
 interface GarageJson {
-  selected: CarSelector;
+  selected?: CarSelector;
   cars: Car[];
 }
 
@@ -16,20 +18,28 @@ export class CarRepositoryImpl implements CarRepository {
     this._path = root + "/garage.json";
   }
 
+  private async _loadJson(): Promise<GarageJson> {
+    if (existsSync(this._path)) {
+      return loadJson(this._path);
+    } else {
+      return { cars: [] };
+    }
+  }
+
   async countCars(profileId: Id<Profile>): Promise<number> {
-    const garage: GarageJson = await loadJson(this._path);
+    const garage: GarageJson = await this._loadJson();
 
     return garage.cars.length;
   }
 
   async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
-    const garage: GarageJson = await loadJson(this._path);
+    const garage: GarageJson = await this._loadJson();
 
     return garage.cars;
   }
 
   async loadSelectedCar(profileId: Id<Profile>): Promise<Car> {
-    const garage: GarageJson = await loadJson(this._path);
+    const garage: GarageJson = await this._loadJson();
     const sel = garage.cars.find(item => item.selector === garage.selected);
 
     if (sel === undefined) {
@@ -40,7 +50,7 @@ export class CarRepositoryImpl implements CarRepository {
   }
 
   async saveCar(profileId: Id<Profile>, car: Car): Promise<void> {
-    const garage: GarageJson = await loadJson(this._path);
+    const garage: GarageJson = await this._loadJson();
     const rest = garage.cars.filter(item => item.selector != car.selector);
 
     const updated = { ...garage, cars: [...rest, car] };
@@ -52,7 +62,7 @@ export class CarRepositoryImpl implements CarRepository {
     profileId: Id<Profile>,
     selection: CarSelector
   ): Promise<void> {
-    const garage: GarageJson = await loadJson(this._path);
+    const garage: GarageJson = await this._loadJson();
     const match = garage.cars.find(item => item.selector === selection);
 
     if (!match) {
