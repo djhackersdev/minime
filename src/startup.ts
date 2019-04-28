@@ -86,10 +86,7 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
     region_name3: "Z",
     country: "JPN",
     allnet_id: "456",
-
-    // Always UTC to simplify the segatools fake time system
-    // (which is used to skip the hardcoded 2AM - 7AM warn/unplayable period)
-    client_timezone: "+0000",
+    client_timezone: "+0900",
 
     utc_time: isoStr,
     setting: "",
