@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import fs = require("fs");
 import https = require("https");
 import http = require("http");
