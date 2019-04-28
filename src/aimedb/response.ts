@@ -18,12 +18,14 @@ export interface LogResponse extends AimeResponseBase {
 
 export interface LookupResponse extends AimeResponseBase {
   type: "lookup";
+  status: number;
   aimeId?: number;
   registerLevel: RegisterLevel;
 }
 
 export interface LookupResponse2 extends AimeResponseBase {
   type: "lookup2";
+  status: number;
   aimeId?: number;
   registerLevel: RegisterLevel;
 }
