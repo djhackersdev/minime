@@ -1,8 +1,10 @@
+import { Socket } from "net";
+
 import { dispatch } from "./handler";
 import { AimeRequest } from "./request";
 import { setup } from "./pipeline";
 
-export default async function aimedb(socket) {
+export default async function aimedb(socket: Socket) {
   console.log("Aimedb: Connection opened");
 
   const { input, output } = setup(socket);
