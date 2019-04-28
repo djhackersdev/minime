@@ -1,10 +1,71 @@
+import iconv = require("iconv-lite");
+
 import { LoadTopTenResponse } from "../response/loadTopTen";
 
 export function loadTopTen(res: LoadTopTenResponse): Buffer {
   const buf = Buffer.alloc(0x1720);
 
   buf.writeUInt16LE(0x00b6, 0x0000);
-  // in awe of the size of this lad too
+  buf.writeUInt16LE(res.totalSelected, 0x0002);
+
+  for (let i = 0; i < 3; i++) {
+    if (i >= res.courses.length) {
+      break;
+    }
+
+    const course = res.courses[i];
+    const outerOff = 0x0004 + 0x794 * i;
+
+    buf.writeUInt16LE(course.courseId, outerOff + 0x0000);
+    buf.writeUInt16LE(course.field_02, outerOff + 0x0002); // Bitmask-y?
+    buf.writeUInt32LE(course.wrStageMsec[0], outerOff + 0x0004);
+    buf.writeUInt32LE(course.wrStageMsec[1], outerOff + 0x0008);
+    buf.writeUInt32LE(course.wrStageMsec[2], outerOff + 0x000c);
+
+    for (let j = 0; j < 10; j++) {
+      if (j >= course.rows.length) {
+        break;
+      }
+
+      const row = course.rows[i];
+      const innerOff = outerOff + 0x0010 + 0xc0 * j;
+
+      buf.writeUInt32LE(row.field_00, innerOff + 0x0000);
+      buf.writeUInt32LE(row.totalMsec, innerOff + 0x0004);
+      buf.writeUInt32LE(
+        (row.timestamp.getTime() / 1000) | 0,
+        innerOff + 0x0008
+      );
+      buf.writeUInt16LE(row.car, innerOff + 0x000c); // CAR
+      buf.writeUInt8(row.field_0E ? 1 : 0, innerOff + 0x000e); // Boolean
+      buf.writeUInt8(row.field_0F ? 1 : 0, innerOff + 0x000f); // Boolean
+      buf.writeUInt8(row.field_10, innerOff + 0x0010);
+      iconv.encode(row.driverName, "shift_jis").copy(buf, innerOff + 0x0014);
+      iconv.encode(row.teamName, "shift_jis").copy(buf, innerOff + 0x0028);
+      iconv.encode(row.shopName, "shift_jis").copy(buf, innerOff + 0x0048);
+      buf.writeUInt32LE(row.field_74, innerOff + 0x0074);
+      buf.writeUInt16LE(row.field_78, innerOff + 0x0078);
+      buf.writeUInt8(row.field_7C, innerOff + 0x007c);
+      buf.writeUInt8(row.field_7D, innerOff + 0x007d);
+      // 66 bytes of fucking nothing what
+    }
+  }
+
+  for (let i = 0; i < 3; i++) {
+    const offset = 0x16c0 + 0x1c * i;
+
+    if (i < res.trailers.length) {
+      const trailer = res.trailers[i];
+
+      buf.writeUInt16LE(trailer.yearMonth, offset + 0x00);
+      buf.writeUInt8(trailer.courseId, offset + 0x02);
+      buf.writeUInt8(trailer.isNight ? 1 : 0, offset + 0x03);
+      buf.writeUInt32LE(trailer.totalMsec, offset + 0x04);
+      iconv.encode(trailer.name, "shift_jis").copy(buf, offset + 0x08);
+    } else {
+      buf.writeUInt8(0xff, offset + 0x02);
+    }
+  }
 
   return buf;
 }

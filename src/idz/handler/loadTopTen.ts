@@ -8,5 +8,8 @@ export function loadTopTen(
 ): LoadTopTenResponse {
   return {
     type: "load_top_ten_res",
+    totalSelected: 0,
+    courses: [],
+    trailers: [],
   };
 }
