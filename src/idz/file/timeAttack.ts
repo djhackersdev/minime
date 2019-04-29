@@ -1,7 +1,7 @@
 import * as fs from "fs";
 
 import { loadJson, saveJson } from "./_util";
-import { TimeAttackRepository } from "./defs";
+import { TimeAttackRepository } from "../repo";
 import { Id } from "../model/base";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";

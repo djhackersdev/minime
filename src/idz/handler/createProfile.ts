@@ -7,10 +7,10 @@ import { Team } from "../model/team";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function createProfile(
-  w: World,
+  w: Repositories,
   req: CreateProfileRequest
 ): Promise<GenericResponse> {
   const profileId = await w.profile().generateId();

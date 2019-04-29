@@ -1,5 +1,5 @@
 import { loadJson, saveJson } from "./_util";
-import { FacetRepository } from "./defs";
+import { FacetRepository } from "../repo";
 import { Tickets } from "../model/tickets";
 import { Id, Profile } from "../model";
 

@@ -1,9 +1,9 @@
 import { SaveStockerRequest } from "../request/saveStocker";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function saveStocker(
-  w: World,
+  w: Repositories,
   req: SaveStockerRequest
 ): Promise<GenericResponse> {
   await Promise.all([

@@ -1,9 +1,9 @@
 import { SaveGarageRequest } from "../request/saveGarage";
 import { SaveGarageResponse } from "../response/saveGarage";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function saveGarage(
-  w: World,
+  w: Repositories,
   req: SaveGarageRequest
 ): SaveGarageResponse {
   return {

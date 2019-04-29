@@ -1,9 +1,9 @@
 import { LoadTeamRankingRequest } from "../request/loadTeamRanking";
 import { LoadTeamRankingResponse } from "../response/loadTeamRanking";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function loadTeamRanking(
-  w: World,
+  w: Repositories,
   req: LoadTeamRankingRequest
 ): LoadTeamRankingResponse {
   return {

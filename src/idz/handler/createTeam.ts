@@ -2,10 +2,10 @@ import { Id } from "../model/base";
 import { Team } from "../model/team";
 import { CreateTeamRequest } from "../request/createTeam";
 import { CreateTeamResponse } from "../response/createTeam";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function createTeam(
-  w: World,
+  w: Repositories,
   req: CreateTeamRequest
 ): CreateTeamResponse {
   return {

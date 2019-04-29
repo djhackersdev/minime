@@ -1,9 +1,9 @@
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
 import { SaveTimeAttackResponse } from "../response/saveTimeAttack";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function saveTimeAttack(
-  w: World,
+  w: Repositories,
   req: SaveTimeAttackRequest
 ): Promise<SaveTimeAttackResponse> {
   if (req.payload.totalMsec > 0) {

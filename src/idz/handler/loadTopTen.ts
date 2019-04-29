@@ -1,9 +1,9 @@
 import { LoadTopTenRequest } from "../request/loadTopTen";
 import { LoadTopTenResponse } from "../response/loadTopTen";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function loadTopTen(
-  w: World,
+  w: Repositories,
   req: LoadTopTenRequest
 ): LoadTopTenResponse {
   return {

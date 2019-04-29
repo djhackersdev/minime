@@ -1,7 +1,10 @@
 import { LockGarageRequest } from "../request/lockGarage";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
-export function lockGarage(w: World, req: LockGarageRequest): GenericResponse {
+export function lockGarage(
+  w: Repositories,
+  req: LockGarageRequest
+): GenericResponse {
   return { type: "generic_res" };
 }

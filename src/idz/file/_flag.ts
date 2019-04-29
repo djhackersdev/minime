@@ -1,5 +1,5 @@
 import { loadNumberList, saveNumberList } from "./_util";
-import { FlagRepository } from "./defs";
+import { FlagRepository } from "../repo";
 import { Id } from "../model/base";
 import { Profile } from "../model/profile";
 

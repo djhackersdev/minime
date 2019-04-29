@@ -1,9 +1,9 @@
 import { SaveNewCarRequest } from "../request/saveNewCar";
 import { SaveNewCarResponse } from "../response/saveNewCar";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function saveNewCar(
-  w: World,
+  w: Repositories,
   req: SaveNewCarRequest
 ): Promise<SaveNewCarResponse> {
   await w.car().saveCar(req.profileId, req.car);

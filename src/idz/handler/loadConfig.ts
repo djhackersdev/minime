@@ -1,9 +1,9 @@
 import { LoadConfigRequest } from "../request/loadConfig";
 import { LoadConfigResponse } from "../response/loadConfig";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function loadConfig(
-  w: World,
+  w: Repositories,
   req: LoadConfigRequest
 ): LoadConfigResponse {
   return {

@@ -1,7 +1,10 @@
 import { LoadGhostRequest } from "../request/loadGhost";
 import { LoadGhostResponse } from "../response/loadGhost";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
-export function loadGhost(w: World, req: LoadGhostRequest): LoadGhostResponse {
+export function loadGhost(
+  w: Repositories,
+  req: LoadGhostRequest
+): LoadGhostResponse {
   return { type: "load_ghost_res" };
 }

@@ -1,9 +1,9 @@
 import { LoadStockerRequest } from "../request/loadStocker";
 import { LoadStockerResponse } from "../response/loadStocker";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function loadStocker(
-  w: World,
+  w: Repositories,
   req: LoadStockerRequest
 ): Promise<LoadStockerResponse> {
   const backgrounds = await w.backgrounds().loadAll(req.profileId);

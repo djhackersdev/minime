@@ -4,10 +4,10 @@ import { JoinAutoTeamRequest } from "../request/joinAutoTeam";
 import { LoadTeamRequest } from "../request/loadTeam";
 import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function _team(
-  w: World,
+  w: Repositories,
   req: JoinAutoTeamRequest | LoadTeamRequest
 ): JoinAutoTeamResponse | LoadTeamResponse {
   const bits = {

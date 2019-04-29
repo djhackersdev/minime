@@ -1,9 +1,9 @@
 import { UpdateUserLogRequest } from "../request/updateUserLog";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function updateUserLog(
-  w: World,
+  w: Repositories,
   req: UpdateUserLogRequest
 ): GenericResponse {
   return { type: "generic_res" };

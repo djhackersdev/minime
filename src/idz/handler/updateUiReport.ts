@@ -1,9 +1,9 @@
 import { UpdateUiReportRequest } from "../request/updateUiReport";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function updateUiReport(
-  w: World,
+  w: Repositories,
   req: UpdateUiReportRequest
 ): GenericResponse {
   return { type: "generic_res" };

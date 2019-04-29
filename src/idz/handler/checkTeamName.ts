@@ -1,9 +1,9 @@
 import { CheckTeamNameRequest } from "../request/checkTeamName";
 import { CheckTeamNameResponse } from "../response/checkTeamName";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function checkTeamName(
-  w: World,
+  w: Repositories,
   req: CheckTeamNameRequest
 ): CheckTeamNameResponse {
   return {

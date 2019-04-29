@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 
 import { loadJson, saveJson } from "./_util";
-import { CarRepository } from "./defs";
+import { CarRepository } from "../repo";
 import { Id } from "../model/base";
 import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";

@@ -1,9 +1,9 @@
 import { UpdateTeamPointsRequest } from "../request/updateTeamPoints";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function updateTeamPoints(
-  w: World,
+  w: Repositories,
   req: UpdateTeamPointsRequest
 ): GenericResponse {
   return { type: "generic_res" };

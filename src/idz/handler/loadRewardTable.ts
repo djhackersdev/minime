@@ -1,9 +1,9 @@
 import { LoadRewardTableRequest } from "../request/loadRewardTable";
 import { LoadRewardTableResponse } from "../response/loadRewardTable";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function loadReward(
-  w: World,
+  w: Repositories,
   req: LoadRewardTableRequest
 ): LoadRewardTableResponse {
   return {

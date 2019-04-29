@@ -1,10 +1,10 @@
 import { LoadServerListRequest } from "../request/loadServerList";
 import { LoadServerListResponse } from "../response/loadServerList";
-import { World } from "../world";
+import { Repositories } from "../repo";
 import { hostname } from "../../hostname";
 
 export function loadServerList(
-  w: World,
+  w: Repositories,
   req: LoadServerListRequest
 ): LoadServerListResponse {
   const myHost = hostname();

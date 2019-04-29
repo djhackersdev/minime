@@ -1,9 +1,9 @@
 import { SaveProfileRequest } from "../request/saveProfile";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function saveProfile(
-  w: World,
+  w: Repositories,
   req: SaveProfileRequest
 ): Promise<GenericResponse> {
   const profile = await w.profile().load(req.profileId);

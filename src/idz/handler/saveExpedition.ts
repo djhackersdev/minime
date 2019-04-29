@@ -1,10 +1,10 @@
 import { SaveExpeditionRequest } from "../request/saveExpedition";
 import { GenericResponse } from "../response/generic";
 import { SaveExpeditionResponse } from "../response/saveExpedition";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function saveExpedition(
-  w: World,
+  w: Repositories,
   req: SaveExpeditionRequest
 ): GenericResponse | SaveExpeditionResponse {
   if (req.field_0004 === 0) {

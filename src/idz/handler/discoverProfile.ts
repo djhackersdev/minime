@@ -1,9 +1,9 @@
 import { DiscoverProfileRequest } from "../request/discoverProfile";
 import { DiscoverProfileResponse } from "../response/discoverProfile";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function discoverProfile(
-  w: World,
+  w: Repositories,
   req: DiscoverProfileRequest
 ): Promise<DiscoverProfileResponse> {
   return {

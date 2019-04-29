@@ -1,9 +1,9 @@
 import { UpdateProvisionalStoreRankRequest } from "../request/updateProvisionalStoreRank";
 import { UpdateProvisionalStoreRankResponse } from "../response/updateProvisionalStoreRank";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function updateProvisionalStoreRank(
-  w: World,
+  w: Repositories,
   req: UpdateProvisionalStoreRankRequest
 ): UpdateProvisionalStoreRankResponse {
   return {

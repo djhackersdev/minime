@@ -4,15 +4,15 @@ import { FacetRepositoryImpl } from "./_facet";
 import { FlagRepositoryImpl } from "./_flag";
 import { CarRepositoryImpl } from "./car";
 import { CoursePlaysRepositoryImpl } from "./coursePlays";
-import { World } from "./defs";
+import { Repositories } from "../repo";
 import { ProfileRepositoryImpl } from "./profile";
 import { TicketsRepositoryImpl } from "./tickets";
 import { TimeAttackRepositoryImpl } from "./timeAttack";
 import * as Model from "../model";
 
-export { World };
+export { Repositories as World };
 
-class WorldImpl implements World {
+class WorldImpl implements Repositories {
   constructor(private readonly _root: string) {}
 
   backgrounds() {
@@ -67,7 +67,9 @@ class WorldImpl implements World {
   }
 }
 
-export async function createWorld(root: string): Promise<World> {
+export async function beginFilesystemSession(
+  root: string
+): Promise<Repositories> {
   if (!fs.existsSync(root)) {
     fs.mkdirSync(root);
   }

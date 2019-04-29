@@ -1,9 +1,9 @@
 import { SaveSettingsRequest } from "../request/saveSettings";
 import { GenericResponse } from "../response/generic";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function saveSettings(
-  w: World,
+  w: Repositories,
   req: SaveSettingsRequest
 ): Promise<GenericResponse> {
   await w.settings().save(req.profileId, req.settings);

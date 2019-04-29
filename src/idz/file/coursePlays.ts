@@ -1,5 +1,5 @@
 import { loadNumberList, saveNumberList } from "./_util";
-import { CoursePlaysRepository } from "./defs";
+import { CoursePlaysRepository } from "../repo";
 import { Id } from "../model/base";
 import { Profile } from "../model/profile";
 

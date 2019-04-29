@@ -1,9 +1,9 @@
 import { LockAccountRequest } from "../request/lockProfile";
 import { LockProfileResponse } from "../response/lockProfile";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function lockProfile(
-  w: World,
+  w: Repositories,
   req: LockAccountRequest
 ): LockProfileResponse {
   return {

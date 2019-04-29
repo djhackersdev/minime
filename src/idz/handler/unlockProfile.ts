@@ -1,9 +1,9 @@
 import { UnlockProfileRequest } from "../request/unlockProfile";
 import { UnlockProfileResponse } from "../response/unlockProfile";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function unlockProfile(
-  w: World,
+  w: Repositories,
   req: UnlockProfileRequest
 ): UnlockProfileResponse {
   return {

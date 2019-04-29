@@ -1,4 +1,4 @@
-import * as Model from "../model";
+import * as Model from "./model";
 
 export interface CarRepository {
   countCars(profileId: Model.Id<Model.Profile>): Promise<number>;
@@ -65,7 +65,7 @@ export interface TimeAttackRepository {
   ): Promise<void>;
 }
 
-export interface World {
+export interface Repositories {
   backgrounds(): FlagRepository<Model.BackgroundCode>;
 
   car(): CarRepository;
@@ -91,4 +91,10 @@ export interface World {
   titles(): FlagRepository<Model.TitleCode>;
 
   unlocks(): FacetRepository<Model.Unlocks>;
+}
+
+export interface Transaction extends Repositories {
+  commit(): Promise<void>;
+
+  rollback(): Promise<void>;
 }

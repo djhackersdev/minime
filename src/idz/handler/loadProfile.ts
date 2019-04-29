@@ -1,9 +1,9 @@
 import { LoadProfileRequest } from "../request/loadProfile";
 import { LoadProfileResponse2 } from "../response/loadProfile2";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function loadProfile(
-  w: World,
+  w: Repositories,
   req: LoadProfileRequest
 ): Promise<LoadProfileResponse2> {
   // Promise.all would be messy here, who cares anyway this isn't supposed to

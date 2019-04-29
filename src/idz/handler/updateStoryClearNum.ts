@@ -1,9 +1,9 @@
 import { UpdateStoryClearNumRequest } from "../request/updateStoryClearNum";
 import { UpdateStoryClearNumResponse } from "../response/updateStoryClearNum";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export function updateStoryClearNum(
-  w: World,
+  w: Repositories,
   req: UpdateStoryClearNumRequest
 ): UpdateStoryClearNumResponse {
   return {

@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { promisify } from "util";
 
 import { loadJson, saveJson } from "./_util";
-import { ProfileRepository } from "./defs";
+import { ProfileRepository } from "../repo";
 import { AimeId, Id } from "../model/base";
 import { Profile } from "../model/profile";
 

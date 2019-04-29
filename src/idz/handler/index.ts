@@ -35,9 +35,12 @@ import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
 import { Request } from "../request";
 import { Response } from "../response";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
-export async function dispatch(w: World, req: Request): Promise<Response> {
+export async function dispatch(
+  w: Repositories,
+  req: Request
+): Promise<Response> {
   switch (req.type) {
     case "check_team_name_req":
       return checkTeamName(w, req);

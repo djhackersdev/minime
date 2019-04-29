@@ -1,9 +1,9 @@
 import { LoadGarageRequest } from "../request/loadGarage";
 import { LoadGarageResponse } from "../response/loadGarage";
-import { World } from "../world";
+import { Repositories } from "../repo";
 
 export async function loadGarage(
-  w: World,
+  w: Repositories,
   req: LoadGarageRequest
 ): Promise<LoadGarageResponse> {
   return {
