@@ -120,7 +120,8 @@ create table "idz"."story_cell_state" (
     "row_no" integer not null,
     "col_no" integer not null,
     "a" smallint not null,
-    "b" smallint not null
+    "b" smallint not null,
+    constraint story_cell_state_uq unique ("profile_id", "row_no", "col_no")
 );
 
 create table "idz"."free_car" (

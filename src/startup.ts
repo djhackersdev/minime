@@ -1,4 +1,5 @@
 import express = require("express");
+import iconv = require("iconv-lite");
 import read = require("raw-body");
 
 import { unzipSync } from "zlib";
@@ -57,7 +58,9 @@ app.use(async function(req, res, next) {
 
     res.set("content-type", "text/plain");
 
-    return send_.apply(res, [str]);
+    const bin = iconv.encode(str, "shift_jis");
+
+    return send_.apply(res, [bin]);
   };
 
   return next();

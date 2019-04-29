@@ -50,7 +50,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     const { rows } = await this._conn.query(loadCellSql);
 
     for (const row of rows) {
-      const cell = result.rows[row.row_no].cells[row.cell_no];
+      const cell = result.rows[row.row_no].cells[row.col_no];
 
       cell.a = row.a;
       cell.b = row.b;
@@ -102,7 +102,8 @@ export class SqlStoryRepository implements FacetRepository<Story> {
             b: cell.b,
           })
           .onConflict("profile_id", "row_no", "col_no")
-          .doUpdate("a", "b");
+          .doUpdate(["a", "b"])
+          .toParams();
 
         await this._conn.query(cellSql);
       }

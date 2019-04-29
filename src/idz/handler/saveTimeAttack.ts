@@ -6,12 +6,17 @@ export async function saveTimeAttack(
   w: Repositories,
   req: SaveTimeAttackRequest
 ): Promise<SaveTimeAttackResponse> {
-  // Override client time since we might be doing some maintenance window
-  // avoidance time warping stuff
+  // Non time-attack credits still call this method, but they pass some
+  // bullshit payload that we need to ignore.
 
-  await w
-    .timeAttack()
-    .save(req.profileId, { ...req.payload, timestamp: new Date() });
+  if (req.payload.totalTime > 0) {
+    // Override client time since we might be doing some maintenance window
+    // avoidance time warping stuff
+
+    await w
+      .timeAttack()
+      .save(req.profileId, { ...req.payload, timestamp: new Date() });
+  }
 
   return {
     type: "save_time_attack_res",

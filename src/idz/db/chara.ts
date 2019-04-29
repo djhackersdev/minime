@@ -61,6 +61,8 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
         "field_0A",
         "field_0C",
         "field_0E",
+        "title",
+        "background",
       ])
       .toParams();
 
