@@ -1,6 +1,7 @@
 import * as crypto from "crypto";
 import { Socket } from "net";
-import { pipeline } from "stream";
+import * as stream from "stream";
+import { promisify } from "util";
 
 import { Decoder } from "./decoder";
 import { Deframer } from "./frame";
@@ -9,6 +10,7 @@ import { AimeRequest } from "./request";
 import { AimeResponse } from "./response";
 
 const K = Buffer.from("Copyright(C)SEGA", "utf8");
+const pipeline = promisify(stream.pipeline);
 
 export interface Session {
   input: AsyncIterable<AimeRequest>;
@@ -17,13 +19,17 @@ export interface Session {
   };
 }
 
+function doNothing() {}
+
 export function setup(socket: Socket): Session {
-  const input = pipeline(
+  const input = new Decoder();
+
+  pipeline(
     socket,
     crypto.createDecipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     new Deframer({}),
-    new Decoder()
-  );
+    input
+  ).catch(doNothing);
 
   const output = new Encoder();
 
@@ -31,7 +37,7 @@ export function setup(socket: Socket): Session {
     output,
     crypto.createCipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     socket
-  );
+  ).catch(doNothing);
 
   return { input, output };
 }
