@@ -1,3 +1,5 @@
+import { AimeId } from "./model";
+
 export type RegisterLevel = "none" | "portal" | "segaid";
 
 export interface AimeResponseBase {
@@ -19,14 +21,14 @@ export interface LogResponse extends AimeResponseBase {
 export interface LookupResponse extends AimeResponseBase {
   type: "lookup";
   status: number;
-  aimeId?: number;
+  aimeId?: AimeId;
   registerLevel: RegisterLevel;
 }
 
 export interface LookupResponse2 extends AimeResponseBase {
   type: "lookup2";
   status: number;
-  aimeId?: number;
+  aimeId?: AimeId;
   registerLevel: RegisterLevel;
 }
 
