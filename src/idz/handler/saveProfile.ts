@@ -6,17 +6,21 @@ export async function saveProfile(
   w: Repositories,
   req: SaveProfileRequest
 ): Promise<GenericResponse> {
+  const now = new Date();
   const profile = await w.profile().load(req.profileId);
   const chara = await w.chara().load(req.profileId);
 
-  await w.profile().save({
-    ...profile,
-    lv: req.lv,
-    exp: req.exp,
-    fame: req.fame,
-    dpoint: req.dpoint,
-    mileage: req.mileage,
-  });
+  await w.profile().save(
+    {
+      ...profile,
+      lv: req.lv,
+      exp: req.exp,
+      fame: req.fame,
+      dpoint: req.dpoint,
+      mileage: req.mileage,
+    },
+    now
+  );
 
   await w.chara().save(req.profileId, {
     ...chara,

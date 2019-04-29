@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks";
 
 import { _findProfile } from "./_util";
@@ -8,7 +8,7 @@ import { FlagRepository } from "../repo";
 import { generateId } from "../../db";
 
 export class SqlTitlesRepository implements FlagRepository<TitleCode> {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async loadAll(extId: ExtId<Profile>): Promise<Set<TitleCode>> {
     const loadSql = sql

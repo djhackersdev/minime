@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks";
 
 import { _findProfile } from "./_util";
@@ -9,7 +9,7 @@ import { TimeAttackRepository } from "../repo";
 import { generateId } from "../../db";
 
 export class SqlTimeAttackRepository implements TimeAttackRepository {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async loadAll(extId: ExtId<Profile>): Promise<TimeAttackScore[]> {
     const loadSql = sql
@@ -72,7 +72,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
         .toParams();
 
       await this._conn.query(insertSql);
-    } else if (row.total_time > score.totalTime) {
+    } else if (score.totalTime < row.total_time) {
       const updateSql = sql
         .update("idz.ta_best", {
           total_time: score.totalTime,

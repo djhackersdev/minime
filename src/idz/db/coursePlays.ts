@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
 import { _findProfile } from "./_util";
@@ -8,7 +8,7 @@ import { CoursePlaysRepository } from "../repo";
 import { generateId } from "../../db";
 
 export class SqlCoursePlaysRepository implements CoursePlaysRepository {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async loadAll(extId: ExtId<Profile>): Promise<Map<CourseNo, number>> {
     const loadSql = sql
@@ -43,7 +43,7 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
           count: v,
         })
         .onConflict("profile_id", "course_no")
-        .doUpdate("count");
+        .doUpdate(["count"]);
 
       await this._conn.query(saveSql);
     }

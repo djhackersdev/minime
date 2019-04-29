@@ -1,14 +1,14 @@
 import * as sql from "sql-bricks";
-import { Client } from "pg";
+import { ClientBase } from "pg";
 
 import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Id } from "../../db";
 
 export async function _findProfile(
-  conn: Client,
+  conn: ClientBase,
   extId: ExtId<Profile>
-): Promise<Id<Profile> | undefined> {
+): Promise<Id<Profile>> {
   const lookupSql = sql
     .select("r.id")
     .from("idz.profile r")

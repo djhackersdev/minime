@@ -12,6 +12,7 @@ export async function createProfile(
   w: Repositories,
   req: CreateProfileRequest
 ): Promise<GenericResponse> {
+  const now = new Date();
   const profile: ProfileSpec = {
     teamId: 2 as ExtId<Team>, // TODO
     name: req.name,
@@ -32,7 +33,7 @@ export async function createProfile(
     lastMileageReward: 0,
   };
 
-  const profileId = await w.profile().create(profile);
+  const profileId = await w.profile().create(req.aimeId, profile, now);
 
   await w.chara().save(profileId, req.chara);
   await w.car().saveCar(profileId, req.car);

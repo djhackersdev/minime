@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks";
 
 import { _findProfile } from "./_util";
@@ -9,7 +9,7 @@ import { generateId } from "../../db";
 
 export class SqlBackgroundsRepository
   implements FlagRepository<BackgroundCode> {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async loadAll(extId: ExtId<Profile>): Promise<Set<BackgroundCode>> {
     const loadSql = sql

@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
 import { _findProfile } from "./_util";
@@ -29,7 +29,7 @@ function _extractRow(row: any): Car {
 }
 
 export class SqlCarRepository implements CarRepository {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async countCars(extId: ExtId<Profile>): Promise<number> {
     const countSql = sql
@@ -94,7 +94,7 @@ export class SqlCarRepository implements CarRepository {
         field_5E: car.field_5E,
       })
       .onConflict("profile_id", "selector")
-      .doUpdate(
+      .doUpdate([
         "field_00",
         "field_02",
         "field_04",
@@ -108,8 +108,8 @@ export class SqlCarRepository implements CarRepository {
         "field_5A",
         "field_5B",
         "field_5C",
-        "field_5E"
-      )
+        "field_5E",
+      ])
       .toParams();
 
     await this._conn.query(saveSql);
@@ -136,12 +136,12 @@ export class SqlCarRepository implements CarRepository {
     }
 
     const saveSql = sql
-      .insert("idz.car", {
+      .insert("idz.car_selection", {
         id: profileId,
         car_id: row.id,
       })
       .onConflict("id")
-      .doUpdate("car_id")
+      .doUpdate(["car_id"])
       .toParams();
 
     await this._conn.query(saveSql);

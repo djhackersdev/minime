@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
 import { _findProfile } from "./_util";
@@ -10,7 +10,7 @@ import { FacetRepository } from "../repo";
 // TODO free continue
 
 export class SqlTicketsRepository implements FacetRepository<Tickets> {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async load(extId: ExtId<Profile>): Promise<Tickets> {
     const loadSql = sql
@@ -48,7 +48,7 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
           valid_from: freeCar.validFrom,
         })
         .onConflict("id")
-        .doUpdate("valid_from")
+        .doUpdate(["valid_from"])
         .toParams();
 
       await this._conn.query(saveSql);

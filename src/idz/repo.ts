@@ -56,9 +56,13 @@ export interface ProfileRepository {
 
   load(id: Model.ExtId<Model.Profile>): Promise<Model.Profile>;
 
-  save(profile: Model.Profile): Promise<void>;
+  save(profile: Model.Profile, timestamp: Date): Promise<void>;
 
-  create(profile: ProfileSpec): Promise<Model.ExtId<Model.Profile>>;
+  create(
+    aimeId: AimeId,
+    profile: ProfileSpec,
+    timestamp: Date
+  ): Promise<Model.ExtId<Model.Profile>>;
 }
 
 export interface TimeAttackRepository {

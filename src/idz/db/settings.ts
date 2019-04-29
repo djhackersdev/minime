@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
 import { _findProfile } from "./_util";
@@ -8,7 +8,7 @@ import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
 
 export class SqlSettingsRepository implements FacetRepository<Settings> {
-  constructor(private readonly _conn: Client) {}
+  constructor(private readonly _conn: ClientBase) {}
 
   async load(extId: ExtId<Profile>): Promise<Settings> {
     const loadSql = sql
@@ -41,7 +41,7 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
         gauges: settings.gauges,
       })
       .onConflict("id")
-      .doUpdate("music", "pack", "paper_cup", "gauges")
+      .doUpdate(["music", "pack", "paper_cup", "gauges"])
       .toParams();
 
     await this._conn.query(saveSql);
