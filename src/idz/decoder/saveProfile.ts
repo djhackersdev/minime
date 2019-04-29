@@ -1,7 +1,7 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
 import { RequestCode } from "./_defs";
-import { BackgroundCode, ExtId, TitleCode } from "../model/base";
+import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { SaveProfileRequest } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
@@ -29,10 +29,10 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
     storyRows.push(row);
   }
 
-  const coursePlays = new Map<number, number>();
+  const coursePlays = new Map<CourseNo, number>();
 
   for (let i = 0; i < 16; i++) {
-    coursePlays.set(i, buf.readUInt16LE(0x04c0 + 2 * i));
+    coursePlays.set(i as CourseNo, buf.readUInt16LE(0x04c0 + 2 * i));
   }
 
   const freeCar = {

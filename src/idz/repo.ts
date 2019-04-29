@@ -27,11 +27,13 @@ export interface CarRepository {
 }
 
 export interface CoursePlaysRepository {
-  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<Map<number, number>>;
+  loadAll(
+    profileId: Model.ExtId<Model.Profile>
+  ): Promise<Map<Model.CourseNo, number>>;
 
   saveAll(
     profileId: Model.ExtId<Model.Profile>,
-    counts: Map<number, number>
+    counts: Map<Model.CourseNo, number>
   ): Promise<void>;
 }
 

@@ -1,4 +1,4 @@
-import { BackgroundCode, ExtId, TitleCode } from "../model/base";
+import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
@@ -18,7 +18,7 @@ export interface SaveProfileRequest {
   title: TitleCode;
   titles: TitleCode[];
   background: BackgroundCode;
-  coursePlays: Map<number, number>;
+  coursePlays: Map<CourseNo, number>;
   missions: MissionState;
   car: Car;
   story: Story;
