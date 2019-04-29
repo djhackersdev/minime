@@ -65,7 +65,15 @@ export interface ProfileRepository {
   ): Promise<Model.ExtId<Model.Profile>>;
 }
 
+// TODO extend and factorize
+export interface TopTenResult {
+  driverName: string;
+  ta: Model.TimeAttackScore;
+}
+
 export interface TimeAttackRepository {
+  loadTopTen(routeNo: Model.RouteNo): Promise<TopTenResult[]>;
+
   loadAll(
     profileId: Model.ExtId<Model.Profile>
   ): Promise<Model.TimeAttackScore[]>;

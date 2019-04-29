@@ -1,15 +1,60 @@
 import { LoadTopTenRequest } from "../request/loadTopTen";
-import { LoadTopTenResponse } from "../response/loadTopTen";
+import {
+  LoadTopTenResponse,
+  LoadTopTenResponseCourse,
+  LoadTopTenResponseRow,
+} from "../response/loadTopTen";
 import { Repositories } from "../repo";
 
-export function loadTopTen(
+export async function loadTopTen(
   w: Repositories,
   req: LoadTopTenRequest
-): LoadTopTenResponse {
+): Promise<LoadTopTenResponse> {
+  const courses = new Array<LoadTopTenResponseCourse>();
+
+  for (const selector of req.selectors) {
+    if (courses.length >= 3) {
+      break;
+    }
+
+    if (selector.field_44 === 0) {
+      continue;
+    }
+
+    const { routeNo } = selector;
+    const src = await w.timeAttack().loadTopTen(routeNo);
+    const dest = new Array<LoadTopTenResponseRow>();
+
+    for (const srcItem of src) {
+      dest.push({
+        field_00: 0,
+        field_0E: false,
+        field_0F: false,
+        field_10: 0,
+        driverName: srcItem.driverName,
+        teamName: process.env.TEAM_NAME || "",
+        shopName: process.env.SHOP_NAME || "",
+        field_74: 0,
+        field_78: 0,
+        field_7C: 0,
+        field_7D: 0,
+        ta: srcItem.ta,
+      });
+    }
+
+    courses.push({
+      routeNo,
+      field_02: 0,
+      rows: dest,
+    });
+  }
+
+  console.log(JSON.stringify(courses));
+
   return {
     type: "load_top_ten_res",
-    totalSelected: 0,
-    courses: [],
+    courseCount: courses.length,
+    courses: courses,
     trailers: [],
   };
 }

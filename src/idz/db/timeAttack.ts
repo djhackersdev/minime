@@ -1,15 +1,41 @@
 import { ClientBase } from "pg";
-import * as sql from "sql-bricks";
+import * as sql from "sql-bricks-postgres";
 
 import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
+import { ExtId, RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
-import { TimeAttackRepository } from "../repo";
+import { TimeAttackRepository, TopTenResult } from "../repo";
 import { generateId } from "../../db";
 
 export class SqlTimeAttackRepository implements TimeAttackRepository {
   constructor(private readonly _conn: ClientBase) {}
+
+  async loadTopTen(routeNo: RouteNo): Promise<TopTenResult[]> {
+    const loadSql = sql
+      .select("p.name", "ta.*")
+      .from("idz.ta_best ta")
+      .join("idz.profile p", { "ta.profile_id": "p.id" })
+      .where("ta.route_no", routeNo)
+      .orderBy(["ta.total_time asc", "ta.timestamp asc"])
+      .limit(10)
+      .toParams();
+
+    const { rows } = await this._conn.query(loadSql);
+
+    return rows.map(row => ({
+      driverName: row.name,
+      ta: {
+        routeNo: row.route_no,
+        timestamp: new Date(row.timestamp),
+        flags: row.flags,
+        totalTime: row.total_time,
+        sectionTimes: row.section_times,
+        grade: row.grade,
+        carSelector: row.car_selector,
+      },
+    }));
+  }
 
   async loadAll(extId: ExtId<Profile>): Promise<TimeAttackScore[]> {
     const loadSql = sql
