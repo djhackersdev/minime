@@ -9,29 +9,29 @@ export async function saveProfile(
   const profile = await w.profile().load(req.profileId);
   const chara = await w.chara().load(req.profileId);
 
-  await Promise.all([
-    w.profile().save(req.profileId, {
-      ...profile,
-      lv: req.lv,
-      exp: req.exp,
-      fame: req.fame,
-      dpoint: req.dpoint,
-      mileage: req.mileage,
-    }),
-    w.chara().save(req.profileId, {
-      ...chara,
-      title: req.title,
-      background: req.background,
-    }),
-    w.car().saveCar(req.profileId, req.car),
-    w.coursePlays().saveAll(req.profileId, req.coursePlays),
-    w.missions().save(req.profileId, req.missions),
-    w.story().save(req.profileId, req.story),
-    w.titles().saveAll(req.profileId, req.titles),
-    w.unlocks().save(req.profileId, req.unlocks),
-    w.settings().save(req.profileId, req.settings),
-    w.tickets().save(req.profileId, req.tickets),
-  ]);
+  await w.profile().save({
+    ...profile,
+    lv: req.lv,
+    exp: req.exp,
+    fame: req.fame,
+    dpoint: req.dpoint,
+    mileage: req.mileage,
+  });
+
+  await w.chara().save(req.profileId, {
+    ...chara,
+    title: req.title,
+    background: req.background,
+  });
+
+  await w.car().saveCar(req.profileId, req.car);
+  await w.coursePlays().saveAll(req.profileId, req.coursePlays);
+  await w.missions().save(req.profileId, req.missions);
+  await w.story().save(req.profileId, req.story);
+  await w.titles().saveAll(req.profileId, req.titles);
+  await w.unlocks().save(req.profileId, req.unlocks);
+  await w.settings().save(req.profileId, req.settings);
+  await w.tickets().save(req.profileId, req.tickets);
 
   return {
     type: "generic_res",

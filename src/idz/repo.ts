@@ -1,5 +1,12 @@
+import { Subtract } from "utility-types";
+
 import * as Model from "./model";
 import { AimeId } from "../model";
+
+export type ProfileSpec = Subtract<
+  Model.Profile,
+  { id: Model.ExtId<Model.Profile> }
+>;
 
 export interface CarRepository {
   countCars(profileId: Model.ExtId<Model.Profile>): Promise<number>;
@@ -41,16 +48,15 @@ export interface FlagRepository<T extends number> {
 }
 
 export interface ProfileRepository {
-  // Might want to come up with something better here
-  generateId(): Promise<Model.ExtId<Model.Profile>>;
-
   discoverByAimeId(id: AimeId): Promise<boolean>;
 
   loadByAimeId(id: AimeId): Promise<Model.Profile>;
 
   load(id: Model.ExtId<Model.Profile>): Promise<Model.Profile>;
 
-  save(id: Model.ExtId<Model.Profile>, profile: Model.Profile): Promise<void>;
+  save(profile: Model.Profile): Promise<void>;
+
+  create(profile: ProfileSpec): Promise<Model.ExtId<Model.Profile>>;
 }
 
 export interface TimeAttackRepository {

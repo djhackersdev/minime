@@ -1,22 +1,18 @@
 import { ExtId } from "../model/base";
 import { MissionState } from "../model/mission";
-import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Team } from "../model/team";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
-import { Repositories } from "../repo";
+import { ProfileSpec, Repositories } from "../repo";
 
 export async function createProfile(
   w: Repositories,
   req: CreateProfileRequest
 ): Promise<GenericResponse> {
-  const profileId = await w.profile().generateId();
-
-  const profile: Profile = {
-    id: profileId,
+  const profile: ProfileSpec = {
     teamId: 2 as ExtId<Team>, // TODO
     name: req.name,
     lv: 1,
@@ -36,17 +32,16 @@ export async function createProfile(
     lastMileageReward: 0,
   };
 
-  await Promise.all([
-    w.profile().save(profile.id, profile),
-    w.chara().save(profile.id, req.chara),
-    w.car().saveCar(profile.id, req.car),
-    w.car().saveSelection(profile.id, req.car.selector),
-    w.missions().save(profile.id, missions),
-    w.settings().save(profile.id, settings),
-    w.story().save(profile.id, story),
-    w.unlocks().save(profile.id, unlocks),
-    w.tickets().save(profile.id, {}),
-  ]);
+  const profileId = await w.profile().create(profile);
+
+  await w.chara().save(profileId, req.chara);
+  await w.car().saveCar(profileId, req.car);
+  await w.car().saveSelection(profileId, req.car.selector);
+  await w.missions().save(profileId, missions);
+  await w.settings().save(profileId, settings);
+  await w.story().save(profileId, story);
+  await w.unlocks().save(profileId, unlocks);
+  await w.tickets().save(profileId, {});
 
   return {
     type: "generic_res",
