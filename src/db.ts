@@ -1,6 +1,8 @@
 import { randomBytes } from "crypto";
 import { Pool, PoolClient } from "pg";
 
+export type Id<T> = bigint & { __id: T };
+
 const pool = new Pool();
 
 export function connect(): Promise<PoolClient> {
