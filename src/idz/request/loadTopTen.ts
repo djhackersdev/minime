@@ -1,9 +1,9 @@
-import { ExtId } from "../model/base";
+import { ExtId, RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { Team } from "../model/team";
 
 export interface LoadTopTenRequestSelector {
-  field_4: number;
+  routeNo: RouteNo;
   field_44: number;
 }
 

@@ -1,10 +1,8 @@
-import { CarSelector } from "../model/car";
+import { RouteNo } from "../model/base";
+import { TimeAttackScore } from "../model/timeAttack";
 
 export interface LoadTopTenResponseRow {
   field_00: number;
-  totalMsec: number;
-  timestamp: Date;
-  car: CarSelector;
   field_0E: boolean;
   field_0F: boolean;
   field_10: number;
@@ -15,12 +13,12 @@ export interface LoadTopTenResponseRow {
   field_78: number;
   field_7C: number;
   field_7D: number;
+  ta: TimeAttackScore;
 }
 
 export interface LoadTopTenResponseCourse {
-  courseId: number; // Multiplied by 2! Includes day/night i guess
+  routeNo: RouteNo;
   field_02: number;
-  wrStageMsec: number[]; // Sent OOB, for first-place only
   rows: LoadTopTenResponseRow[];
 }
 
@@ -35,7 +33,7 @@ export interface LoadTopTenResponseTrailer {
 
 export interface LoadTopTenResponse {
   type: "load_top_ten_res";
-  totalSelected: number;
+  courseCount: number;
   courses: LoadTopTenResponseCourse[];
   trailers: LoadTopTenResponseTrailer[];
 }

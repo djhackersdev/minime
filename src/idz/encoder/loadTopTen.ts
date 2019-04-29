@@ -6,7 +6,7 @@ export function loadTopTen(res: LoadTopTenResponse): Buffer {
   const buf = Buffer.alloc(0x1720);
 
   buf.writeUInt16LE(0x00b6, 0x0000);
-  buf.writeUInt16LE(res.totalSelected, 0x0002);
+  buf.writeUInt16LE(res.courseCount, 0x0002);
 
   for (let i = 0; i < 3; i++) {
     if (i >= res.courses.length) {
@@ -16,27 +16,36 @@ export function loadTopTen(res: LoadTopTenResponse): Buffer {
     const course = res.courses[i];
     const outerOff = 0x0004 + 0x794 * i;
 
-    buf.writeUInt16LE(course.courseId, outerOff + 0x0000);
+    buf.writeUInt16LE(course.routeNo << 1, outerOff + 0x0000);
     buf.writeUInt16LE(course.field_02, outerOff + 0x0002); // Bitmask-y?
-    buf.writeUInt32LE(course.wrStageMsec[0], outerOff + 0x0004);
-    buf.writeUInt32LE(course.wrStageMsec[1], outerOff + 0x0008);
-    buf.writeUInt32LE(course.wrStageMsec[2], outerOff + 0x000c);
+
+    if (course.rows.length > 0) {
+      // Section times for the top result (and only top result) are sent OOB
+      const best = course.rows[0];
+
+      for (let j = 0; j < 3; j++) {
+        buf.writeUInt32LE(
+          (best.ta.sectionTimes[j] * 1000) | 0,
+          outerOff + 0x0004 + 4 * j
+        );
+      }
+    }
 
     for (let j = 0; j < 10; j++) {
       if (j >= course.rows.length) {
         break;
       }
 
-      const row = course.rows[i];
+      const row = course.rows[j];
       const innerOff = outerOff + 0x0010 + 0xc0 * j;
 
       buf.writeUInt32LE(row.field_00, innerOff + 0x0000);
-      buf.writeUInt32LE(row.totalMsec, innerOff + 0x0004);
+      buf.writeUInt32LE((row.ta.totalTime * 1000) | 0, innerOff + 0x0004);
       buf.writeUInt32LE(
-        (row.timestamp.getTime() / 1000) | 0,
+        (row.ta.timestamp.getTime() / 1000) | 0,
         innerOff + 0x0008
       );
-      buf.writeUInt16LE(row.car, innerOff + 0x000c); // CAR
+      buf.writeUInt16LE(row.ta.carSelector, innerOff + 0x000c); // CAR
       buf.writeUInt8(row.field_0E ? 1 : 0, innerOff + 0x000e); // Boolean
       buf.writeUInt8(row.field_0F ? 1 : 0, innerOff + 0x000f); // Boolean
       buf.writeUInt8(row.field_10, innerOff + 0x0010);

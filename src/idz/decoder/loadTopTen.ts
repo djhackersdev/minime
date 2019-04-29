@@ -1,18 +1,21 @@
 import { RequestCode } from "./_defs";
-import { ExtId } from "../model/base";
+import { ExtId, RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { Team } from "../model/team";
-import { LoadTopTenRequest } from "../request/loadTopTen";
+import {
+  LoadTopTenRequest,
+  LoadTopTenRequestSelector,
+} from "../request/loadTopTen";
 
 loadTopTen.msgCode = 0x00b5 as RequestCode;
 loadTopTen.msgLen = 0x00e0;
 
 export function loadTopTen(buf: Buffer): LoadTopTenRequest {
-  const selectors = new Array();
+  const selectors = new Array<LoadTopTenRequestSelector>();
 
   for (let i = 0; i < 32; i++) {
     selectors.push({
-      field_4: buf.readUInt16LE(0x0004 + 2 * i),
+      routeNo: (buf.readUInt16LE(0x0004 + 2 * i) >> 1) as RouteNo,
       field_44: buf.readUInt32LE(0x0044 + 4 * i),
     });
   }
