@@ -44,9 +44,9 @@ export interface FacetRepository<T> {
 }
 
 export interface FlagRepository<T extends number> {
-  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<T[]>;
+  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<Set<T>>;
 
-  saveAll(profileId: Model.ExtId<Model.Profile>, items: T[]): Promise<void>;
+  saveAll(profileId: Model.ExtId<Model.Profile>, items: Set<T>): Promise<void>;
 }
 
 export interface ProfileRepository {

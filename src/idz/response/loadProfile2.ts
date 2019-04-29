@@ -21,7 +21,7 @@ export interface LoadProfileResponse2 {
   teamId?: number;
   settings: Settings;
   chara: Chara;
-  titles: TitleCode[];
+  titles: Set<TitleCode>;
   coursePlays: Map<number, number>;
   missions: MissionState;
   timeAttack: TimeAttackScore[];

@@ -16,7 +16,7 @@ export interface SaveProfileRequest {
   dpoint: number;
   mileage: number;
   title: TitleCode;
-  titles: TitleCode[];
+  titles: Set<TitleCode>;
   background: BackgroundCode;
   coursePlays: Map<CourseNo, number>;
   missions: MissionState;
