@@ -179,7 +179,7 @@ create table "idz"."title_unlock" (
 );
 
 create table "idz"."unlocks" (
-    "id" bigint primary key not null,
+    "id" bigint primary key not null
             references "idz"."profile"("id")
             on delete cascade,
     "cup" smallint not null,
