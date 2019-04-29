@@ -145,7 +145,7 @@ create table "idz"."ta_result" (
     "flags" smallint not null,
     "grade" smallint not null,
     "car_selector" integer not null,
-    "timestamp" timestamp not null,
+    "timestamp" timestamp not null
 );
 
 create table "idz"."ta_best" (
