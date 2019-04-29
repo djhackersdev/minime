@@ -24,10 +24,10 @@ export default async function aimedb(socket: Socket) {
       }
     }
 
-    txn.commit();
+    await txn.commit();
   } catch (e) {
     console.log("Aimedb: Connection error:\n", e);
-    txn.rollback();
+    await txn.rollback();
   }
 
   console.log("Aimedb: Connection closed\n");

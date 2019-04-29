@@ -15,10 +15,10 @@ export default async function idz(socket: Socket) {
       output.write(await dispatch(txn, req));
     }
 
-    txn.commit();
+    await txn.commit();
   } catch (e) {
     console.log("Idz: Error:", e);
-    txn.rollback();
+    await txn.rollback();
   }
 
   console.log("Idz: Connection closed\n");

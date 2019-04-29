@@ -40,9 +40,9 @@ export class SqlProfileRepository implements ProfileRepository {
 
     if (row === undefined) {
       return undefined;
-    } else {
-      return _extractRow(row);
     }
+
+    return _extractRow(row);
   }
 
   async discoverByAimeId(aimeId: AimeId): Promise<boolean> {
@@ -63,8 +63,8 @@ export class SqlProfileRepository implements ProfileRepository {
 
   async load(extId: ExtId<Profile>): Promise<Profile> {
     const loadSql = sql
-      .select()
-      .from("idz.profile")
+      .select("p.*")
+      .from("idz.profile p")
       .where("ext_id", extId)
       .toParams();
 
