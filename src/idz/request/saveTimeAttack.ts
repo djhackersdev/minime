@@ -1,10 +1,10 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
 
 export interface SaveTimeAttackRequest {
   type: "save_time_attack_req";
-  profileId: Id<Profile>; // u32
+  profileId: ExtId<Profile>; // u32
   dayNight: number;
   payload: TimeAttackScore;
   field_0002: number; // u16, always 1

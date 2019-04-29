@@ -1,5 +1,5 @@
 import { RequestCode } from "./_defs";
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Team } from "../model/team";
 import { LoadTopTenRequest } from "../request/loadTopTen";
@@ -27,7 +27,7 @@ export function loadTopTen(buf: Buffer): LoadTopTenRequest {
     field_C4: buf.readUInt8(0x00c4), // Boolean, true if profile ID is set
     field_C5: buf.readUInt8(0x00c5), // Always zero
     field_C6: buf.readUInt16LE(0x00c6),
-    profileId: profileId !== 0 ? (profileId as Id<Profile>) : undefined,
-    teamId: teamId !== 0xffffffff ? (teamId as Id<Team>) : undefined,
+    profileId: profileId !== 0 ? (profileId as ExtId<Profile>) : undefined,
+    teamId: teamId !== 0xffffffff ? (teamId as ExtId<Team>) : undefined,
   };
 }

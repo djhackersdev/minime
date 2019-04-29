@@ -1,5 +1,5 @@
 import { RequestCode } from "./_defs";
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
 
@@ -9,7 +9,7 @@ saveTimeAttack.msgLen = 0x0080;
 export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
   return {
     type: "save_time_attack_req",
-    profileId: buf.readUInt32LE(0x0004) as Id<Profile>,
+    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
     dayNight: buf.readUInt8(0x0054) & 1,
     payload: {
       courseId: buf.readUInt8(0x0054) >> 1,

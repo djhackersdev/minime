@@ -1,6 +1,6 @@
-import { Id } from "./base";
+import { ExtId } from "./base";
 
 export interface Team {
-  id: Id<Team>;
+  id: ExtId<Team>;
   name: string;
 }

@@ -1,4 +1,4 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { JoinAutoTeamRequest } from "../request/joinAutoTeam";
 import { LoadTeamRequest } from "../request/loadTeam";
@@ -12,7 +12,7 @@ export function _team(
 ): JoinAutoTeamResponse | LoadTeamResponse {
   const bits = {
     team: {
-      id: 2 as Id<Team>,
+      id: 2 as ExtId<Team>,
       name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
     },
     members: [],

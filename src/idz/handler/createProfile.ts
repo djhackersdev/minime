@@ -1,4 +1,4 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
@@ -17,7 +17,7 @@ export async function createProfile(
 
   const profile: Profile = {
     id: profileId,
-    teamId: 2 as Id<Team>, // TODO
+    teamId: 2 as ExtId<Team>, // TODO
     name: req.name,
     lv: 1,
     exp: 0,

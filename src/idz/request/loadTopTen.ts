@@ -1,4 +1,4 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Team } from "../model/team";
 
@@ -14,6 +14,6 @@ export interface LoadTopTenRequest {
   field_C4: number;
   field_C5: number;
   field_C6: number;
-  profileId?: Id<Profile>;
-  teamId?: Id<Team>;
+  profileId?: ExtId<Profile>;
+  teamId?: ExtId<Team>;
 }

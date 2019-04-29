@@ -1,4 +1,4 @@
-import { Id, TitleCode } from "../model/base";
+import { ExtId, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { Chara } from "../model/chara";
 import { MissionState } from "../model/mission";
@@ -12,7 +12,7 @@ import { Unlocks } from "../model/unlocks";
 export interface LoadProfileResponse2 {
   type: "load_profile_v2_res";
   name: string;
-  profileId: Id<Profile>;
+  profileId: ExtId<Profile>;
   lv: number;
   exp: number;
   fame: number;

@@ -1,4 +1,4 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { CreateTeamRequest } from "../request/createTeam";
 import { CreateTeamResponse } from "../response/createTeam";
@@ -11,6 +11,6 @@ export function createTeam(
   return {
     type: "create_team_res",
     status: 0,
-    teamId: 3 as Id<Team>,
+    teamId: 3 as ExtId<Team>,
   };
 }

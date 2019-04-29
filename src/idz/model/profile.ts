@@ -1,9 +1,9 @@
-import { Id } from "./base";
+import { ExtId } from "./base";
 import { Team } from "./team";
 
 export interface Profile {
-  id: Id<Profile>;
-  teamId?: Id<Team>;
+  id: ExtId<Profile>;
+  teamId?: ExtId<Team>;
   name: string;
   lv: number;
   exp: number;

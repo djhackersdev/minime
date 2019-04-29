@@ -1,9 +1,9 @@
-import { Id } from "../model/base";
+import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 
 export interface CreateTeamRequest {
   type: "create_team_req";
-  profileId: Id<Profile>; // u32
+  profileId: ExtId<Profile>; // u32
   teamName: string; // len 0x20
   field_0028: number; // u16
   field_002C: number; // u32 (but only holds a u8)

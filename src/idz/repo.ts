@@ -2,66 +2,69 @@ import * as Model from "./model";
 import { AimeId } from "../model";
 
 export interface CarRepository {
-  countCars(profileId: Model.Id<Model.Profile>): Promise<number>;
+  countCars(profileId: Model.ExtId<Model.Profile>): Promise<number>;
 
-  loadAllCars(profileId: Model.Id<Model.Profile>): Promise<Model.Car[]>;
+  loadAllCars(profileId: Model.ExtId<Model.Profile>): Promise<Model.Car[]>;
 
-  loadSelectedCar(profileId: Model.Id<Model.Profile>): Promise<Model.Car>;
+  loadSelectedCar(profileId: Model.ExtId<Model.Profile>): Promise<Model.Car>;
 
-  saveCar(profileId: Model.Id<Model.Profile>, car: Model.Car): Promise<void>;
+  saveCar(
+    profileId: Model.ExtId<Model.Profile>,
+    car: Model.Car
+  ): Promise<void>;
 
   saveSelection(
-    profileId: Model.Id<Model.Profile>,
+    profileId: Model.ExtId<Model.Profile>,
     selector: Model.CarSelector
   ): Promise<void>;
 }
 
 export interface CoursePlaysRepository {
-  loadAll(profileId: Model.Id<Model.Profile>): Promise<Map<number, number>>;
+  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<Map<number, number>>;
 
   saveAll(
-    profileId: Model.Id<Model.Profile>,
+    profileId: Model.ExtId<Model.Profile>,
     counts: Map<number, number>
   ): Promise<void>;
 }
 
 export interface FacetRepository<T> {
-  load(profileId: Model.Id<Model.Profile>): Promise<T>;
+  load(profileId: Model.ExtId<Model.Profile>): Promise<T>;
 
-  save(profileId: Model.Id<Model.Profile>, facet: T): Promise<void>;
+  save(profileId: Model.ExtId<Model.Profile>, facet: T): Promise<void>;
 }
 
 export interface FlagRepository<T extends number> {
-  loadAll(profileId: Model.Id<Model.Profile>): Promise<T[]>;
+  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<T[]>;
 
-  saveAll(profileId: Model.Id<Model.Profile>, items: T[]): Promise<void>;
+  saveAll(profileId: Model.ExtId<Model.Profile>, items: T[]): Promise<void>;
 }
 
 export interface ProfileRepository {
   // Might want to come up with something better here
-  generateId(): Promise<Model.Id<Model.Profile>>;
+  generateId(): Promise<Model.ExtId<Model.Profile>>;
 
   discoverByAimeId(id: AimeId): Promise<boolean>;
 
   loadByAimeId(id: AimeId): Promise<Model.Profile>;
 
-  load(id: Model.Id<Model.Profile>): Promise<Model.Profile>;
+  load(id: Model.ExtId<Model.Profile>): Promise<Model.Profile>;
 
-  save(id: Model.Id<Model.Profile>, profile: Model.Profile): Promise<void>;
+  save(id: Model.ExtId<Model.Profile>, profile: Model.Profile): Promise<void>;
 }
 
 export interface TimeAttackRepository {
   loadAll(
-    profileId: Model.Id<Model.Profile>
+    profileId: Model.ExtId<Model.Profile>
   ): Promise<Model.TimeAttackScore[]>;
 
   load(
-    profileId: Model.Id<Model.Profile>,
+    profileId: Model.ExtId<Model.Profile>,
     courseId: number
   ): Promise<Model.TimeAttackScore | undefined>;
 
   save(
-    profileId: Model.Id<Model.Profile>,
+    profileId: Model.ExtId<Model.Profile>,
     score: Model.TimeAttackScore
   ): Promise<void>;
 }

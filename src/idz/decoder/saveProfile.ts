@@ -1,7 +1,7 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
 import { RequestCode } from "./_defs";
-import { BackgroundCode, Id, TitleCode } from "../model/base";
+import { BackgroundCode, ExtId, TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { SaveProfileRequest } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
@@ -46,7 +46,7 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
 
   return {
     type: "save_profile_req",
-    profileId: buf.readUInt32LE(0x0004) as Id<Profile>,
+    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
     lv: buf.readUInt16LE(0x0026),
     exp: buf.readUInt32LE(0x0028),
     fame: buf.readUInt32LE(0x0468),
