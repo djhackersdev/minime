@@ -99,7 +99,7 @@ create table "idz"."settings" (
             references "idz"."profile"("id")
             on delete cascade,
     "music" smallint not null,
-    "pack" integer not null,
+    "pack" bigint not null,
     "paper_cup" smallint not null, -- Not a boolean, oddly enough
     "gauges" integer not null
 );

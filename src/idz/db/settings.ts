@@ -23,7 +23,7 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
 
     return {
       music: row.music,
-      pack: row.pack,
+      pack: parseInt(row.pack, 10),
       paperCup: row.paper_cup,
       gauges: row.gauges,
     };
