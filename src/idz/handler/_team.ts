@@ -13,7 +13,7 @@ export function _team(
   const bits = {
     team: {
       id: 2 as ExtId<Team>,
-      name: "ＡＳＳ ＧＥＮＴＬＥＭＥＮ",
+      name: process.env.TEAM_NAME || "",
     },
     members: [],
   };
