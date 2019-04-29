@@ -1,5 +1,6 @@
 import { RequestCode } from "./_defs";
 import { ExtId, RouteNo } from "../model/base";
+import { CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
 
@@ -22,10 +23,10 @@ export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
         buf.readUInt32LE(0x002c) / 1000,
       ],
       grade: buf.readUInt8(0x0062),
+      carSelector: buf.readUInt16LE(0x000c) as CarSelector,
     },
     field_0002: buf.readUInt16LE(0x0002),
     field_0008: buf.readUInt32LE(0x0008),
-    field_000C: buf.readUInt16LE(0x000c),
     field_0012: buf.readUInt8(0x0012),
     field_0015: buf.readUInt8(0x0015),
     field_005D: buf.readUInt8(0x005d),

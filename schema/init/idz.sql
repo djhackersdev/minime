@@ -143,7 +143,9 @@ create table "idz"."ta_result" (
     "total_time" float not null,
     "section_times" float[] not null,
     "flags" smallint not null,
-    "grade" smallint not null
+    "grade" smallint not null,
+    "car_selector" integer not null,
+    "timestamp" timestamp not null,
 );
 
 create table "idz"."ta_best" (
@@ -156,6 +158,8 @@ create table "idz"."ta_best" (
     "section_times" float[] not null,
     "flags" smallint not null,
     "grade" smallint not null, -- TODO enum
+    "car_selector" integer not null,
+    "timestamp" timestamp not null,
     constraint "ta_best_uq" unique ("profile_id", "route_no")
 );
 

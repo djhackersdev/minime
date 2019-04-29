@@ -1,4 +1,5 @@
 import { RouteNo } from "./base";
+import { CarSelector } from "./car";
 
 export interface TimeAttackScore {
   routeNo: RouteNo;
@@ -7,4 +8,5 @@ export interface TimeAttackScore {
   totalTime: number;
   sectionTimes: number[];
   grade: number;
+  carSelector: CarSelector;
 }

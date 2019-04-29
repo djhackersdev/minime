@@ -28,6 +28,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       totalTime: row.total_time,
       sectionTimes: row.section_times,
       grade: row.grade,
+      carSelector: row.car_selector,
     }));
   }
 
@@ -43,6 +44,8 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
         section_times: score.sectionTimes,
         flags: score.flags,
         grade: score.grade,
+        car_selector: score.carSelector,
+        timestamp: score.timestamp,
       })
       .toParams();
 
@@ -68,6 +71,8 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
           section_times: score.sectionTimes,
           flags: score.flags,
           grade: score.grade,
+          car_selector: score.carSelector,
+          timestamp: score.timestamp,
         })
         .toParams();
 
@@ -79,6 +84,8 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
           section_times: score.sectionTimes,
           flags: score.flags,
           grade: score.grade,
+          car_selector: score.carSelector,
+          timestamp: score.timestamp,
         })
         .where("profile_id", profileId)
         .where("route_no", score.routeNo)
