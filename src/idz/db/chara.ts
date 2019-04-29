@@ -12,7 +12,7 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
 
   async load(extId: ExtId<Profile>): Promise<Chara> {
     const loadSql = sql
-      .select("s.*")
+      .select("c.*")
       .from("idz.profile p")
       .join("idz.chara c", { "p.id": "c.id" })
       .where("p.ext_id", extId)

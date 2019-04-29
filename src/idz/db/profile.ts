@@ -29,7 +29,7 @@ export class SqlProfileRepository implements ProfileRepository {
     aimeId: AimeId
   ): Promise<Profile | undefined> {
     const lookupSql = sql
-      .select("p.id")
+      .select("p.*")
       .from("idz.profile p")
       .join("aime.player r", { "p.player_id": "r.id" })
       .where("r.ext_id", aimeId)

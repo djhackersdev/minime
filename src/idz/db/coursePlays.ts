@@ -18,7 +18,7 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
       .where("p.ext_id", extId)
       .toParams();
 
-    const { rows } = await this._conn.query(sql);
+    const { rows } = await this._conn.query(loadSql);
     const result = new Map();
 
     for (const row of rows) {
@@ -43,7 +43,8 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
           count: v,
         })
         .onConflict("profile_id", "course_no")
-        .doUpdate(["count"]);
+        .doUpdate(["count"])
+        .toParams();
 
       await this._conn.query(saveSql);
     }

@@ -14,7 +14,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
   async loadAll(extId: ExtId<Profile>): Promise<TimeAttackScore[]> {
     const loadSql = sql
       .select("ta.*")
-      .from("idz.time_attack ta")
+      .from("idz.ta_best ta")
       .join("idz.profile p", { "ta.profile_id": "p.id" })
       .where("p.ext_id", extId)
       .toParams();

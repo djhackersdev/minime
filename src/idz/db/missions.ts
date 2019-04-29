@@ -15,8 +15,8 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
     extId: ExtId<Profile>
   ): Promise<[MissionState, Id<Profile>]> {
     const result: MissionState = {
-      team: new Array<MissionGrid>(),
       solo: new Array<MissionGrid>(),
+      team: new Array<MissionGrid>(),
     };
 
     for (let i = 0; i < 5; i++) {
@@ -27,6 +27,9 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
         soloGrid.cells.push(0);
         teamGrid.cells.push(0);
       }
+
+      result.solo.push(soloGrid);
+      result.team.push(teamGrid);
     }
 
     const profileId = await _findProfile(this._conn, extId);
@@ -65,7 +68,7 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
         }
 
         const saveSql = sql
-          .insert("idz.mission_state", {
+          .insert("idz.solo_mission_state", {
             id: generateId(),
             profile_id: profileId,
             grid_no: i,
