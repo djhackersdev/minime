@@ -1,6 +1,6 @@
 import { RequestCode } from "./_defs";
-import { AimeId } from "../model/base";
 import { DiscoverProfileRequest } from "../request/discoverProfile";
+import { AimeId } from "../../model";
 
 discoverProfile.msgCode = 0x006b as RequestCode;
 discoverProfile.msgLen = 0x0010;

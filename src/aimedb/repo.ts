@@ -1,4 +1,4 @@
-import { AimeId } from "./model";
+import { AimeId } from "../model";
 
 export interface CardRepository {
   lookup(luid: string, now: Date): Promise<AimeId | undefined>;

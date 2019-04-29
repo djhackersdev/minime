@@ -1,4 +1,4 @@
-import { AimeId } from "../model/base";
+import { AimeId } from "../../model";
 
 export interface LoadProfileRequest {
   type: "load_profile_req";

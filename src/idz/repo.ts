@@ -1,4 +1,5 @@
 import * as Model from "./model";
+import { AimeId } from "../model";
 
 export interface CarRepository {
   countCars(profileId: Model.Id<Model.Profile>): Promise<number>;
@@ -40,9 +41,9 @@ export interface ProfileRepository {
   // Might want to come up with something better here
   generateId(): Promise<Model.Id<Model.Profile>>;
 
-  discoverByAimeId(id: Model.AimeId): Promise<boolean>;
+  discoverByAimeId(id: AimeId): Promise<boolean>;
 
-  loadByAimeId(id: Model.AimeId): Promise<Model.Profile>;
+  loadByAimeId(id: AimeId): Promise<Model.Profile>;
 
   load(id: Model.Id<Model.Profile>): Promise<Model.Profile>;
 

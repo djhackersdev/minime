@@ -1,4 +1,4 @@
-import { AimeId } from "./model";
+import { AimeId } from "../model";
 
 export type RegisterLevel = "none" | "portal" | "segaid";
 

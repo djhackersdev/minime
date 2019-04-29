@@ -1,6 +1,6 @@
 import { RequestCode } from "./_defs";
-import { AimeId } from "../model/base";
 import { LoadProfileRequest } from "../request/loadProfile";
+import { AimeId } from "../../model";
 
 loadProfile.msgCode = 0x0067 as RequestCode;
 loadProfile.msgLen = 0x0020;

@@ -1,4 +1,4 @@
-export { AimeId, BackgroundCode, Id, TitleCode } from "./base";
+export { BackgroundCode, Id, TitleCode } from "./base";
 export { Car, CarSelector } from "./car";
 export { Chara } from "./chara";
 export { MissionState, MissionGrid } from "./mission";

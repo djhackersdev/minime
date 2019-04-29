@@ -3,8 +3,9 @@ import { promisify } from "util";
 
 import { loadJson, saveJson } from "./_util";
 import { ProfileRepository } from "../repo";
-import { AimeId, Id } from "../model/base";
+import { Id } from "../model/base";
 import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 const exists = promisify(fs.exists);
 

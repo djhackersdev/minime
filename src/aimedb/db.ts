@@ -1,9 +1,9 @@
 import { PoolClient } from "pg";
 import * as sql from "sql-bricks";
 
-import { AimeId } from "./model";
 import { CardRepository, Transaction } from "./repo";
 import { connect, generateId, generateExtId } from "../db";
+import { AimeId } from "../model";
 
 class CardRepositoryImpl implements CardRepository {
   constructor(private readonly _conn: PoolClient) {}
