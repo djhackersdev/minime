@@ -1,49 +1,104 @@
-import { AimeRequest } from "./request";
-import { AimeResponse } from "./response";
+import { Repositories } from "./repo";
+import * as Req from "./request";
+import * as Res from "./response";
 
-export function dispatch(req: AimeRequest): AimeResponse | undefined {
+function hello(
+  rep: Repositories,
+  req: Req.HelloRequest,
+  now: Date
+): Res.HelloResponse {
+  console.log("Aimedb: Hello");
+
+  return { type: req.type, status: 1 };
+}
+
+function campaign(
+  rep: Repositories,
+  req: Req.CampaignRequest,
+  now: Date
+): Res.CampaignResponse {
+  console.log("Aimedb: Campaign stuff");
+
+  return { type: req.type, status: 1 };
+}
+
+async function lookup(
+  rep: Repositories,
+  req: Req.LookupRequest,
+  now: Date
+): Promise<Res.LookupResponse> {
+  console.log("Aimedb: Mifare lookup v1", req.luid);
+
+  return {
+    type: req.type,
+    status: 1,
+    aimeId: await rep.cards().lookup(req.luid, now),
+    registerLevel: "none",
+  };
+}
+
+async function lookup2(
+  rep: Repositories,
+  req: Req.LookupRequest2,
+  now: Date
+): Promise<Res.LookupResponse2> {
+  console.log("Aimedb: Mifare lookup v2", req.luid);
+
+  return {
+    type: req.type,
+    status: 1,
+    aimeId: await rep.cards().lookup(req.luid, now),
+    registerLevel: "none",
+  };
+}
+
+async function register(
+  rep: Repositories,
+  req: Req.RegisterRequest,
+  now: Date
+): Promise<Res.RegisterResponse> {
+  console.log("Aimedb: Mifare register", req.luid);
+
+  return {
+    type: req.type,
+    status: 1,
+    aimeId: await rep.cards().register(req.luid, now),
+  };
+}
+
+function log(
+  rep: Repositories,
+  req: Req.LogRequest,
+  now: Date
+): Res.LogResponse {
+  console.log("Aimedb: Log message");
+
+  return { type: req.type, status: 1 };
+}
+
+export async function dispatch(
+  rep: Repositories,
+  req: Req.AimeRequest,
+  now: Date
+): Promise<Res.AimeResponse | undefined> {
   switch (req.type) {
     case "hello":
-      console.log("Aimedb: Hello");
-
-      return { type: req.type, status: 1 };
+      return hello(rep, req, now);
 
     case "campaign":
-      console.log("Aimedb: Campaign stuff");
-
-      return { type: req.type, status: 1 };
+      return campaign(rep, req, now);
 
     case "lookup":
-      console.log("Aimedb: Mifare lookup v1", req.luid);
-
-      return {
-        type: req.type,
-        status: 1,
-        aimeId: 0x55667788,
-        registerLevel: "none",
-      };
+      return lookup(rep, req, now);
 
     case "lookup2":
-      console.log("Aimedb: Mifare lookup v2", req.luid);
-
-      return {
-        type: req.type,
-        status: 1,
-        aimeId: 0x55667788,
-        registerLevel: "none",
-      };
+      return lookup2(rep, req, now);
 
     case "register":
-      // We get sent here if lookup does not return an aimeId
-
-      console.log("Aimedb: Mifare register", req.luid);
-
-      return { type: req.type, status: 1, aimeId: 0x55667788 };
+      return register(rep, req, now);
 
     case "log":
-      console.log("Aimedb: Log message");
-
-      return { type: req.type, status: 1 };
+      return log(rep, req, now);
 
     case "goodbye":
       console.log("Aimedb: Goodbye");
