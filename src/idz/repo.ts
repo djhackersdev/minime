@@ -64,11 +64,6 @@ export interface TimeAttackRepository {
     profileId: Model.ExtId<Model.Profile>
   ): Promise<Model.TimeAttackScore[]>;
 
-  load(
-    profileId: Model.ExtId<Model.Profile>,
-    courseId: number
-  ): Promise<Model.TimeAttackScore | undefined>;
-
   save(
     profileId: Model.ExtId<Model.Profile>,
     score: Model.TimeAttackScore

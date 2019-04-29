@@ -17,23 +17,23 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.fill(4, 0x0680, 0x06a0);
 
   for (const score of res.timeAttack) {
-    const { courseId } = score;
+    const { routeNo } = score;
 
     buf.writeUInt32LE(
       (new Date(score.timestamp).getTime() / 1000) | 0, // Date ctor hack
-      0x00e4 + courseId * 4
+      0x00e4 + routeNo * 4
     );
 
-    buf.writeUInt16LE(0, 0x0560 + 2 * courseId); // ???
-    buf.writeUInt16LE(0xffff, 0x0164 + 2 * courseId); // National rank
-    buf.writeUInt32LE(score.totalMsec, 0x04e0 + 4 * courseId);
-    buf.writeUInt8(score.flags, 0x05a0 + courseId);
-    buf.writeUInt8(score.grade, 0x0680 + courseId);
+    buf.writeUInt16LE(0, 0x0560 + 2 * routeNo); // ???
+    buf.writeUInt16LE(0xffff, 0x0164 + 2 * routeNo); // National rank
+    buf.writeUInt32LE((score.totalTime * 1000) | 0, 0x04e0 + 4 * routeNo);
+    buf.writeUInt8(score.flags, 0x05a0 + routeNo);
+    buf.writeUInt8(score.grade, 0x0680 + routeNo);
 
     for (let i = 0; i < 3; i++) {
       buf.writeUInt16LE(
-        score.stageMsec[i] >> 2,
-        0x05c0 + 6 * courseId + 2 * i
+        (score.sectionTimes[i] * 1000) >> 2,
+        0x05c0 + 6 * routeNo + 2 * i
       );
     }
   }

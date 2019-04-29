@@ -1,8 +1,10 @@
+import { RouteNo } from "./base";
+
 export interface TimeAttackScore {
-  courseId: number;
-  timestamp: string; // hack
+  routeNo: RouteNo;
+  timestamp: Date;
   flags: number;
-  totalMsec: number;
-  stageMsec: number[];
+  totalTime: number;
+  sectionTimes: number[];
   grade: number;
 }

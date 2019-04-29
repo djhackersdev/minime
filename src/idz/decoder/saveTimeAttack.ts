@@ -1,5 +1,5 @@
 import { RequestCode } from "./_defs";
-import { ExtId } from "../model/base";
+import { ExtId, RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
 
@@ -12,14 +12,14 @@ export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
     profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
     dayNight: buf.readUInt8(0x0054) & 1,
     payload: {
-      courseId: buf.readUInt8(0x0054) >> 1,
-      timestamp: new Date(buf.readUInt32LE(0x0058) * 1000).toISOString(), //hck
+      routeNo: (buf.readUInt8(0x0054) >> 1) as RouteNo,
+      timestamp: new Date(buf.readUInt32LE(0x0058) * 1000),
       flags: buf.readUInt8(0x005c),
-      totalMsec: buf.readUInt32LE(0x0018),
-      stageMsec: [
-        buf.readUInt32LE(0x0024),
-        buf.readUInt32LE(0x0028),
-        buf.readUInt32LE(0x002c),
+      totalTime: buf.readUInt32LE(0x0018) / 1000,
+      sectionTimes: [
+        buf.readUInt32LE(0x0024) / 1000,
+        buf.readUInt32LE(0x0028) / 1000,
+        buf.readUInt32LE(0x002c) / 1000,
       ],
       grade: buf.readUInt8(0x0062),
     },
