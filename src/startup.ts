@@ -1,3 +1,4 @@
+import addHours = require("date-fns/add_hours");
 import express = require("express");
 import iconv = require("iconv-lite");
 import read = require("raw-body");
@@ -6,6 +7,7 @@ import { unzipSync } from "zlib";
 
 import { hostname } from "./hostname";
 
+const hourDelta = parseInt(process.env.HOUR_DELTA || "0");
 const myHost = hostname();
 const uris = new Map<string, string>();
 
@@ -72,7 +74,8 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
   // Cut milliseconds out of ISO timestamp
 
   const now = new Date();
-  const isoStrWithMs = now.toISOString();
+  const adjusted = addHours(now, -hourDelta);
+  const isoStrWithMs = adjusted.toISOString();
   const isoStr = isoStrWithMs.substr(0, 19) + "Z";
 
   const resParams = {
