@@ -9,6 +9,9 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 max_line_length = 79
 
+[*.sql]
+indent_size = 4
+
 [*.ts]
 indent_size = 2
 
