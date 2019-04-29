@@ -1,5 +1,4 @@
 export interface MissionGrid {
-  gridNo: number;
   cells: number[];
 }
 

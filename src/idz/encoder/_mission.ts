@@ -3,8 +3,8 @@ import { MissionGrid } from "../model/mission";
 export function mission(grids: MissionGrid[]): Buffer {
   const buf = Buffer.alloc(0x24);
 
-  for (const grid of grids) {
-    const { gridNo } = grid;
+  for (let gridNo = 0; gridNo < grids.length; gridNo++) {
+    const grid = grids[gridNo];
     const slices = [0, 0, 0];
 
     for (let cellNo = 0; cellNo < 9 && cellNo < grid.cells.length; cellNo++) {

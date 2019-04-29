@@ -4,7 +4,7 @@ export function mission(buf: Buffer): MissionGrid[] {
   const grids = new Array();
 
   for (let gridNo = 0; gridNo < 5; gridNo++) {
-    const grid: MissionGrid = { gridNo, cells: [] };
+    const grid: MissionGrid = { cells: [] };
 
     for (let cellNo = 0; cellNo < 9; cellNo++) {
       let cell = 0;
