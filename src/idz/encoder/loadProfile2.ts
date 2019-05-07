@@ -4,7 +4,7 @@ import { bitmap } from "./_bitmap";
 import { car } from "./_car";
 import { chara } from "./_chara";
 import { mission } from "./_mission";
-import { LoadProfileResponse2 } from "../response/loadProfile2";
+import { LoadProfileResponse2 } from "../response/loadProfile";
 
 export function loadProfile2(res: LoadProfileResponse2) {
   const buf = Buffer.alloc(0x0d30);

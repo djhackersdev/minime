@@ -1,11 +1,11 @@
 import { LoadProfileRequest } from "../request/loadProfile";
-import { LoadProfileResponse2 } from "../response/loadProfile2";
+import { LoadProfileResponse } from "../response/loadProfile";
 import { Repositories } from "../repo";
 
 export async function loadProfile(
   w: Repositories,
   req: LoadProfileRequest
-): Promise<LoadProfileResponse2> {
+): Promise<LoadProfileResponse> {
   // Promise.all would be messy here, who cares anyway this isn't supposed to
   // be a high-performance server.
 
@@ -23,7 +23,8 @@ export async function loadProfile(
   const tickets = await w.tickets().load(profile.id);
 
   return {
-    type: "load_profile_v2_res",
+    type: "load_profile_res",
+    format: 2,
     name: profile.name,
     profileId: profile.id,
     lv: profile.lv,

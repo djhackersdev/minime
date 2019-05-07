@@ -10,7 +10,6 @@ import { LoadGarageResponse } from "./loadGarage";
 import { LoadGeneralRewardResponse } from "./loadGeneralReward";
 import { LoadGhostResponse } from "./loadGhost";
 import { LoadProfileResponse } from "./loadProfile";
-import { LoadProfileResponse2 } from "./loadProfile2";
 import { LoadRewardTableResponse } from "./loadRewardTable";
 import { LoadServerListResponse } from "./loadServerList";
 import { LoadStockerResponse } from "./loadStocker";
@@ -40,7 +39,6 @@ export type Response =
   | LoadGeneralRewardResponse
   | LoadGhostResponse
   | LoadProfileResponse
-  | LoadProfileResponse2
   | LoadRewardTableResponse
   | LoadServerListResponse
   | LoadStockerResponse

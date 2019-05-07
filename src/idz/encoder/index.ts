@@ -13,7 +13,6 @@ import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
 import { loadProfile } from "./loadProfile";
-import { loadProfile2 } from "./loadProfile2";
 import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
@@ -64,11 +63,8 @@ function encode(res: Response): Buffer {
     case "load_ghost_res":
       return loadGhost(res);
 
-    case "load_profile_v1_res":
+    case "load_profile_res":
       return loadProfile(res);
-
-    case "load_profile_v2_res":
-      return loadProfile2(res);
 
     case "load_reward_table_res":
       return loadRewardTable(res);

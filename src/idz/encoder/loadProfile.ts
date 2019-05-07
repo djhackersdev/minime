@@ -1,10 +1,18 @@
+import { loadProfile1 } from "./loadProfile1";
+import { loadProfile2 } from "./loadProfile2";
 import { LoadProfileResponse } from "../response/loadProfile";
 
-// Sending this causes an error
 export function loadProfile(res: LoadProfileResponse) {
-  const buf = Buffer.alloc(0x0c60);
+  switch (res.format) {
+    case 1:
+      return loadProfile1(res);
 
-  buf.writeInt16LE(0x0064, 0x0000);
+    case 2:
+      return loadProfile2(res);
 
-  return buf;
+    default:
+      const exhaust: never = res;
+
+      throw new Error(`Unsupported profile response format ${res["format"]}`);
+  }
 }
