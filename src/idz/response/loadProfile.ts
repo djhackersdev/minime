@@ -41,4 +41,11 @@ export interface LoadProfileResponse2 extends LoadProfileResponseBase {
   format: 2;
 }
 
-export type LoadProfileResponse = LoadProfileResponse1 | LoadProfileResponse2;
+export interface LoadProfileResponse3 extends LoadProfileResponseBase {
+  format: 3;
+}
+
+export type LoadProfileResponse =
+  | LoadProfileResponse1
+  | LoadProfileResponse2
+  | LoadProfileResponse3;

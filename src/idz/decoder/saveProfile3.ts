@@ -3,18 +3,20 @@ import { mission } from "./_mission";
 import { RequestCode } from "./_defs";
 import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
-import { SaveProfileRequest } from "../request/saveProfile";
+import { SaveProfileRequest2 } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
 
-saveProfile.msgCode = 0x0068 as RequestCode;
-saveProfile.msgLen = 0x0940;
+saveProfile3.msgCode = 0x0138 as RequestCode;
+saveProfile3.msgLen = 0x0a70;
 
-export function saveProfile(buf: Buffer): SaveProfileRequest {
+export function saveProfile3(buf: Buffer): SaveProfileRequest2 {
   const storyRows = new Array();
+
+  /* Story seems to have changed somewhat
 
   for (let i = 0; i < 9; i++) {
     const cells = new Array();
-    const rowOffset = 0x01a8 + i * 0x3c;
+    const rowOffset = 0xXXXX + i * 0x3c;
 
     for (let j = 0; j < 9; j++) {
       const a = buf.readUInt32LE(rowOffset + 0x04 + j * 4);
@@ -28,11 +30,12 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
 
     storyRows.push(row);
   }
+  */
 
   const coursePlays = new Map<CourseNo, number>();
 
-  for (let i = 0; i < 16; i++) {
-    coursePlays.set(i as CourseNo, buf.readUInt16LE(0x04c0 + 2 * i));
+  for (let i = 0; i < 20; i++) {
+    coursePlays.set(i as CourseNo, buf.readUInt16LE(0x0554 + 2 * i));
   }
 
   const freeCar = {
@@ -46,24 +49,25 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
 
   return {
     type: "save_profile_req",
+    format: 2,
     profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
     lv: buf.readUInt16LE(0x0026),
     exp: buf.readUInt32LE(0x0028),
-    fame: buf.readUInt32LE(0x0468),
-    dpoint: buf.readUInt32LE(0x0464),
+    fame: buf.readUInt32LE(0x04fc),
+    dpoint: buf.readUInt32LE(0x04f8),
     mileage: buf.readUInt32LE(0x0008),
     title: buf.readUInt16LE(0x0040) as TitleCode,
     titles: bitmap(buf.slice(0x0042, 0x00f6)),
-    background: buf.readUInt8(0x0750) as BackgroundCode,
+    background: buf.readUInt8(0x0874) as BackgroundCode,
     coursePlays,
     missions: {
-      team: mission(buf.slice(0x03c4, 0x03e6)),
-      solo: mission(buf.slice(0x0724, 0x0746)),
+      team: mission(buf.slice(0x0430, 0x0452)),
+      solo: mission(buf.slice(0x0848, 0x086a)),
     },
-    car: car(buf.slice(0x0834, 0x0894)),
+    car: car(buf.slice(0x0958, 0x09b8)),
     story: {
-      x: buf.readUInt16LE(0x06fc),
-      y: buf.readUInt8(0x06e0),
+      x: buf.readUInt16LE(0x0818),
+      y: buf.readUInt8(0x07fc),
       rows: storyRows,
     },
     unlocks: {
@@ -88,7 +92,7 @@ export function saveProfile(buf: Buffer): SaveProfileRequest {
           : undefined,
     },
     settings: {
-      music: buf.readUInt16LE(0x045a),
+      music: buf.readUInt16LE(0x04ee),
       pack: buf.readUInt32LE(0x0034),
       paperCup: buf.readUInt8(0x00f6),
       gauges: buf.readUInt8(0x00f7),

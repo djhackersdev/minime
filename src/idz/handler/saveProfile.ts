@@ -6,6 +6,10 @@ export async function saveProfile(
   w: Repositories,
   req: SaveProfileRequest
 ): Promise<GenericResponse> {
+  console.log("*** PROFILE SAVE TEMPORARILY DISABLED ***");
+
+  return { type: "generic_res", status: 1 };
+
   const now = new Date();
   const profile = await w.profile().load(req.profileId);
   const chara = await w.chara().load(req.profileId);

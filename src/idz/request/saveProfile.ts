@@ -7,7 +7,7 @@ import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
 
-export interface SaveProfileRequest {
+interface SaveProfileRequestBase {
   type: "save_profile_req";
   profileId: ExtId<Profile>;
   lv: number;
@@ -26,3 +26,13 @@ export interface SaveProfileRequest {
   tickets: Tickets;
   settings: Settings;
 }
+
+export interface SaveProfileRequest2 extends SaveProfileRequestBase {
+  format: 2;
+}
+
+export interface SaveProfileRequest3 extends SaveProfileRequestBase {
+  format: 3;
+}
+
+export type SaveProfileRequest = SaveProfileRequest2 | SaveProfileRequest3;

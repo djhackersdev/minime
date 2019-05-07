@@ -24,7 +24,7 @@ export async function loadProfile(
 
   return {
     type: "load_profile_res",
-    format: 2,
+    format: req.format as any, // TS fart
     name: profile.name,
     profileId: profile.id,
     lv: profile.lv,

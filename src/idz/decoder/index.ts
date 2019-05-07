@@ -11,7 +11,7 @@ import { loadConfig2 } from "./loadConfig2";
 import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
-import { loadProfile } from "./loadProfile";
+import { loadProfile2 } from "./loadProfile2";
 import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
@@ -23,7 +23,8 @@ import { msg00AD } from "./msg00AD";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
 import { saveNewCar } from "./saveNewCar";
-import { saveProfile } from "./saveProfile";
+import { saveProfile2 } from "./saveProfile2";
+import { saveProfile3 } from "./saveProfile3";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
 import { saveTimeAttack } from "./saveTimeAttack";
@@ -56,7 +57,7 @@ const funcList: ReaderFn[] = [
   loadGarage,
   loadGeneralReward,
   loadGhost,
-  loadProfile,
+  loadProfile2,
   loadRewardTable,
   loadServerList,
   loadStocker,
@@ -70,7 +71,8 @@ const funcList: ReaderFn[] = [
   saveExpedition,
   saveGarage,
   saveNewCar,
-  saveProfile,
+  saveProfile2,
+  saveProfile3,
   saveSettings,
   saveStocker,
   saveTimeAttack,

@@ -87,8 +87,8 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt32LE(res.dpoint, 0x03e8);
   buf.writeUInt32LE(res.fame, 0x0404);
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
-  buf.writeUInt16LE(res.story.x, 0x06bc);
   buf.writeUInt8(res.story.y, 0x0670);
+  buf.writeUInt16LE(res.story.x, 0x06bc);
   mission(res.missions.solo).copy(buf, 0x06e4);
   chara(res.chara).copy(buf, 0x070c);
   bitmap(res.titles, 0xb4).copy(buf, 0x720);
