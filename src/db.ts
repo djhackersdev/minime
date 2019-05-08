@@ -3,9 +3,14 @@ import { Pool, PoolClient } from "pg";
 
 export type Id<T> = bigint & { __id: T };
 
-const pool = new Pool();
+const currentSchemaVer = 0;
 
-export function connect(): Promise<PoolClient> {
+const pool = new Pool();
+const fence = testConnection();
+
+export async function connect(): Promise<PoolClient> {
+  await fence;
+
   return pool.connect();
 }
 
@@ -29,4 +34,23 @@ export function generateExtId(): number {
   buf[0] &= 0x7f; // Force number to be non-negative
 
   return buf.readUInt32BE(0);
+}
+
+async function testConnection(): Promise<void> {
+  const conn = await pool.connect();
+
+  try {
+    const { rows } = await conn.query("select schemaver from meta");
+    const { schemaver } = rows[0];
+
+    if (schemaver !== currentSchemaVer) {
+      throw new Error(
+        `Expected schema version ${currentSchemaVer}, db is on ${schemaver}`
+      );
+    }
+
+    console.log("SQL DB: Connection established");
+  } finally {
+    conn.release();
+  }
 }
