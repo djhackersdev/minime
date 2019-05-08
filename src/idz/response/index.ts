@@ -7,6 +7,7 @@ import { Load2on2Response } from "./load2on2";
 import { LoadConfigResponse } from "./loadConfig";
 import { LoadConfigResponse2 } from "./loadConfig2";
 import { LoadEventInfoResponse } from "./loadEventInfo";
+import { LoadGachaResponse } from "./loadGacha";
 import { LoadGarageResponse } from "./loadGarage";
 import { LoadGeneralRewardResponse } from "./loadGeneralReward";
 import { LoadGhostResponse } from "./loadGhost";
@@ -37,6 +38,7 @@ export type Response =
   | LoadConfigResponse
   | LoadConfigResponse2
   | LoadEventInfoResponse
+  | LoadGachaResponse
   | LoadGarageResponse
   | LoadGeneralRewardResponse
   | LoadGhostResponse

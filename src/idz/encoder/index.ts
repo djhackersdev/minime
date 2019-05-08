@@ -10,6 +10,7 @@ import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadEventInfo } from "./loadEventInfo";
+import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
@@ -57,6 +58,9 @@ function encode(res: Response): Buffer {
 
     case "load_event_info_res":
       return loadEventInfo(res);
+
+    case "load_gacha_res":
+      return loadGacha(res);
 
     case "load_garage_res":
       return loadGarage(res);

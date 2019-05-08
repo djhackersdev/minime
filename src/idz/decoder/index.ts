@@ -9,6 +9,7 @@ import { load2on2_v1, load2on2_v2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadEventInfo } from "./loadEventInfo";
+import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
 import { loadGeneralReward1, loadGeneralReward2 } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
@@ -57,6 +58,7 @@ const funcList: ReaderFn[] = [
   loadConfig,
   loadConfig2,
   loadEventInfo,
+  loadGacha,
   loadGarage,
   loadGeneralReward1,
   loadGeneralReward2,

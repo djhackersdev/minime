@@ -7,6 +7,7 @@ import { Load2on2Request } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadConfigRequest2 } from "./loadConfig2";
 import { LoadEventInfoRequest } from "./loadEventInfo";
+import { LoadGachaRequest } from "./loadGacha";
 import { LoadGarageRequest } from "./loadGarage";
 import { LoadGeneralRewardRequest } from "./loadGeneralReward";
 import { LoadGhostRequest } from "./loadGhost";
@@ -46,6 +47,7 @@ export type Request =
   | LoadConfigRequest
   | LoadConfigRequest2
   | LoadEventInfoRequest
+  | LoadGachaRequest
   | LoadGarageRequest
   | LoadGeneralRewardRequest
   | LoadGhostRequest
