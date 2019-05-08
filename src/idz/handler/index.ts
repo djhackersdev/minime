@@ -6,6 +6,7 @@ import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
+import { loadEventInfo } from "./loadEventInfo";
 import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
@@ -65,6 +66,9 @@ export async function dispatch(
 
     case "discover_profile_req":
       return discoverProfile(w, req);
+
+    case "load_event_info_req":
+      return loadEventInfo(w, req);
 
     case "load_garage_req":
       return loadGarage(w, req);

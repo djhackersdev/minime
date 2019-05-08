@@ -8,10 +8,11 @@ import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
+import { loadEventInfo } from "./loadEventInfo";
 import { loadGarage } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
-import { loadProfile2 } from "./loadProfile2";
+import { loadProfile2, loadProfile3 } from "./loadProfile";
 import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
@@ -54,10 +55,12 @@ const funcList: ReaderFn[] = [
   load2on2,
   loadConfig,
   loadConfig2,
+  loadEventInfo,
   loadGarage,
   loadGeneralReward,
   loadGhost,
   loadProfile2,
+  loadProfile3,
   loadRewardTable,
   loadServerList,
   loadStocker,
