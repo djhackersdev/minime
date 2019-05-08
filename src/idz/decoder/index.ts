@@ -10,7 +10,7 @@ import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGarage } from "./loadGarage";
-import { loadGeneralReward } from "./loadGeneralReward";
+import { loadGeneralReward1, loadGeneralReward2 } from "./loadGeneralReward";
 import { loadGhost } from "./loadGhost";
 import { loadProfile2, loadProfile3 } from "./loadProfile";
 import { loadRewardTable } from "./loadRewardTable";
@@ -58,7 +58,8 @@ const funcList: ReaderFn[] = [
   loadConfig2,
   loadEventInfo,
   loadGarage,
-  loadGeneralReward,
+  loadGeneralReward1,
+  loadGeneralReward2,
   loadGhost,
   loadProfile2,
   loadProfile3,

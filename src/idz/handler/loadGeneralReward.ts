@@ -1,12 +1,11 @@
 import { LoadGeneralRewardRequest } from "../request/loadGeneralReward";
 import { GenericResponse } from "../response/generic";
-import { LoadGeneralRewardResponse } from "../response/loadGeneralReward";
 import { Repositories } from "../repo";
 
 export function loadGeneralReward(
   w: Repositories,
   req: LoadGeneralRewardRequest
-): LoadGeneralRewardResponse | GenericResponse {
-  // A non-generic response is also accepted, but why bother
+): GenericResponse {
+  // A version-specific response is also accepted. Format TBD.
   return { type: "generic_res" };
 }
