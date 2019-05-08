@@ -5,7 +5,7 @@ import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { joinAutoTeam } from "./joinAutoTeam";
 import { discoverProfile } from "./discoverProfile";
-import { load2on2 } from "./load2on2";
+import { load2on2_v1, load2on2_v2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
 import { loadEventInfo } from "./loadEventInfo";
@@ -52,7 +52,8 @@ const funcList: ReaderFn[] = [
   createTeam,
   joinAutoTeam,
   discoverProfile,
-  load2on2,
+  load2on2_v1,
+  load2on2_v2,
   loadConfig,
   loadConfig2,
   loadEventInfo,
