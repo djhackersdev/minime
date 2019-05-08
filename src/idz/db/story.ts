@@ -31,7 +31,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
       rows: new Array<StoryRow>(),
     };
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 27; i++) {
       const row: StoryRow = { cells: new Array<StoryCell>() };
 
       for (let j = 0; j < 9; j++) {

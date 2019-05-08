@@ -34,16 +34,20 @@ export function loadProfile3(res: LoadProfileResponse3) {
     }
   }
 
-  for (let i = 0; i < 9 && i < res.story.rows.length; i++) {
+  // Not sure it actually goes up to 27, but there seem to be 512 bytes of
+  // space for story cells, and 27 rows * 19 bytes per row = 513 bytes, which
+  // is the max that will fit (the final byte of each row is unused).
+
+  for (let i = 0; i < 27 && i < res.story.rows.length; i++) {
     const row = res.story.rows[i];
-    const rowOffset = 0x0256 + i * 0x26;
+    const rowOffset = 0x0256 + i * 0x13;
 
     for (let j = 0; j < 9 && j < row.cells.length; j++) {
       const cell = row.cells[j];
-      const cellOffset = rowOffset + j * 4;
+      const cellOffset = rowOffset + j * 2;
 
-      buf.writeUInt16LE(cell.a, cellOffset + 0);
-      buf.writeUInt16LE(cell.b, cellOffset + 2);
+      buf.writeUInt8(cell.a, cellOffset + 0);
+      buf.writeUInt8(cell.b, cellOffset + 1);
     }
   }
 

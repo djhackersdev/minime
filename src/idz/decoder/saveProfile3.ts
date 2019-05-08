@@ -12,15 +12,15 @@ saveProfile3.msgLen = 0x0a70;
 export function saveProfile3(buf: Buffer): SaveProfileRequest2 {
   const storyRows = new Array();
 
-  /* Story seems to have changed somewhat
+  // Story layout has changed somewhat...
 
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 27; i++) {
     const cells = new Array();
-    const rowOffset = 0xXXXX + i * 0x3c;
+    const rowOffset = 0x01ac + i * 0x18;
 
     for (let j = 0; j < 9; j++) {
-      const a = buf.readUInt32LE(rowOffset + 0x04 + j * 4);
-      const b = buf.readUInt16LE(rowOffset + 0x28 + j * 2);
+      const a = buf.readUInt8(rowOffset + 0x00 + j);
+      const b = buf.readUInt8(rowOffset + 0x09 + j);
       const cell = { a, b };
 
       cells.push(cell);
@@ -30,7 +30,6 @@ export function saveProfile3(buf: Buffer): SaveProfileRequest2 {
 
     storyRows.push(row);
   }
-  */
 
   const coursePlays = new Map<CourseNo, number>();
 
