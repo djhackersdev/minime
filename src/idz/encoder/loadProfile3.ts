@@ -22,7 +22,7 @@ export function loadProfile3(res: LoadProfileResponse3) {
 
     buf.writeUInt16LE(0, 0x067c + 2 * routeNo); // ???
     buf.writeUInt16LE(0xffff, 0x0184 + 2 * routeNo); // National rank
-    buf.writeUInt32LE((score.totalTime * 1000) | 0, 0x00e4 + 4 * routeNo);
+    buf.writeUInt32LE((score.totalTime * 1000) | 0, 0x05dc + 4 * routeNo);
     buf.writeUInt8(score.flags, 0x06cc + routeNo);
     buf.writeUInt8(score.grade, 0x07e4 + routeNo);
 
