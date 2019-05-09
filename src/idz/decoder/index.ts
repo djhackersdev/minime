@@ -41,6 +41,7 @@ import { updateResult } from "./updateResult";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
+import { lockProfileExtend } from "./lockProfileExtend";
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
   msgCode: RequestCode;
@@ -74,6 +75,7 @@ const funcList: ReaderFn[] = [
   loadTopTen,
   lockGarage,
   lockProfile,
+  lockProfileExtend,
   msg00AD,
   saveExpedition1,
   saveExpedition2,

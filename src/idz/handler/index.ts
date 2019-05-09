@@ -19,6 +19,7 @@ import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
+import { lockProfileExtend } from "./lockProfileExtend";
 import { msg00AD } from "./msg00AD";
 import { saveExpedition } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
@@ -103,6 +104,9 @@ export async function dispatch(
 
     case "lock_garage_request":
       return lockGarage(w, req);
+
+    case "lock_profile_extend_req":
+      return lockProfileExtend(w, req);
 
     case "lock_profile_req":
       return lockProfile(w, req);

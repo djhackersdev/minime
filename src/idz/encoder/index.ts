@@ -6,6 +6,7 @@ import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
 import { lockProfile } from "./lockProfile";
+import { lockProfileExtend } from "./lockProfileExtend";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadConfig2 } from "./loadConfig2";
@@ -91,6 +92,9 @@ function encode(res: Response): Buffer {
 
     case "load_top_ten_res":
       return loadTopTen(res);
+
+    case "lock_profile_extend_res":
+      return lockProfileExtend(res);
 
     case "lock_profile_res":
       return lockProfile(res);

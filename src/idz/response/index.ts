@@ -18,6 +18,7 @@ import { LoadStockerResponse } from "./loadStocker";
 import { LoadTeamResponse } from "./loadTeam";
 import { LoadTeamRankingResponse } from "./loadTeamRanking";
 import { LoadTopTenResponse } from "./loadTopTen";
+import { LockProfileExtendResponse } from "./lockProfileExtend";
 import { LockProfileResponse } from "./lockProfile";
 import { SaveExpeditionResponse } from "./saveExpedition";
 import { SaveGarageResponse } from "./saveGarage";
@@ -48,6 +49,7 @@ export type Response =
   | LoadStockerResponse
   | LoadTeamResponse
   | LoadTeamRankingResponse
+  | LockProfileExtendResponse
   | LockProfileResponse
   | LoadTopTenResponse
   | UnlockProfileResponse
