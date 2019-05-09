@@ -1,10 +1,10 @@
-import { LockAccountRequest } from "../request/lockProfile";
+import { LockProfileRequest } from "../request/lockProfile";
 import { LockProfileResponse } from "../response/lockProfile";
 import { Repositories } from "../repo";
 
 export function lockProfile(
   w: Repositories,
-  req: LockAccountRequest
+  req: LockProfileRequest
 ): LockProfileResponse {
   return {
     type: "lock_profile_res",

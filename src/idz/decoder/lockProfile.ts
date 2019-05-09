@@ -1,10 +1,10 @@
 import { RequestCode } from "./_defs";
-import { LockAccountRequest } from "../request/lockProfile";
+import { LockProfileRequest } from "../request/lockProfile";
 
 lockProfile.msgCode = 0x0069 as RequestCode;
 lockProfile.msgLen = 0x0020;
 
-export function lockProfile(buf: Buffer): LockAccountRequest {
+export function lockProfile(buf: Buffer): LockProfileRequest {
   return {
     type: "lock_profile_req",
     profileId: buf.readUInt32LE(0x0004),

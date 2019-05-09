@@ -18,7 +18,7 @@ import { LoadStockerRequest } from "./loadStocker";
 import { LoadTeamRequest } from "./loadTeam";
 import { LoadTeamRankingRequest } from "./loadTeamRanking";
 import { LoadTopTenRequest } from "./loadTopTen";
-import { LockAccountRequest } from "./lockProfile";
+import { LockProfileRequest } from "./lockProfile";
 import { LockGarageRequest } from "./lockGarage";
 import { Message00AD } from "./msg00AD";
 import { SaveExpeditionRequest } from "./saveExpedition";
@@ -58,7 +58,7 @@ export type Request =
   | LoadTeamRequest
   | LoadTeamRankingRequest
   | LoadTopTenRequest
-  | LockAccountRequest
+  | LockProfileRequest
   | LockGarageRequest
   | Message00AD
   | SaveExpeditionRequest

@@ -1,4 +1,4 @@
-export interface LockAccountRequest {
+export interface LockProfileRequest {
   type: "lock_profile_req";
   profileId: number;
   pcbId: string;
