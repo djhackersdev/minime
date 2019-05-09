@@ -4,10 +4,7 @@ import { CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
 
-saveTimeAttack.msgCode = 0x00cd as RequestCode;
-saveTimeAttack.msgLen = 0x0080;
-
-export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
+function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
   return {
     type: "save_time_attack_req",
     profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
@@ -33,4 +30,22 @@ export function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
     field_005E: buf.readUInt16LE(0x005e),
     field_0060: buf.readUInt16LE(0x0060),
   };
+}
+
+// There is ... literally no difference between these messages other than their
+// request code..? Even the response uses the same response code, despite
+// the request codes differing.
+
+saveTimeAttack1.msgCode = 0x00cd as RequestCode;
+saveTimeAttack1.msgLen = 0x0080;
+
+export function saveTimeAttack1(buf: Buffer): SaveTimeAttackRequest {
+  return saveTimeAttack(buf);
+}
+
+saveTimeAttack2.msgCode = 0x0136 as RequestCode;
+saveTimeAttack2.msgLen = 0x0080;
+
+export function saveTimeAttack2(buf: Buffer): SaveTimeAttackRequest {
+  return saveTimeAttack(buf);
 }
