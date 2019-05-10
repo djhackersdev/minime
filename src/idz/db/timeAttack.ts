@@ -11,12 +11,16 @@ import { generateId } from "../../db";
 export class SqlTimeAttackRepository implements TimeAttackRepository {
   constructor(private readonly _conn: ClientBase) {}
 
-  async loadTopTen(routeNo: RouteNo): Promise<TopTenResult[]> {
+  async loadTopTen(
+    routeNo: RouteNo,
+    minTimestamp: Date
+  ): Promise<TopTenResult[]> {
     const loadSql = sql
       .select("p.name", "ta.*")
       .from("idz.ta_best ta")
       .join("idz.profile p", { "ta.profile_id": "p.id" })
       .where("ta.route_no", routeNo)
+      .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
       .limit(10)
       .toParams();

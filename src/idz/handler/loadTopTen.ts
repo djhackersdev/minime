@@ -4,7 +4,7 @@ import {
   LoadTopTenResponseCourse,
   LoadTopTenResponseRow,
 } from "../response/loadTopTen";
-import { Repositories } from "../repo";
+import { Repositories, TopTenResult } from "../repo";
 
 export async function loadTopTen(
   w: Repositories,
@@ -17,12 +17,19 @@ export async function loadTopTen(
       break;
     }
 
-    if (selector.field_44 === 0) {
+    const { routeNo, minTimestamp } = selector;
+    let src: TopTenResult[];
+
+    if (req.teamId !== undefined) {
+      src = []; // TODO
+    } else {
+      src = await w.timeAttack().loadTopTen(routeNo, minTimestamp);
+    }
+
+    if (src.length === 0) {
       continue;
     }
 
-    const { routeNo } = selector;
-    const src = await w.timeAttack().loadTopTen(routeNo);
     const dest = new Array<LoadTopTenResponseRow>();
 
     for (const srcItem of src) {

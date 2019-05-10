@@ -16,7 +16,7 @@ export function loadTopTen2(buf: Buffer): LoadTopTenRequest {
   for (let i = 0; i < 40; i++) {
     selectors.push({
       routeNo: (buf.readUInt16LE(0x0004 + 2 * i) >> 1) as RouteNo,
-      field_44: buf.readUInt32LE(0x0054 + 4 * i),
+      minTimestamp: new Date(buf.readUInt32LE(0x0054 + 4 * i) * 1000 + 1000),
     });
   }
 

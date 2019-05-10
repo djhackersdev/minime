@@ -4,7 +4,7 @@ import { Team } from "../model/team";
 
 export interface LoadTopTenRequestSelector {
   routeNo: RouteNo;
-  field_44: number;
+  minTimestamp: Date;
 }
 
 export interface LoadTopTenRequest {
