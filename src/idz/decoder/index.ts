@@ -35,7 +35,10 @@ import { saveTimeAttack1, saveTimeAttack2 } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
-import { updateStoryClearNum } from "./updateStoryClearNum";
+import {
+  updateStoryClearNum1,
+  updateStoryClearNum2,
+} from "./updateStoryClearNum";
 import { RequestCode } from "./_defs";
 import { Request } from "../request";
 import { updateResult } from "./updateResult";
@@ -93,7 +96,8 @@ const funcList: ReaderFn[] = [
   unlockProfile,
   updateProvisionalStoreRank,
   updateResult,
-  updateStoryClearNum,
+  updateStoryClearNum1,
+  updateStoryClearNum2,
   updateTeamPoints,
   updateUiReport,
   updateUserLog,
