@@ -7,10 +7,10 @@ import {
   LoadTopTenRequestSelector,
 } from "../request/loadTopTen";
 
-loadTopTen.msgCode = 0x00b5 as RequestCode;
-loadTopTen.msgLen = 0x00e0;
+loadTopTen1.msgCode = 0x00b5 as RequestCode;
+loadTopTen1.msgLen = 0x00e0;
 
-export function loadTopTen(buf: Buffer): LoadTopTenRequest {
+export function loadTopTen1(buf: Buffer): LoadTopTenRequest {
   const selectors = new Array<LoadTopTenRequestSelector>();
 
   for (let i = 0; i < 32; i++) {

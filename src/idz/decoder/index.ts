@@ -19,6 +19,8 @@ import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeam } from "./loadTeam";
 import { loadTeamRanking, loadTeamRanking2 } from "./loadTeamRanking";
+import { loadTopTen1 } from "./loadTopTen1";
+import { loadTopTen2 } from "./loadTopTen2";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
 import { msg00AD } from "./msg00AD";
@@ -36,7 +38,6 @@ import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
 import { RequestCode } from "./_defs";
 import { Request } from "../request";
-import { loadTopTen } from "./loadTopTen";
 import { updateResult } from "./updateResult";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
@@ -72,7 +73,8 @@ const funcList: ReaderFn[] = [
   loadTeam,
   loadTeamRanking,
   loadTeamRanking2,
-  loadTopTen,
+  loadTopTen1,
+  loadTopTen2,
   lockGarage,
   lockProfile,
   lockProfileExtend,
