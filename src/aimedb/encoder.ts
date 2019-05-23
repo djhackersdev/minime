@@ -32,6 +32,14 @@ export class Encoder extends Transform {
     let buf: Buffer;
 
     switch (msg.type) {
+      case "felica_lookup":
+        buf = begin(0x0030);
+        buf.writeUInt16LE(0x0003, 0x0004); // cmd code
+        buf.writeUInt16LE(msg.status, 0x0008);
+        buf.write(msg.accessCode, 0x0024, "hex");
+
+        break;
+
       case "hello":
         buf = begin(0x0020);
         buf.writeUInt16LE(0x0065, 0x0004); // cmd code
@@ -92,6 +100,8 @@ export class Encoder extends Transform {
         break;
 
       default:
+        const exhaust: never = msg;
+
         return callback(new Error("Unimplemented response type"));
     }
 

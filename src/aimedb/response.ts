@@ -6,6 +6,11 @@ export interface AimeResponseBase {
   status: number;
 }
 
+export interface FeliCaLookupResponse extends AimeResponseBase {
+  type: "felica_lookup";
+  accessCode: string;
+}
+
 export interface CampaignResponse extends AimeResponseBase {
   type: "campaign";
 }
@@ -38,6 +43,7 @@ export interface RegisterResponse extends AimeResponseBase {
 }
 
 export type AimeResponse =
+  | FeliCaLookupResponse
   | CampaignResponse
   | HelloResponse
   | LogResponse

@@ -22,6 +22,18 @@ function campaign(
   return { type: req.type, status: 1 };
 }
 
+function feliCaLookup(
+  rep: Repositories,
+  req: Req.FeliCaLookupRequest,
+  now: Date
+): Res.FeliCaLookupResponse {
+  console.log("Aimedb: FeliCa access code lookup");
+
+  // Well, this access code transformation is the million dollar question eh
+
+  return { type: req.type, status: 1, accessCode: "00010203040506070809" };
+}
+
 async function lookup(
   rep: Repositories,
   req: Req.LookupRequest,
@@ -88,6 +100,9 @@ export async function dispatch(
     case "campaign":
       return campaign(rep, req, now);
 
+    case "felica_lookup":
+      return feliCaLookup(rep, req, now);
+
     case "lookup":
       return lookup(rep, req, now);
 
@@ -106,6 +121,8 @@ export async function dispatch(
       return undefined;
 
     default:
+      const exhaust: never = req;
+
       throw new Error("Aimedb: Handler not implemented!");
   }
 }

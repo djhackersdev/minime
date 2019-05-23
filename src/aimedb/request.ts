@@ -3,6 +3,12 @@ export interface AimeRequestBase {
   keychipId: string;
 }
 
+export interface FeliCaLookupRequest extends AimeRequestBase {
+  type: "felica_lookup";
+  idm: string;
+  pmm: string;
+}
+
 export interface RegisterRequest extends AimeRequestBase {
   type: "register";
   luid: string;
@@ -43,6 +49,7 @@ export interface GoodbyeRequest {
 }
 
 export type AimeRequest =
+  | FeliCaLookupRequest
   | CampaignRequest
   | GoodbyeRequest
   | HelloRequest
