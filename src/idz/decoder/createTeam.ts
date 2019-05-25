@@ -15,7 +15,7 @@ export function createTeam(buf: Buffer): CreateTeamRequest {
     teamName: iconv.decode(buf.slice(0x0008, 0x0028), "shift_jis"),
     field_0028: buf.readUInt16LE(0x0028),
     field_002C: buf.readUInt32LE(0x002c),
-    field_0030: buf.readUInt8(0x0030),
+    nameBg: buf.readUInt8(0x0030),
     field_0032: buf.readUInt16LE(0x0032),
     prevTeamId: buf.readUInt32LE(0x0034),
     field_0038: buf.slice(0x0038, 0x0045),
