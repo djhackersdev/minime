@@ -53,7 +53,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
 
   for (const [courseId, playCount] of res.coursePlays.entries()) {
     if (courseId < 0 || courseId >= 16) {
-      throw new Error(`Course id out of range: ${courseId}`);
+      continue;
     }
 
     buf.writeUInt16LE(playCount, 0x0460 + 2 * courseId);
