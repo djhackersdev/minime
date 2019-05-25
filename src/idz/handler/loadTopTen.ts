@@ -18,13 +18,7 @@ export async function loadTopTen(
     }
 
     const { routeNo, minTimestamp } = selector;
-    let src: TopTenResult[];
-
-    if (req.teamId !== undefined) {
-      src = []; // TODO
-    } else {
-      src = await w.timeAttack().loadTopTen(routeNo, minTimestamp);
-    }
+    const src = await w.timeAttack().loadTopTen(routeNo, minTimestamp);
 
     if (src.length === 0) {
       continue;
