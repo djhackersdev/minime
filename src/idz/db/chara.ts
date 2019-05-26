@@ -6,6 +6,21 @@ import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
 import { Id } from "../../db";
 
+export function _extractChara(row: any): Chara {
+  return {
+    gender: row.gender,
+    field_02: row.field_02,
+    field_04: row.field_04,
+    field_06: row.field_06,
+    field_08: row.field_08,
+    field_0A: row.field_0A,
+    field_0C: row.field_0C,
+    field_0E: row.field_0E,
+    title: row.title,
+    background: row.background,
+  };
+}
+
 export class SqlCharaRepository implements FacetRepository<Chara> {
   constructor(private readonly _conn: ClientBase) {}
 
@@ -19,18 +34,7 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
     const { rows } = await this._conn.query(loadSql);
     const row = rows[0];
 
-    return {
-      gender: row.gender,
-      field_02: row.field_02,
-      field_04: row.field_04,
-      field_06: row.field_06,
-      field_08: row.field_08,
-      field_0A: row.field_0A,
-      field_0C: row.field_0C,
-      field_0E: row.field_0E,
-      title: row.title,
-      background: row.background,
-    };
+    return _extractChara(row);
   }
 
   async save(profileId: Id<Profile>, chara: Chara): Promise<void> {

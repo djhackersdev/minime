@@ -6,7 +6,7 @@ import { ProfileRepository } from "../repo";
 import { generateId, Id } from "../../db";
 import { AimeId } from "../../model";
 
-function _extractProfile(row: any): Profile {
+export function _extractProfile(row: any): Profile {
   return {
     aimeId: row.aime_id,
     name: row.name,
