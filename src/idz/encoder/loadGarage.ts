@@ -1,4 +1,4 @@
-import { car } from "./_car";
+import { encodeCar } from "./_car";
 import { LoadGarageResponse } from "../response/loadGarage";
 
 export function loadGarage(res: LoadGarageResponse): Buffer {
@@ -8,7 +8,7 @@ export function loadGarage(res: LoadGarageResponse): Buffer {
   buf.writeUInt16LE(res.cars.length, 0x0002);
 
   for (let i = 0; i < res.cars.length; i++) {
-    car(res.cars[i]).copy(buf, 0x0004 + 0x0060 * i);
+    encodeCar(res.cars[i]).copy(buf, 0x0004 + 0x0060 * i);
   }
 
   return buf;

@@ -1,6 +1,6 @@
 import { Car } from "../model/car";
 
-export function car(car: Car): Buffer {
+export function encodeCar(car: Car): Buffer {
   const buf = Buffer.alloc(0x0060);
 
   buf.writeUInt16LE(car.field_00, 0x0000);

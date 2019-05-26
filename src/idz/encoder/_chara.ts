@@ -1,6 +1,6 @@
 import { Chara } from "../model/chara";
 
-export function chara(chara: Chara): Buffer {
+export function encodeChara(chara: Chara): Buffer {
   const buf = Buffer.alloc(0x0014);
 
   buf.writeUInt8(chara.gender === "male" ? 0 : 1, 0x00);

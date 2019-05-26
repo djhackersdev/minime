@@ -1,4 +1,4 @@
-export function bitmap(items: Set<number>, nbytes: number): Buffer {
+export function encodeBitmap(items: Set<number>, nbytes: number): Buffer {
   const buf = Buffer.alloc(nbytes);
 
   for (const item of items) {

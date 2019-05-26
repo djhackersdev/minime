@@ -1,9 +1,9 @@
 import iconv = require("iconv-lite");
 
-import { bitmap } from "./_bitmap";
-import { car } from "./_car";
-import { chara } from "./_chara";
-import { mission } from "./_mission";
+import { encodeBitmap } from "./_bitmap";
+import { encodeCar } from "./_car";
+import { encodeChara } from "./_chara";
+import { encodeMission } from "./_mission";
 import { LoadProfileResponse2 } from "../response/loadProfile";
 
 export function loadProfile2(res: LoadProfileResponse2) {
@@ -76,7 +76,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt32LE(res.unlocks.lastMileageReward, 0x01e8);
   buf.writeUInt16LE(res.unlocks.music, 0x01ec);
   buf.writeUInt16LE(0, 0x037c); // Team leader
-  mission(res.missions.team).copy(buf, 0x038a);
+  encodeMission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt16LE(0xffff, 0x0388); // [1]
   buf.writeUInt32LE(res.aimeId, 0x03b8);
   buf.writeUInt32LE(res.mileage, 0x03bc);
@@ -89,13 +89,13 @@ export function loadProfile2(res: LoadProfileResponse2) {
   iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
   buf.writeUInt8(res.story.y, 0x0670);
   buf.writeUInt16LE(res.story.x, 0x06bc);
-  mission(res.missions.solo).copy(buf, 0x06e4);
-  chara(res.chara).copy(buf, 0x070c);
-  bitmap(res.titles, 0xb4).copy(buf, 0x720);
+  encodeMission(res.missions.solo).copy(buf, 0x06e4);
+  encodeChara(res.chara).copy(buf, 0x070c);
+  encodeBitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeUInt8(res.settings.paperCup, 0x07d9);
   buf.writeUInt8(res.settings.gauges, 0x07da);
   buf.writeUInt32LE(res.teamId || 0xffffffff, 0x07e0);
-  car(res.car).copy(buf, 0x0c5c);
+  encodeCar(res.car).copy(buf, 0x0c5c);
   buf.writeUInt32LE(res.carCount, 0x0c58);
 
   // [1] Currently unknown, but if this field is zero then the player will have

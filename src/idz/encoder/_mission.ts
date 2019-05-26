@@ -1,6 +1,6 @@
 import { MissionGrid } from "../model/mission";
 
-export function mission(grids: MissionGrid[]): Buffer {
+export function encodeMission(grids: MissionGrid[]): Buffer {
   const buf = Buffer.alloc(0x24);
 
   for (let gridNo = 0; gridNo < grids.length; gridNo++) {
