@@ -6,15 +6,23 @@ import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 import { Repositories } from "../repo";
 
+// Even if a profile does not belong to a team, a team must still be loaded
+// (and then ignored by the client).
+
+const dummy: Team = {
+  extId: 0 as ExtId<Team>,
+  name: "",
+  nameBg: 0,
+  nameFx: 0,
+  registerTime: new Date(0),
+};
+
 export function _team(
   w: Repositories,
   req: JoinAutoTeamRequest | LoadTeamRequest
 ): JoinAutoTeamResponse | LoadTeamResponse {
   const bits = {
-    team: {
-      id: 2 as ExtId<Team>,
-      name: process.env.TEAM_NAME || "",
-    },
+    team: dummy,
     members: [],
   };
 

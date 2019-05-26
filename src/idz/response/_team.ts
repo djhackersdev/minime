@@ -1,10 +1,4 @@
-import { Team } from "../model/team";
-
-export interface TeamMember {
-  name: string;
-  lv: number;
-  monthPoints: number;
-}
+import { Team, TeamMember } from "../model/team";
 
 export interface BaseTeamResponse {
   team: Team;

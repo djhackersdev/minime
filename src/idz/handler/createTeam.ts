@@ -11,6 +11,6 @@ export function createTeam(
   return {
     type: "create_team_res",
     status: 0,
-    teamId: 3 as ExtId<Team>,
+    teamExtId: 3 as ExtId<Team>,
   };
 }

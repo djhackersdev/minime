@@ -9,5 +9,5 @@ export interface CreateTeamRequest {
   nameBg: number; // u8
   field_0032: number; // u16
   prevTeamId: number; // u32
-  field_0038: Buffer; // len 0x0D ..? weird length
+  pcbId: string;
 }

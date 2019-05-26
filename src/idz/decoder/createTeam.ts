@@ -20,6 +20,6 @@ export function createTeam(buf: Buffer): CreateTeamRequest {
     nameBg: buf.readUInt8(0x0030),
     field_0032: buf.readUInt16LE(0x0032),
     prevTeamId: buf.readUInt32LE(0x0034),
-    field_0038: buf.slice(0x0038, 0x0045),
+    pcbId: buf.slice(0x0038, buf.indexOf("\0", 0x0038)).toString("ascii"),
   };
 }
