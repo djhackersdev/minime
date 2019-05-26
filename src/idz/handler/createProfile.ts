@@ -1,26 +1,29 @@
-import { ExtId } from "../model/base";
 import { MissionState } from "../model/mission";
+import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
-import { Team } from "../model/team";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { GenericResponse } from "../response/generic";
-import { ProfileSpec, Repositories } from "../repo";
+import { Repositories } from "../repo";
 
 export async function createProfile(
   w: Repositories,
   req: CreateProfileRequest
 ): Promise<GenericResponse> {
+  const { aimeId, name } = req;
   const now = new Date();
-  const profile: ProfileSpec = {
-    teamId: 2 as ExtId<Team>, // TODO
-    name: req.name,
+
+  const profile: Profile = {
+    aimeId,
+    name,
     lv: 1,
     exp: 0,
     fame: 0,
     dpoint: 0,
     mileage: 0,
+    accessTime: now,
+    registerTime: now,
   };
 
   const missions: MissionState = { team: [], solo: [] };
@@ -33,7 +36,7 @@ export async function createProfile(
     lastMileageReward: 0,
   };
 
-  const profileId = await w.profile().create(req.aimeId, profile, now);
+  const profileId = await w.profile().create(profile);
 
   await w.chara().save(profileId, req.chara);
   await w.car().saveCar(profileId, req.car);
@@ -46,6 +49,6 @@ export async function createProfile(
 
   return {
     type: "generic_res",
-    status: req.aimeId, // "Generic response" my fucking *ass*
+    status: aimeId, // "Generic response" my fucking *ass*
   };
 }

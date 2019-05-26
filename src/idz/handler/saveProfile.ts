@@ -11,17 +11,15 @@ export async function saveProfile(
   const profile = await w.profile().load(profileId);
   const chara = await w.chara().load(profileId);
 
-  await w.profile().save(
-    {
-      ...profile,
-      lv: req.lv,
-      exp: req.exp,
-      fame: req.fame,
-      dpoint: req.dpoint,
-      mileage: req.mileage,
-    },
-    now
-  );
+  await w.profile().save(profileId, {
+    ...profile,
+    lv: req.lv,
+    exp: req.exp,
+    fame: req.fame,
+    dpoint: req.dpoint,
+    mileage: req.mileage,
+    accessTime: now,
+  });
 
   await w.chara().save(profileId, {
     ...chara,

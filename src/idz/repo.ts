@@ -1,10 +1,6 @@
-import { Subtract } from "utility-types";
-
 import * as Model from "./model";
 import { AimeId } from "../model";
 import { Id } from "../db";
-
-export type ProfileSpec = Subtract<Model.Profile, { aimeId: AimeId }>;
 
 export interface CarRepository {
   countCars(profileId: Id<Model.Profile>): Promise<number>;
@@ -49,13 +45,9 @@ export interface ProfileRepository {
 
   load(id: Id<Model.Profile>): Promise<Model.Profile>;
 
-  save(profile: Model.Profile, timestamp: Date): Promise<void>;
+  save(id: Id<Model.Profile>, profile: Model.Profile): Promise<void>;
 
-  create(
-    aimeId: AimeId,
-    profile: ProfileSpec,
-    timestamp: Date
-  ): Promise<Id<Model.Profile>>;
+  create(profile: Model.Profile): Promise<Id<Model.Profile>>;
 }
 
 // TODO extend and factorize

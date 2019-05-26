@@ -36,7 +36,7 @@ export async function loadProfile(
     fame: profile.fame,
     dpoint: profile.dpoint,
     mileage: profile.mileage,
-    teamId: profile.teamId,
+    // teamId: TODO
     settings,
     chara,
     titles,
