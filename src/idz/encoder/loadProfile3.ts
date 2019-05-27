@@ -78,7 +78,7 @@ export function loadProfile3(res: LoadProfileResponse3) {
   buf.writeUInt16LE(0, 0x0456); // Team leader
   mission(res.missions.team).copy(buf, 0x0460);
   buf.writeUInt16LE(0xffff, 0x0462); // [1]
-  buf.writeUInt32LE(res.profileId, 0x0494);
+  buf.writeUInt32LE(res.aimeId, 0x0494);
   buf.writeUInt32LE(res.mileage, 0x0498);
   buf.writeUInt16LE(res.settings.music, 0x04a4);
   buf.writeUInt16LE(res.lv, 0x04a8);

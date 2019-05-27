@@ -6,27 +6,31 @@ export async function loadProfile(
   w: Repositories,
   req: LoadProfileRequest
 ): Promise<LoadProfileResponse> {
+  const { aimeId } = req;
+
+  const profileId = await w.profile().find(aimeId);
+
   // Promise.all would be messy here, who cares anyway this isn't supposed to
   // be a high-performance server.
 
-  const profile = await w.profile().loadByAimeId(req.aimeId);
-  const settings = await w.settings().load(profile.id);
-  const chara = await w.chara().load(profile.id);
-  const titles = await w.titles().loadAll(profile.id);
-  const coursePlays = await w.coursePlays().loadAll(profile.id);
-  const missions = await w.missions().load(profile.id);
-  const car = await w.car().loadSelectedCar(profile.id);
-  const carCount = await w.car().countCars(profile.id);
-  const story = await w.story().load(profile.id);
-  const timeAttack = await w.timeAttack().loadAll(profile.id);
-  const unlocks = await w.unlocks().load(profile.id);
-  const tickets = await w.tickets().load(profile.id);
+  const profile = await w.profile().load(profileId);
+  const settings = await w.settings().load(profileId);
+  const chara = await w.chara().load(profileId);
+  const titles = await w.titles().loadAll(profileId);
+  const coursePlays = await w.coursePlays().loadAll(profileId);
+  const missions = await w.missions().load(profileId);
+  const car = await w.car().loadSelectedCar(profileId);
+  const carCount = await w.car().countCars(profileId);
+  const story = await w.story().load(profileId);
+  const timeAttack = await w.timeAttack().loadAll(profileId);
+  const unlocks = await w.unlocks().load(profileId);
+  const tickets = await w.tickets().load(profileId);
 
   return {
     type: "load_profile_res",
     format: req.format as any, // TS fart
     name: profile.name,
-    profileId: profile.id,
+    aimeId,
     lv: profile.lv,
     exp: profile.exp,
     fame: profile.fame,

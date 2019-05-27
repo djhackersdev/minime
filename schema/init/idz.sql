@@ -12,7 +12,6 @@ create table "idz"."profile" (
             references "aime"."player"("id")
             on delete cascade,
     -- TODO shop_id
-    "ext_id" integer not null,
     "name" text not null,
     "lv" smallint not null,
     "exp" integer not null,
@@ -21,8 +20,7 @@ create table "idz"."profile" (
     "mileage" integer not null,
     "register_time" timestamp not null,
     "access_time" timestamp not null,
-    constraint "profile_player_uq" unique ("player_id"),
-    constraint "profile_ext_id_uq" unique ("ext_id")
+    constraint "profile_player_uq" unique ("player_id")
 );
 
 create table "idz"."chara" (

@@ -1,10 +1,10 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
 import { RequestCode } from "./_defs";
-import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
-import { Profile } from "../model/profile";
+import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
 import { SaveProfileRequest2 } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
+import { AimeId } from "../../model";
 
 saveProfile3.msgCode = 0x0138 as RequestCode;
 saveProfile3.msgLen = 0x0a70;
@@ -49,7 +49,7 @@ export function saveProfile3(buf: Buffer): SaveProfileRequest2 {
   return {
     type: "save_profile_req",
     format: 2,
-    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
     lv: buf.readUInt16LE(0x0026),
     exp: buf.readUInt32LE(0x0028),
     fame: buf.readUInt32LE(0x04fc),

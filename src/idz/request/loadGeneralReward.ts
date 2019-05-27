@@ -1,9 +1,8 @@
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 interface LoadGeneralRewardRequestBase {
   type: "load_general_reward_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
 }
 
 export interface LoadGeneralRewardRequest1

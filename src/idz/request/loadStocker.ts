@@ -1,7 +1,6 @@
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 export interface LoadStockerRequest {
   type: "load_stocker_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
 }

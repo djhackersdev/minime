@@ -1,7 +1,6 @@
 import { RequestCode } from "./_defs";
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
 import { LoadStockerRequest } from "../request/loadStocker";
+import { AimeId } from "../../model";
 
 loadStocker.msgCode = 0x00a7 as RequestCode;
 loadStocker.msgLen = 0x0010;
@@ -9,6 +8,6 @@ loadStocker.msgLen = 0x0010;
 export function loadStocker(buf: Buffer): LoadStockerRequest {
   return {
     type: "load_stocker_req",
-    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
   };
 }

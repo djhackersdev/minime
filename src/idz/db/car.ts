@@ -1,12 +1,10 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
 import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { CarRepository } from "../repo";
-import { generateId } from "../../db";
+import { generateId, Id } from "../../db";
 
 function _extractRow(row: any): Car {
   return {
@@ -31,12 +29,11 @@ function _extractRow(row: any): Car {
 export class SqlCarRepository implements CarRepository {
   constructor(private readonly _conn: ClientBase) {}
 
-  async countCars(extId: ExtId<Profile>): Promise<number> {
+  async countCars(profileId: Id<Profile>): Promise<number> {
     const countSql = sql
       .select("count(*) result")
       .from("idz.car c")
-      .join("idz.profile p", { "c.profile_id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("c.profile_id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(countSql);
@@ -45,12 +42,11 @@ export class SqlCarRepository implements CarRepository {
     return parseInt(row.result, 10);
   }
 
-  async loadAllCars(extId: ExtId<Profile>): Promise<Car[]> {
+  async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
     const loadSql = sql
       .select("c.*")
       .from("idz.car c")
-      .join("idz.profile p", { "c.profile_id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("c.profile_id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -58,13 +54,12 @@ export class SqlCarRepository implements CarRepository {
     return rows.map(_extractRow);
   }
 
-  async loadSelectedCar(extId: ExtId<Profile>): Promise<Car> {
+  async loadSelectedCar(profileId: Id<Profile>): Promise<Car> {
     const loadSql = sql
       .select("c.*")
       .from("idz.car c")
       .join("idz.car_selection s", { "c.id": "s.car_id" })
-      .join("idz.profile p", { "s.id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("s.id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -72,11 +67,11 @@ export class SqlCarRepository implements CarRepository {
     return _extractRow(rows[0]);
   }
 
-  async saveCar(extId: ExtId<Profile>, car: Car): Promise<void> {
+  async saveCar(profileId: Id<Profile>, car: Car): Promise<void> {
     const saveSql = sql
       .insert("idz.car", {
         id: generateId(),
-        profile_id: await _findProfile(this._conn, extId),
+        profile_id: profileId,
         selector: car.selector,
         field_00: car.field_00,
         field_02: car.field_02,
@@ -116,11 +111,9 @@ export class SqlCarRepository implements CarRepository {
   }
 
   async saveSelection(
-    extId: ExtId<Profile>,
+    profileId: Id<Profile>,
     selector: CarSelector
   ): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
-
     const findSql = sql
       .select("c.id")
       .from("idz.car c")

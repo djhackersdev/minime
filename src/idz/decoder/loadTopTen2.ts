@@ -1,11 +1,11 @@
 import { RequestCode } from "./_defs";
 import { ExtId, RouteNo } from "../model/base";
-import { Profile } from "../model/profile";
 import { Team } from "../model/team";
 import {
   LoadTopTenRequest,
   LoadTopTenRequestSelector,
 } from "../request/loadTopTen";
+import { AimeId } from "../../model";
 
 loadTopTen2.msgCode = 0x012c as RequestCode;
 loadTopTen2.msgLen = 0x0110;
@@ -30,7 +30,7 @@ export function loadTopTen2(buf: Buffer): LoadTopTenRequest {
     field_C4: buf.readUInt8(0x00f4), // Boolean, true if profile ID is set
     field_C5: buf.readUInt8(0x00f5), // Always zero
     field_C6: buf.readUInt16LE(0x00f6),
-    profileId: profileId !== 0 ? (profileId as ExtId<Profile>) : undefined,
+    aimeId: profileId !== 0 ? (profileId as AimeId) : undefined,
     teamId: teamId !== 0xffffffff ? (teamId as ExtId<Team>) : undefined,
   };
 }

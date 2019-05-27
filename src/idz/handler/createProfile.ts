@@ -46,6 +46,6 @@ export async function createProfile(
 
   return {
     type: "generic_res",
-    status: profileId, // "Generic response" my fucking *ass*
+    status: req.aimeId, // "Generic response" my fucking *ass*
   };
 }

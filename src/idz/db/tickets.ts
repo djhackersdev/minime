@@ -1,23 +1,21 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Tickets } from "../model/tickets";
 import { FacetRepository } from "../repo";
+import { Id } from "../../db";
 
 // TODO free continue
 
 export class SqlTicketsRepository implements FacetRepository<Tickets> {
   constructor(private readonly _conn: ClientBase) {}
 
-  async load(extId: ExtId<Profile>): Promise<Tickets> {
+  async load(profileId: Id<Profile>): Promise<Tickets> {
     const loadSql = sql
       .select("fc.*")
-      .from("idz.profile p")
-      .join("idz.free_car fc", { "p.id": "fc.id" })
-      .where("p.ext_id", extId)
+      .from("idz.free_car fc")
+      .where("fc.id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -30,8 +28,7 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
     };
   }
 
-  async save(extId: ExtId<Profile>, tickets: Tickets): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
+  async save(profileId: Id<Profile>, tickets: Tickets): Promise<void> {
     const { freeCar } = tickets;
 
     if (!freeCar) {

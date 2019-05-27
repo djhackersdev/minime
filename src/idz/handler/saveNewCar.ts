@@ -6,7 +6,9 @@ export async function saveNewCar(
   w: Repositories,
   req: SaveNewCarRequest
 ): Promise<SaveNewCarResponse> {
-  await w.car().saveCar(req.profileId, req.car);
+  const profileId = await w.profile().find(req.aimeId);
+
+  await w.car().saveCar(profileId, req.car);
 
   return {
     type: "save_new_car_res",

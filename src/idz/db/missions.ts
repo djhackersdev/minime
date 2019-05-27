@@ -1,8 +1,6 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
 import { MissionGrid, MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
@@ -11,9 +9,7 @@ import { generateId, Id } from "../../db";
 export class SqlMissionsRepository implements FacetRepository<MissionState> {
   constructor(private readonly _conn: ClientBase) {}
 
-  private async _load(
-    extId: ExtId<Profile>
-  ): Promise<[MissionState, Id<Profile>]> {
+  async load(profileId: Id<Profile>): Promise<MissionState> {
     const result: MissionState = {
       solo: new Array<MissionGrid>(),
       team: new Array<MissionGrid>(),
@@ -32,8 +28,6 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
       result.team.push(teamGrid);
     }
 
-    const profileId = await _findProfile(this._conn, extId);
-
     const loadSoloSql = sql
       .select("sm.*")
       .from("idz.solo_mission_state sm")
@@ -46,17 +40,11 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
       result.solo[row.grid_no].cells[row.cell_no] = row.value;
     }
 
-    return [result, profileId];
+    return result;
   }
 
-  async load(extId: ExtId<Profile>): Promise<MissionState> {
-    const [mission] = await this._load(extId);
-
-    return mission;
-  }
-
-  async save(extId: ExtId<Profile>, mission: MissionState): Promise<void> {
-    const [existing, profileId] = await this._load(extId);
+  async save(profileId: Id<Profile>, mission: MissionState): Promise<void> {
+    const existing = await this.load(profileId);
 
     for (let i = 0; i < mission.solo.length; i++) {
       const exGrid = existing.solo[i].cells;

@@ -1,18 +1,18 @@
-import { ExtId, TitleCode } from "../model/base";
+import { TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { Chara } from "../model/chara";
 import { MissionState } from "../model/mission";
-import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
+import { AimeId } from "../../model";
 
 interface LoadProfileResponseBase {
   type: "load_profile_res";
   name: string;
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
   lv: number;
   exp: number;
   fame: number;

@@ -1,8 +1,7 @@
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 export interface LockProfileExtendRequest {
   type: "lock_profile_extend_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
   luid: string;
 }

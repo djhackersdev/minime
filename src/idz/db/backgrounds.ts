@@ -1,22 +1,21 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks";
 
-import { _findProfile } from "./_util";
-import { BackgroundCode, ExtId } from "../model/base";
+import { BackgroundCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { generateId } from "../../db";
+import { generateId, Id } from "../../db";
 
 export class SqlBackgroundsRepository
   implements FlagRepository<BackgroundCode> {
   constructor(private readonly _conn: ClientBase) {}
 
-  async loadAll(extId: ExtId<Profile>): Promise<Set<BackgroundCode>> {
+  async loadAll(id: Id<Profile>): Promise<Set<BackgroundCode>> {
     const loadSql = sql
       .select("bg.background_no")
       .from("idz.background_unlock bg")
       .join("idz.profile p", { "bg.profile_id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("p.id", id)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -30,11 +29,10 @@ export class SqlBackgroundsRepository
   }
 
   async saveAll(
-    extId: ExtId<Profile>,
+    profileId: Id<Profile>,
     flags: Set<BackgroundCode>
   ): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
-    const existing = await this.loadAll(extId);
+    const existing = await this.loadAll(profileId);
 
     for (const flag of flags) {
       if (existing.has(flag)) {

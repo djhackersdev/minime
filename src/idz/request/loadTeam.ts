@@ -1,5 +1,5 @@
 export interface LoadTeamRequest {
   type: "load_team_req";
-  profileId: number;
+  aimeId: number;
   teamId: number;
 }

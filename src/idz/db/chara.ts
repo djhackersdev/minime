@@ -1,21 +1,19 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
 import { Chara } from "../model/chara";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
+import { Id } from "../../db";
 
 export class SqlCharaRepository implements FacetRepository<Chara> {
   constructor(private readonly _conn: ClientBase) {}
 
-  async load(extId: ExtId<Profile>): Promise<Chara> {
+  async load(profileId: Id<Profile>): Promise<Chara> {
     const loadSql = sql
       .select("c.*")
-      .from("idz.profile p")
-      .join("idz.chara c", { "p.id": "c.id" })
-      .where("p.ext_id", extId)
+      .from("idz.chara c")
+      .where("c.id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -35,9 +33,7 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
     };
   }
 
-  async save(extId: ExtId<Profile>, chara: Chara): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
-
+  async save(profileId: Id<Profile>, chara: Chara): Promise<void> {
     const saveSql = sql
       .insert("idz.chara", {
         id: profileId,

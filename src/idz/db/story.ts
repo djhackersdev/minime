@@ -1,8 +1,6 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Story, StoryRow, StoryCell } from "../model/story";
 import { FacetRepository } from "../repo";
@@ -11,9 +9,7 @@ import { generateId, Id } from "../../db";
 export class SqlStoryRepository implements FacetRepository<Story> {
   constructor(private readonly _conn: ClientBase) {}
 
-  private async _load(extId: ExtId<Profile>): Promise<[Story, Id<Profile>]> {
-    const profileId = await _findProfile(this._conn, extId);
-
+  async load(profileId: Id<Profile>): Promise<Story> {
     const loadSql = sql
       .select("s.*")
       .from("idz.story_state s")
@@ -56,17 +52,11 @@ export class SqlStoryRepository implements FacetRepository<Story> {
       cell.b = row.b;
     }
 
-    return [result, profileId];
+    return result;
   }
 
-  async load(extId: ExtId<Profile>): Promise<Story> {
-    const [story] = await this._load(extId);
-
-    return story;
-  }
-
-  async save(extId: ExtId<Profile>, story: Story): Promise<void> {
-    const [existing, profileId] = await this._load(extId);
+  async save(profileId: Id<Profile>, story: Story): Promise<void> {
+    const existing = await this.load(profileId);
 
     const headSql = sql
       .insert("idz.story_state", {

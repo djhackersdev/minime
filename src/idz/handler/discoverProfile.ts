@@ -6,8 +6,10 @@ export async function discoverProfile(
   w: Repositories,
   req: DiscoverProfileRequest
 ): Promise<DiscoverProfileResponse> {
+  const profileId = await w.profile().find(req.aimeId);
+
   return {
     type: "discover_profile_res",
-    exists: await w.profile().discoverByAimeId(req.aimeId),
+    exists: profileId !== undefined,
   };
 }

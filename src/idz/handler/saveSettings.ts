@@ -6,7 +6,9 @@ export async function saveSettings(
   w: Repositories,
   req: SaveSettingsRequest
 ): Promise<GenericResponse> {
-  await w.settings().save(req.profileId, req.settings);
+  const profileId = await w.profile().find(req.aimeId);
+
+  await w.settings().save(profileId, req.settings);
 
   return { type: "generic_res" };
 }

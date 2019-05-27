@@ -6,10 +6,12 @@ export async function saveStocker(
   w: Repositories,
   req: SaveStockerRequest
 ): Promise<GenericResponse> {
+  const profileId = await w.profile().find(req.aimeId);
+
   await Promise.all([
-    w.backgrounds().saveAll(req.profileId, req.backgrounds),
-    w.chara().save(req.profileId, req.chara),
-    w.car().saveSelection(req.profileId, req.selectedCar),
+    w.backgrounds().saveAll(profileId, req.backgrounds),
+    w.chara().save(profileId, req.chara),
+    w.car().saveSelection(profileId, req.selectedCar),
   ]);
 
   return { type: "generic_res" };

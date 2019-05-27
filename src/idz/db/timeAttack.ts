@@ -1,12 +1,11 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks-postgres";
 
-import { _findProfile } from "./_util";
-import { ExtId, RouteNo } from "../model/base";
+import { RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
 import { TimeAttackRepository, TopTenResult } from "../repo";
-import { generateId } from "../../db";
+import { generateId, Id } from "../../db";
 
 export class SqlTimeAttackRepository implements TimeAttackRepository {
   constructor(private readonly _conn: ClientBase) {}
@@ -41,12 +40,11 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     }));
   }
 
-  async loadAll(extId: ExtId<Profile>): Promise<TimeAttackScore[]> {
+  async loadAll(profileId: Id<Profile>): Promise<TimeAttackScore[]> {
     const loadSql = sql
       .select("ta.*")
       .from("idz.ta_best ta")
-      .join("idz.profile p", { "ta.profile_id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("ta.profile_id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -62,9 +60,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     }));
   }
 
-  async save(extId: ExtId<Profile>, score: TimeAttackScore): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
-
+  async save(profileId: Id<Profile>, score: TimeAttackScore): Promise<void> {
     const logSql = sql
       .insert("idz.ta_result", {
         id: generateId(),

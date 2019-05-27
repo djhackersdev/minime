@@ -1,7 +1,6 @@
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 export interface LoadGachaRequest {
   type: "load_gacha_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
 }

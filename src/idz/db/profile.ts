@@ -1,17 +1,16 @@
 import * as sql from "sql-bricks";
 import { ClientBase } from "pg";
 
-import { _findProfile } from "./_util";
 import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Team } from "../model/team";
 import { ProfileSpec, ProfileRepository } from "../repo";
-import { generateExtId, generateId, Id } from "../../db";
+import { generateId, Id } from "../../db";
 import { AimeId } from "../../model";
 
-function _extractRow(row: any): Profile {
+function _extractProfile(row: any): Profile {
   return {
-    id: row.ext_id,
+    aimeId: row.ext_id,
     teamId: 2 as ExtId<Team>, // TODO
     name: row.name,
     lv: row.lv,
@@ -25,11 +24,19 @@ function _extractRow(row: any): Profile {
 export class SqlProfileRepository implements ProfileRepository {
   constructor(private readonly _conn: ClientBase) {}
 
-  private async _tryLoadByAimeId(
-    aimeId: AimeId
-  ): Promise<Profile | undefined> {
+  async find(aimeId: AimeId): Promise<Id<Profile>> {
+    const profileId = await this.peek(aimeId);
+
+    if (profileId === undefined) {
+      throw new Error(`Profile not found for Aime ID ${aimeId}`);
+    }
+
+    return profileId;
+  }
+
+  async peek(aimeId: AimeId): Promise<Id<Profile> | undefined> {
     const lookupSql = sql
-      .select("p.*")
+      .select("p.id")
       .from("idz.profile p")
       .join("aime.player r", { "p.player_id": "r.id" })
       .where("r.ext_id", aimeId)
@@ -42,35 +49,19 @@ export class SqlProfileRepository implements ProfileRepository {
       return undefined;
     }
 
-    return _extractRow(row);
+    return row.id;
   }
 
-  async discoverByAimeId(aimeId: AimeId): Promise<boolean> {
-    const result = await this._tryLoadByAimeId(aimeId);
-
-    return result !== undefined;
-  }
-
-  async loadByAimeId(aimeId: AimeId): Promise<Profile> {
-    const result = await this._tryLoadByAimeId(aimeId);
-
-    if (result === undefined) {
-      throw new Error("Profile not found for Aime ID");
-    }
-
-    return result;
-  }
-
-  async load(extId: ExtId<Profile>): Promise<Profile> {
+  async load(id: Id<Profile>): Promise<Profile> {
     const loadSql = sql
       .select("p.*")
       .from("idz.profile p")
-      .where("ext_id", extId)
+      .where("id", id)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
 
-    return _extractRow(rows[0]);
+    return _extractProfile(rows[0]);
   }
 
   async save(profile: Profile, timestamp: Date): Promise<void> {
@@ -83,7 +74,7 @@ export class SqlProfileRepository implements ProfileRepository {
         mileage: profile.mileage,
         access_time: timestamp,
       })
-      .where("ext_id", profile.id)
+      .where("id", profile.aimeId)
       .toParams();
 
     await this._conn.query(saveSql);
@@ -93,7 +84,7 @@ export class SqlProfileRepository implements ProfileRepository {
     aimeId: AimeId,
     profile: ProfileSpec,
     timestamp: Date
-  ): Promise<ExtId<Profile>> {
+  ): Promise<Id<Profile>> {
     const findSql = sql
       .select("r.id")
       .from("aime.player r")
@@ -108,14 +99,12 @@ export class SqlProfileRepository implements ProfileRepository {
     }
 
     const id = generateId();
-    const extId = generateExtId() as ExtId<Profile>;
     const playerId = row.id;
 
     const createSql = sql
       .insert("idz.profile", {
         id: id,
         player_id: playerId,
-        ext_id: extId,
         name: profile.name,
         lv: profile.lv,
         exp: profile.exp,
@@ -129,6 +118,6 @@ export class SqlProfileRepository implements ProfileRepository {
 
     await this._conn.query(createSql);
 
-    return extId;
+    return id as Id<Profile>;
   }
 }

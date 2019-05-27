@@ -6,7 +6,8 @@ export async function loadStocker(
   w: Repositories,
   req: LoadStockerRequest
 ): Promise<LoadStockerResponse> {
-  const backgrounds = await w.backgrounds().loadAll(req.profileId);
+  const profileId = await w.profile().find(req.aimeId);
+  const backgrounds = await w.backgrounds().loadAll(profileId);
 
   return {
     type: "load_stocker_res",

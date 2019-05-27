@@ -13,9 +13,10 @@ export async function saveTimeAttack(
     // Override client time since we might be doing some maintenance window
     // avoidance time warping stuff
 
-    await w
-      .timeAttack()
-      .save(req.profileId, { ...req.payload, timestamp: new Date() });
+    const now = new Date();
+    const profileId = await w.profile().find(req.aimeId);
+
+    await w.timeAttack().save(profileId, { ...req.payload, timestamp: now });
   }
 
   return {

@@ -1,9 +1,8 @@
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
+import { AimeId } from "../../model";
 
 export interface LoadGarageRequest {
   type: "load_garage_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
   fetchOffset: number;
   field_000A: number;
 }

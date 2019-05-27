@@ -1,13 +1,13 @@
 import { RequestCode } from "./_defs";
-import { ExtId, RouteNo } from "../model/base";
+import { RouteNo } from "../model/base";
 import { CarSelector } from "../model/car";
-import { Profile } from "../model/profile";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
+import { AimeId } from "../../model";
 
 function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
   return {
     type: "save_time_attack_req",
-    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
     dayNight: buf.readUInt8(0x0054) & 1,
     payload: {
       routeNo: (buf.readUInt8(0x0054) >> 1) as RouteNo,

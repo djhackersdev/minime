@@ -1,21 +1,19 @@
 import { ClientBase } from "pg";
 import * as sql from "sql-bricks";
 
-import { _findProfile } from "./_util";
 import { TitleCode, ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { generateId } from "../../db";
+import { generateId, Id } from "../../db";
 
 export class SqlTitlesRepository implements FlagRepository<TitleCode> {
   constructor(private readonly _conn: ClientBase) {}
 
-  async loadAll(extId: ExtId<Profile>): Promise<Set<TitleCode>> {
+  async loadAll(profileId: Id<Profile>): Promise<Set<TitleCode>> {
     const loadSql = sql
       .select("t.title_no")
       .from("idz.title_unlock t")
-      .join("idz.profile p", { "t.profile_id": "p.id" })
-      .where("p.ext_id", extId)
+      .where("t.profile_id", profileId)
       .toParams();
 
     const { rows } = await this._conn.query(loadSql);
@@ -28,9 +26,8 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
     return result;
   }
 
-  async saveAll(extId: ExtId<Profile>, flags: Set<TitleCode>): Promise<void> {
-    const profileId = await _findProfile(this._conn, extId);
-    const existing = await this.loadAll(extId);
+  async saveAll(profileId: Id<Profile>, flags: Set<TitleCode>): Promise<void> {
+    const existing = await this.loadAll(profileId);
 
     for (const flag of flags) {
       if (existing.has(flag)) {

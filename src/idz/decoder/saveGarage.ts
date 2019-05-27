@@ -14,7 +14,7 @@ export function saveGarage(buf: Buffer): SaveGarageRequest {
 
   return {
     type: "save_garage_req",
-    profileId: buf.readUInt32LE(0x0004),
+    aimeId: buf.readUInt32LE(0x0004),
     payload: car(buf.slice(0x0008, 0x0068)),
     field_0068,
     field_0080: buf.readUInt8(0x0080),

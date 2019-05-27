@@ -7,7 +7,7 @@ loadTeam.msgLen = 0x0010;
 export function loadTeam(buf: Buffer): LoadTeamRequest {
   return {
     type: "load_team_req",
-    profileId: buf.readUInt32LE(0x0004),
+    aimeId: buf.readUInt32LE(0x0004),
     teamId: buf.readUInt32LE(0x0008),
   };
 }

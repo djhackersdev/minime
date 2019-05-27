@@ -1,7 +1,6 @@
 import { RequestCode } from "./_defs";
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
 import { SaveSettingsRequest } from "../request/saveSettings";
+import { AimeId } from "../../model";
 
 saveSettings.msgCode = 0x00a5 as RequestCode;
 saveSettings.msgLen = 0x0020;
@@ -13,7 +12,7 @@ export function saveSettings(buf: Buffer): SaveSettingsRequest {
 
   return {
     type: "save_settings_req",
-    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
     dpoint: buf.readUInt32LE(0x0008),
     settings: {
       music: buf.readUInt16LE(0x0002),

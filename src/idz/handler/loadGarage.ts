@@ -6,8 +6,10 @@ export async function loadGarage(
   w: Repositories,
   req: LoadGarageRequest
 ): Promise<LoadGarageResponse> {
+  const profileId = await w.profile().find(req.aimeId);
+
   return {
     type: "load_garage_res",
-    cars: await w.car().loadAllCars(req.profileId),
+    cars: await w.car().loadAllCars(profileId),
   };
 }

@@ -1,11 +1,9 @@
-import { ExtId } from "../model/base";
-import { CarSelector } from "../model/car";
-import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
+import { AimeId } from "../../model";
 
 export interface SaveTimeAttackRequest {
   type: "save_time_attack_req";
-  profileId: ExtId<Profile>; // u32
+  aimeId: AimeId;
   dayNight: number;
   payload: TimeAttackScore;
   field_0002: number; // u16, always 1

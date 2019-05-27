@@ -1,15 +1,15 @@
 import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { MissionState } from "../model/mission";
-import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
+import { AimeId } from "../../model";
 
 interface SaveProfileRequestBase {
   type: "save_profile_req";
-  profileId: ExtId<Profile>;
+  aimeId: AimeId;
   lv: number;
   exp: number;
   fame: number;

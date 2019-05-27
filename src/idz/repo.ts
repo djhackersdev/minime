@@ -2,59 +2,52 @@ import { Subtract } from "utility-types";
 
 import * as Model from "./model";
 import { AimeId } from "../model";
+import { Id } from "../db";
 
-export type ProfileSpec = Subtract<
-  Model.Profile,
-  { id: Model.ExtId<Model.Profile> }
->;
+export type ProfileSpec = Subtract<Model.Profile, { aimeId: AimeId }>;
 
 export interface CarRepository {
-  countCars(profileId: Model.ExtId<Model.Profile>): Promise<number>;
+  countCars(profileId: Id<Model.Profile>): Promise<number>;
 
-  loadAllCars(profileId: Model.ExtId<Model.Profile>): Promise<Model.Car[]>;
+  loadAllCars(profileId: Id<Model.Profile>): Promise<Model.Car[]>;
 
-  loadSelectedCar(profileId: Model.ExtId<Model.Profile>): Promise<Model.Car>;
+  loadSelectedCar(profileId: Id<Model.Profile>): Promise<Model.Car>;
 
-  saveCar(
-    profileId: Model.ExtId<Model.Profile>,
-    car: Model.Car
-  ): Promise<void>;
+  saveCar(profileId: Id<Model.Profile>, car: Model.Car): Promise<void>;
 
   saveSelection(
-    profileId: Model.ExtId<Model.Profile>,
+    profileId: Id<Model.Profile>,
     selector: Model.CarSelector
   ): Promise<void>;
 }
 
 export interface CoursePlaysRepository {
-  loadAll(
-    profileId: Model.ExtId<Model.Profile>
-  ): Promise<Map<Model.CourseNo, number>>;
+  loadAll(profileId: Id<Model.Profile>): Promise<Map<Model.CourseNo, number>>;
 
   saveAll(
-    profileId: Model.ExtId<Model.Profile>,
+    profileId: Id<Model.Profile>,
     counts: Map<Model.CourseNo, number>
   ): Promise<void>;
 }
 
 export interface FacetRepository<T> {
-  load(profileId: Model.ExtId<Model.Profile>): Promise<T>;
+  load(profileId: Id<Model.Profile>): Promise<T>;
 
-  save(profileId: Model.ExtId<Model.Profile>, facet: T): Promise<void>;
+  save(profileId: Id<Model.Profile>, facet: T): Promise<void>;
 }
 
 export interface FlagRepository<T extends number> {
-  loadAll(profileId: Model.ExtId<Model.Profile>): Promise<Set<T>>;
+  loadAll(profileId: Id<Model.Profile>): Promise<Set<T>>;
 
-  saveAll(profileId: Model.ExtId<Model.Profile>, items: Set<T>): Promise<void>;
+  saveAll(profileId: Id<Model.Profile>, items: Set<T>): Promise<void>;
 }
 
 export interface ProfileRepository {
-  discoverByAimeId(id: AimeId): Promise<boolean>;
+  find(aimeId: AimeId): Promise<Id<Model.Profile>>;
 
-  loadByAimeId(id: AimeId): Promise<Model.Profile>;
+  peek(aimeId: AimeId): Promise<Id<Model.Profile> | undefined>;
 
-  load(id: Model.ExtId<Model.Profile>): Promise<Model.Profile>;
+  load(id: Id<Model.Profile>): Promise<Model.Profile>;
 
   save(profile: Model.Profile, timestamp: Date): Promise<void>;
 
@@ -62,7 +55,7 @@ export interface ProfileRepository {
     aimeId: AimeId,
     profile: ProfileSpec,
     timestamp: Date
-  ): Promise<Model.ExtId<Model.Profile>>;
+  ): Promise<Id<Model.Profile>>;
 }
 
 // TODO extend and factorize
@@ -77,12 +70,10 @@ export interface TimeAttackRepository {
     minTimestamp: Date
   ): Promise<TopTenResult[]>;
 
-  loadAll(
-    profileId: Model.ExtId<Model.Profile>
-  ): Promise<Model.TimeAttackScore[]>;
+  loadAll(profileId: Id<Model.Profile>): Promise<Model.TimeAttackScore[]>;
 
   save(
-    profileId: Model.ExtId<Model.Profile>,
+    profileId: Id<Model.Profile>,
     score: Model.TimeAttackScore
   ): Promise<void>;
 }

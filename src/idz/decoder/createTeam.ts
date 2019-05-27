@@ -1,9 +1,8 @@
 import iconv = require("iconv-lite");
 
 import { RequestCode } from "./_defs";
-import { ExtId } from "../model/base";
-import { Profile } from "../model/profile";
 import { CreateTeamRequest } from "../request/createTeam";
+import { AimeId } from "../../model";
 
 createTeam.msgCode = 0x0071 as RequestCode;
 createTeam.msgLen = 0x0050;
@@ -11,7 +10,7 @@ createTeam.msgLen = 0x0050;
 export function createTeam(buf: Buffer): CreateTeamRequest {
   return {
     type: "create_team_req",
-    profileId: buf.readUInt32LE(0x0004) as ExtId<Profile>,
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
     teamName: iconv.decode(
       buf.slice(0x0008, buf.indexOf("\0", 0x0008)),
       "shift_jis"
