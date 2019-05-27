@@ -69,6 +69,27 @@ export interface TeamRepository {
   delete(id: Id<Model.Team>): Promise<void>;
 }
 
+export interface TeamMemberRepository {
+  findTeam(profileId: Id<Model.Profile>): Promise<Id<Model.Team> | undefined>;
+
+  findLeader(teamId: Id<Model.Team>): Promise<Id<Model.Profile> | undefined>;
+
+  loadRoster(id: Id<Model.Team>): Promise<Model.TeamMember[]>;
+
+  join(
+    teamId: Id<Model.Team>,
+    profileId: Id<Model.Profile>,
+    timestamp: Date
+  ): Promise<void>;
+
+  leave(teamId: Id<Model.Team>, profileId: Id<Model.Profile>): Promise<void>;
+
+  makeLeader(
+    team: Id<Model.Team>,
+    profileId: Id<Model.Profile>
+  ): Promise<void>;
+}
+
 // TODO extend and factorize
 export interface TopTenResult {
   driverName: string;
@@ -109,6 +130,8 @@ export interface Repositories {
   story(): FacetRepository<Model.Story>;
 
   teams(): TeamRepository;
+
+  teamMembers(): TeamMemberRepository;
 
   tickets(): FacetRepository<Model.Tickets>;
 
