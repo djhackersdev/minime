@@ -8,6 +8,7 @@ import { SqlMissionsRepository } from "./missions";
 import { SqlProfileRepository } from "./profile";
 import { SqlSettingsRepository } from "./settings";
 import { SqlStoryRepository } from "./story";
+import { SqlTeamRepository } from "./team";
 import { SqlTicketsRepository } from "./tickets";
 import { SqlTimeAttackRepository } from "./timeAttack";
 import { SqlTitlesRepository } from "./titles";
@@ -49,6 +50,10 @@ class TransactionImpl implements Repo.Transaction {
 
   story(): Repo.FacetRepository<Model.Story> {
     return new SqlStoryRepository(this._conn);
+  }
+
+  teams(): Repo.TeamRepository {
+    return new SqlTeamRepository(this._conn);
   }
 
   tickets(): Repo.FacetRepository<Model.Tickets> {

@@ -1,6 +1,13 @@
+import { Subtract } from "utility-types";
+
 import * as Model from "./model";
 import { AimeId } from "../model";
 import { Id } from "../db";
+
+export type TeamSpec = Subtract<
+  Model.Team,
+  { extId: Model.ExtId<Model.Team> }
+>;
 
 export interface CarRepository {
   countCars(profileId: Id<Model.Profile>): Promise<number>;
@@ -50,6 +57,18 @@ export interface ProfileRepository {
   create(profile: Model.Profile): Promise<Id<Model.Profile>>;
 }
 
+export interface TeamRepository {
+  find(extId: Model.ExtId<Model.Team>): Promise<Id<Model.Team>>;
+
+  load(id: Id<Model.Team>): Promise<Model.Team>;
+
+  save(id: Id<Model.Team>, team: Model.Team): Promise<void>;
+
+  create(team: TeamSpec): Promise<[Id<Model.Team>, Model.ExtId<Model.Team>]>;
+
+  delete(id: Id<Model.Team>): Promise<void>;
+}
+
 // TODO extend and factorize
 export interface TopTenResult {
   driverName: string;
@@ -88,6 +107,8 @@ export interface Repositories {
 
   // Also not a facet. w/e one step at a time.
   story(): FacetRepository<Model.Story>;
+
+  teams(): TeamRepository;
 
   tickets(): FacetRepository<Model.Tickets>;
 
