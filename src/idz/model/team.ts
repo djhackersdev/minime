@@ -10,6 +10,11 @@ export interface Team {
   registerTime: Date;
 }
 
+export interface TeamAuto {
+  serialNo: number;
+  nameIdx: number;
+}
+
 export interface TeamMember {
   profile: Profile;
   chara: Chara;
