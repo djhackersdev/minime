@@ -9,6 +9,7 @@ import { SqlProfileRepository } from "./profile";
 import { SqlSettingsRepository } from "./settings";
 import { SqlStoryRepository } from "./story";
 import { SqlTeamRepository } from "./team";
+import { SqlTeamAutoRepository } from "./teamAuto";
 import { SqlTeamMemberRepository } from "./teamMember";
 import { SqlTicketsRepository } from "./tickets";
 import { SqlTimeAttackRepository } from "./timeAttack";
@@ -55,6 +56,10 @@ class TransactionImpl implements Repo.Transaction {
 
   teams(): Repo.TeamRepository {
     return new SqlTeamRepository(this._conn);
+  }
+
+  teamAuto(): Repo.TeamAutoRepository {
+    return new SqlTeamAutoRepository(this._conn);
   }
 
   teamMembers(): Repo.TeamMemberRepository {

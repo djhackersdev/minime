@@ -69,6 +69,12 @@ export interface TeamRepository {
   delete(id: Id<Model.Team>): Promise<void>;
 }
 
+export interface TeamAutoRepository {
+  peek(): Promise<[Model.TeamAuto, Id<Model.Team>] | undefined>;
+
+  push(teamId: Id<Model.Team>, auto: Model.TeamAuto): Promise<void>;
+}
+
 export interface TeamMemberRepository {
   findTeam(profileId: Id<Model.Profile>): Promise<Id<Model.Team> | undefined>;
 
@@ -130,6 +136,8 @@ export interface Repositories {
   story(): FacetRepository<Model.Story>;
 
   teams(): TeamRepository;
+
+  teamAuto(): TeamAutoRepository;
 
   teamMembers(): TeamMemberRepository;
 
