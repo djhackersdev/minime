@@ -2,7 +2,7 @@ import { CheckTeamNameRequest } from "./checkTeamName";
 import { CreateProfileRequest } from "./createProfile";
 import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
-import { JoinAutoTeamRequest } from "./joinAutoTeam";
+import { CreateAutoTeamRequest } from "./createAutoTeam";
 import { Load2on2Request } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadConfigRequest2 } from "./loadConfig2";
@@ -40,10 +40,10 @@ import { UpdateUserLogRequest } from "./updateUserLog";
 
 export type Request =
   | CheckTeamNameRequest
+  | CreateAutoTeamRequest
   | CreateProfileRequest
   | CreateTeamRequest
   | DiscoverProfileRequest
-  | JoinAutoTeamRequest
   | Load2on2Request
   | LoadConfigRequest
   | LoadConfigRequest2

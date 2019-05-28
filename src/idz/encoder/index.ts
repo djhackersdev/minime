@@ -36,14 +36,14 @@ function encode(res: Response): Buffer {
     case "check_team_name_res":
       return checkTeamName(res);
 
+    case "create_auto_team_res":
+      return _team(res);
+
     case "create_team_res":
       return createTeam(res);
 
     case "discover_profile_res":
       return discoverProfile(res);
-
-    case "join_auto_team_res":
-      return _team(res);
 
     case "generic_res":
       return generic(res);

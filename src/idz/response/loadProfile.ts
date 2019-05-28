@@ -19,6 +19,7 @@ interface LoadProfileResponseBase {
   dpoint: number;
   mileage: number;
   teamId?: number;
+  teamLeader: boolean;
   settings: Settings;
   chara: Chara;
   titles: Set<TitleCode>;

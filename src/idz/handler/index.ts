@@ -1,5 +1,5 @@
-import { _team } from "./_team";
 import { checkTeamName } from "./checkTeamName";
+import { createAutoTeam } from "./createAutoTeam";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
@@ -15,6 +15,7 @@ import { loadProfile } from "./loadProfile";
 import { loadReward as loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
+import { loadTeam } from "./loadTeam";
 import { loadTeamRanking } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen";
 import { lockGarage } from "./lockGarage";
@@ -48,14 +49,14 @@ export async function dispatch(
     case "check_team_name_req":
       return checkTeamName(w, req);
 
+    case "create_auto_team_req":
+      return createAutoTeam(w, req);
+
     case "create_profile_req":
       return createProfile(w, req);
 
     case "create_team_req":
       return createTeam(w, req);
-
-    case "join_auto_team_req":
-      return _team(w, req);
 
     case "load_2on2_req":
       return load2on2(w, req);
@@ -97,7 +98,7 @@ export async function dispatch(
       return loadStocker(w, req);
 
     case "load_team_req":
-      return _team(w, req);
+      return loadTeam(w, req);
 
     case "load_top_ten_req":
       return loadTopTen(w, req);

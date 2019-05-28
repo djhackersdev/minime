@@ -9,6 +9,8 @@ export async function loadProfile(
   const { aimeId } = req;
 
   const profileId = await w.profile().find(aimeId);
+  const teamId = await w.teamMembers().findTeam(profileId);
+  const leaderId = teamId && (await w.teamMembers().findLeader(teamId));
 
   // Promise.all would be messy here, who cares anyway this isn't supposed to
   // be a high-performance server.
@@ -25,6 +27,7 @@ export async function loadProfile(
   const timeAttack = await w.timeAttack().loadAll(profileId);
   const unlocks = await w.unlocks().load(profileId);
   const tickets = await w.tickets().load(profileId);
+  const team = teamId && (await w.teams().load(teamId));
 
   return {
     type: "load_profile_res",
@@ -36,7 +39,8 @@ export async function loadProfile(
     fame: profile.fame,
     dpoint: profile.dpoint,
     mileage: profile.mileage,
-    // teamId: TODO
+    teamId: team && team.extId,
+    teamLeader: profileId === leaderId,
     settings,
     chara,
     titles,

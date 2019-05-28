@@ -3,7 +3,7 @@ import { Transform } from "stream";
 import { checkTeamName } from "./checkTeamName";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
-import { joinAutoTeam } from "./joinAutoTeam";
+import { createAutoTeam } from "./createAutoTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2_v1, load2on2_v2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
@@ -54,9 +54,9 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
 
 const funcList: ReaderFn[] = [
   checkTeamName,
+  createAutoTeam,
   createProfile,
   createTeam,
-  joinAutoTeam,
   discoverProfile,
   load2on2_v1,
   load2on2_v2,

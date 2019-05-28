@@ -75,7 +75,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);
   buf.writeUInt32LE(res.unlocks.lastMileageReward, 0x01e8);
   buf.writeUInt16LE(res.unlocks.music, 0x01ec);
-  buf.writeUInt16LE(0, 0x037c); // Team leader
+  buf.writeUInt16LE(res.teamLeader ? 1 : 0, 0x037c);
   encodeMission(res.missions.team).copy(buf, 0x038a);
   buf.writeUInt16LE(0xffff, 0x0388); // [1]
   buf.writeUInt32LE(res.aimeId, 0x03b8);

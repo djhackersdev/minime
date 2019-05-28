@@ -1,13 +1,13 @@
 import iconv = require("iconv-lite");
 
-import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
+import { CreateAutoTeamResponse } from "../response/createAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 import { encodeChara } from "./_chara";
 
-export function _team(res: JoinAutoTeamResponse | LoadTeamResponse) {
+export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
   const buf = Buffer.alloc(0x0ca0);
 
-  if (res.type === "join_auto_team_res") {
+  if (res.type === "create_auto_team_res") {
     buf.writeInt16LE(0x007c, 0x0000);
   } else {
     buf.writeInt16LE(0x0078, 0x0000);

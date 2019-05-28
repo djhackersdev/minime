@@ -1,34 +1,33 @@
-import { ExtId } from "../model/base";
 import { Team } from "../model/team";
-import { JoinAutoTeamRequest } from "../request/joinAutoTeam";
-import { LoadTeamRequest } from "../request/loadTeam";
-import { JoinAutoTeamResponse } from "../response/joinAutoTeam";
-import { LoadTeamResponse } from "../response/loadTeam";
 import { Repositories } from "../repo";
+import { Id } from "../../db";
 
-// Even if a profile does not belong to a team, a team must still be loaded
-// (and then ignored by the client).
+// Bleh. This factorization is kind of messy.
 
-const dummy: Team = {
-  extId: 0 as ExtId<Team>,
-  name: "",
-  nameBg: 0,
-  nameFx: 0,
-  registerTime: new Date(0),
-};
-
-export function _team(
+export async function _fixupPrevTeam(
   w: Repositories,
-  req: JoinAutoTeamRequest | LoadTeamRequest
-): JoinAutoTeamResponse | LoadTeamResponse {
-  const bits = {
-    team: dummy,
-    members: [],
-  };
+  prevTeamId: Id<Team> | undefined
+): Promise<void> {
+  if (prevTeamId === undefined) {
+    return;
+  }
 
-  if (req.type === "join_auto_team_req") {
-    return { type: "join_auto_team_res", ...bits };
-  } else {
-    return { type: "load_team_res", ...bits };
+  const remaining = await w.teamMembers().loadRoster(prevTeamId);
+
+  if (remaining.length === 0) {
+    // Last member left, GC previous team
+
+    await w.teams().delete(prevTeamId);
+  } else if (remaining.find(member => member.leader) === undefined) {
+    // Leader left, appoint new leader by seniority
+
+    remaining.sort((x, y) => x.joinTime.getTime() - y.joinTime.getTime());
+
+    // (need to look up new leader's db id from aime id. ick)
+
+    const newLeader = remaining[remaining.length - 1];
+    const newLeaderId = await w.profile().find(newLeader.profile.aimeId);
+
+    await w.teamMembers().makeLeader(prevTeamId, newLeaderId);
   }
 }

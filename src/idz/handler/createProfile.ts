@@ -47,6 +47,8 @@ export async function createProfile(
   await w.unlocks().save(profileId, unlocks);
   await w.tickets().save(profileId, {});
 
+  await w.teamReservations().commitHack(aimeId);
+
   return {
     type: "generic_res",
     status: aimeId, // "Generic response" my fucking *ass*
