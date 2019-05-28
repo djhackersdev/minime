@@ -36,6 +36,7 @@ import { saveTimeAttack1, saveTimeAttack2 } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
+import { updateTeamMember } from "./updateTeamMember";
 import {
   updateStoryClearNum1,
   updateStoryClearNum2,
@@ -100,6 +101,7 @@ const funcList: ReaderFn[] = [
   updateResult,
   updateStoryClearNum1,
   updateStoryClearNum2,
+  updateTeamMember,
   updateTeamPoints,
   updateUiReport,
   updateUserLog,

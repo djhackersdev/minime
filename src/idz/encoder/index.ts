@@ -29,6 +29,7 @@ import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateStoryClearNum } from "./updateStoryClearNum";
+import { updateTeamMember } from "./updateTeamMember";
 import { Response } from "../response";
 
 function encode(res: Response): Buffer {
@@ -119,6 +120,9 @@ function encode(res: Response): Buffer {
 
     case "update_story_clear_num_res":
       return updateStoryClearNum(res);
+
+    case "update_team_member_res":
+      return updateTeamMember(res);
 
     case "save_topic_res":
       return saveTopic(res);

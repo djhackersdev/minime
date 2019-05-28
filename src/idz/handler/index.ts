@@ -35,6 +35,7 @@ import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateResult } from "./updateResult";
 import { updateStoryClearNum } from "./updateStoryClearNum";
+import { updateTeamMember } from "./updateTeamMember";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
@@ -157,6 +158,9 @@ export async function dispatch(
 
     case "update_story_clear_num_req":
       return updateStoryClearNum(w, req);
+
+    case "update_team_member_req":
+      return updateTeamMember(w, req);
 
     case "update_team_points_req":
       return updateTeamPoints(w, req);
