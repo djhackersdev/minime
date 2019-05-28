@@ -28,6 +28,7 @@ import { SaveNewCarRequest } from "./saveNewCar";
 import { SaveProfileRequest } from "./saveProfile";
 import { SaveSettingsRequest } from "./saveSettings";
 import { SaveStockerRequest } from "./saveStocker";
+import { SaveTeamBannerRequest } from "./saveTeamBanner";
 import { SaveTimeAttackRequest } from "./saveTimeAttack";
 import { SaveTopicRequest } from "./saveTopic";
 import { UnlockProfileRequest } from "./unlockProfile";
@@ -69,6 +70,7 @@ export type Request =
   | SaveProfileRequest
   | SaveSettingsRequest
   | SaveStockerRequest
+  | SaveTeamBannerRequest
   | SaveTimeAttackRequest
   | SaveTopicRequest
   | UnlockProfileRequest

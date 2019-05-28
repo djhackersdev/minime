@@ -31,6 +31,7 @@ import { saveProfile2 } from "./saveProfile2";
 import { saveProfile3 } from "./saveProfile3";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
+import { saveTeamBanner } from "./saveTeamBanner";
 import { saveTimeAttack1, saveTimeAttack2 } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
@@ -90,6 +91,7 @@ const funcList: ReaderFn[] = [
   saveProfile3,
   saveSettings,
   saveStocker,
+  saveTeamBanner,
   saveTimeAttack1,
   saveTimeAttack2,
   saveTopic,

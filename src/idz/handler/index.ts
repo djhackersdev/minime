@@ -28,6 +28,7 @@ import { saveNewCar } from "./saveNewCar";
 import { saveProfile } from "./saveProfile";
 import { saveSettings } from "./saveSettings";
 import { saveStocker } from "./saveStocker";
+import { saveTeamBanner } from "./saveTeamBanner";
 import { saveTimeAttack } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
 import { unlockProfile } from "./unlockProfile";
@@ -138,6 +139,9 @@ export async function dispatch(
 
     case "save_stocker_req":
       return saveStocker(w, req);
+
+    case "save_team_banner_req":
+      return saveTeamBanner(w, req);
 
     case "save_time_attack_req":
       return saveTimeAttack(w, req);
