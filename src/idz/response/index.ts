@@ -27,6 +27,7 @@ import { SaveTimeAttackResponse } from "./saveTimeAttack";
 import { SaveTopicResponse } from "./saveTopic";
 import { UpdateProvisionalStoreRankResponse } from "./updateProvisionalStoreRank";
 import { UpdateStoryClearNumResponse } from "./updateStoryClearNum";
+import { UpdateTeamLeaderResponse } from "./updateTeamLeader";
 import { UpdateTeamMemberResponse } from "./updateTeamMember";
 import { UnlockProfileResponse } from "./unlockProfile";
 
@@ -56,6 +57,7 @@ export type Response =
   | UnlockProfileResponse
   | UpdateProvisionalStoreRankResponse
   | UpdateStoryClearNumResponse
+  | UpdateTeamLeaderResponse
   | UpdateTeamMemberResponse
   | SaveExpeditionResponse
   | SaveGarageResponse

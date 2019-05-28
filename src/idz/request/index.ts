@@ -35,6 +35,7 @@ import { UnlockProfileRequest } from "./unlockProfile";
 import { UpdateProvisionalStoreRankRequest } from "./updateProvisionalStoreRank";
 import { UpdateResultRequest } from "./updateResult";
 import { UpdateStoryClearNumRequest } from "./updateStoryClearNum";
+import { UpdateTeamLeaderRequest } from "./updateTeamLeader";
 import { UpdateTeamMemberRequest } from "./updateTeamMember";
 import { UpdateTeamPointsRequest } from "./updateTeamPoints";
 import { UpdateUiReportRequest } from "./updateUiReport";
@@ -78,6 +79,7 @@ export type Request =
   | UpdateProvisionalStoreRankRequest
   | UpdateResultRequest
   | UpdateStoryClearNumRequest
+  | UpdateTeamLeaderRequest
   | UpdateTeamMemberRequest
   | UpdateTeamPointsRequest
   | UpdateUiReportRequest
