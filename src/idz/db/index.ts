@@ -11,6 +11,7 @@ import { SqlStoryRepository } from "./story";
 import { SqlTeamRepository } from "./team";
 import { SqlTeamAutoRepository } from "./teamAuto";
 import { SqlTeamMemberRepository } from "./teamMember";
+import { SqlTeamReservationRepository } from "./teamReservation";
 import { SqlTicketsRepository } from "./tickets";
 import { SqlTimeAttackRepository } from "./timeAttack";
 import { SqlTitlesRepository } from "./titles";
@@ -64,6 +65,10 @@ class TransactionImpl implements Repo.Transaction {
 
   teamMembers(): Repo.TeamMemberRepository {
     return new SqlTeamMemberRepository(this._conn);
+  }
+
+  teamReservations(): Repo.TeamReservationRepository {
+    return new SqlTeamReservationRepository(this._conn);
   }
 
   tickets(): Repo.FacetRepository<Model.Tickets> {

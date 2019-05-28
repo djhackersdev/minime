@@ -96,6 +96,19 @@ export interface TeamMemberRepository {
   ): Promise<void>;
 }
 
+export interface TeamReservationRepository {
+  occupancyHack(teamId: Id<Model.Team>): Promise<number>;
+
+  reserveHack(
+    teamId: Id<Model.Team>,
+    aimeId: AimeId,
+    timestamp: Date,
+    leader?: "leader"
+  ): Promise<void>;
+
+  commitHack(aimeId: AimeId): Promise<void>;
+}
+
 // TODO extend and factorize
 export interface TopTenResult {
   driverName: string;
@@ -140,6 +153,8 @@ export interface Repositories {
   teamAuto(): TeamAutoRepository;
 
   teamMembers(): TeamMemberRepository;
+
+  teamReservations(): TeamReservationRepository;
 
   tickets(): FacetRepository<Model.Tickets>;
 
