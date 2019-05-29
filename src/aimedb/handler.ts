@@ -30,8 +30,16 @@ function feliCaLookup(
   console.log("Aimedb: FeliCa access code lookup");
 
   // Well, this access code transformation is the million dollar question eh
+  // Return a decimal representation for now.
 
-  return { type: req.type, status: 1, accessCode: "00010203040506070809" };
+  const num = BigInt("0x" + req.idm);
+  let accessCode = num.toString();
+
+  while (accessCode.length < 20) {
+    accessCode = "0" + accessCode;
+  }
+
+  return { type: req.type, status: 1, accessCode };
 }
 
 async function lookup(
