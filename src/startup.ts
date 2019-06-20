@@ -5,19 +5,9 @@ import read = require("raw-body");
 
 import { unzipSync } from "zlib";
 
-import { hostname } from "./hostname";
+import { startupHost, startupUri } from "./switchboard";
 
 const hourDelta = parseInt(process.env.HOUR_DELTA || "0");
-const myHost = hostname();
-const uris = new Map<string, string>();
-
-uris.set("SDBT", `http://${myHost}:9000/`); // Chunithm
-uris.set("SBZV", `http://${myHost}:9001/`); // Project Diva Future Tone
-
-const hosts = new Map<string, string>();
-
-hosts.set("SDDF", `${myHost}:10000`); // Initial D Zero
-
 const app = express();
 
 // Startup request is url-encoded-ish... except it's also zlibed and base64ed.
@@ -80,8 +70,8 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
 
   const resParams = {
     stat: 1,
-    uri: uris.get(req.body.game_id) || "",
-    host: hosts.get(req.body.game_id) || "",
+    uri: startupUri(req.body.game_id),
+    host: startupHost(req.body.game_id),
     place_id: "123",
     name: process.env.SHOP_NAME,
     nickname: process.env.SHOP_NAME,

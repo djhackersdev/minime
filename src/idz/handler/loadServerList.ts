@@ -1,23 +1,21 @@
 import { LoadServerListRequest } from "../request/loadServerList";
 import { LoadServerListResponse } from "../response/loadServerList";
 import { Repositories } from "../repo";
-import { hostname } from "../../hostname";
+import { HOST_EXT, PORT_IDZ } from "../../switchboard";
 
 export function loadServerList(
   w: Repositories,
   req: LoadServerListRequest
 ): LoadServerListResponse {
-  const myHost = hostname();
-
   return {
     type: "load_server_list_res",
     status: 1,
     userDb: {
-      addr: myHost,
+      addr: HOST_EXT,
       tcp: 10000,
       http: 10001,
     },
-    matchAddr: myHost,
+    matchAddr: HOST_EXT,
     matchPort: {
       tcp: 10002,
       udpSend: 10003,
@@ -29,23 +27,23 @@ export function loadServerList(
       udpRecv: 10007,
     },
     event: {
-      addr: myHost,
+      addr: HOST_EXT,
       tcp: 10008,
     },
     screenshot: {
-      addr: myHost,
+      addr: HOST_EXT,
       tcp: 10009,
     },
-    pingReturn: myHost,
+    pingReturn: HOST_EXT,
     echo1: {
-      addr: myHost,
+      addr: HOST_EXT,
       udp: 10010,
     },
     echo2: {
-      addr: myHost,
+      addr: HOST_EXT,
       udp: 10011,
     },
-    newsUrl: `http://${myHost}:10012/news`,
-    reportErrorUrl: `http://${myHost}:10013/error`,
+    newsUrl: `http://${HOST_EXT}:10012/news`,
+    reportErrorUrl: `http://${HOST_EXT}:10013/error`,
   };
 }

@@ -12,23 +12,24 @@ import diva from "./diva";
 import idz from "./idz";
 import idzPing from "./idz/ping";
 import startup from "./startup";
+import * as Swb from "./switchboard";
 
 const tls = {
   cert: fs.readFileSync("pki/server.pem"),
   key: fs.readFileSync("pki/server.key"),
 };
 
-net.createServer(aimedb).listen(22345);
-http.createServer(startup).listen(80);
-https.createServer(tls, billing).listen(8443);
+net.createServer(aimedb).listen(Swb.PORT_AIMEDB, Swb.HOST_INT);
+http.createServer(startup).listen(Swb.PORT_STARTUP, Swb.HOST_INT);
+https.createServer(tls, billing).listen(Swb.PORT_BILLING, Swb.HOST_INT);
 
-http.createServer(chunithm).listen(9000);
-http.createServer(diva).listen(9001);
+http.createServer(chunithm).listen(Swb.PORT_CHUNITHM, Swb.HOST_INT);
+http.createServer(diva).listen(Swb.PORT_DIVA, Swb.HOST_INT);
 
-net.createServer(idz).listen(10000);
-idzPing(10001);
-idzPing(10003);
-idzPing(10010);
-idzPing(10011);
+net.createServer(idz).listen(Swb.PORT_IDZ.USERDB.TCP, Swb.HOST_INT);
+idzPing(10001, Swb.HOST_INT); // ?? tbd
+idzPing(Swb.PORT_IDZ.MATCH.UDP_SEND, Swb.HOST_INT);
+idzPing(Swb.PORT_IDZ.ECHO1, Swb.HOST_INT);
+idzPing(Swb.PORT_IDZ.ECHO2, Swb.HOST_INT);
 
 console.log("Startup OK");
