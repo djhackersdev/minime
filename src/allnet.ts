@@ -14,7 +14,7 @@ const app = express();
 // So in the absence of any exotic Transfer-Encoding headers this Content-Type
 // is incorrect and we have to override Express' built-in handling.
 
-app.use(async function(req, res, next) {
+app.use("/sys/servlet/PowerOn", async function(req, res, next) {
   if (req.method !== "POST") {
     return res.status(405).end();
   }
