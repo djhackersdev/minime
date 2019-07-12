@@ -19,9 +19,13 @@ export default async function aimedb(socket: Socket) {
       const req = obj as AimeRequest;
       const res = await dispatch(txn, req, now);
 
-      if (res !== undefined) {
-        output.write(res);
+      if (res === undefined) {
+        console.log("Aimedb: Closing connection");
+
+        break;
       }
+
+      output.write(res);
     }
 
     await txn.commit();
