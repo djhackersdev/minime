@@ -7,12 +7,12 @@ export const HOST_EXT = cfgHostExt !== undefined ? cfgHostExt : os.hostname();
 export const HOST_INT = cfgHostInt !== undefined ? cfgHostInt : "127.0.0.1";
 
 //
-// Core services. These ports cannot be changed
+// Core services. These ports cannot be changed.
 //
 
 export const PORT_AIMEDB = 22345;
+export const PORT_ALLNET = 80;
 export const PORT_BILLING = 8443;
-export const PORT_STARTUP = 80;
 
 //
 // Title services. These can be freely chosen.
