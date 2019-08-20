@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# This shell script documents the process that was used to generate our fake
+# P-Ras PKI. It should not need to be run again under normal circumstances.
+
 set -e
 
 D=`dirname $0`

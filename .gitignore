@@ -1,6 +1,5 @@
 bin/
 node_modules/
-pki/
 state/
 .env
 hostname.txt
