@@ -8,9 +8,9 @@ export function chara(buf: Buffer): Chara {
     field_04: buf.readUInt16LE(0x04),
     field_06: buf.readUInt16LE(0x06),
     field_08: buf.readUInt16LE(0x08),
-    field_0A: buf.readUInt16LE(0x0a),
-    field_0C: buf.readUInt16LE(0x0c),
-    field_0E: buf.readUInt16LE(0x0e),
+    field_0a: buf.readUInt16LE(0x0a),
+    field_0c: buf.readUInt16LE(0x0c),
+    field_0e: buf.readUInt16LE(0x0e),
     title: buf.readUInt16LE(0x10) as TitleCode, // Swapped on load
     background: buf.readUInt16LE(0x12) as BackgroundCode, // Swapped on load
   };

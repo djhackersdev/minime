@@ -16,15 +16,15 @@ export function encodeCar(car: Car): Buffer {
   buf.writeUInt16LE(car.selector, 0x0044);
   buf.writeUInt16LE(car.field_46, 0x0046);
   buf.writeUInt16LE(car.field_48, 0x0048);
-  buf.writeUInt16LE(car.field_4A, 0x004a);
-  buf.writeUInt32LE(car.field_4C, 0x004c);
+  buf.writeUInt16LE(car.field_4a, 0x004a);
+  buf.writeUInt32LE(car.field_4c, 0x004c);
   buf.writeUInt32LE(car.field_50_lo, 0x0050);
   buf.writeUInt32LE(car.field_50_hi, 0x0054);
   buf.writeUInt16LE(car.field_58, 0x0058);
-  buf.writeUInt8(car.field_5A, 0x005a);
-  buf.writeUInt8(car.field_5B, 0x005b);
-  buf.writeUInt16LE(car.field_5C, 0x005c);
-  buf.writeUInt16LE(car.field_5E, 0x005e);
+  buf.writeUInt8(car.field_5a, 0x005a);
+  buf.writeUInt8(car.field_5b, 0x005b);
+  buf.writeUInt16LE(car.field_5c, 0x005c);
+  buf.writeUInt16LE(car.field_5e, 0x005e);
 
   return buf;
 }

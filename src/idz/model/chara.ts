@@ -6,9 +6,9 @@ export interface Chara {
   field_04: number;
   field_06: number;
   field_08: number;
-  field_0A: number;
-  field_0C: number;
-  field_0E: number;
+  field_0a: number;
+  field_0c: number;
+  field_0e: number;
   title: TitleCode;
   background: BackgroundCode;
 }

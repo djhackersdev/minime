@@ -3,7 +3,7 @@ import { Pool, PoolClient } from "pg";
 
 export type Id<T> = bigint & { __id: T };
 
-const currentSchemaVer = 2;
+const currentSchemaVer = 3;
 
 const pool = new Pool();
 const fence = testConnection();

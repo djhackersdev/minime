@@ -32,9 +32,9 @@ create table "idz"."chara" (
     "field_04" integer not null,
     "field_06" integer not null,
     "field_08" integer not null,
-    "field_0A" integer not null,
-    "field_0C" integer not null,
-    "field_0E" integer not null,
+    "field_0a" integer not null,
+    "field_0c" integer not null,
+    "field_0e" integer not null,
     "title" integer not null,
     "background" integer not null
 );
@@ -60,15 +60,15 @@ create table "idz"."car" (
     "field_04" integer[] not null,
     "field_46" integer not null,
     "field_48" integer not null,
-    "field_4A" integer not null,
-    "field_4C" integer not null,
+    "field_4a" integer not null,
+    "field_4c" integer not null,
     "field_50_lo" integer not null,
     "field_50_hi" integer not null,
     "field_58" integer not null,
-    "field_5A" integer not null,
-    "field_5B" integer not null,
-    "field_5C" integer not null,
-    "field_5E" integer not null,
+    "field_5a" integer not null,
+    "field_5b" integer not null,
+    "field_5c" integer not null,
+    "field_5e" integer not null,
     constraint "car_uq" unique ("profile_id", "selector")
 );
 

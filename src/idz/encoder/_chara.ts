@@ -8,9 +8,9 @@ export function encodeChara(chara: Chara): Buffer {
   buf.writeUInt16LE(chara.field_04, 0x04);
   buf.writeUInt16LE(chara.field_06, 0x06);
   buf.writeUInt16LE(chara.field_08, 0x08);
-  buf.writeUInt16LE(chara.field_0A, 0x0a);
-  buf.writeUInt16LE(chara.field_0C, 0x0c);
-  buf.writeUInt16LE(chara.field_0E, 0x0e);
+  buf.writeUInt16LE(chara.field_0a, 0x0a);
+  buf.writeUInt16LE(chara.field_0c, 0x0c);
+  buf.writeUInt16LE(chara.field_0e, 0x0e);
   buf.writeUInt16LE(chara.background, 0x10); // Swapped on save
   buf.writeUInt16LE(chara.title, 0x12); // Swapped on save
 
