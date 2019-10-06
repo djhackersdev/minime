@@ -26,30 +26,6 @@ export async function createTeam(
   await w.teamMembers().makeLeader(teamId, profileId);
   await _fixupPrevTeam(w, prevTeamId);
 
-  // Fix up previous team. The previous team's extid is explicitly sent in the
-  // request, but why rely on it if you don't have to?
-
-  if (prevTeamId !== undefined) {
-    const remaining = await w.teamMembers().loadRoster(prevTeamId);
-
-    if (remaining.length === 0) {
-      // Last member left, GC previous team
-
-      await w.teams().delete(prevTeamId);
-    } else if (remaining.find(member => member.leader) === undefined) {
-      // Leader left, appoint new leader by seniority
-
-      remaining.sort((x, y) => x.joinTime.getTime() - y.joinTime.getTime());
-
-      // (need to look up new leader's db id from aime id. ick)
-
-      const newLeader = remaining[remaining.length - 1];
-      const newLeaderId = await w.profile().find(newLeader.profile.aimeId);
-
-      await w.teamMembers().makeLeader(prevTeamId, newLeaderId);
-    }
-  }
-
   return {
     type: "create_team_res",
     status: 0,
