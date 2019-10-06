@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { UpdateProvisionalStoreRankRequest } from "../request/updateProvisionalStoreRank";
 
-updateProvisionalStoreRank.msgCode = 0x0082 as RequestCode;
+updateProvisionalStoreRank.msgCode = 0x0082;
 updateProvisionalStoreRank.msgLen = 0x0010;
 
 export function updateProvisionalStoreRank(

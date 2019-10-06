@@ -1,9 +1,8 @@
-import { RequestCode } from "./_defs";
 import { LoadTeamRequest } from "../request/loadTeam";
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 
-loadTeam.msgCode = 0x0077 as RequestCode;
+loadTeam.msgCode = 0x0077;
 loadTeam.msgLen = 0x0010;
 
 export function loadTeam(buf: Buffer): LoadTeamRequest {

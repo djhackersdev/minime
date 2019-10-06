@@ -1,8 +1,7 @@
 import { car } from "./_car";
-import { RequestCode } from "./_defs";
 import { SaveGarageRequest } from "../request/saveGarage";
 
-saveGarage.msgCode = 0x008e as RequestCode;
+saveGarage.msgCode = 0x008e;
 saveGarage.msgLen = 0x0090;
 
 export function saveGarage(buf: Buffer): SaveGarageRequest {

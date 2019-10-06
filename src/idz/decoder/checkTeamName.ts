@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { CheckTeamNameRequest } from "../request/checkTeamName";
 
-checkTeamName.msgCode = 0x00a2 as RequestCode;
+checkTeamName.msgCode = 0x00a2;
 checkTeamName.msgLen = 0x0040;
 
 export function checkTeamName(buf: Buffer): CheckTeamNameRequest {

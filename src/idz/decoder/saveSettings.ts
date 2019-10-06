@@ -1,8 +1,7 @@
-import { RequestCode } from "./_defs";
 import { SaveSettingsRequest } from "../request/saveSettings";
 import { AimeId } from "../../model";
 
-saveSettings.msgCode = 0x00a5 as RequestCode;
+saveSettings.msgCode = 0x00a5;
 saveSettings.msgLen = 0x0020;
 
 export function saveSettings(buf: Buffer): SaveSettingsRequest {

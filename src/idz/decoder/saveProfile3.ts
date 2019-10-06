@@ -1,12 +1,11 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
-import { RequestCode } from "./_defs";
 import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
 import { SaveProfileRequest2 } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
 import { AimeId } from "../../model";
 
-saveProfile3.msgCode = 0x0138 as RequestCode;
+saveProfile3.msgCode = 0x0138;
 saveProfile3.msgLen = 0x0a70;
 
 export function saveProfile3(buf: Buffer): SaveProfileRequest2 {

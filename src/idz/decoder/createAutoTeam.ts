@@ -1,8 +1,7 @@
-import { RequestCode } from "./_defs";
 import { CreateAutoTeamRequest } from "../request/createAutoTeam";
 import { AimeId } from "../../model";
 
-createAutoTeam.msgCode = 0x007b as RequestCode;
+createAutoTeam.msgCode = 0x007b;
 createAutoTeam.msgLen = 0x0010;
 
 export function createAutoTeam(buf: Buffer): CreateAutoTeamRequest {

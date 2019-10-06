@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { UpdateResultRequest } from "../request/updateResult";
 
-updateResult.msgCode = 0x00cc as RequestCode;
+updateResult.msgCode = 0x00cc;
 updateResult.msgLen = 0x0030;
 
 export function updateResult(buf: Buffer): UpdateResultRequest {

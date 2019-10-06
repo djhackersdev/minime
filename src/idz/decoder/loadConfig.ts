@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { LoadConfigRequest } from "../request/loadConfig";
 
-loadConfig.msgCode = 0x0004 as RequestCode;
+loadConfig.msgCode = 0x0004;
 loadConfig.msgLen = 0x0050;
 
 export function loadConfig(): LoadConfigRequest {

@@ -1,4 +1,3 @@
-import { RequestCode } from "./_defs";
 import { ExtId, RouteNo } from "../model/base";
 import { Team } from "../model/team";
 import {
@@ -7,7 +6,7 @@ import {
 } from "../request/loadTopTen";
 import { AimeId } from "../../model";
 
-loadTopTen1.msgCode = 0x00b5 as RequestCode;
+loadTopTen1.msgCode = 0x00b5;
 loadTopTen1.msgLen = 0x00e0;
 
 export function loadTopTen1(buf: Buffer): LoadTopTenRequest {

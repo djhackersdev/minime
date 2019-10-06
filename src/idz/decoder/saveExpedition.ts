@@ -1,10 +1,9 @@
-import { RequestCode } from "./_defs";
 import {
   SaveExpeditionRequest1,
   SaveExpeditionRequest2,
 } from "../request/saveExpedition";
 
-saveExpedition1.msgCode = 0x008c as RequestCode;
+saveExpedition1.msgCode = 0x008c;
 saveExpedition1.msgLen = 0x0010;
 
 export function saveExpedition1(buf: Buffer): SaveExpeditionRequest1 {
@@ -15,7 +14,7 @@ export function saveExpedition1(buf: Buffer): SaveExpeditionRequest1 {
   };
 }
 
-saveExpedition2.msgCode = 0x013f as RequestCode;
+saveExpedition2.msgCode = 0x013f;
 saveExpedition2.msgLen = 0x0010;
 
 export function saveExpedition2(buf: Buffer): SaveExpeditionRequest2 {

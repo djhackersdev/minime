@@ -2,11 +2,10 @@ import iconv from "iconv-lite";
 
 import { car } from "./_car";
 import { chara } from "./_chara";
-import { RequestCode } from "./_defs";
 import { CreateProfileRequest } from "../request/createProfile";
 import { AimeId } from "../../model";
 
-createProfile.msgCode = 0x0066 as RequestCode;
+createProfile.msgCode = 0x0066;
 createProfile.msgLen = 0x00c0;
 
 export function createProfile(buf: Buffer): CreateProfileRequest {

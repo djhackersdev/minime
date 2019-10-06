@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { SaveTopicRequest } from "../request/saveTopic";
 
-saveTopic.msgCode = 0x009a as RequestCode;
+saveTopic.msgCode = 0x009a;
 saveTopic.msgLen = 0x0010;
 
 export function saveTopic(buf: Buffer): SaveTopicRequest {

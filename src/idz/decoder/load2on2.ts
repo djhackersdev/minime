@@ -1,10 +1,9 @@
-import { RequestCode } from "./_defs";
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { Load2on2Request1, Load2on2Request2 } from "../request/load2on2";
 import { AimeId } from "../../model";
 
-load2on2_v1.msgCode = 0x00b0 as RequestCode;
+load2on2_v1.msgCode = 0x00b0;
 load2on2_v1.msgLen = 0x0010;
 
 export function load2on2_v1(buf: Buffer): Load2on2Request1 {
@@ -17,7 +16,7 @@ export function load2on2_v1(buf: Buffer): Load2on2Request1 {
   };
 }
 
-load2on2_v2.msgCode = 0x0132 as RequestCode;
+load2on2_v2.msgCode = 0x0132;
 load2on2_v2.msgLen = 0x0010;
 
 export function load2on2_v2(buf: Buffer): Load2on2Request2 {

@@ -1,11 +1,10 @@
-import { RequestCode } from "./_defs";
 import {
   LoadProfileRequest2,
   LoadProfileRequest3,
 } from "../request/loadProfile";
 import { AimeId } from "../../model";
 
-loadProfile2.msgCode = 0x0067 as RequestCode;
+loadProfile2.msgCode = 0x0067;
 loadProfile2.msgLen = 0x0020;
 
 export function loadProfile2(buf: Buffer): LoadProfileRequest2 {
@@ -17,7 +16,7 @@ export function loadProfile2(buf: Buffer): LoadProfileRequest2 {
   };
 }
 
-loadProfile3.msgCode = 0x0012f as RequestCode;
+loadProfile3.msgCode = 0x0012f;
 loadProfile3.msgLen = 0x0020;
 
 export function loadProfile3(buf: Buffer): LoadProfileRequest3 {

@@ -42,7 +42,6 @@ import {
   updateStoryClearNum1,
   updateStoryClearNum2,
 } from "./updateStoryClearNum";
-import { RequestCode } from "./_defs";
 import { Request } from "../request";
 import { updateResult } from "./updateResult";
 import { updateTeamPoints } from "./updateTeamPoints";
@@ -51,7 +50,7 @@ import { updateUserLog } from "./updateUserLog";
 import { lockProfileExtend } from "./lockProfileExtend";
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
-  msgCode: RequestCode;
+  msgCode: number;
   msgLen: number;
 };
 
@@ -109,8 +108,8 @@ const funcList: ReaderFn[] = [
   updateUserLog,
 ];
 
-const readerFns = new Map<RequestCode, ReaderFn>();
-const msgLengths = new Map<RequestCode, number>();
+const readerFns = new Map<number, ReaderFn>();
+const msgLengths = new Map<number, number>();
 
 for (const fn of funcList) {
   readerFns.set(fn.msgCode, fn);
@@ -164,7 +163,7 @@ export class Decoder extends Transform {
       return callback(null);
     }
 
-    const msgCode = this.state.readUInt16LE(0x30) as RequestCode;
+    const msgCode = this.state.readUInt16LE(0x30);
     const msgLen = msgLengths.get(msgCode);
 
     if (msgLen === undefined) {

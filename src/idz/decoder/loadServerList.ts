@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { LoadServerListRequest } from "../request/loadServerList";
 
-loadServerList.msgCode = 0x0006 as RequestCode;
+loadServerList.msgCode = 0x0006;
 loadServerList.msgLen = 0x0020;
 
 export function loadServerList(): LoadServerListRequest {

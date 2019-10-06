@@ -1,10 +1,9 @@
-import { RequestCode } from "./_defs";
 import {
   UpdateStoryClearNumRequest1,
   UpdateStoryClearNumRequest2,
 } from "../request/updateStoryClearNum";
 
-updateStoryClearNum1.msgCode = 0x007f as RequestCode;
+updateStoryClearNum1.msgCode = 0x007f;
 updateStoryClearNum1.msgLen = 0x0010;
 
 export function updateStoryClearNum1(
@@ -16,7 +15,7 @@ export function updateStoryClearNum1(
   };
 }
 
-updateStoryClearNum2.msgCode = 0x013d as RequestCode;
+updateStoryClearNum2.msgCode = 0x013d;
 updateStoryClearNum2.msgLen = 0x0010;
 
 export function updateStoryClearNum2(

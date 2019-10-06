@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { LoadGhostRequest } from "../request/loadGhost";
 
-loadGhost.msgCode = 0x00a0 as RequestCode;
+loadGhost.msgCode = 0x00a0;
 loadGhost.msgLen = 0x0010;
 
 export function loadGhost(buf: Buffer): LoadGhostRequest {

@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { LockProfileRequest } from "../request/lockProfile";
 
-lockProfile.msgCode = 0x0069 as RequestCode;
+lockProfile.msgCode = 0x0069;
 lockProfile.msgLen = 0x0020;
 
 export function lockProfile(buf: Buffer): LockProfileRequest {

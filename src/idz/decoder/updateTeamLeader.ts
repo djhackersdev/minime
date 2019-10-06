@@ -1,10 +1,9 @@
-import { RequestCode } from "./_defs";
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { UpdateTeamLeaderRequest } from "../request/updateTeamLeader";
 import { AimeId } from "../../model";
 
-updateTeamLeader.msgCode = 0x008a as RequestCode;
+updateTeamLeader.msgCode = 0x008a;
 updateTeamLeader.msgLen = 0x0020;
 
 export function updateTeamLeader(buf: Buffer): UpdateTeamLeaderRequest {

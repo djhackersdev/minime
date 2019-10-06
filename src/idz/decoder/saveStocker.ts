@@ -1,11 +1,10 @@
 import { bitmap } from "./_bitmap";
 import { chara } from "./_chara";
-import { RequestCode } from "./_defs";
 import { CarSelector } from "../model/car";
 import { SaveStockerRequest } from "../request/saveStocker";
 import { AimeId } from "../../model";
 
-saveStocker.msgCode = 0x00a6 as RequestCode;
+saveStocker.msgCode = 0x00a6;
 saveStocker.msgLen = 0x00c0;
 
 export function saveStocker(buf: Buffer): SaveStockerRequest {

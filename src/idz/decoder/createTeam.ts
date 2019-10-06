@@ -1,10 +1,9 @@
 import iconv from "iconv-lite";
 
-import { RequestCode } from "./_defs";
 import { CreateTeamRequest } from "../request/createTeam";
 import { AimeId } from "../../model";
 
-createTeam.msgCode = 0x0071 as RequestCode;
+createTeam.msgCode = 0x0071;
 createTeam.msgLen = 0x0050;
 
 export function createTeam(buf: Buffer): CreateTeamRequest {

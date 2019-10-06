@@ -1,7 +1,6 @@
-import { RequestCode } from "./_defs";
 import { UpdateTeamPointsRequest } from "../request/updateTeamPoints";
 
-updateTeamPoints.msgCode = 0x0081 as RequestCode;
+updateTeamPoints.msgCode = 0x0081;
 updateTeamPoints.msgLen = 0x0010;
 
 export function updateTeamPoints(buf: Buffer): UpdateTeamPointsRequest {

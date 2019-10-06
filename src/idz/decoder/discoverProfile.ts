@@ -1,8 +1,7 @@
-import { RequestCode } from "./_defs";
 import { DiscoverProfileRequest } from "../request/discoverProfile";
 import { AimeId } from "../../model";
 
-discoverProfile.msgCode = 0x006b as RequestCode;
+discoverProfile.msgCode = 0x006b;
 discoverProfile.msgLen = 0x0010;
 
 export function discoverProfile(buf: Buffer): DiscoverProfileRequest {

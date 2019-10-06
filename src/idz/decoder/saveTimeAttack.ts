@@ -1,4 +1,3 @@
-import { RequestCode } from "./_defs";
 import { RouteNo } from "../model/base";
 import { CarSelector } from "../model/car";
 import { SaveTimeAttackRequest } from "../request/saveTimeAttack";
@@ -36,14 +35,14 @@ function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
 // request code..? Even the response uses the same response code, despite
 // the request codes differing.
 
-saveTimeAttack1.msgCode = 0x00cd as RequestCode;
+saveTimeAttack1.msgCode = 0x00cd;
 saveTimeAttack1.msgLen = 0x0080;
 
 export function saveTimeAttack1(buf: Buffer): SaveTimeAttackRequest {
   return saveTimeAttack(buf);
 }
 
-saveTimeAttack2.msgCode = 0x0136 as RequestCode;
+saveTimeAttack2.msgCode = 0x0136;
 saveTimeAttack2.msgLen = 0x0080;
 
 export function saveTimeAttack2(buf: Buffer): SaveTimeAttackRequest {

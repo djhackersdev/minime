@@ -1,8 +1,7 @@
-import { RequestCode } from "./_defs";
 import { LoadStockerRequest } from "../request/loadStocker";
 import { AimeId } from "../../model";
 
-loadStocker.msgCode = 0x00a7 as RequestCode;
+loadStocker.msgCode = 0x00a7;
 loadStocker.msgLen = 0x0010;
 
 export function loadStocker(buf: Buffer): LoadStockerRequest {
