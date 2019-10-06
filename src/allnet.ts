@@ -1,8 +1,7 @@
-import addHours = require("date-fns/add_hours");
-import express = require("express");
-import iconv = require("iconv-lite");
-import read = require("raw-body");
-
+import addHours from "date-fns/add_hours";
+import express from "express";
+import iconv from "iconv-lite";
+import read from "raw-body";
 import { unzipSync } from "zlib";
 
 import { startupHost, startupUri } from "./switchboard";

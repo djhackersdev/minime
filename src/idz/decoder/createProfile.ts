@@ -1,4 +1,4 @@
-import iconv = require("iconv-lite");
+import iconv from "iconv-lite";
 
 import { car } from "./_car";
 import { chara } from "./_chara";

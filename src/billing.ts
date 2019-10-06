@@ -1,5 +1,5 @@
-import read = require("raw-body");
-import express = require("express");
+import read from "raw-body";
+import express from "express";
 
 import { createSign } from "crypto";
 import { inflateRawSync } from "zlib";

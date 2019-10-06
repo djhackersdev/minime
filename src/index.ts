@@ -1,9 +1,8 @@
 import "dotenv/config";
-
-import fs = require("fs");
-import https = require("https");
-import http = require("http");
-import net = require("net");
+import fs from "fs";
+import https from "https";
+import http from "http";
+import net from "net";
 
 import aimedb from "./aimedb";
 import allnet from "./allnet";

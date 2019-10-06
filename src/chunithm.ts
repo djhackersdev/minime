@@ -1,5 +1,5 @@
-import compression = require("compression");
-import express = require("express");
+import compression from "compression";
+import express from "express";
 
 const app = express();
 

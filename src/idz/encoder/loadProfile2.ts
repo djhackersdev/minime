@@ -1,4 +1,4 @@
-import iconv = require("iconv-lite");
+import iconv from "iconv-lite";
 
 import { encodeBitmap } from "./_bitmap";
 import { encodeCar } from "./_car";

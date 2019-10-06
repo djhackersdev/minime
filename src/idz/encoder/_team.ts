@@ -1,4 +1,4 @@
-import iconv = require("iconv-lite");
+import iconv from "iconv-lite";
 
 import { CreateAutoTeamResponse } from "../response/createAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";

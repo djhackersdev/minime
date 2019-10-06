@@ -1,5 +1,5 @@
-import express = require("express");
-import read = require("raw-body");
+import express from "express";
+import read from "raw-body";
 
 import { Form } from "multiparty";
 import { inflateSync } from "zlib";
