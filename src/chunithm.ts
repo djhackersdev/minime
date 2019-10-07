@@ -1,6 +1,8 @@
 import compression from "compression";
 import express from "express";
+import logger from "debug";
 
+const debug = logger("app:chuni:io");
 const app = express();
 
 // Thankfully we can use standard middleware for JSON I/O. We have to use a
@@ -27,13 +29,13 @@ app.use(express.json());
 // Trace requests and responses
 
 app.use(function(req, resp, next) {
-  console.log("\n--- Chunithm %s ---\n", req.url);
-  console.log("Request:", req.body);
+  debug(`\n--- Chunithm ${req.url} ---\n`);
+  debug(`Request: ${JSON.stringify(req.body)}\n`);
 
   const prevJson = resp.json;
 
   resp.json = function(obj) {
-    console.log("Response:", obj);
+    debug(`Response: ${JSON.stringify(obj)}`);
 
     resp.json = prevJson;
     resp.json.apply(this, arguments);

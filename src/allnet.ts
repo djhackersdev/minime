@@ -1,11 +1,13 @@
 import addHours from "date-fns/add_hours";
 import express from "express";
 import iconv from "iconv-lite";
+import logger from "debug";
 import read from "raw-body";
 import { unzipSync } from "zlib";
 
 import { startupHost, startupUri } from "./switchboard";
 
+const debug = logger("app:allnet");
 const hourDelta = parseInt(process.env.HOUR_DELTA || "0");
 const app = express();
 
@@ -58,7 +60,7 @@ app.use("/sys/servlet/PowerOn", async function(req, res, next) {
 });
 
 app.post("/sys/servlet/PowerOn", function(req, resp) {
-  console.log("--- Startup Request ---\n\n", req.body);
+  debug("--- Startup Request ---\n\n", req.body);
 
   // Cut milliseconds out of ISO timestamp
 
@@ -89,8 +91,8 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
     token: req.body.token,
   };
 
-  console.log("\n--- Startup Response ---\n\n", resParams);
-  console.log("");
+  debug("\n--- Startup Response ---\n\n", resParams);
+  debug("");
 
   resp.send(resParams);
 });

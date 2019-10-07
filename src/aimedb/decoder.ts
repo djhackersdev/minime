@@ -1,6 +1,9 @@
+import logger from "debug";
 import { Transform } from "stream";
 
 import * as Request from "./request";
+
+const debug = logger("app:aimedb:decoder");
 
 function begin(msg: Buffer): Request.AimeRequestBase {
   const gameId = msg.toString("ascii", 0x000a, 0x000e);
@@ -116,6 +119,10 @@ export class Decoder extends Transform {
       );
     }
 
-    return callback(null, reader(msg));
+    const obj = reader(msg);
+
+    debug(`Decode ${JSON.stringify(obj)}`);
+
+    return callback(null, obj);
   }
 }

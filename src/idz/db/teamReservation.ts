@@ -99,8 +99,6 @@ export class SqlTeamReservationRepository
       throw new Error(`Reservation not found for Aime ID ${aimeId}`);
     }
 
-    console.log(row);
-
     const insertSql = sql
       .insert("idz.team_member", {
         id: row.profile_id,

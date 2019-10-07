@@ -50,8 +50,6 @@ export async function loadTopTen(
     });
   }
 
-  console.log(JSON.stringify(courses));
-
   return {
     type: "load_top_ten_res",
     courseCount: courses.length,

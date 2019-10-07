@@ -1,4 +1,7 @@
+import logger from "debug";
 import { Transform } from "stream";
+
+const debug = logger("app:aimedb:frame");
 
 export class Deframer extends Transform {
   private state: Buffer;
@@ -33,7 +36,7 @@ export class Deframer extends Transform {
 
     const frame = this.state.slice(0, len);
 
-    console.log("Aimedb: Recv", frame.toString("hex"));
+    debug(`Recv ${frame.toString("hex")}`);
 
     this.state = this.state.slice(len);
 

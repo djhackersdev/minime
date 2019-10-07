@@ -1,3 +1,4 @@
+import logger from "debug";
 import { Transform } from "stream";
 
 import { checkTeamName } from "./checkTeamName";
@@ -48,6 +49,8 @@ import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
 import { lockProfileExtend } from "./lockProfileExtend";
+
+const debug = logger("app:idz:decoder");
 
 export type ReaderFn = ((buf: Buffer) => Request) & {
   msgCode: number;
@@ -181,8 +184,8 @@ export class Decoder extends Transform {
     const reqBuf = this.state.slice(0, 0x30 + msgLen);
     const payloadBuf = reqBuf.slice(0x30);
 
-    console.log("Idz: Req: Raw:", reqBuf.toString("hex"));
-    console.log("Idz: Req: Header:", header);
+    debug(`Raw: ${reqBuf.toString("hex")}`);
+    debug(`Header: ${JSON.stringify(header)}`);
 
     const reader = readerFns.get(msgCode);
 
@@ -194,7 +197,7 @@ export class Decoder extends Transform {
 
     const payload = reader(payloadBuf);
 
-    console.log("Idz: Req: Payload:", payload);
+    debug(`Payload: ${JSON.stringify(payload)}`);
 
     return callback(null, payload);
   }

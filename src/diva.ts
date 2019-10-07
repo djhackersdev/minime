@@ -1,9 +1,11 @@
 import express from "express";
+import logger from "debug";
 import read from "raw-body";
 
 import { Form } from "multiparty";
 import { inflateSync } from "zlib";
 
+const debug = logger("app:diva:io");
 const app = express();
 
 //
@@ -14,7 +16,7 @@ app.use(async function(req, res, next) {
   const send_ = res.send;
 
   res.send = function(kvps) {
-    console.log("Response:", kvps);
+    debug(`Response: ${JSON.stringify(kvps)}\n`);
 
     const bits: string[] = [];
 
@@ -56,8 +58,8 @@ app.use(async function(req, res, next) {
 
     req.body = body;
 
-    console.log("\n--- Diva ---\n");
-    console.log("Request:", req.body);
+    debug("\n--- Diva ---\n");
+    debug(`Request: ${JSON.stringify(req.body)}\n`);
 
     return next();
   } else if (req.is("multipart/form-data")) {
@@ -70,8 +72,8 @@ app.use(async function(req, res, next) {
 
       req.body = { ...files, ...fields };
 
-      console.log("\n--- Diva (Multipart) ---\n");
-      console.log("Request:", req.body);
+      debug("\n--- Diva (Multipart) ---\n");
+      debug(`Request: ${JSON.stringify(req.body)}\n`);
 
       return next();
     });

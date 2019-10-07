@@ -1,13 +1,17 @@
+import logger from "debug";
+
 import { Repositories } from "./repo";
 import * as Req from "./request";
 import * as Res from "./response";
+
+const debug = logger("app:aimedb:ops");
 
 function hello(
   rep: Repositories,
   req: Req.HelloRequest,
   now: Date
 ): Res.HelloResponse {
-  console.log("Aimedb: Hello");
+  debug("Hello");
 
   return { type: req.type, status: 1 };
 }
@@ -17,7 +21,7 @@ function campaign(
   req: Req.CampaignRequest,
   now: Date
 ): Res.CampaignResponse {
-  console.log("Aimedb: Campaign stuff");
+  debug("Campaign stuff");
 
   return { type: req.type, status: 1 };
 }
@@ -27,7 +31,7 @@ function feliCaLookup(
   req: Req.FeliCaLookupRequest,
   now: Date
 ): Res.FeliCaLookupResponse {
-  console.log("Aimedb: FeliCa access code lookup");
+  debug("FeliCa access code lookup");
 
   // Well, this access code transformation is the million dollar question eh
   // Return a decimal representation for now.
@@ -47,7 +51,7 @@ async function lookup(
   req: Req.LookupRequest,
   now: Date
 ): Promise<Res.LookupResponse> {
-  console.log("Aimedb: Mifare lookup v1", req.luid);
+  debug(`Mifare lookup v1: luid=${req.luid}`);
 
   return {
     type: req.type,
@@ -62,7 +66,7 @@ async function lookup2(
   req: Req.LookupRequest2,
   now: Date
 ): Promise<Res.LookupResponse2> {
-  console.log("Aimedb: Mifare lookup v2", req.luid);
+  debug(`Mifare lookup v2: luid=${req.luid}`);
 
   return {
     type: req.type,
@@ -77,7 +81,7 @@ async function register(
   req: Req.RegisterRequest,
   now: Date
 ): Promise<Res.RegisterResponse> {
-  console.log("Aimedb: Mifare register", req.luid);
+  debug(`User register: luid=${req.luid}`);
 
   return {
     type: req.type,
@@ -91,7 +95,7 @@ function log(
   req: Req.LogRequest,
   now: Date
 ): Res.LogResponse {
-  console.log("Aimedb: Log message");
+  debug("Log message");
 
   return { type: req.type, status: 1 };
 }
@@ -124,7 +128,7 @@ export async function dispatch(
       return log(rep, req, now);
 
     case "goodbye":
-      console.log("Aimedb: Goodbye");
+      debug("Goodbye");
 
       return undefined;
 

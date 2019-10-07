@@ -1,5 +1,6 @@
-import read from "raw-body";
 import express from "express";
+import logger from "debug";
+import read from "raw-body";
 
 import { createSign } from "crypto";
 import { inflateRawSync } from "zlib";
@@ -9,6 +10,7 @@ interface Kvps {
   [key: string]: string;
 }
 
+const debug = logger("app:billing");
 const billingKeyPair = readFileSync("pki/billing.key");
 
 // nearfull: high 16 bits is billing mode, low 16 bits is actual nearfull val.
@@ -60,7 +62,7 @@ app.use(async function(req, res, next) {
 });
 
 app.post("/request/", function(req, res) {
-  console.log("--- Billing Request ---\n\n", req.body);
+  debug("--- Billing Request ---\n\n", req.body);
 
   const first = req.body[0];
 
@@ -133,8 +135,8 @@ app.post("/request/", function(req, res) {
     playhistory: "000000/0:000000/0:000000/0",
   });
 
-  console.log("\n--- Billing Response ---\n\n", resItems);
-  console.log("");
+  debug("\n--- Billing Response ---\n\n", resItems);
+  debug("");
 
   res.set("content-type", "text/plain");
   res.send(resItems);

@@ -1,6 +1,9 @@
+import logger from "debug";
 import { Transform } from "stream";
 
 import { AimeResponse, RegisterLevel } from "./response";
+
+const debug = logger("app:aimedb:encoder");
 
 const registerLevels = new Map<RegisterLevel, number>();
 
@@ -27,7 +30,7 @@ export class Encoder extends Transform {
   }
 
   _transform(msg: AimeResponse, encoding, callback) {
-    console.log("Aimedb: Encode", msg);
+    debug(`Encode ${JSON.stringify(msg)}`);
 
     let buf: Buffer;
 
@@ -105,7 +108,7 @@ export class Encoder extends Transform {
         return callback(new Error("Unimplemented response type"));
     }
 
-    console.log("Aimedb: Send", buf.toString("hex"));
+    debug(`Send ${buf.toString("hex")}`);
 
     return callback(null, buf);
   }

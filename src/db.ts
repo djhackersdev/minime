@@ -1,8 +1,10 @@
 import { randomBytes } from "crypto";
+import logger from "debug";
 import { Pool, PoolClient } from "pg";
 
 export type Id<T> = bigint & { __id: T };
 
+const debug = logger("app:sql");
 const currentSchemaVer = 3;
 
 const pool = new Pool();
@@ -49,7 +51,7 @@ async function testConnection(): Promise<void> {
       );
     }
 
-    console.log("SQL DB: Connection established");
+    debug("Connection established");
   } finally {
     conn.release();
   }

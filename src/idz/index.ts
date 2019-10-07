@@ -1,14 +1,17 @@
+import logger from "debug";
 import { Socket } from "net";
 
 import { beginDbSession } from "./db";
 import { dispatch } from "./handler";
 import { setup } from "./setup";
 
+const debug = logger("app:idz:session");
+
 export default async function idz(socket: Socket) {
   const txn = await beginDbSession();
   const { input, output } = setup(socket);
 
-  console.log("Idz: Connection opened");
+  debug("Connection opened");
 
   try {
     for await (const req of input) {
@@ -17,11 +20,11 @@ export default async function idz(socket: Socket) {
 
     await txn.commit();
   } catch (e) {
-    console.log("Idz: Error:", e);
+    debug(`Error:\n${e.toString()}`);
     await txn.rollback();
   }
 
-  console.log("Idz: Connection closed\n");
+  debug("Connection closed");
 
   input.end();
 }

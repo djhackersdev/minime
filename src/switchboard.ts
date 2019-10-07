@@ -1,5 +1,7 @@
+import logger from "debug";
 import * as os from "os";
 
+const debug = logger("app:switchboard");
 const cfgHostExt: string | undefined = process.env.HOST_EXT;
 const cfgHostInt: string | undefined = process.env.HOST_INT;
 
@@ -72,13 +74,9 @@ export function startupUri(model: string): string {
 // Diagnostic dump
 //
 
-console.log(
-  `Switchboard: HOST_EXT: ${HOST_EXT} (Service host name sent to clients)`
-);
-console.log(`Switchboard: HOST_INT: ${HOST_INT} (Bind address)`);
+debug(`HOST_EXT: ${HOST_EXT} (Service host name sent to clients)`);
+debug(`HOST_INT: ${HOST_INT} (Bind address)`);
 
 if (cfgHostExt === undefined || cfgHostInt === undefined) {
-  console.log(
-    "Switchboard: Warning: Check .env and env vars! Using unreliable fallback."
-  );
+  debug("Warning: Check .env and env vars! Using unreliable fallback.");
 }

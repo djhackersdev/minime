@@ -59,8 +59,6 @@ export async function createAutoTeam(
     const [lastAuto, lastTeamId] = peek;
     const occupancy = await w.teamReservations().occupancyHack(lastTeamId);
 
-    console.log(occupancy);
-
     if (occupancy < 6) {
       // Team isn't full, so return this one
       await w.teamReservations().reserveHack(lastTeamId, aimeId, now);

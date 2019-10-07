@@ -1,3 +1,4 @@
+import logger from "debug";
 import { Transform } from "stream";
 
 import { _team } from "./_team";
@@ -32,6 +33,8 @@ import { updateStoryClearNum } from "./updateStoryClearNum";
 import { updateTeamLeader } from "./updateTeamLeader";
 import { updateTeamMember } from "./updateTeamMember";
 import { Response } from "../response";
+
+const debug = logger("app:idz:encoder");
 
 function encode(res: Response): Buffer {
   switch (res.type) {
@@ -147,14 +150,14 @@ export class Encoder extends Transform {
   }
 
   _transform(res: Response, encoding, callback) {
-    console.log("Idz: Res: Object:", res);
+    debug(`Object: ${JSON.stringify(res)}`);
 
     const buf = encode(res);
 
-    console.log("Idz: Res: Encoded:", buf.toString("hex"));
+    debug(`Encoded: ${buf.toString("hex")}`);
 
     if (buf.readInt16LE(0) === 0) {
-      throw new Error("MESSAGE TYPE CODE YOU FUCKING IDIOT");
+      throw new Error("Missing message type code");
     }
 
     return callback(null, buf);
