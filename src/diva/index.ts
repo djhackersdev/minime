@@ -1,12 +1,21 @@
-import express from "express";
 import logger from "debug";
-import read from "raw-body";
-
+import express from "express";
 import { Form } from "multiparty";
+import read from "raw-body";
 import { inflateSync } from "zlib";
+
+import gameInit from "./gameInit";
 
 const debug = logger("app:diva:io");
 const app = express();
+
+//
+// Routes
+//
+
+const routes = new Map<string, express.RequestHandler>();
+
+routes.set("game_init", gameInit);
 
 //
 // Message I/O middleware
@@ -86,8 +95,6 @@ app.use(async function(req, res, next) {
 // Router
 //
 
-const routes = new Map<string, express.RequestHandler>();
-
 app.post("/", function(req, res, next) {
   const route = routes.get(req.body.cmd);
 
@@ -97,20 +104,6 @@ app.post("/", function(req, res, next) {
   } else {
     return route(req, res, next);
   }
-});
-
-//
-// Routes
-//
-
-routes.set("game_init", function(req, res) {
-  const { cmd, req_id } = req.body;
-
-  res.send({
-    cmd,
-    req_id,
-    stat: 1,
-  });
 });
 
 export default app;
