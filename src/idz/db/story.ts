@@ -1,5 +1,5 @@
 import { ClientBase } from "pg";
-import * as sql from "sql-bricks-postgres";
+import sql from "sql-bricks-postgres";
 
 import { Profile } from "../model/profile";
 import { Story, StoryRow, StoryCell } from "../model/story";

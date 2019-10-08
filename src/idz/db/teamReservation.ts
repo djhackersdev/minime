@@ -1,4 +1,4 @@
-import * as sql from "sql-bricks-postgres";
+import sql from "sql-bricks-postgres";
 import { ClientBase } from "pg";
 
 import { Team } from "../model/team";

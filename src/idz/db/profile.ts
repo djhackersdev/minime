@@ -1,4 +1,4 @@
-import * as sql from "sql-bricks";
+import sql from "sql-bricks";
 import { ClientBase } from "pg";
 
 import { Profile } from "../model/profile";

@@ -1,5 +1,5 @@
 import { PoolClient } from "pg";
-import * as sql from "sql-bricks";
+import sql from "sql-bricks";
 
 import { CardRepository, Transaction } from "./repo";
 import { connect, generateId, generateExtId } from "../db";

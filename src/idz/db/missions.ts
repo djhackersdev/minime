@@ -1,5 +1,5 @@
 import { ClientBase } from "pg";
-import * as sql from "sql-bricks-postgres";
+import sql from "sql-bricks-postgres";
 
 import { MissionGrid, MissionState } from "../model/mission";
 import { Profile } from "../model/profile";

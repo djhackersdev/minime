@@ -1,5 +1,5 @@
 import { ClientBase } from "pg";
-import * as sql from "sql-bricks";
+import sql from "sql-bricks";
 
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
