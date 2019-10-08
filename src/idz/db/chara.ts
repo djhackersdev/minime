@@ -27,7 +27,7 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
   async load(profileId: Id<Profile>): Promise<Chara> {
     const loadSql = sql
       .select("c.*")
-      .from("idz.chara c")
+      .from("idz_chara c")
       .where("c.id", profileId)
       .toParams();
 
@@ -39,7 +39,7 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
 
   async save(profileId: Id<Profile>, chara: Chara): Promise<void> {
     const saveSql = sql
-      .insert("idz.chara", {
+      .insert("idz_chara", {
         id: profileId,
         gender: chara.gender,
         field_02: chara.field_02,

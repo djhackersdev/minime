@@ -1,2 +1,2 @@
 create table "meta" ("schemaver" integer not null);
-insert into "meta" values (3);
+insert into "meta" values (5);

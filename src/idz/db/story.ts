@@ -12,7 +12,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
   async load(profileId: Id<Profile>): Promise<Story> {
     const loadSql = sql
       .select("s.*")
-      .from("idz.story_state s")
+      .from("idz_story_state s")
       .where("s.id", profileId)
       .toParams();
 
@@ -39,7 +39,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
     const loadCellSql = sql
       .select("sc.*")
-      .from("idz.story_cell_state sc")
+      .from("idz_story_cell_state sc")
       .where("sc.profile_id", profileId)
       .toParams();
 
@@ -59,7 +59,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     const existing = await this.load(profileId);
 
     const headSql = sql
-      .insert("idz.story_state", {
+      .insert("idz_story_state", {
         id: profileId,
         x: story.x,
         y: story.y,
@@ -83,7 +83,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
         }
 
         const cellSql = sql
-          .insert("idz.story_cell_state", {
+          .insert("idz_story_cell_state", {
             id: generateId(),
             profile_id: profileId,
             row_no: i,

@@ -32,7 +32,7 @@ export class SqlCarRepository implements CarRepository {
   async countCars(profileId: Id<Profile>): Promise<number> {
     const countSql = sql
       .select("count(*) result")
-      .from("idz.car c")
+      .from("idz_car c")
       .where("c.profile_id", profileId)
       .toParams();
 
@@ -45,7 +45,7 @@ export class SqlCarRepository implements CarRepository {
   async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
     const loadSql = sql
       .select("c.*")
-      .from("idz.car c")
+      .from("idz_car c")
       .where("c.profile_id", profileId)
       .toParams();
 
@@ -57,8 +57,8 @@ export class SqlCarRepository implements CarRepository {
   async loadSelectedCar(profileId: Id<Profile>): Promise<Car> {
     const loadSql = sql
       .select("c.*")
-      .from("idz.car c")
-      .join("idz.car_selection s", { "c.id": "s.car_id" })
+      .from("idz_car c")
+      .join("idz_car_selection s", { "c.id": "s.car_id" })
       .where("s.id", profileId)
       .toParams();
 
@@ -69,7 +69,7 @@ export class SqlCarRepository implements CarRepository {
 
   async saveCar(profileId: Id<Profile>, car: Car): Promise<void> {
     const saveSql = sql
-      .insert("idz.car", {
+      .insert("idz_car", {
         id: generateId(),
         profile_id: profileId,
         selector: car.selector,
@@ -116,7 +116,7 @@ export class SqlCarRepository implements CarRepository {
   ): Promise<void> {
     const findSql = sql
       .select("c.id")
-      .from("idz.car c")
+      .from("idz_car c")
       .where("c.profile_id", profileId)
       .where("c.selector", selector)
       .toParams();
@@ -129,7 +129,7 @@ export class SqlCarRepository implements CarRepository {
     }
 
     const saveSql = sql
-      .insert("idz.car_selection", {
+      .insert("idz_car_selection", {
         id: profileId,
         car_id: row.id,
       })

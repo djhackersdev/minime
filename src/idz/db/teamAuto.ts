@@ -11,7 +11,7 @@ export class SqlTeamAutoRepository implements TeamAutoRepository {
   async peek(): Promise<[TeamAuto, Id<Team>] | undefined> {
     const peekSql = sql
       .select("tt.*")
-      .from("idz.team_auto tt")
+      .from("idz_team_auto tt")
       .orderBy("serial_no desc", "name_idx desc")
       .limit(1)
       .toParams();
@@ -32,7 +32,7 @@ export class SqlTeamAutoRepository implements TeamAutoRepository {
 
   async push(teamId: Id<Team>, auto: TeamAuto): Promise<void> {
     const pushSql = sql
-      .insert("idz.team_auto", {
+      .insert("idz_team_auto", {
         id: teamId,
         serial_no: auto.serialNo,
         name_idx: auto.nameIdx,

@@ -12,7 +12,7 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
   async loadAll(profileId: Id<Profile>): Promise<Map<CourseNo, number>> {
     const loadSql = sql
       .select("cp.course_no", "cp.count")
-      .from("idz.course_plays cp")
+      .from("idz_course_plays cp")
       .where("cp.profile_id", profileId)
       .toParams();
 
@@ -32,7 +32,7 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
   ): Promise<void> {
     for (const [k, v] of plays) {
       const saveSql = sql
-        .insert("idz.course_plays", {
+        .insert("idz_course_plays", {
           id: generateId(),
           profile_id: profileId,
           course_no: k,

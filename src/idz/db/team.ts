@@ -12,7 +12,7 @@ export class SqlTeamRepository implements TeamRepository {
   async find(extId: ExtId<Team>): Promise<Id<Team>> {
     const findSql = sql
       .select("t.id")
-      .from("idz.team t")
+      .from("idz_team t")
       .where("t.ext_id", extId)
       .toParams();
 
@@ -29,7 +29,7 @@ export class SqlTeamRepository implements TeamRepository {
   async load(id: Id<Team>): Promise<Team> {
     const loadSql = sql
       .select("t.*")
-      .from("idz.team t")
+      .from("idz_team t")
       .where("t.id", id)
       .toParams();
 
@@ -51,7 +51,7 @@ export class SqlTeamRepository implements TeamRepository {
 
   async save(id: Id<Team>, team: Team): Promise<void> {
     const saveSql = sql
-      .update("idz.team", {
+      .update("idz_team", {
         name_bg: team.nameBg,
         name_fx: team.nameFx,
       })
@@ -66,7 +66,7 @@ export class SqlTeamRepository implements TeamRepository {
     const extId = generateExtId() as ExtId<Team>;
 
     const createSql = sql
-      .insert("idz.team", {
+      .insert("idz_team", {
         id: id,
         ext_id: extId,
         name: team.name,
@@ -83,7 +83,7 @@ export class SqlTeamRepository implements TeamRepository {
 
   async delete(id: Id<Team>): Promise<void> {
     const deleteSql = sql
-      .delete("idz.team")
+      .delete("idz_team")
       .where("id", id)
       .toParams();
 

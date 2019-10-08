@@ -14,7 +14,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
   async findTeam(profileId: Id<Profile>): Promise<Id<Team> | undefined> {
     const findSql = sql
       .select("tm.team_id")
-      .from("idz.team_member tm")
+      .from("idz_team_member tm")
       .where("tm.id", profileId)
       .toParams();
 
@@ -31,7 +31,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
   async findLeader(teamId: Id<Team>): Promise<Id<Profile> | undefined> {
     const findSql = sql
       .select("tm.id")
-      .from("idz.team_member tm")
+      .from("idz_team_member tm")
       .where("tm.team_id", teamId)
       .where("tm.leader", true)
       .toParams();
@@ -49,10 +49,10 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
   async loadRoster(teamId: Id<Team>): Promise<TeamMember[]> {
     const loadSql = sql
       .select("tm.*", "p.*", "c.*", "r.ext_id as aime_id")
-      .from("idz.team_member tm")
-      .join("idz.profile p", { "tm.id": "p.id" })
-      .join("idz.chara c", { "tm.id": "c.id" })
-      .join("aime.player r", { "p.player_id": "r.id" })
+      .from("idz_team_member tm")
+      .join("idz_profile p", { "tm.id": "p.id" })
+      .join("idz_chara c", { "tm.id": "c.id" })
+      .join("aime_player r", { "p.player_id": "r.id" })
       .where("tm.team_id", teamId)
       .toParams();
 
@@ -75,7 +75,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
     const lockSql = sql
       .select("id")
-      .from("idz.team")
+      .from("idz_team")
       .where("id", teamId)
       .forUpdate()
       .toParams();
@@ -93,7 +93,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
     const countSql = sql
       .select("count(*) as count")
-      .from("idz.team_member")
+      .from("idz_team_member")
       .where("team_id", teamId)
       .toParams();
 
@@ -107,7 +107,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
     // Do upsert
 
     const joinSql = sql
-      .insert("idz.team_member", {
+      .insert("idz_team_member", {
         id: profileId,
         team_id: teamId,
         leader: false,
@@ -122,7 +122,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
   async leave(teamId: Id<Team>, profileId: Id<Profile>): Promise<void> {
     const leaveSql = sql
-      .delete("idz.team_member")
+      .delete("idz_team_member")
       .where("team_id", teamId)
       .where("id", profileId)
       .toParams();
@@ -132,7 +132,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
   async makeLeader(teamId: Id<Team>, profileId: Id<Profile>): Promise<void> {
     const clearSql = sql
-      .update("idz.team_member", {
+      .update("idz_team_member", {
         leader: false,
       })
       .where("team_id", teamId)
@@ -141,7 +141,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
     await this._conn.query(clearSql);
 
     const setSql = sql
-      .update("idz.team_member", {
+      .update("idz_team_member", {
         leader: true,
       })
       .where("id", profileId)

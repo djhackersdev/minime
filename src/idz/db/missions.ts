@@ -30,7 +30,7 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
 
     const loadSoloSql = sql
       .select("sm.*")
-      .from("idz.solo_mission_state sm")
+      .from("idz_solo_mission_state sm")
       .where("sm.profile_id", profileId)
       .toParams();
 
@@ -56,7 +56,7 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
         }
 
         const saveSql = sql
-          .insert("idz.solo_mission_state", {
+          .insert("idz_solo_mission_state", {
             id: generateId(),
             profile_id: profileId,
             grid_no: i,

@@ -36,8 +36,8 @@ export class SqlProfileRepository implements ProfileRepository {
   async peek(aimeId: AimeId): Promise<Id<Profile> | undefined> {
     const lookupSql = sql
       .select("p.id")
-      .from("idz.profile p")
-      .join("aime.player r", { "p.player_id": "r.id" })
+      .from("idz_profile p")
+      .join("aime_player r", { "p.player_id": "r.id" })
       .where("r.ext_id", aimeId)
       .toParams();
 
@@ -54,8 +54,8 @@ export class SqlProfileRepository implements ProfileRepository {
   async load(id: Id<Profile>): Promise<Profile> {
     const loadSql = sql
       .select("p.*", "r.ext_id as aime_id")
-      .from("idz.profile p")
-      .join("aime.player r", { "p.player_id": "r.id" })
+      .from("idz_profile p")
+      .join("aime_player r", { "p.player_id": "r.id" })
       .where("p.id", id)
       .toParams();
 
@@ -66,7 +66,7 @@ export class SqlProfileRepository implements ProfileRepository {
 
   async save(id: Id<Profile>, profile: Profile): Promise<void> {
     const saveSql = sql
-      .update("idz.profile", {
+      .update("idz_profile", {
         lv: profile.lv,
         exp: profile.exp,
         fame: profile.fame,
@@ -83,7 +83,7 @@ export class SqlProfileRepository implements ProfileRepository {
   async create(profile: Profile): Promise<Id<Profile>> {
     const findSql = sql
       .select("r.id")
-      .from("aime.player r")
+      .from("aime_player r")
       .where("r.ext_id", profile.aimeId)
       .toParams();
 
@@ -98,7 +98,7 @@ export class SqlProfileRepository implements ProfileRepository {
     const playerId = row.id;
 
     const createSql = sql
-      .insert("idz.profile", {
+      .insert("idz_profile", {
         id: id,
         player_id: playerId,
         name: profile.name,

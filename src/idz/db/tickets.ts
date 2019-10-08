@@ -14,7 +14,7 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
   async load(profileId: Id<Profile>): Promise<Tickets> {
     const loadSql = sql
       .select("fc.*")
-      .from("idz.free_car fc")
+      .from("idz_free_car fc")
       .where("fc.id", profileId)
       .toParams();
 
@@ -33,14 +33,14 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
 
     if (!freeCar) {
       const delSql = sql
-        .delete("idz.free_car")
+        .delete("idz_free_car")
         .where("id", profileId)
         .toParams();
 
       await this._conn.query(delSql);
     } else {
       const saveSql = sql
-        .insert("idz.free_car", {
+        .insert("idz_free_car", {
           id: profileId,
           valid_from: freeCar.validFrom,
         })

@@ -13,7 +13,7 @@ export class SqlTeamReservationRepository
   private async _lockTeam(teamId: Id<Team>): Promise<void> {
     const lockSql = sql
       .select("t.id")
-      .from("idz.team t")
+      .from("idz_team t")
       .where("t.id", teamId)
       .forUpdate()
       .toParams();
@@ -29,7 +29,7 @@ export class SqlTeamReservationRepository
 
     const memberSql = sql
       .select("count(*) as count")
-      .from("idz.team_member tm")
+      .from("idz_team_member tm")
       .where("tm.team_id", teamId)
       .toParams();
 
@@ -38,7 +38,7 @@ export class SqlTeamReservationRepository
 
     const reservSql = sql
       .select("count(*) as count")
-      .from("idz.team_reservation tr")
+      .from("idz_team_reservation tr")
       .where("tr.team_id", teamId)
       .toParams();
 
@@ -56,7 +56,7 @@ export class SqlTeamReservationRepository
   ): Promise<void> {
     const lookupSql = sql
       .select("r.id")
-      .from("aime.player r")
+      .from("aime_player r")
       .where("r.ext_id", aimeId)
       .toParams();
 
@@ -70,7 +70,7 @@ export class SqlTeamReservationRepository
     const playerId = row.id;
 
     const insertSql = sql
-      .insert("idz.team_reservation", {
+      .insert("idz_team_reservation", {
         id: playerId,
         team_id: teamId,
         join_time: timestamp,
@@ -86,9 +86,9 @@ export class SqlTeamReservationRepository
   async commitHack(aimeId: AimeId): Promise<void> {
     const lookupSql = sql
       .select("p.id as profile_id", "tr.*")
-      .from("idz.profile p")
-      .join("aime.player r", { "p.player_id": "r.id" })
-      .join("idz.team_reservation tr", { "r.id": "tr.id" })
+      .from("idz_profile p")
+      .join("aime_player r", { "p.player_id": "r.id" })
+      .join("idz_team_reservation tr", { "r.id": "tr.id" })
       .where("r.ext_id", aimeId)
       .toParams();
 
@@ -100,7 +100,7 @@ export class SqlTeamReservationRepository
     }
 
     const insertSql = sql
-      .insert("idz.team_member", {
+      .insert("idz_team_member", {
         id: row.profile_id,
         team_id: row.team_id,
         join_time: row.join_time,
@@ -111,7 +111,7 @@ export class SqlTeamReservationRepository
     await this._conn.query(insertSql);
 
     const cleanupSql = sql
-      .delete("idz.team_reservation")
+      .delete("idz_team_reservation")
       .where("id", row.id)
       .toParams();
 

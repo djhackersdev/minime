@@ -16,8 +16,8 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
   ): Promise<TopTenResult[]> {
     const loadSql = sql
       .select("p.name", "ta.*")
-      .from("idz.ta_best ta")
-      .join("idz.profile p", { "ta.profile_id": "p.id" })
+      .from("idz_ta_best ta")
+      .join("idz_profile p", { "ta.profile_id": "p.id" })
       .where("ta.route_no", routeNo)
       .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
@@ -43,7 +43,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
   async loadAll(profileId: Id<Profile>): Promise<TimeAttackScore[]> {
     const loadSql = sql
       .select("ta.*")
-      .from("idz.ta_best ta")
+      .from("idz_ta_best ta")
       .where("ta.profile_id", profileId)
       .toParams();
 
@@ -62,7 +62,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
   async save(profileId: Id<Profile>, score: TimeAttackScore): Promise<void> {
     const logSql = sql
-      .insert("idz.ta_result", {
+      .insert("idz_ta_result", {
         id: generateId(),
         profile_id: profileId,
         route_no: score.routeNo,
@@ -79,7 +79,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
     const existSql = sql
       .select("ta.total_time")
-      .from("idz.ta_best ta")
+      .from("idz_ta_best ta")
       .where("ta.profile_id", profileId)
       .where("ta.route_no", score.routeNo)
       .toParams();
@@ -89,7 +89,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
     if (row === undefined) {
       const insertSql = sql
-        .insert("idz.ta_best", {
+        .insert("idz_ta_best", {
           id: generateId(),
           profile_id: profileId,
           route_no: score.routeNo,
@@ -105,7 +105,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       await this._conn.query(insertSql);
     } else if (score.totalTime < row.total_time) {
       const updateSql = sql
-        .update("idz.ta_best", {
+        .update("idz_ta_best", {
           total_time: score.totalTime,
           section_times: score.sectionTimes,
           flags: score.flags,

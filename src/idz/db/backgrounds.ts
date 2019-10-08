@@ -13,8 +13,8 @@ export class SqlBackgroundsRepository
   async loadAll(id: Id<Profile>): Promise<Set<BackgroundCode>> {
     const loadSql = sql
       .select("bg.background_no")
-      .from("idz.background_unlock bg")
-      .join("idz.profile p", { "bg.profile_id": "p.id" })
+      .from("idz_background_unlock bg")
+      .join("idz_profile p", { "bg.profile_id": "p.id" })
       .where("p.id", id)
       .toParams();
 
@@ -40,7 +40,7 @@ export class SqlBackgroundsRepository
       }
 
       const saveSql = sql
-        .insert("idz.background_unlock", {
+        .insert("idz_background_unlock", {
           id: generateId(),
           profile_id: profileId,
           background_no: flag,

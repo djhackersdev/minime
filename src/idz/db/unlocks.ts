@@ -13,7 +13,7 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
   async load(profileId: Id<Profile>): Promise<Unlocks> {
     const loadSql = sql
       .select("u.*")
-      .from("idz.unlocks u")
+      .from("idz_unlocks u")
       .where("u.id", profileId)
       .toParams();
 
@@ -30,7 +30,7 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
 
   async save(profileId: Id<Profile>, unlocks: Unlocks): Promise<void> {
     const saveSql = sql
-      .insert("idz.unlocks", {
+      .insert("idz_unlocks", {
         id: profileId,
         cup: unlocks.cup,
         gauges: unlocks.gauges,

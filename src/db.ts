@@ -5,7 +5,7 @@ import { Pool, PoolClient } from "pg";
 export type Id<T> = bigint & { __id: T };
 
 const debug = logger("app:sql");
-const currentSchemaVer = 3;
+const currentSchemaVer = 5;
 
 const pool = new Pool();
 const fence = testConnection();

@@ -12,7 +12,7 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
   async load(profileId: Id<Profile>): Promise<Settings> {
     const loadSql = sql
       .select("s.*")
-      .from("idz.settings s")
+      .from("idz_settings s")
       .where("s.id", profileId)
       .toParams();
 
@@ -29,7 +29,7 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
 
   async save(profileId: Id<Profile>, settings: Settings): Promise<void> {
     const saveSql = sql
-      .insert("idz.settings", {
+      .insert("idz_settings", {
         id: profileId,
         music: settings.music,
         pack: settings.pack,

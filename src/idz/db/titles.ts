@@ -12,7 +12,7 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
   async loadAll(profileId: Id<Profile>): Promise<Set<TitleCode>> {
     const loadSql = sql
       .select("t.title_no")
-      .from("idz.title_unlock t")
+      .from("idz_title_unlock t")
       .where("t.profile_id", profileId)
       .toParams();
 
@@ -35,7 +35,7 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
       }
 
       const saveSql = sql
-        .insert("idz.title_unlock", {
+        .insert("idz_title_unlock", {
           id: generateId(),
           profile_id: profileId,
           title_no: flag,
