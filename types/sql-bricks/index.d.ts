@@ -10,7 +10,7 @@ declare module "sql-bricks" {
    * and should never be instantiated directly. It is exposed because it can be used with the
    * instanceof operator to easily determine whether something is a SQL Bricks statement: my_var instanceof Statement.
    */
-  interface Statement {
+  export interface Statement {
     /**
      * Clones a statement so that subsequent modifications do not affect the original statement.
      */
@@ -73,7 +73,7 @@ declare module "sql-bricks" {
   /**
    * A SELECT statement
    */
-  interface SelectStatement extends Statement {
+  export interface SelectStatement extends Statement {
     /**
      * Appends additional columns to an existing query.
      * @param columns can be passed as multiple arguments, a comma-delimited string or an array.
@@ -255,7 +255,7 @@ declare module "sql-bricks" {
   /**
    * An INSERT statement
    */
-  interface InsertStatement extends Statement {
+  export interface InsertStatement extends Statement {
     into(tbl: TableName, ...columns: any[]): InsertStatement;
     intoTable(tbl: TableName, ...columns: any[]): InsertStatement;
     select(...columns: Array<string | SelectStatement>): SelectStatement;
@@ -266,7 +266,7 @@ declare module "sql-bricks" {
   /**
    * An UPDATE statement
    */
-  interface UpdateStatement extends Statement {
+  export interface UpdateStatement extends Statement {
     values(...values: any[]): UpdateStatement;
     set(...values: any[]): UpdateStatement;
     where(column?: string | null, value?: any): UpdateStatement;
@@ -278,7 +278,7 @@ declare module "sql-bricks" {
   /**
    * A DELETE statement
    */
-  interface DeleteStatement extends Statement {
+  export interface DeleteStatement extends Statement {
     from(...tbls: string[]): DeleteStatement;
     using(...columnList: string[]): SelectStatement;
     using(columnList: string[]): SelectStatement;
