@@ -4,7 +4,7 @@
 //                 Paleo <https://github.com/paleo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace SqlBricks {
+declare module "sql-bricks" {
   /**
    * Statement is an abstract base class for all statements (SELECT, INSERT, UPDATE, DELETE)
    * and should never be instantiated directly. It is exposed because it can be used with the
@@ -287,248 +287,162 @@ declare namespace SqlBricks {
     and(column?: string | null, value?: any): SelectStatement;
     and(...whereExpr: WhereExpression[]): SelectStatement;
   }
+
+  interface SqlBricksFn {
+    (...params: any[]): any;
+    /**
+     * Wraps a value (user-supplied string, number, boolean, etc) so that it can be passed into SQL Bricks
+     * anywhere that a column is expected (the left-hand side of WHERE criteria and many other SQL Bricks APIs)
+     * @param value value to be wraped
+     */
+    val(value: any): any;
+
+    /**
+     * Returns a new INSERT statement. It can be used with or without the new operator.
+     * @alias insertInto
+     * @param tbl table name
+     * @param values a values object or a columns list. Passing a set of columns (as multiple arguments, a comma-delimited string or an array)
+     * will put the statement into split keys/values mode, where a matching array of values is expected in values()
+     * @example
+     * insert('person', {'first_name': 'Fred', 'last_name': 'Flintstone'});
+     * // INSERT INTO person (first_name, last_name) VALUES ('Fred', 'Flintstone')
+     */
+    insert(tbl?: string, ...values: any[]): InsertStatement;
+
+    /**
+     * Returns a new INSERT statement. It can be used with or without the new operator.
+     * @alias insert
+     * @param tbl table name
+     * @param values a values object or a columns list. Passing a set of columns (as multiple arguments, a comma-delimited string or an array)
+     * will put the statement into split keys/values mode, where a matching array of values is expected in values()
+     * @example
+     * insert('person', {'first_name': 'Fred', 'last_name': 'Flintstone'});
+     * // INSERT INTO person (first_name, last_name) VALUES ('Fred', 'Flintstone')
+     */
+    insertInto(tbl?: string, ...values: any[]): InsertStatement;
+
+    /**
+     * Returns a new select statement, seeded with a set of columns. It can be used with or without the new keyword.
+     * @param columns it can be passed in here (or appended later via sel.select() or sel.distinct()) via multiple arguments
+     * or a comma-delimited string or an array. If no columns are specified, toString() will default to SELECT *.
+     */
+    select(...columns: Array<string | SelectStatement>): SelectStatement;
+    select(columns: string[] | SelectStatement[]): SelectStatement;
+
+    /**
+     * Returns a new UPDATE statement. It can be used with or without the new operator.
+     * @param tbl table name
+     * @param values
+     */
+    update(tbl: string, ...values: any[]): UpdateStatement;
+
+    /**
+     * Returns a new DELETE statement. It can be used with or without the new operator.
+     * @alias deleteFrom
+     * @param tbl table name
+     */
+    delete(tbl?: string): DeleteStatement;
+    /**
+     * Returns a new DELETE statement. It can be used with or without the new operator.
+     * @alias delete
+     * @param tbl table name
+     */
+    deleteFrom(tbl?: string): DeleteStatement;
+
+    /**
+     * Registers a set of frequently-used table aliases with SQL Bricks.
+     * These table aliases can then be used by themselves in from(), join(), etc
+     * and SQL Bricks will automatically expand them to include the table name as well as the alias.
+     * @param expansions
+     * @example
+     * sql.aliasExpansions({'psn': 'person', 'addr': 'address', 'zip': 'zipcode', 'usr': 'user'});
+     * select().from('psn').join('addr', {'psn.addr_id': 'addr.id'});
+     * // SELECT * FROM person psn INNER JOIN address addr ON psn.addr_id = addr.id
+     */
+    aliasExpansions(expansions: { [tbl: string]: string }): void;
+
+    /**
+     * Sets a user-supplied function to automatically generate the .on() criteria for joins whenever it is not supplied explicitly.
+     * @param func
+     */
+    joinCriteria(func?: (...args: any[]) => OnCriteria): any;
+
+    _extension(): any;
+    prop: number;
+    conversions: any;
+
+    //////////////////////////////////////////
+    //////  Where Expression functions  //////
+    //////////////////////////////////////////
+
+    /**
+     * Joins the passed expressions with AND
+     * @param whereExprs
+     */
+    and(...whereExprs: WhereExpression[]): WhereGroup;
+
+    /**
+     * Joins the passed expressions with OR:
+     * @param whereExprs
+     */
+    or(...whereExprs: WhereExpression[]): WhereGroup;
+
+    /**
+     * Negates the expression by wrapping it in NOT (...)
+     * (if it is at the top level, the parentheses are unnecessary and will be omitted)
+     * @param whereExpr
+     */
+    not(whereExpr: WhereExpression): WhereGroup;
+
+    /**
+     * Generates a BETWEEN
+     * @param column
+     * @param value1
+     * @param value2
+     */
+    between(column: string, value1: any, value2: any): WhereExpression;
+    isNull(column: string): WhereExpression;
+    isNotNull(column: string): WhereExpression;
+    like(column: string, value: any, escapeStr?: string): WhereExpression;
+    exists(stmt: any): WhereExpression;
+    in(column: string, stmt: SelectStatement): WhereExpression;
+    in(column: string, ...values: any[]): WhereExpression;
+
+    /**
+     * Generates the appropriate relational operator (=, <>, <, <=, > or >=).
+     * @param column column name or query result
+     * @param value column value
+     */
+    eq(column: string | SelectStatement, value?: any): WhereBinary;
+    equal(column: string | SelectStatement, value?: any): WhereBinary;
+    notEq(column: string | SelectStatement, value?: any): WhereBinary;
+    lt(column: string | SelectStatement, value?: any): WhereBinary;
+    lte(column: string | SelectStatement, value?: any): WhereBinary;
+    gt(column: string | SelectStatement, value?: any): WhereBinary;
+    gte(column: string | SelectStatement, value?: any): WhereBinary;
+
+    eqAll(column: string | SelectStatement, value?: any): WhereBinary;
+    notEqAll(column: string | SelectStatement, value?: any): WhereBinary;
+    ltAll(column: string | SelectStatement, value?: any): WhereBinary;
+    lteAll(column: string | SelectStatement, value?: any): WhereBinary;
+    gtAll(column: string | SelectStatement, value?: any): WhereBinary;
+    gteAll(column: string | SelectStatement, value?: any): WhereBinary;
+
+    eqAny(column: string | SelectStatement, value?: any): WhereBinary;
+    notEqAny(column: string | SelectStatement, value?: any): WhereBinary;
+    ltAny(column: string | SelectStatement, value?: any): WhereBinary;
+    lteAny(column: string | SelectStatement, value?: any): WhereBinary;
+    gtAny(column: string | SelectStatement, value?: any): WhereBinary;
+    gteAny(column: string | SelectStatement, value?: any): WhereBinary;
+
+    eqSome(column: string | SelectStatement, value?: any): WhereBinary;
+    notEqSome(column: string | SelectStatement, value?: any): WhereBinary;
+    ltSome(column: string | SelectStatement, value?: any): WhereBinary;
+    lteSome(column: string | SelectStatement, value?: any): WhereBinary;
+    gtSome(column: string | SelectStatement, value?: any): WhereBinary;
+    gteSome(column: string | SelectStatement, value?: any): WhereBinary;
+  }
+
+  const SqlBricks: SqlBricksFn;
+  export default SqlBricks;
 }
-
-interface SqlBricksFn {
-  (...params: any[]): any;
-  /**
-   * Wraps a value (user-supplied string, number, boolean, etc) so that it can be passed into SQL Bricks
-   * anywhere that a column is expected (the left-hand side of WHERE criteria and many other SQL Bricks APIs)
-   * @param value value to be wraped
-   */
-  val(value: any): any;
-
-  /**
-   * Returns a new INSERT statement. It can be used with or without the new operator.
-   * @alias insertInto
-   * @param tbl table name
-   * @param values a values object or a columns list. Passing a set of columns (as multiple arguments, a comma-delimited string or an array)
-   * will put the statement into split keys/values mode, where a matching array of values is expected in values()
-   * @example
-   * insert('person', {'first_name': 'Fred', 'last_name': 'Flintstone'});
-   * // INSERT INTO person (first_name, last_name) VALUES ('Fred', 'Flintstone')
-   */
-  insert(tbl?: string, ...values: any[]): SqlBricks.InsertStatement;
-
-  /**
-   * Returns a new INSERT statement. It can be used with or without the new operator.
-   * @alias insert
-   * @param tbl table name
-   * @param values a values object or a columns list. Passing a set of columns (as multiple arguments, a comma-delimited string or an array)
-   * will put the statement into split keys/values mode, where a matching array of values is expected in values()
-   * @example
-   * insert('person', {'first_name': 'Fred', 'last_name': 'Flintstone'});
-   * // INSERT INTO person (first_name, last_name) VALUES ('Fred', 'Flintstone')
-   */
-  insertInto(tbl?: string, ...values: any[]): SqlBricks.InsertStatement;
-
-  /**
-   * Returns a new select statement, seeded with a set of columns. It can be used with or without the new keyword.
-   * @param columns it can be passed in here (or appended later via sel.select() or sel.distinct()) via multiple arguments
-   * or a comma-delimited string or an array. If no columns are specified, toString() will default to SELECT *.
-   */
-  select(
-    ...columns: Array<string | SqlBricks.SelectStatement>
-  ): SqlBricks.SelectStatement;
-  select(
-    columns: string[] | SqlBricks.SelectStatement[]
-  ): SqlBricks.SelectStatement;
-
-  /**
-   * Returns a new UPDATE statement. It can be used with or without the new operator.
-   * @param tbl table name
-   * @param values
-   */
-  update(tbl: string, ...values: any[]): SqlBricks.UpdateStatement;
-
-  /**
-   * Returns a new DELETE statement. It can be used with or without the new operator.
-   * @alias deleteFrom
-   * @param tbl table name
-   */
-  delete(tbl?: string): SqlBricks.DeleteStatement;
-  /**
-   * Returns a new DELETE statement. It can be used with or without the new operator.
-   * @alias delete
-   * @param tbl table name
-   */
-  deleteFrom(tbl?: string): SqlBricks.DeleteStatement;
-
-  /**
-   * Registers a set of frequently-used table aliases with SQL Bricks.
-   * These table aliases can then be used by themselves in from(), join(), etc
-   * and SQL Bricks will automatically expand them to include the table name as well as the alias.
-   * @param expansions
-   * @example
-   * sql.aliasExpansions({'psn': 'person', 'addr': 'address', 'zip': 'zipcode', 'usr': 'user'});
-   * select().from('psn').join('addr', {'psn.addr_id': 'addr.id'});
-   * // SELECT * FROM person psn INNER JOIN address addr ON psn.addr_id = addr.id
-   */
-  aliasExpansions(expansions: { [tbl: string]: string }): void;
-
-  /**
-   * Sets a user-supplied function to automatically generate the .on() criteria for joins whenever it is not supplied explicitly.
-   * @param func
-   */
-  joinCriteria(func?: (...args: any[]) => SqlBricks.OnCriteria): any;
-
-  _extension(): any;
-  prop: number;
-  conversions: any;
-
-  //////////////////////////////////////////
-  //////  Where Expression functions  //////
-  //////////////////////////////////////////
-
-  /**
-   * Joins the passed expressions with AND
-   * @param whereExprs
-   */
-  and(...whereExprs: SqlBricks.WhereExpression[]): SqlBricks.WhereGroup;
-
-  /**
-   * Joins the passed expressions with OR:
-   * @param whereExprs
-   */
-  or(...whereExprs: SqlBricks.WhereExpression[]): SqlBricks.WhereGroup;
-
-  /**
-   * Negates the expression by wrapping it in NOT (...)
-   * (if it is at the top level, the parentheses are unnecessary and will be omitted)
-   * @param whereExpr
-   */
-  not(whereExpr: SqlBricks.WhereExpression): SqlBricks.WhereGroup;
-
-  /**
-   * Generates a BETWEEN
-   * @param column
-   * @param value1
-   * @param value2
-   */
-  between(column: string, value1: any, value2: any): SqlBricks.WhereExpression;
-  isNull(column: string): SqlBricks.WhereExpression;
-  isNotNull(column: string): SqlBricks.WhereExpression;
-  like(
-    column: string,
-    value: any,
-    escapeStr?: string
-  ): SqlBricks.WhereExpression;
-  exists(stmt: any): SqlBricks.WhereExpression;
-  in(
-    column: string,
-    stmt: SqlBricks.SelectStatement
-  ): SqlBricks.WhereExpression;
-  in(column: string, ...values: any[]): SqlBricks.WhereExpression;
-
-  /**
-   * Generates the appropriate relational operator (=, <>, <, <=, > or >=).
-   * @param column column name or query result
-   * @param value column value
-   */
-  eq(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  equal(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  notEq(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  lt(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  lte(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gt(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gte(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-
-  eqAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  notEqAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  ltAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  lteAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gtAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gteAll(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-
-  eqAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  notEqAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  ltAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  lteAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gtAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gteAny(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-
-  eqSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  notEqSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  ltSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  lteSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gtSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-  gteSome(
-    column: string | SqlBricks.SelectStatement,
-    value?: any
-  ): SqlBricks.WhereBinary;
-}
-
-declare const SqlBricks: SqlBricksFn;
-export = SqlBricks;
