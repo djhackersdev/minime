@@ -422,11 +422,6 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/sql-bricks@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/sql-bricks/-/sql-bricks-2.0.1.tgz#8d3241a59808e084bbcf2c2cddb1ea5429d251b7"
-  integrity sha512-57WN7R1oCqA6sQRDsRwpKi2x2SKfcc10w9KYsmaFxrcnjJ2N3M9rE9DIvqSylHRV16pwuPzF4fRbtIx5TzBzIA==
-
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"

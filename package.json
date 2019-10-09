@@ -27,7 +27,6 @@
     "@types/multiparty": "^0.0.32",
     "@types/node": "^11.11.3",
     "@types/pg": "^7.4.14",
-    "@types/sql-bricks": "^2.0.1",
     "jest": "^24.5.0",
     "jest-haste-map": "^24.5.0",
     "jest-resolve": "^24.5.0",
