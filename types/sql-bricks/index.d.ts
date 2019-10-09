@@ -288,7 +288,7 @@ declare module "sql-bricks" {
     and(...whereExpr: WhereExpression[]): SelectStatement;
   }
 
-  interface SqlBricksFn {
+  export interface SqlBricksFn {
     (...params: any[]): any;
     /**
      * Wraps a value (user-supplied string, number, boolean, etc) so that it can be passed into SQL Bricks
