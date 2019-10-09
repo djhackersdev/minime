@@ -78,44 +78,44 @@ declare module "sql-bricks" {
      * Appends additional columns to an existing query.
      * @param columns can be passed as multiple arguments, a comma-delimited string or an array.
      */
-    select(...columns: Array<string | SelectStatement>): SelectStatement;
+    select(...columns: Array<string | SelectStatement>): this;
     /**
      * Appends additional columns to an existing query.
      * @param columns can be passed as multiple arguments, a comma-delimited string or an array.
      */
-    select(columns: string[] | SelectStatement[]): SelectStatement;
+    select(columns: string[] | SelectStatement[]): this;
 
-    as(alias: string): SelectStatement;
+    as(alias: string): this;
 
-    distinct(...columns: Array<string | SelectStatement>): SelectStatement;
-    distinct(columns: string[] | SelectStatement[]): SelectStatement;
+    distinct(...columns: Array<string | SelectStatement>): this;
+    distinct(columns: string[] | SelectStatement[]): this;
 
     /**
      * Makes the query a SELECT ... INTO query (which creates a new table with the results of the query).
      * @alias intoTable
      * @param tbl new table to create
      */
-    into(tbl: TableName): SelectStatement;
+    into(tbl: TableName): this;
     /**
      * Makes the query a SELECT ... INTO query (which creates a new table with the results of the query).
      * @alias into
      * @param tbl new table to create
      */
-    intoTable(tbl: TableName): SelectStatement;
+    intoTable(tbl: TableName): this;
 
-    intoTemp(tbl: TableName): SelectStatement;
-    intoTempTable(tbl: TableName): SelectStatement;
+    intoTemp(tbl: TableName): this;
+    intoTempTable(tbl: TableName): this;
 
     /**
      * Table names can be passed in as multiple string arguments, a comma-delimited string or an array.
      * @param tbls table names
      */
-    from(...tbls: TableName[]): SelectStatement;
+    from(...tbls: TableName[]): this;
     /**
      * Table names can be passed in as multiple string arguments, a comma-delimited string or an array.
      * @param tbls array of table names
      */
-    from(tbls: TableName[]): SelectStatement;
+    from(tbls: TableName[]): this;
 
     /**
      * Adds the specified join to the query.
@@ -126,73 +126,61 @@ declare module "sql-bricks" {
     join(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    join(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    join(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    join(tbl: string, onCol1: string, onCol2: string): this;
+    join(firstTbl: string, ...otherTbls: string[]): this;
 
     leftJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    leftJoin(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    leftJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    leftJoin(tbl: string, onCol1: string, onCol2: string): this;
+    leftJoin(firstTbl: string, ...otherTbls: string[]): this;
     rightJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    rightJoin(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    rightJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    rightJoin(tbl: string, onCol1: string, onCol2: string): this;
+    rightJoin(firstTbl: string, ...otherTbls: string[]): this;
     fullJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    fullJoin(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    fullJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    fullJoin(tbl: string, onCol1: string, onCol2: string): this;
+    fullJoin(firstTbl: string, ...otherTbls: string[]): this;
     crossJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    crossJoin(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    crossJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    crossJoin(tbl: string, onCol1: string, onCol2: string): this;
+    crossJoin(firstTbl: string, ...otherTbls: string[]): this;
     innerJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    innerJoin(tbl: string, onCol1: string, onCol2: string): SelectStatement;
-    innerJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    innerJoin(tbl: string, onCol1: string, onCol2: string): this;
+    innerJoin(firstTbl: string, ...otherTbls: string[]): this;
     leftOuterJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    leftOuterJoin(
-      tbl: string,
-      onCol1: string,
-      onCol2: string
-    ): SelectStatement;
-    leftOuterJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    leftOuterJoin(tbl: string, onCol1: string, onCol2: string): this;
+    leftOuterJoin(firstTbl: string, ...otherTbls: string[]): this;
     rightOuterJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    rightOuterJoin(
-      tbl: string,
-      onCol1: string,
-      onCol2: string
-    ): SelectStatement;
-    rightOuterJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    rightOuterJoin(tbl: string, onCol1: string, onCol2: string): this;
+    rightOuterJoin(firstTbl: string, ...otherTbls: string[]): this;
     fullOuterJoin(
       tbl: string,
       criteria?: OnCriteria | string[] | WhereExpression
-    ): SelectStatement;
-    fullOuterJoin(
-      tbl: string,
-      onCol1: string,
-      onCol2: string
-    ): SelectStatement;
-    fullOuterJoin(firstTbl: string, ...otherTbls: string[]): SelectStatement;
+    ): this;
+    fullOuterJoin(tbl: string, onCol1: string, onCol2: string): this;
+    fullOuterJoin(firstTbl: string, ...otherTbls: string[]): this;
 
-    on(onCriteria: OnCriteria | WhereExpression): SelectStatement;
-    on(onCol1: string, onCol2: string): SelectStatement;
+    on(onCriteria: OnCriteria | WhereExpression): this;
+    on(onCol1: string, onCol2: string): this;
 
     /**
      * Joins using USING instead of ON.
@@ -201,55 +189,55 @@ declare module "sql-bricks" {
      * select('*').from('person').join('address').using('address_id', 'country_id');
      * // SELECT * FROM person INNER JOIN address USING (address_id, country_id)
      */
-    using(...columnList: string[]): SelectStatement;
-    using(columnList: string[]): SelectStatement;
+    using(...columnList: string[]): this;
+    using(columnList: string[]): this;
 
     /**
      * Adds the specified natural join to the query.
      * @param tbl can include an alias after a space or after the 'AS' keyword ('my_table my_alias').
      */
-    naturalJoin(tbl: string): SelectStatement;
-    naturalLeftJoin(tbl: string): SelectStatement;
-    naturalRightJoin(tbl: string): SelectStatement;
-    naturalFullJoin(tbl: string): SelectStatement;
+    naturalJoin(tbl: string): this;
+    naturalLeftJoin(tbl: string): this;
+    naturalRightJoin(tbl: string): this;
+    naturalFullJoin(tbl: string): this;
 
-    naturalInnerJoin(tbl: string): SelectStatement;
-    naturalLeftOuterJoin(tbl: string): SelectStatement;
-    naturalRightOuterJoin(tbl: string): SelectStatement;
-    naturalFullOuterJoin(tbl: string): SelectStatement;
+    naturalInnerJoin(tbl: string): this;
+    naturalLeftOuterJoin(tbl: string): this;
+    naturalRightOuterJoin(tbl: string): this;
+    naturalFullOuterJoin(tbl: string): this;
 
-    where(column?: string | null, value?: any): SelectStatement;
-    where(...whereExpr: WhereExpression[]): SelectStatement;
+    where(column?: string | null, value?: any): this;
+    where(...whereExpr: WhereExpression[]): this;
 
-    and(...options: any[]): SelectStatement;
+    and(...options: any[]): this;
 
     /**
      * Sets or extends the GROUP BY columns.
      * @param columns can take multiple arguments, a single comma-delimited string or an array.
      */
-    groupBy(...columns: string[]): SelectStatement;
-    groupBy(columns: string[]): SelectStatement;
+    groupBy(...columns: string[]): this;
+    groupBy(columns: string[]): this;
 
-    having(column: string, value: string): SelectStatement;
-    having(whereExpr: WhereExpression): SelectStatement;
+    having(column: string, value: string): this;
+    having(whereExpr: WhereExpression): this;
 
     /**
      * Sets or extends the list of columns in the ORDER BY clause.
      * @param columns can be passed as multiple arguments, a single comma-delimited string or an array.
      */
-    orderBy(...columns: string[]): SelectStatement;
-    orderBy(columns: string[]): SelectStatement;
-    order(...columns: string[]): SelectStatement;
-    order(columns: string[]): SelectStatement;
+    orderBy(...columns: string[]): this;
+    orderBy(columns: string[]): this;
+    order(...columns: string[]): this;
+    order(columns: string[]): this;
 
-    forUpdate(...tbls: string[]): SelectStatement;
-    of(tlb: string): SelectStatement;
-    noWait(): SelectStatement;
+    forUpdate(...tbls: string[]): this;
+    of(tlb: string): this;
+    noWait(): this;
 
-    union(...stmt: Statement[]): SelectStatement;
-    intersect(...stmt: Statement[]): SelectStatement;
-    minus(...stmt: Statement[]): SelectStatement;
-    except(...stmt: Statement[]): SelectStatement;
+    union(...stmt: Statement[]): this;
+    intersect(...stmt: Statement[]): this;
+    minus(...stmt: Statement[]): this;
+    except(...stmt: Statement[]): this;
   }
 
   /**
