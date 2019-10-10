@@ -1,24 +1,22 @@
-import { ClientBase } from "pg";
-import sql from "sql-bricks";
+import sql from "sql-bricks-postgres";
 
 import { BackgroundCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlBackgroundsRepository
   implements FlagRepository<BackgroundCode> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async loadAll(id: Id<Profile>): Promise<Set<BackgroundCode>> {
     const loadSql = sql
       .select("bg.background_no")
       .from("idz_background_unlock bg")
       .join("idz_profile p", { "bg.profile_id": "p.id" })
-      .where("p.id", id)
-      .toParams();
+      .where("p.id", id);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
     const result = new Set<BackgroundCode>();
 
     for (const row of rows) {
@@ -39,15 +37,13 @@ export class SqlBackgroundsRepository
         continue;
       }
 
-      const saveSql = sql
-        .insert("idz_background_unlock", {
-          id: generateId(),
-          profile_id: profileId,
-          background_no: flag,
-        })
-        .toParams();
+      const saveSql = sql.insert("idz_background_unlock", {
+        id: generateId(),
+        profile_id: profileId,
+        background_no: flag,
+      });
 
-      await this._conn.query(saveSql);
+      await this._txn.modify(saveSql);
     }
   }
 }

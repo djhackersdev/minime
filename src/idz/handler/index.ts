@@ -43,11 +43,15 @@ import { updateUserLog } from "./updateUserLog";
 import { Request } from "../request";
 import { Response } from "../response";
 import { Repositories } from "../repo";
+import { Transaction } from "../../sql";
+import { SqlRepositories } from "../db";
 
 export async function dispatch(
-  w: Repositories,
+  txn: Transaction,
   req: Request
 ): Promise<Response> {
+  const w = new SqlRepositories(txn);
+
   switch (req.type) {
     case "check_team_name_req":
       return checkTeamName(w, req);

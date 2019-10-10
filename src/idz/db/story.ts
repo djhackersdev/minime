@@ -1,23 +1,20 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { Profile } from "../model/profile";
 import { Story, StoryRow, StoryCell } from "../model/story";
 import { FacetRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlStoryRepository implements FacetRepository<Story> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<Story> {
     const loadSql = sql
       .select("s.*")
       .from("idz_story_state s")
-      .where("s.id", profileId)
-      .toParams();
+      .where("s.id", profileId);
 
-    const headerResult = await this._conn.query(loadSql);
-    const header = headerResult.rows[0];
+    const header = await this._txn.fetchRow(loadSql);
 
     // Must succeed even if nonexistent (required by save method below)
 
@@ -40,10 +37,9 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     const loadCellSql = sql
       .select("sc.*")
       .from("idz_story_cell_state sc")
-      .where("sc.profile_id", profileId)
-      .toParams();
+      .where("sc.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadCellSql);
+    const rows = await this._txn.fetchRows(loadCellSql);
 
     for (const row of rows) {
       const cell = result.rows[row.row_no].cells[row.col_no];
@@ -65,10 +61,9 @@ export class SqlStoryRepository implements FacetRepository<Story> {
         y: story.y,
       })
       .onConflict("id")
-      .doUpdate(["x", "y"])
-      .toParams();
+      .doUpdate(["x", "y"]);
 
-    await this._conn.query(headSql);
+    await this._txn.modify(headSql);
 
     for (let i = 0; i < story.rows.length; i++) {
       const exRow = existing.rows[i];
@@ -92,10 +87,9 @@ export class SqlStoryRepository implements FacetRepository<Story> {
             b: cell.b,
           })
           .onConflict("profile_id", "row_no", "col_no")
-          .doUpdate(["a", "b"])
-          .toParams();
+          .doUpdate(["a", "b"]);
 
-        await this._conn.query(cellSql);
+        await this._txn.modify(cellSql);
       }
     }
   }

@@ -1,5 +1,3 @@
-import { PoolClient } from "pg";
-
 import { SqlBackgroundsRepository } from "./backgrounds";
 import { SqlCarRepository } from "./car";
 import { SqlCharaRepository } from "./chara";
@@ -18,90 +16,72 @@ import { SqlTitlesRepository } from "./titles";
 import { SqlUnlocksRepository } from "./unlocks";
 import * as Model from "../model";
 import * as Repo from "../repo";
-import { connect } from "../../db";
+import { Transaction } from "../../sql";
 
-class TransactionImpl implements Repo.Transaction {
-  constructor(private readonly _conn: PoolClient) {}
+export class SqlRepositories implements Repo.Repositories {
+  constructor(private readonly _txn: Transaction) {}
 
   backgrounds(): Repo.FlagRepository<Model.BackgroundCode> {
-    return new SqlBackgroundsRepository(this._conn);
+    return new SqlBackgroundsRepository(this._txn);
   }
 
   car(): Repo.CarRepository {
-    return new SqlCarRepository(this._conn);
+    return new SqlCarRepository(this._txn);
   }
 
   chara(): Repo.FacetRepository<Model.Chara> {
-    return new SqlCharaRepository(this._conn);
+    return new SqlCharaRepository(this._txn);
   }
 
   coursePlays(): Repo.CoursePlaysRepository {
-    return new SqlCoursePlaysRepository(this._conn);
+    return new SqlCoursePlaysRepository(this._txn);
   }
 
   missions(): Repo.FacetRepository<Model.MissionState> {
-    return new SqlMissionsRepository(this._conn);
+    return new SqlMissionsRepository(this._txn);
   }
 
   profile(): Repo.ProfileRepository {
-    return new SqlProfileRepository(this._conn);
+    return new SqlProfileRepository(this._txn);
   }
 
   settings(): Repo.FacetRepository<Model.Settings> {
-    return new SqlSettingsRepository(this._conn);
+    return new SqlSettingsRepository(this._txn);
   }
 
   story(): Repo.FacetRepository<Model.Story> {
-    return new SqlStoryRepository(this._conn);
+    return new SqlStoryRepository(this._txn);
   }
 
   teams(): Repo.TeamRepository {
-    return new SqlTeamRepository(this._conn);
+    return new SqlTeamRepository(this._txn);
   }
 
   teamAuto(): Repo.TeamAutoRepository {
-    return new SqlTeamAutoRepository(this._conn);
+    return new SqlTeamAutoRepository(this._txn);
   }
 
   teamMembers(): Repo.TeamMemberRepository {
-    return new SqlTeamMemberRepository(this._conn);
+    return new SqlTeamMemberRepository(this._txn);
   }
 
   teamReservations(): Repo.TeamReservationRepository {
-    return new SqlTeamReservationRepository(this._conn);
+    return new SqlTeamReservationRepository(this._txn);
   }
 
   tickets(): Repo.FacetRepository<Model.Tickets> {
-    return new SqlTicketsRepository(this._conn);
+    return new SqlTicketsRepository(this._txn);
   }
 
   timeAttack(): Repo.TimeAttackRepository {
-    return new SqlTimeAttackRepository(this._conn);
+    return new SqlTimeAttackRepository(this._txn);
   }
 
   titles(): Repo.FlagRepository<Model.TitleCode> {
-    return new SqlTitlesRepository(this._conn);
+    return new SqlTitlesRepository(this._txn);
   }
 
   unlocks(): Repo.FacetRepository<Model.Unlocks> {
-    return new SqlUnlocksRepository(this._conn);
+    return new SqlUnlocksRepository(this._txn);
   }
-
-  async commit(): Promise<void> {
-    await this._conn.query("commit");
-    await this._conn.release();
-  }
-
-  async rollback(): Promise<void> {
-    await this._conn.query("rollback");
-    await this._conn.release();
-  }
-}
-
-export async function beginDbSession(): Promise<Repo.Transaction> {
-  const conn = await connect();
-
-  await conn.query("begin");
-
-  return new TransactionImpl(conn);
 }

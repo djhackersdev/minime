@@ -1,13 +1,12 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { MissionGrid, MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlMissionsRepository implements FacetRepository<MissionState> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<MissionState> {
     const result: MissionState = {
@@ -31,10 +30,9 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
     const loadSoloSql = sql
       .select("sm.*")
       .from("idz_solo_mission_state sm")
-      .where("sm.profile_id", profileId)
-      .toParams();
+      .where("sm.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadSoloSql);
+    const rows = await this._txn.fetchRows(loadSoloSql);
 
     for (const row of rows) {
       result.solo[row.grid_no].cells[row.cell_no] = row.value;
@@ -64,10 +62,9 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
             value: grid[j],
           })
           .onConflict("profile_id", "grid_no", "cell_no")
-          .doUpdate(["value"])
-          .toParams();
+          .doUpdate(["value"]);
 
-        await this._conn.query(saveSql);
+        await this._txn.modify(saveSql);
       }
     }
   }

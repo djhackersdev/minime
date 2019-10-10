@@ -1,23 +1,24 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { Settings } from "../model/settings";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id } from "../../db";
+import { Id, Transaction } from "../../sql";
 
 export class SqlSettingsRepository implements FacetRepository<Settings> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<Settings> {
     const loadSql = sql
       .select("s.*")
       .from("idz_settings s")
-      .where("s.id", profileId)
-      .toParams();
+      .where("s.id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(loadSql);
+
+    if (row === undefined) {
+      throw new Error(`Settings not found, profileId=${profileId}`);
+    }
 
     return {
       music: row.music,
@@ -37,9 +38,8 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
         gauges: settings.gauges,
       })
       .onConflict("id")
-      .doUpdate(["music", "pack", "paper_cup", "gauges"])
-      .toParams();
+      .doUpdate(["music", "pack", "paper_cup", "gauges"]);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 }

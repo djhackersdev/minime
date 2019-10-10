@@ -1,10 +1,9 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { CarRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 function _extractRow(row: any): Car {
   return {
@@ -27,29 +26,26 @@ function _extractRow(row: any): Car {
 }
 
 export class SqlCarRepository implements CarRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async countCars(profileId: Id<Profile>): Promise<number> {
     const countSql = sql
       .select("count(*) result")
       .from("idz_car c")
-      .where("c.profile_id", profileId)
-      .toParams();
+      .where("c.profile_id", profileId);
 
-    const { rows } = await this._conn.query(countSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(countSql);
 
-    return parseInt(row.result, 10);
+    return parseInt(row!.result, 10);
   }
 
   async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
     const loadSql = sql
       .select("c.*")
       .from("idz_car c")
-      .where("c.profile_id", profileId)
-      .toParams();
+      .where("c.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map(_extractRow);
   }
@@ -59,12 +55,11 @@ export class SqlCarRepository implements CarRepository {
       .select("c.*")
       .from("idz_car c")
       .join("idz_car_selection s", { "c.id": "s.car_id" })
-      .where("s.id", profileId)
-      .toParams();
+      .where("s.id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const row = await this._txn.fetchRow(loadSql);
 
-    return _extractRow(rows[0]);
+    return _extractRow(row);
   }
 
   async saveCar(profileId: Id<Profile>, car: Car): Promise<void> {
@@ -104,10 +99,9 @@ export class SqlCarRepository implements CarRepository {
         "field_5b",
         "field_5c",
         "field_5e",
-      ])
-      .toParams();
+      ]);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 
   async saveSelection(
@@ -118,11 +112,9 @@ export class SqlCarRepository implements CarRepository {
       .select("c.id")
       .from("idz_car c")
       .where("c.profile_id", profileId)
-      .where("c.selector", selector)
-      .toParams();
+      .where("c.selector", selector);
 
-    const { rows } = await this._conn.query(findSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(findSql);
 
     if (row === undefined) {
       throw new Error("Selected car not found");
@@ -134,9 +126,8 @@ export class SqlCarRepository implements CarRepository {
         car_id: row.id,
       })
       .onConflict("id")
-      .doUpdate(["car_id"])
-      .toParams();
+      .doUpdate(["car_id"]);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 }

@@ -1,22 +1,20 @@
-import { ClientBase } from "pg";
-import sql from "sql-bricks";
+import sql from "sql-bricks-postgres";
 
-import { TitleCode, ExtId } from "../model/base";
+import { TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlTitlesRepository implements FlagRepository<TitleCode> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async loadAll(profileId: Id<Profile>): Promise<Set<TitleCode>> {
     const loadSql = sql
       .select("t.title_no")
       .from("idz_title_unlock t")
-      .where("t.profile_id", profileId)
-      .toParams();
+      .where("t.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
     const result = new Set<TitleCode>();
 
     for (const row of rows) {
@@ -34,15 +32,13 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
         continue;
       }
 
-      const saveSql = sql
-        .insert("idz_title_unlock", {
-          id: generateId(),
-          profile_id: profileId,
-          title_no: flag,
-        })
-        .toParams();
+      const saveSql = sql.insert("idz_title_unlock", {
+        id: generateId(),
+        profile_id: profileId,
+        title_no: flag,
+      });
 
-      await this._conn.query(saveSql);
+      await this._txn.modify(saveSql);
     }
   }
 }

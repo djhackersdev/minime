@@ -1,24 +1,22 @@
 import sql from "sql-bricks-postgres";
-import { ClientBase } from "pg";
 
 import { Team } from "../model/team";
 import { TeamReservationRepository } from "../repo";
-import { Id } from "../../db";
 import { AimeId } from "../../model";
+import { Id, Transaction } from "../../sql";
 
 export class SqlTeamReservationRepository
   implements TeamReservationRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   private async _lockTeam(teamId: Id<Team>): Promise<void> {
     const lockSql = sql
       .select("t.id")
       .from("idz_team t")
       .where("t.id", teamId)
-      .forUpdate()
-      .toParams();
+      .forUpdate();
 
-    await this._conn.query(lockSql);
+    await this._txn.modify(lockSql);
   }
 
   async occupancyHack(teamId: Id<Team>): Promise<number> {
@@ -30,20 +28,18 @@ export class SqlTeamReservationRepository
     const memberSql = sql
       .select("count(*) as count")
       .from("idz_team_member tm")
-      .where("tm.team_id", teamId)
-      .toParams();
+      .where("tm.team_id", teamId);
 
-    const memberRes = await this._conn.query(memberSql);
-    const memberCount = parseInt(memberRes.rows[0].count, 10);
+    const memberRes = await this._txn.fetchRow(memberSql);
+    const memberCount = parseInt(memberRes!.count, 10);
 
     const reservSql = sql
       .select("count(*) as count")
       .from("idz_team_reservation tr")
-      .where("tr.team_id", teamId)
-      .toParams();
+      .where("tr.team_id", teamId);
 
-    const reservRes = await this._conn.query(reservSql);
-    const reservCount = parseInt(reservRes.rows[0].count, 10);
+    const reservRes = await this._txn.fetchRow(reservSql);
+    const reservCount = parseInt(reservRes!.count, 10);
 
     return memberCount + reservCount;
   }
@@ -57,11 +53,9 @@ export class SqlTeamReservationRepository
     const lookupSql = sql
       .select("r.id")
       .from("aime_player r")
-      .where("r.ext_id", aimeId)
-      .toParams();
+      .where("r.ext_id", aimeId);
 
-    const { rows } = await this._conn.query(lookupSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(lookupSql);
 
     if (row === undefined) {
       throw new Error(`Unknown Aime ID ${aimeId}`);
@@ -77,10 +71,9 @@ export class SqlTeamReservationRepository
         leader: leader === "leader",
       })
       .onConflict("id")
-      .doUpdate(["team_id"])
-      .toParams();
+      .doUpdate(["team_id"]);
 
-    await this._conn.query(insertSql);
+    await this._txn.modify(insertSql);
   }
 
   async commitHack(aimeId: AimeId): Promise<void> {
@@ -89,32 +82,25 @@ export class SqlTeamReservationRepository
       .from("idz_profile p")
       .join("aime_player r", { "p.player_id": "r.id" })
       .join("idz_team_reservation tr", { "r.id": "tr.id" })
-      .where("r.ext_id", aimeId)
-      .toParams();
+      .where("r.ext_id", aimeId);
 
-    const { rows } = await this._conn.query(lookupSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(lookupSql);
 
     if (row === undefined) {
       throw new Error(`Reservation not found for Aime ID ${aimeId}`);
     }
 
-    const insertSql = sql
-      .insert("idz_team_member", {
-        id: row.profile_id,
-        team_id: row.team_id,
-        join_time: row.join_time,
-        leader: row.leader,
-      })
-      .toParams();
+    const insertSql = sql.insert("idz_team_member", {
+      id: row.profile_id,
+      team_id: row.team_id,
+      join_time: row.join_time,
+      leader: row.leader,
+    });
 
-    await this._conn.query(insertSql);
+    await this._txn.modify(insertSql);
 
-    const cleanupSql = sql
-      .delete("idz_team_reservation")
-      .where("id", row.id)
-      .toParams();
+    const cleanupSql = sql.delete("idz_team_reservation").where("id", row.id);
 
-    await this._conn.query(cleanupSql);
+    await this._txn.modify(cleanupSql);
   }
 }

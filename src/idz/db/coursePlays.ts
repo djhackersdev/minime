@@ -1,22 +1,20 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
-import { CourseNo, ExtId } from "../model/base";
+import { CourseNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { CoursePlaysRepository } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlCoursePlaysRepository implements CoursePlaysRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async loadAll(profileId: Id<Profile>): Promise<Map<CourseNo, number>> {
     const loadSql = sql
       .select("cp.course_no", "cp.count")
       .from("idz_course_plays cp")
-      .where("cp.profile_id", profileId)
-      .toParams();
+      .where("cp.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
     const result = new Map();
 
     for (const row of rows) {
@@ -39,10 +37,9 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
           count: v,
         })
         .onConflict("profile_id", "course_no")
-        .doUpdate(["count"])
-        .toParams();
+        .doUpdate(["count"]);
 
-      await this._conn.query(saveSql);
+      await this._txn.modify(saveSql);
     }
   }
 }

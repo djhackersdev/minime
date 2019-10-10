@@ -9,9 +9,3 @@ export interface CardRepository {
 export interface Repositories {
   cards(): CardRepository;
 }
-
-export interface Transaction extends Repositories {
-  commit(): Promise<void>;
-
-  rollback(): Promise<void>;
-}

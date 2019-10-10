@@ -1,24 +1,24 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
-import { ExtId } from "../model/base";
 import { Profile } from "../model/profile";
 import { Unlocks } from "../model/unlocks";
 import { FacetRepository } from "../repo";
-import { Id } from "../../db";
+import { Id, Transaction } from "../../sql";
 
 export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<Unlocks> {
     const loadSql = sql
       .select("u.*")
       .from("idz_unlocks u")
-      .where("u.id", profileId)
-      .toParams();
+      .where("u.id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(loadSql);
+
+    if (row === undefined) {
+      throw new Error(`Unlocks not found, profileId=${profileId}`);
+    }
 
     return {
       cup: row.cup,
@@ -38,9 +38,8 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
         last_mileage_reward: unlocks.lastMileageReward,
       })
       .onConflict("id")
-      .doUpdate(["cup", "gauges", "music", "last_mileage_reward"])
-      .toParams();
+      .doUpdate(["cup", "gauges", "music", "last_mileage_reward"]);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 }

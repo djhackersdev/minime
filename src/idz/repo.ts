@@ -2,7 +2,9 @@ import { Subtract } from "utility-types";
 
 import * as Model from "./model";
 import { AimeId } from "../model";
-import { Id } from "../db";
+import { Id } from "../sql";
+
+// Id<> is a layer break here... need to find a better way to deal with this.
 
 export type TeamSpec = Subtract<
   Model.Team,
@@ -163,10 +165,4 @@ export interface Repositories {
   titles(): FlagRepository<Model.TitleCode>;
 
   unlocks(): FacetRepository<Model.Unlocks>;
-}
-
-export interface Transaction extends Repositories {
-  commit(): Promise<void>;
-
-  rollback(): Promise<void>;
 }

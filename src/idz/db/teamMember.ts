@@ -1,25 +1,22 @@
 import sql from "sql-bricks-postgres";
-import { ClientBase } from "pg";
 
 import { Profile } from "../model/profile";
 import { Team, TeamMember } from "../model/team";
 import { TeamMemberRepository } from "../repo";
-import { Id, generateId } from "../../db";
 import { _extractProfile } from "./profile";
 import { _extractChara } from "./chara";
+import { Id, Transaction } from "../../sql";
 
 export class SqlTeamMemberRepository implements TeamMemberRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async findTeam(profileId: Id<Profile>): Promise<Id<Team> | undefined> {
     const findSql = sql
       .select("tm.team_id")
       .from("idz_team_member tm")
-      .where("tm.id", profileId)
-      .toParams();
+      .where("tm.id", profileId);
 
-    const { rows } = await this._conn.query(findSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(findSql);
 
     if (row === undefined) {
       return undefined;
@@ -33,11 +30,9 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       .select("tm.id")
       .from("idz_team_member tm")
       .where("tm.team_id", teamId)
-      .where("tm.leader", true)
-      .toParams();
+      .where("tm.leader", true);
 
-    const { rows } = await this._conn.query(findSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(findSql);
 
     if (row === undefined) {
       return undefined;
@@ -53,10 +48,9 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       .join("idz_profile p", { "tm.id": "p.id" })
       .join("idz_chara c", { "tm.id": "c.id" })
       .join("aime_player r", { "p.player_id": "r.id" })
-      .where("tm.team_id", teamId)
-      .toParams();
+      .where("tm.team_id", teamId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map((row: any) => ({
       profile: _extractProfile(row),
@@ -77,10 +71,9 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       .select("id")
       .from("idz_team")
       .where("id", teamId)
-      .forUpdate()
-      .toParams();
+      .forUpdate();
 
-    await this._conn.query(lockSql);
+    await this._txn.modify(lockSql);
 
     // Double-check (with lock held) that there is room to join this team.
     // If this fails then the error will propagate to the client and it will
@@ -94,13 +87,11 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
     const countSql = sql
       .select("count(*) as count")
       .from("idz_team_member")
-      .where("team_id", teamId)
-      .toParams();
+      .where("team_id", teamId);
 
-    const { rows } = await this._conn.query(countSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(countSql);
 
-    if (row.count >= 6) {
+    if (row!.count >= 6) {
       throw new Error(`Team ${teamId} is full`);
     }
 
@@ -114,20 +105,18 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
         join_time: timestamp,
       })
       .onConflict("id")
-      .doUpdate(["team_id", "leader", "join_time"])
-      .toParams();
+      .doUpdate(["team_id", "leader", "join_time"]);
 
-    await this._conn.query(joinSql);
+    await this._txn.modify(joinSql);
   }
 
   async leave(teamId: Id<Team>, profileId: Id<Profile>): Promise<void> {
     const leaveSql = sql
       .delete("idz_team_member")
       .where("team_id", teamId)
-      .where("id", profileId)
-      .toParams();
+      .where("id", profileId);
 
-    await this._conn.query(leaveSql);
+    await this._txn.modify(leaveSql);
   }
 
   async makeLeader(teamId: Id<Team>, profileId: Id<Profile>): Promise<void> {
@@ -135,19 +124,17 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       .update("idz_team_member", {
         leader: false,
       })
-      .where("team_id", teamId)
-      .toParams();
+      .where("team_id", teamId);
 
-    await this._conn.query(clearSql);
+    await this._txn.modify(clearSql);
 
     const setSql = sql
       .update("idz_team_member", {
         leader: true,
       })
       .where("id", profileId)
-      .where("team_id", teamId)
-      .toParams();
+      .where("team_id", teamId);
 
-    await this._conn.query(setSql);
+    await this._txn.modify(setSql);
   }
 }

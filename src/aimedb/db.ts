@@ -1,37 +1,34 @@
-import { PoolClient } from "pg";
-import sql from "sql-bricks";
+import sql from "sql-bricks-postgres";
 
-import { CardRepository, Transaction } from "./repo";
-import { connect, generateId, generateExtId } from "../db";
-import { AimeId } from "../model";
+import { CardRepository, Repositories } from "./repo";
+import { AimeId, generateExtId } from "../model";
+import { Transaction, generateId } from "../sql";
 
 class CardRepositoryImpl implements CardRepository {
-  constructor(private readonly _conn: PoolClient) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async lookup(luid: string, now: Date): Promise<AimeId | undefined> {
     const fetchSql = sql
       .select("c.id", "p.ext_id")
       .from("aime_card c")
       .join("aime_player p", { "c.player_id": "p.id" })
-      .where("c.nfc_id", luid)
-      .toParams();
+      .where("c.nfc_id", luid);
 
-    const { rows } = await this._conn.query(fetchSql);
+    const row = await this._txn.fetchRow(fetchSql);
 
-    if (rows.length === 0) {
+    if (row === undefined) {
       return undefined;
     }
 
-    const id = rows[0].id;
-    const extId = rows[0].ext_id;
+    const id = row.id;
+    const extId = row.ext_id;
 
     const touchSql = sql
       .update("aime_card")
       .set({ access_time: now })
-      .where("id", id)
-      .toParams();
+      .where("id", id);
 
-    await this._conn.query(touchSql);
+    await this._txn.modify(touchSql);
 
     return extId;
   }
@@ -41,54 +38,32 @@ class CardRepositoryImpl implements CardRepository {
     const cardId = generateId();
     const aimeId = generateExtId() as AimeId;
 
-    const playerSql = sql
-      .insert("aime_player", {
-        id: playerId,
-        ext_id: aimeId,
-        register_time: now,
-      })
-      .toParams();
+    const playerSql = sql.insert("aime_player", {
+      id: playerId,
+      ext_id: aimeId,
+      register_time: now,
+    });
 
-    await this._conn.query(playerSql);
+    await this._txn.modify(playerSql);
 
-    const cardSql = sql
-      .insert("aime_card", {
-        id: cardId,
-        player_id: playerId,
-        nfc_id: luid,
-        register_time: now,
-        access_time: now,
-      })
-      .toParams();
+    const cardSql = sql.insert("aime_card", {
+      id: cardId,
+      player_id: playerId,
+      nfc_id: luid,
+      register_time: now,
+      access_time: now,
+    });
 
-    await this._conn.query(cardSql);
+    await this._txn.modify(cardSql);
 
     return aimeId;
   }
 }
 
-class TransactionImpl implements Transaction {
-  constructor(private readonly _conn: PoolClient) {}
+export class SqlRepositories implements Repositories {
+  constructor(private readonly _txn: Transaction) {}
 
   cards(): CardRepository {
-    return new CardRepositoryImpl(this._conn);
+    return new CardRepositoryImpl(this._txn);
   }
-
-  async commit(): Promise<void> {
-    await this._conn.query("commit");
-    await this._conn.release();
-  }
-
-  async rollback(): Promise<void> {
-    await this._conn.query("rollback");
-    await this._conn.release();
-  }
-}
-
-export async function beginDbSession(): Promise<Transaction> {
-  const conn = await connect();
-
-  await conn.query("begin");
-
-  return new TransactionImpl(conn);
 }

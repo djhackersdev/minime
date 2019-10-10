@@ -1,10 +1,9 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { Chara } from "../model/chara";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id } from "../../db";
+import { Id, Transaction } from "../../sql";
 
 export function _extractChara(row: any): Chara {
   return {
@@ -22,17 +21,15 @@ export function _extractChara(row: any): Chara {
 }
 
 export class SqlCharaRepository implements FacetRepository<Chara> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<Chara> {
     const loadSql = sql
       .select("c.*")
       .from("idz_chara c")
-      .where("c.id", profileId)
-      .toParams();
+      .where("c.id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(loadSql);
 
     return _extractChara(row);
   }
@@ -63,9 +60,8 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
         "field_0e",
         "title",
         "background",
-      ])
-      .toParams();
+      ]);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 }

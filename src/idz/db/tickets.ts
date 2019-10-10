@@ -1,25 +1,22 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { Profile } from "../model/profile";
 import { Tickets } from "../model/tickets";
 import { FacetRepository } from "../repo";
-import { Id } from "../../db";
+import { Id, Transaction } from "../../sql";
 
 // TODO free continue
 
 export class SqlTicketsRepository implements FacetRepository<Tickets> {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async load(profileId: Id<Profile>): Promise<Tickets> {
     const loadSql = sql
       .select("fc.*")
       .from("idz_free_car fc")
-      .where("fc.id", profileId)
-      .toParams();
+      .where("fc.id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(loadSql);
 
     return {
       freeCar: row && {
@@ -32,12 +29,9 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
     const { freeCar } = tickets;
 
     if (!freeCar) {
-      const delSql = sql
-        .delete("idz_free_car")
-        .where("id", profileId)
-        .toParams();
+      const delSql = sql.delete("idz_free_car").where("id", profileId);
 
-      await this._conn.query(delSql);
+      await this._txn.modify(delSql);
     } else {
       const saveSql = sql
         .insert("idz_free_car", {
@@ -45,10 +39,9 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
           valid_from: freeCar.validFrom,
         })
         .onConflict("id")
-        .doUpdate(["valid_from"])
-        .toParams();
+        .doUpdate(["valid_from"]);
 
-      await this._conn.query(saveSql);
+      await this._txn.modify(saveSql);
     }
   }
 }

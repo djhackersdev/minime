@@ -1,30 +1,28 @@
 import logger from "debug";
 import { Socket } from "net";
 
-import { beginDbSession } from "./db";
 import { dispatch } from "./handler";
 import { setup } from "./setup";
+import { DataSource } from "../sql";
 
 const debug = logger("app:idz:session");
 
-export default async function idz(socket: Socket) {
-  const txn = await beginDbSession();
-  const { input, output } = setup(socket);
+export default function idz(db: DataSource) {
+  return async function(socket: Socket) {
+    const { input, output } = setup(socket);
 
-  debug("Connection opened");
+    debug("Connection opened");
 
-  try {
-    for await (const req of input) {
-      output.write(await dispatch(txn, req));
+    try {
+      for await (const req of input) {
+        output.write(await db.transaction(txn => dispatch(txn, req)));
+      }
+    } catch (e) {
+      debug(`Error:\n${e.toString()}`);
     }
 
-    await txn.commit();
-  } catch (e) {
-    debug(`Error:\n${e.toString()}`);
-    await txn.rollback();
-  }
+    debug("Connection closed");
 
-  debug("Connection closed");
-
-  input.end();
+    input.end();
+  };
 }

@@ -4,37 +4,37 @@ import { Socket } from "net";
 import { dispatch } from "./handler";
 import { AimeRequest } from "./request";
 import { setup } from "./pipeline";
-import { beginDbSession } from "./db";
+import { DataSource } from "../sql/api";
 
 const debug = logger("app:aimedb:session");
 
-export default async function aimedb(socket: Socket) {
-  debug("Connection opened");
+export default function aimedb(db: DataSource) {
+  return async function(socket: Socket) {
+    debug("Connection opened");
 
-  const { input, output } = setup(socket);
-  const txn = await beginDbSession();
+    const { input, output } = setup(socket);
 
-  try {
     for await (const obj of input) {
-      const now = new Date();
-      const req = obj as AimeRequest;
-      const res = await dispatch(txn, req, now);
+      try {
+        const now = new Date();
+        const req = obj as AimeRequest;
+        const res = await db.transaction(txn => dispatch(txn, req, now));
 
-      if (res === undefined) {
-        debug("Closing connection");
+        if (res === undefined) {
+          debug("Closing connection");
+
+          break;
+        }
+
+        output.write(res);
+      } catch (e) {
+        debug(`Connection error:\n${e.toString()}\n`);
 
         break;
       }
-
-      output.write(res);
     }
 
-    await txn.commit();
-  } catch (e) {
-    debug(`Connection error:\n${e.toString()}\n`);
-    await txn.rollback();
-  }
-
-  debug("Connection closed");
-  socket.end();
+    debug("Connection closed");
+    socket.end();
+  };
 }

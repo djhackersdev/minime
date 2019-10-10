@@ -3,6 +3,8 @@ import logger from "debug";
 import { Repositories } from "./repo";
 import * as Req from "./request";
 import * as Res from "./response";
+import { Transaction } from "../sql";
+import { SqlRepositories } from "./db";
 
 const debug = logger("app:aimedb:ops");
 
@@ -101,10 +103,12 @@ function log(
 }
 
 export async function dispatch(
-  rep: Repositories,
+  txn: Transaction,
   req: Req.AimeRequest,
   now: Date
 ): Promise<Res.AimeResponse | undefined> {
+  const rep = new SqlRepositories(txn);
+
   switch (req.type) {
     case "hello":
       return hello(rep, req, now);

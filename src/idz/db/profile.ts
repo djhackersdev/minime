@@ -1,10 +1,9 @@
-import sql from "sql-bricks";
-import { ClientBase } from "pg";
+import sql from "sql-bricks-postgres";
 
 import { Profile } from "../model/profile";
 import { ProfileRepository } from "../repo";
-import { generateId, Id } from "../../db";
 import { AimeId } from "../../model";
+import { Id, Transaction, generateId } from "../../sql";
 
 export function _extractProfile(row: any): Profile {
   return {
@@ -21,7 +20,7 @@ export function _extractProfile(row: any): Profile {
 }
 
 export class SqlProfileRepository implements ProfileRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async find(aimeId: AimeId): Promise<Id<Profile>> {
     const profileId = await this.peek(aimeId);
@@ -38,11 +37,9 @@ export class SqlProfileRepository implements ProfileRepository {
       .select("p.id")
       .from("idz_profile p")
       .join("aime_player r", { "p.player_id": "r.id" })
-      .where("r.ext_id", aimeId)
-      .toParams();
+      .where("r.ext_id", aimeId);
 
-    const { rows } = await this._conn.query(lookupSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(lookupSql);
 
     if (row === undefined) {
       return undefined;
@@ -56,12 +53,11 @@ export class SqlProfileRepository implements ProfileRepository {
       .select("p.*", "r.ext_id as aime_id")
       .from("idz_profile p")
       .join("aime_player r", { "p.player_id": "r.id" })
-      .where("p.id", id)
-      .toParams();
+      .where("p.id", id);
 
-    const { rows } = await this._conn.query(loadSql);
+    const row = await this._txn.fetchRow(loadSql);
 
-    return _extractProfile(rows[0]);
+    return _extractProfile(row);
   }
 
   async save(id: Id<Profile>, profile: Profile): Promise<void> {
@@ -74,21 +70,18 @@ export class SqlProfileRepository implements ProfileRepository {
         mileage: profile.mileage,
         access_time: profile.accessTime,
       })
-      .where("id", id)
-      .toParams();
+      .where("id", id);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 
   async create(profile: Profile): Promise<Id<Profile>> {
     const findSql = sql
       .select("r.id")
       .from("aime_player r")
-      .where("r.ext_id", profile.aimeId)
-      .toParams();
+      .where("r.ext_id", profile.aimeId);
 
-    const { rows } = await this._conn.query(findSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(findSql);
 
     if (row === undefined) {
       throw new Error("Aime ID not found");
@@ -97,22 +90,20 @@ export class SqlProfileRepository implements ProfileRepository {
     const id = generateId();
     const playerId = row.id;
 
-    const createSql = sql
-      .insert("idz_profile", {
-        id: id,
-        player_id: playerId,
-        name: profile.name,
-        lv: profile.lv,
-        exp: profile.exp,
-        fame: profile.fame,
-        dpoint: profile.dpoint,
-        mileage: profile.mileage,
-        register_time: profile.registerTime,
-        access_time: profile.accessTime,
-      })
-      .toParams();
+    const createSql = sql.insert("idz_profile", {
+      id: id,
+      player_id: playerId,
+      name: profile.name,
+      lv: profile.lv,
+      exp: profile.exp,
+      fame: profile.fame,
+      dpoint: profile.dpoint,
+      mileage: profile.mileage,
+      register_time: profile.registerTime,
+      access_time: profile.accessTime,
+    });
 
-    await this._conn.query(createSql);
+    await this._txn.modify(createSql);
 
     return id as Id<Profile>;
   }

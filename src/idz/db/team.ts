@@ -1,23 +1,21 @@
-import { ClientBase } from "pg";
-import sql from "sql-bricks";
+import sql from "sql-bricks-postgres";
 
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { TeamSpec, TeamRepository } from "../repo";
-import { Id, generateExtId, generateId } from "../../db";
+import { generateExtId } from "../../model";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlTeamRepository implements TeamRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async find(extId: ExtId<Team>): Promise<Id<Team>> {
     const findSql = sql
       .select("t.id")
       .from("idz_team t")
-      .where("t.ext_id", extId)
-      .toParams();
+      .where("t.ext_id", extId);
 
-    const { rows } = await this._conn.query(findSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(findSql);
 
     if (row === undefined) {
       throw new Error(`Team not found for ExtID ${extId}`);
@@ -30,13 +28,11 @@ export class SqlTeamRepository implements TeamRepository {
     const loadSql = sql
       .select("t.*")
       .from("idz_team t")
-      .where("t.id", id)
-      .toParams();
+      .where("t.id", id);
 
-    const { rows } = await this._conn.query(loadSql);
-    const row = rows[0];
+    const row = await this._txn.fetchRow(loadSql);
 
-    if (row == undefined) {
+    if (row === undefined) {
       throw new Error("Team not found");
     }
 
@@ -55,38 +51,32 @@ export class SqlTeamRepository implements TeamRepository {
         name_bg: team.nameBg,
         name_fx: team.nameFx,
       })
-      .where("id", id)
-      .toParams();
+      .where("id", id);
 
-    await this._conn.query(saveSql);
+    await this._txn.modify(saveSql);
   }
 
   async create(team: TeamSpec): Promise<[Id<Team>, ExtId<Team>]> {
     const id = generateId() as Id<Team>;
     const extId = generateExtId() as ExtId<Team>;
 
-    const createSql = sql
-      .insert("idz_team", {
-        id: id,
-        ext_id: extId,
-        name: team.name,
-        name_bg: team.nameBg,
-        name_fx: team.nameFx,
-        register_time: team.registerTime,
-      })
-      .toParams();
+    const createSql = sql.insert("idz_team", {
+      id: id,
+      ext_id: extId,
+      name: team.name,
+      name_bg: team.nameBg,
+      name_fx: team.nameFx,
+      register_time: team.registerTime,
+    });
 
-    await this._conn.query(createSql);
+    await this._txn.modify(createSql);
 
     return [id, extId];
   }
 
   async delete(id: Id<Team>): Promise<void> {
-    const deleteSql = sql
-      .delete("idz_team")
-      .where("id", id)
-      .toParams();
+    const deleteSql = sql.delete("idz_team").where("id", id);
 
-    await this._conn.query(deleteSql);
+    await this._txn.modify(deleteSql);
   }
 }

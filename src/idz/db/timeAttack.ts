@@ -1,14 +1,13 @@
-import { ClientBase } from "pg";
 import sql from "sql-bricks-postgres";
 
 import { RouteNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
 import { TimeAttackRepository, TopTenResult } from "../repo";
-import { generateId, Id } from "../../db";
+import { Id, Transaction, generateId } from "../../sql";
 
 export class SqlTimeAttackRepository implements TimeAttackRepository {
-  constructor(private readonly _conn: ClientBase) {}
+  constructor(private readonly _txn: Transaction) {}
 
   async loadTopTen(
     routeNo: RouteNo,
@@ -21,10 +20,9 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       .where("ta.route_no", routeNo)
       .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
-      .limit(10)
-      .toParams();
+      .limit(10);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map(row => ({
       driverName: row.name,
@@ -44,10 +42,9 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     const loadSql = sql
       .select("ta.*")
       .from("idz_ta_best ta")
-      .where("ta.profile_id", profileId)
-      .toParams();
+      .where("ta.profile_id", profileId);
 
-    const { rows } = await this._conn.query(loadSql);
+    const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map(row => ({
       routeNo: row.route_no,
@@ -61,8 +58,30 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
   }
 
   async save(profileId: Id<Profile>, score: TimeAttackScore): Promise<void> {
-    const logSql = sql
-      .insert("idz_ta_result", {
+    const logSql = sql.insert("idz_ta_result", {
+      id: generateId(),
+      profile_id: profileId,
+      route_no: score.routeNo,
+      total_time: score.totalTime,
+      section_times: score.sectionTimes,
+      flags: score.flags,
+      grade: score.grade,
+      car_selector: score.carSelector,
+      timestamp: score.timestamp,
+    });
+
+    await this._txn.modify(logSql);
+
+    const existSql = sql
+      .select("ta.total_time")
+      .from("idz_ta_best ta")
+      .where("ta.profile_id", profileId)
+      .where("ta.route_no", score.routeNo);
+
+    const row = await this._txn.fetchRow(existSql);
+
+    if (row === undefined) {
+      const insertSql = sql.insert("idz_ta_best", {
         id: generateId(),
         profile_id: profileId,
         route_no: score.routeNo,
@@ -72,37 +91,9 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
         grade: score.grade,
         car_selector: score.carSelector,
         timestamp: score.timestamp,
-      })
-      .toParams();
+      });
 
-    await this._conn.query(logSql);
-
-    const existSql = sql
-      .select("ta.total_time")
-      .from("idz_ta_best ta")
-      .where("ta.profile_id", profileId)
-      .where("ta.route_no", score.routeNo)
-      .toParams();
-
-    const { rows } = await this._conn.query(existSql);
-    const row = rows[0];
-
-    if (row === undefined) {
-      const insertSql = sql
-        .insert("idz_ta_best", {
-          id: generateId(),
-          profile_id: profileId,
-          route_no: score.routeNo,
-          total_time: score.totalTime,
-          section_times: score.sectionTimes,
-          flags: score.flags,
-          grade: score.grade,
-          car_selector: score.carSelector,
-          timestamp: score.timestamp,
-        })
-        .toParams();
-
-      await this._conn.query(insertSql);
+      await this._txn.modify(insertSql);
     } else if (score.totalTime < row.total_time) {
       const updateSql = sql
         .update("idz_ta_best", {
@@ -114,10 +105,9 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
           timestamp: score.timestamp,
         })
         .where("profile_id", profileId)
-        .where("route_no", score.routeNo)
-        .toParams();
+        .where("route_no", score.routeNo);
 
-      await this._conn.query(updateSql);
+      await this._txn.modify(updateSql);
     }
   }
 }
