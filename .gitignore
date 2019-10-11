@@ -1,3 +1,4 @@
 bin/
+data/
 node_modules/
 .env

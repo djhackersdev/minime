@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "private": true,
   "dependencies": {
+    "better-sqlite3": "^5.4.3",
     "compression": "^1.7.3",
     "date-fns": "^1.30.1",
     "debug": "^4.1.1",
@@ -13,12 +14,12 @@
     "iconv-lite": "^0.4.24",
     "morgan": "^1.9.1",
     "multiparty": "^4.2.1",
-    "pg": "^7.10.0",
     "raw-body": "^2.3.3",
     "sql-bricks-postgres": "^0.5.0",
     "supports-color": "^7.1.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^5.4.0",
     "@types/compression": "^0.0.36",
     "@types/debug": "^4.1.5",
     "@types/dotenv": "^6.1.1",
@@ -26,7 +27,6 @@
     "@types/jest": "^24.0.11",
     "@types/multiparty": "^0.0.32",
     "@types/node": "^11.11.3",
-    "@types/pg": "^7.4.14",
     "jest": "^24.5.0",
     "jest-haste-map": "^24.5.0",
     "jest-resolve": "^24.5.0",

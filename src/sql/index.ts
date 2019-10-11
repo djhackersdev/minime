@@ -1,3 +1,3 @@
 export * from "./api";
-export * from "./pg";
+export * from "./sqlite";
 export * from "./util";

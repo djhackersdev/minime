@@ -12,10 +12,12 @@ import chunithm from "./chunithm";
 import diva from "./diva";
 import idz from "./idz";
 import idzPing from "./idz/ping";
-import { openDataSource } from "./sql";
+import { openSqlite } from "./sql";
 import * as Swb from "./switchboard";
 
-const db = openDataSource();
+fs.mkdirSync("./data", { recursive: true });
+
+const db = openSqlite("./data/db");
 
 const tls = {
   cert: fs.readFileSync("pki/server.pem"),

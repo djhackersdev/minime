@@ -1,22 +1,14 @@
-create type "aime_region" as enum (
-    'JPN',
-    'HKG',
-    'SGP',
-    'KOR',
-    'USA'
-);
-
 create table "aime_shop" (
-    "id" bigint primary key not null,
+    "id" integer primary key not null,
     "ext_id" integer not null,
     "name" text not null,
-    "region" "aime_region" not null,
+    "region" text not null,
     constraint "aime_shop_uq" unique ("ext_id")
 );
 
 create table "aime_machine" (
-    "id" bigint primary key not null,
-    "shop_id" bigint not null
+    "id" integer primary key not null,
+    "shop_id" integer not null
             references "aime_shop"("id"),
     "pcb_id" text not null,
     "keychip_id" text not null,
@@ -25,15 +17,15 @@ create table "aime_machine" (
 );
 
 create table "aime_player" (
-    "id" bigint primary key not null,
+    "id" integer primary key not null,
     "ext_id" integer not null,
     "register_time" timestamp not null,
     constraint "aime_player_uq" unique ("ext_id")
 );
 
 create table "aime_card" (
-    "id" bigint primary key not null,
-    "player_id" bigint not null
+    "id" integer primary key not null,
+    "player_id" integer not null
             references "aime_player"("id")
             on delete cascade,
     "nfc_id" text not null,
