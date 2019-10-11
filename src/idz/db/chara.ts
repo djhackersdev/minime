@@ -1,22 +1,23 @@
 import sql from "sql-bricks-postgres";
 
-import { Chara } from "../model/chara";
+import { BackgroundCode, TitleCode } from "../model/base";
+import { Chara, Gender } from "../model/chara";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id, Transaction } from "../../sql";
+import { Id, Row, Transaction } from "../../sql";
 
-export function _extractChara(row: any): Chara {
+export function _extractChara(row: Row): Chara {
   return {
-    gender: row.gender,
-    field_02: row.field_02,
-    field_04: row.field_04,
-    field_06: row.field_06,
-    field_08: row.field_08,
-    field_0a: row.field_0a,
-    field_0c: row.field_0c,
-    field_0e: row.field_0e,
-    title: row.title,
-    background: row.background,
+    gender: row.gender as Gender,
+    field_02: parseInt(row.field_02),
+    field_04: parseInt(row.field_04),
+    field_06: parseInt(row.field_06),
+    field_08: parseInt(row.field_08),
+    field_0a: parseInt(row.field_0a),
+    field_0c: parseInt(row.field_0c),
+    field_0e: parseInt(row.field_0e),
+    title: parseInt(row.title) as TitleCode,
+    background: parseInt(row.background) as BackgroundCode,
   };
 }
 
@@ -30,6 +31,10 @@ export class SqlCharaRepository implements FacetRepository<Chara> {
       .where("c.id", profileId);
 
     const row = await this._txn.fetchRow(loadSql);
+
+    if (row === undefined) {
+      throw new Error(`Chara not found: profileId=${profileId}`);
+    }
 
     return _extractChara(row);
   }

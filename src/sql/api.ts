@@ -3,7 +3,7 @@ import * as sql from "sql-bricks-postgres";
 export type Id<T> = bigint & { __id: T };
 
 export interface Row {
-  [key: string]: any;
+  [key: string]: string;
 }
 
 export interface Transaction {

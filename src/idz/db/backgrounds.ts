@@ -20,7 +20,7 @@ export class SqlBackgroundsRepository
     const result = new Set<BackgroundCode>();
 
     for (const row of rows) {
-      result.add(row.background_no);
+      result.add(parseInt(row.background_no) as BackgroundCode);
     }
 
     return result;

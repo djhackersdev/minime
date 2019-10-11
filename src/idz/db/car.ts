@@ -3,25 +3,25 @@ import sql from "sql-bricks-postgres";
 import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { CarRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id, Row, Transaction, generateId } from "../../sql";
 
-function _extractRow(row: any): Car {
+function _extractRow(row: Row): Car {
   return {
-    selector: row.selector,
-    field_00: row.field_00,
-    field_02: row.field_02,
-    field_04: row.field_04.split(",").map((x: string) => parseInt(x, 10)),
-    field_46: row.field_46,
-    field_48: row.field_48,
-    field_4a: row.field_4a,
-    field_4c: row.field_4c,
-    field_50_lo: row.field_50_lo,
-    field_50_hi: row.field_50_hi,
-    field_58: row.field_58,
-    field_5a: row.field_5a,
-    field_5b: row.field_5b,
-    field_5c: row.field_5c,
-    field_5e: row.field_5e,
+    selector: parseInt(row.selector) as CarSelector,
+    field_00: parseInt(row.field_00),
+    field_02: parseInt(row.field_02),
+    field_04: row.field_04.split(",").map((x: string) => parseInt(x)),
+    field_46: parseInt(row.field_46),
+    field_48: parseInt(row.field_48),
+    field_4a: parseInt(row.field_4a),
+    field_4c: parseInt(row.field_4c),
+    field_50_lo: parseInt(row.field_50_lo),
+    field_50_hi: parseInt(row.field_50_hi),
+    field_58: parseInt(row.field_58),
+    field_5a: parseInt(row.field_5a),
+    field_5b: parseInt(row.field_5b),
+    field_5c: parseInt(row.field_5c),
+    field_5e: parseInt(row.field_5e),
   };
 }
 
@@ -36,7 +36,7 @@ export class SqlCarRepository implements CarRepository {
 
     const row = await this._txn.fetchRow(countSql);
 
-    return parseInt(row!.result, 10);
+    return parseInt(row!.result);
   }
 
   async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
@@ -58,6 +58,10 @@ export class SqlCarRepository implements CarRepository {
       .where("s.id", profileId);
 
     const row = await this._txn.fetchRow(loadSql);
+
+    if (row === undefined) {
+      throw new Error(`Car selection not found, profileId=${profileId}`);
+    }
 
     return _extractRow(row);
   }

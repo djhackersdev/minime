@@ -22,7 +22,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       return undefined;
     }
 
-    return row.team_id;
+    return BigInt(row.team_id) as Id<Team>;
   }
 
   async findLeader(teamId: Id<Team>): Promise<Id<Profile> | undefined> {
@@ -38,7 +38,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       return undefined;
     }
 
-    return row.id;
+    return BigInt(row.id) as Id<Profile>;
   }
 
   async loadRoster(teamId: Id<Team>): Promise<TeamMember[]> {
@@ -52,10 +52,10 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
     const rows = await this._txn.fetchRows(loadSql);
 
-    return rows.map((row: any) => ({
+    return rows.map(row => ({
       profile: _extractProfile(row),
       chara: _extractChara(row),
-      leader: row.leader,
+      leader: !!row.leader,
       joinTime: new Date(row.join_time),
     }));
   }
@@ -91,7 +91,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
     const row = await this._txn.fetchRow(countSql);
 
-    if (row!.count >= 6) {
+    if (parseInt(row!.count) >= 6) {
       throw new Error(`Team ${teamId} is full`);
     }
 

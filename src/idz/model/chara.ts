@@ -1,7 +1,9 @@
 import { BackgroundCode, TitleCode } from "./base";
 
+export type Gender = "male" | "female";
+
 export interface Chara {
-  gender: "male" | "female";
+  gender: Gender;
   field_02: number;
   field_04: number;
   field_06: number;

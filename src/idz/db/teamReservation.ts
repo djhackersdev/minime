@@ -22,16 +22,13 @@ export class SqlTeamReservationRepository
   async occupancyHack(teamId: Id<Team>): Promise<number> {
     await this._lockTeam(teamId);
 
-    // counts get returned as strings, so 1 + 0 = 10.
-    // it hardly needs to be said but fuck javascript.
-
     const memberSql = sql
       .select("count(*) as count")
       .from("idz_team_member tm")
       .where("tm.team_id", teamId);
 
     const memberRes = await this._txn.fetchRow(memberSql);
-    const memberCount = parseInt(memberRes!.count, 10);
+    const memberCount = parseInt(memberRes!.count);
 
     const reservSql = sql
       .select("count(*) as count")
@@ -39,7 +36,7 @@ export class SqlTeamReservationRepository
       .where("tr.team_id", teamId);
 
     const reservRes = await this._txn.fetchRow(reservSql);
-    const reservCount = parseInt(reservRes!.count, 10);
+    const reservCount = parseInt(reservRes!.count);
 
     return memberCount + reservCount;
   }

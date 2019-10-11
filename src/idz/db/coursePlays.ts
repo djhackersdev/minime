@@ -15,10 +15,13 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
       .where("cp.profile_id", profileId);
 
     const rows = await this._txn.fetchRows(loadSql);
-    const result = new Map();
+    const result = new Map<CourseNo, number>();
 
     for (const row of rows) {
-      result.set(row.course_no, row.count);
+      const courseNo = parseInt(row.course_no) as CourseNo;
+      const count = parseInt(row.count);
+
+      result.set(courseNo, count);
     }
 
     return result;

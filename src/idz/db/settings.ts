@@ -21,10 +21,10 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
     }
 
     return {
-      music: row.music,
-      pack: parseInt(row.pack, 10),
-      paperCup: row.paper_cup,
-      gauges: row.gauges,
+      music: parseInt(row.music),
+      pack: parseInt(row.pack),
+      paperCup: parseInt(row.paper_cup),
+      gauges: parseInt(row.gauges),
     };
   }
 

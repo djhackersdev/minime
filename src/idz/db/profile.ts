@@ -3,19 +3,19 @@ import sql from "sql-bricks-postgres";
 import { Profile } from "../model/profile";
 import { ProfileRepository } from "../repo";
 import { AimeId } from "../../model";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id, Row, Transaction, generateId } from "../../sql";
 
-export function _extractProfile(row: any): Profile {
+export function _extractProfile(row: Row): Profile {
   return {
-    aimeId: row.aime_id,
+    aimeId: parseInt(row.aime_id) as AimeId,
     name: row.name,
-    lv: row.lv,
-    exp: row.exp,
-    fame: row.fame,
-    dpoint: row.dpoint,
-    mileage: row.mileage,
-    accessTime: row.access_time,
-    registerTime: row.register_time,
+    lv: parseInt(row.lv),
+    exp: parseInt(row.exp),
+    fame: parseInt(row.fame),
+    dpoint: parseInt(row.dpoint),
+    mileage: parseInt(row.mileage),
+    accessTime: new Date(row.access_time),
+    registerTime: new Date(row.register_time),
   };
 }
 
@@ -45,7 +45,7 @@ export class SqlProfileRepository implements ProfileRepository {
       return undefined;
     }
 
-    return row.id;
+    return BigInt(row.id) as Id<Profile>;
   }
 
   async load(id: Id<Profile>): Promise<Profile> {
@@ -56,6 +56,10 @@ export class SqlProfileRepository implements ProfileRepository {
       .where("p.id", id);
 
     const row = await this._txn.fetchRow(loadSql);
+
+    if (row === undefined) {
+      throw new Error(`Profile not found, id=${id}`);
+    }
 
     return _extractProfile(row);
   }
@@ -68,7 +72,7 @@ export class SqlProfileRepository implements ProfileRepository {
         fame: profile.fame,
         dpoint: profile.dpoint,
         mileage: profile.mileage,
-        access_time: profile.accessTime,
+        access_time: profile.accessTime.toISOString(),
       })
       .where("id", id);
 
@@ -99,8 +103,8 @@ export class SqlProfileRepository implements ProfileRepository {
       fame: profile.fame,
       dpoint: profile.dpoint,
       mileage: profile.mileage,
-      register_time: profile.registerTime,
-      access_time: profile.accessTime,
+      register_time: profile.registerTime.toISOString(),
+      access_time: profile.accessTime.toISOString(),
     });
 
     await this._txn.modify(createSql);

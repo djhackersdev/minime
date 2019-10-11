@@ -21,10 +21,10 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
     }
 
     return {
-      cup: row.cup,
-      gauges: row.gauges,
-      music: row.music,
-      lastMileageReward: row.last_mileage_reward,
+      cup: parseInt(row.cup),
+      gauges: parseInt(row.gauges),
+      music: parseInt(row.music),
+      lastMileageReward: parseInt(row.last_mileage_reward),
     };
   }
 

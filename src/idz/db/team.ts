@@ -21,7 +21,7 @@ export class SqlTeamRepository implements TeamRepository {
       throw new Error(`Team not found for ExtID ${extId}`);
     }
 
-    return row.id;
+    return BigInt(row.id) as Id<Team>;
   }
 
   async load(id: Id<Team>): Promise<Team> {
@@ -37,10 +37,10 @@ export class SqlTeamRepository implements TeamRepository {
     }
 
     return {
-      extId: row.ext_id,
+      extId: parseInt(row.ext_id) as ExtId<Team>,
       name: row.name,
-      nameBg: row.name_bg,
-      nameFx: row.name_fx,
+      nameBg: parseInt(row.name_bg),
+      nameFx: parseInt(row.name_fx),
       registerTime: new Date(row.register_time),
     };
   }

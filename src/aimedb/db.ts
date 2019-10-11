@@ -30,7 +30,7 @@ class CardRepositoryImpl implements CardRepository {
 
     await this._txn.modify(touchSql);
 
-    return extId;
+    return parseInt(extId, 10) as AimeId;
   }
 
   async register(luid: string, now: Date): Promise<AimeId> {
