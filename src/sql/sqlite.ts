@@ -3,6 +3,10 @@ import * as sql from "sql-bricks-postgres";
 
 import { DataSource, Row, Transaction } from "./api";
 
+type MixedRow = {
+  [key: string]: any;
+};
+
 // bless me father for i have sinned
 const fuFixup = new RegExp(" FOR UPDATE$");
 
@@ -35,7 +39,7 @@ function _preprocess(stmt: sql.Statement) {
   };
 }
 
-function _postprocess(obj: {}): Row {
+function _postprocess(obj: MixedRow): Row {
   const result = {};
 
   for (const [k, v] of Object.entries(obj)) {
