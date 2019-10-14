@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import { createCipheriv, createDecipheriv } from "crypto";
 import { Socket } from "net";
 import * as stream from "stream";
 import { promisify } from "util";
@@ -26,7 +26,7 @@ export function setup(socket: Socket): Session {
 
   pipeline(
     socket,
-    crypto.createDecipheriv("aes-128-ecb", K, null).setAutoPadding(false),
+    createDecipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     new Deframer({}),
     input
   ).catch(doNothing);
@@ -35,7 +35,7 @@ export function setup(socket: Socket): Session {
 
   pipeline(
     output,
-    crypto.createCipheriv("aes-128-ecb", K, null).setAutoPadding(false),
+    createCipheriv("aes-128-ecb", K, null).setAutoPadding(false),
     socket
   ).catch(doNothing);
 
