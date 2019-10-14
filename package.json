@@ -38,8 +38,9 @@
   },
   "scripts": {
     "build": "tsc",
+    "prepare": "tsc",
     "test": "jest",
-    "start": "ts-node src/index.ts"
+    "watch": "tsc --watch"
   },
   "jest": {
     "preset": "ts-jest",
