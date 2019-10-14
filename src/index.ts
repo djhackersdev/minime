@@ -17,7 +17,7 @@ import * as Swb from "./switchboard";
 
 fs.mkdirSync("./data", { recursive: true });
 
-const db = openSqlite("./data/db");
+const db = openSqlite("./data/db.sqlite3");
 
 const tls = {
   cert: fs.readFileSync("pki/server.pem"),
