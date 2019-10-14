@@ -60,7 +60,7 @@ app.use("/sys/servlet/PowerOn", async function(req, res, next) {
 });
 
 app.post("/sys/servlet/PowerOn", function(req, resp) {
-  debug("--- Startup Request ---\n\n", req.body);
+  debug(`Startup Request: ${JSON.stringify(req.body)}`);
 
   // Cut milliseconds out of ISO timestamp
 
@@ -91,8 +91,7 @@ app.post("/sys/servlet/PowerOn", function(req, resp) {
     token: req.body.token,
   };
 
-  debug("\n--- Startup Response ---\n\n", resParams);
-  debug("");
+  debug(`Startup response: ${JSON.stringify(resParams)}`);
 
   resp.send(resParams);
 });
