@@ -18,4 +18,6 @@ export interface Transaction {
 
 export interface DataSource {
   transaction<T>(callback: (txn: Transaction) => Promise<T>): Promise<T>;
+
+  vacuum(): Promise<void>;
 }

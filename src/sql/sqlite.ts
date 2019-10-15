@@ -107,6 +107,14 @@ class SqliteDataSource implements DataSource {
       return Promise.reject(e);
     }
   }
+
+  vacuum(): Promise<void> {
+    const db = new Database(this._path);
+
+    db.prepare("vacuum").run();
+
+    return Promise.resolve();
+  }
 }
 
 export function openSqlite(path: string): DataSource {
