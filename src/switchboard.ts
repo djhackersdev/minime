@@ -1,12 +1,11 @@
 import logger from "debug";
-import * as os from "os";
 
 const debug = logger("app:switchboard");
 const cfgHostExt: string | undefined = process.env.HOST_EXT;
 const cfgHostInt: string | undefined = process.env.HOST_INT;
 
-export const HOST_EXT = cfgHostExt !== undefined ? cfgHostExt : os.hostname();
-export const HOST_INT = cfgHostInt !== undefined ? cfgHostInt : "127.0.0.1";
+export const HOST_EXT = cfgHostExt !== undefined ? cfgHostExt : "127.0.0.1";
+export const HOST_INT = cfgHostInt !== undefined ? cfgHostInt : "0.0.0.0";
 
 //
 // Core services. These ports cannot be changed.
@@ -78,5 +77,7 @@ debug(`HOST_EXT: ${HOST_EXT} (Service host name sent to clients)`);
 debug(`HOST_INT: ${HOST_INT} (Bind address)`);
 
 if (cfgHostExt === undefined || cfgHostInt === undefined) {
-  debug("Warning: Check .env and env vars! Using unreliable fallback.");
+  debug(
+    "Using default host names, change them from the .env file if necessary."
+  );
 }
