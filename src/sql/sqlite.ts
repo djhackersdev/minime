@@ -75,6 +75,12 @@ class SqliteTransaction implements Transaction {
 
     return Promise.resolve(result);
   }
+
+  raw(sql: string): Promise<void> {
+    this._db.exec(sql);
+
+    return Promise.resolve();
+  }
 }
 
 class SqliteDataSource implements DataSource {

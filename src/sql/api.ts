@@ -12,6 +12,8 @@ export interface Transaction {
   fetchRow(stmt: sql.SelectStatement): Promise<Row | undefined>;
 
   fetchRows(stmt: sql.SelectStatement): Promise<Row[]>;
+
+  raw(sql: string): Promise<void>;
 }
 
 export interface DataSource {
