@@ -1,6 +1,6 @@
 import { Team } from "../model/team";
 import { Repositories } from "../repo";
-import { Id } from "../../sql";
+import { Id } from "../../model";
 
 // Bleh. This factorization is kind of messy.
 

@@ -4,7 +4,8 @@ import { BackgroundCode, TitleCode } from "../model/base";
 import { Chara, Gender } from "../model/chara";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id, Row, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Row, Transaction } from "../../sql";
 
 export function _extractChara(row: Row): Chara {
   return {

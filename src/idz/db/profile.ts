@@ -2,8 +2,8 @@ import sql from "sql-bricks-postgres";
 
 import { Profile } from "../model/profile";
 import { ProfileRepository } from "../repo";
-import { AimeId } from "../../model";
-import { Id, Row, Transaction, generateId } from "../../sql";
+import { AimeId, Id } from "../../model";
+import { Row, Transaction } from "../../sql";
 
 export function _extractProfile(row: Row): Profile {
   return {
@@ -45,7 +45,7 @@ export class SqlProfileRepository implements ProfileRepository {
       return undefined;
     }
 
-    return BigInt(row.id) as Id<Profile>;
+    return row.id as Id<Profile>;
   }
 
   async load(id: Id<Profile>): Promise<Profile> {
@@ -91,7 +91,7 @@ export class SqlProfileRepository implements ProfileRepository {
       throw new Error("Aime ID not found");
     }
 
-    const id = generateId();
+    const id = this._txn.generateId<Profile>();
     const playerId = row.id;
 
     const createSql = sql.insert("idz_profile", {
@@ -109,6 +109,6 @@ export class SqlProfileRepository implements ProfileRepository {
 
     await this._txn.modify(createSql);
 
-    return id as Id<Profile>;
+    return id;
   }
 }

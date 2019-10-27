@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { TitleCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlTitlesRepository implements FlagRepository<TitleCode> {
   constructor(private readonly _txn: Transaction) {}
@@ -33,7 +34,7 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
       }
 
       const saveSql = sql.insert("idz_title_unlock", {
-        id: generateId(),
+        id: this._txn.generateId(),
         profile_id: profileId,
         title_no: flag,
       });

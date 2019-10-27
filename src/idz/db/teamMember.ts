@@ -5,7 +5,8 @@ import { Team, TeamMember } from "../model/team";
 import { TeamMemberRepository } from "../repo";
 import { _extractProfile } from "./profile";
 import { _extractChara } from "./chara";
-import { Id, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlTeamMemberRepository implements TeamMemberRepository {
   constructor(private readonly _txn: Transaction) {}
@@ -22,7 +23,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       return undefined;
     }
 
-    return BigInt(row.team_id) as Id<Team>;
+    return row.team_id as Id<Team>;
   }
 
   async findLeader(teamId: Id<Team>): Promise<Id<Profile> | undefined> {
@@ -38,7 +39,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       return undefined;
     }
 
-    return BigInt(row.id) as Id<Profile>;
+    return row.id as Id<Profile>;
   }
 
   async loadRoster(teamId: Id<Team>): Promise<TeamMember[]> {
@@ -65,7 +66,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
     profileId: Id<Profile>,
     timestamp: Date
   ): Promise<void> {
-    // Lock the team record to avoid race conditions. This way
+    // Lock the team record to avoid race conditions.
 
     const lockSql = sql
       .select("id")

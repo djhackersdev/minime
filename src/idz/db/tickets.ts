@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { Profile } from "../model/profile";
 import { Tickets } from "../model/tickets";
 import { FacetRepository } from "../repo";
-import { Id, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 // TODO free continue
 

@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { Profile } from "../model/profile";
 import { Story, StoryRow, StoryCell } from "../model/story";
 import { FacetRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlStoryRepository implements FacetRepository<Story> {
   constructor(private readonly _txn: Transaction) {}
@@ -81,7 +82,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
         const cellSql = sql
           .insert("idz_story_cell_state", {
-            id: generateId(),
+            id: this._txn.generateId(),
             profile_id: profileId,
             row_no: i,
             col_no: j,

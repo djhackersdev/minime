@@ -5,7 +5,8 @@ import { CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
 import { TimeAttackRepository, TopTenResult } from "../repo";
-import { Id, Row, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Row, Transaction } from "../../sql";
 
 function _extractRow(row: Row): TimeAttackScore {
   return {
@@ -56,7 +57,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
   async save(profileId: Id<Profile>, score: TimeAttackScore): Promise<void> {
     const logSql = sql.insert("idz_ta_result", {
-      id: generateId(),
+      id: this._txn.generateId(),
       profile_id: profileId,
       route_no: score.routeNo,
       total_time: score.totalTime,
@@ -79,7 +80,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
     if (row === undefined) {
       const insertSql = sql.insert("idz_ta_best", {
-        id: generateId(),
+        id: this._txn.generateId(),
         profile_id: profileId,
         route_no: score.routeNo,
         total_time: score.totalTime,

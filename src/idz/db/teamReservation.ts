@@ -2,8 +2,8 @@ import sql from "sql-bricks-postgres";
 
 import { Team } from "../model/team";
 import { TeamReservationRepository } from "../repo";
-import { AimeId } from "../../model";
-import { Id, Transaction } from "../../sql";
+import { AimeId, Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlTeamReservationRepository
   implements TeamReservationRepository {

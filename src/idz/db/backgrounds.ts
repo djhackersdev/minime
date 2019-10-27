@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { BackgroundCode } from "../model/base";
 import { Profile } from "../model/profile";
 import { FlagRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlBackgroundsRepository
   implements FlagRepository<BackgroundCode> {
@@ -38,7 +39,7 @@ export class SqlBackgroundsRepository
       }
 
       const saveSql = sql.insert("idz_background_unlock", {
-        id: generateId(),
+        id: this._txn.generateId(),
         profile_id: profileId,
         background_no: flag,
       });

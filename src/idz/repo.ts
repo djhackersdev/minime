@@ -1,10 +1,7 @@
 import { Subtract } from "utility-types";
 
 import * as Model from "./model";
-import { AimeId } from "../model";
-import { Id } from "../sql";
-
-// Id<> is a layer break here... need to find a better way to deal with this.
+import { AimeId, Id } from "../model";
 
 export type TeamSpec = Subtract<
   Model.Team,

@@ -2,7 +2,7 @@ import sql from "sql-bricks-postgres";
 
 import { CardRepository, Repositories } from "./repo";
 import { AimeId, generateExtId } from "../model";
-import { Transaction, generateId } from "../sql";
+import { Transaction } from "../sql";
 
 class CardRepositoryImpl implements CardRepository {
   constructor(private readonly _txn: Transaction) {}
@@ -34,8 +34,8 @@ class CardRepositoryImpl implements CardRepository {
   }
 
   async register(luid: string, now: Date): Promise<AimeId> {
-    const playerId = generateId();
-    const cardId = generateId();
+    const playerId = this._txn.generateId();
+    const cardId = this._txn.generateId();
     const aimeId = generateExtId() as AimeId;
 
     const playerSql = sql.insert("aime_player", {

@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { Profile } from "../model/profile";
 import { Unlocks } from "../model/unlocks";
 import { FacetRepository } from "../repo";
-import { Id, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
   constructor(private readonly _txn: Transaction) {}

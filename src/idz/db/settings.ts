@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { Settings } from "../model/settings";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlSettingsRepository implements FacetRepository<Settings> {
   constructor(private readonly _txn: Transaction) {}

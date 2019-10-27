@@ -2,7 +2,8 @@ import sql from "sql-bricks-postgres";
 
 import { Team, TeamAuto } from "../model/team";
 import { TeamAutoRepository } from "../repo";
-import { Id, Transaction } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlTeamAutoRepository implements TeamAutoRepository {
   constructor(private readonly _txn: Transaction) {}
@@ -22,7 +23,7 @@ export class SqlTeamAutoRepository implements TeamAutoRepository {
           serialNo: parseInt(row.serial_no),
           nameIdx: parseInt(row.name_idx),
         },
-        BigInt(row.id) as Id<Team>,
+        row.id as Id<Team>,
       ]
     );
   }

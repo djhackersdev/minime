@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { CourseNo } from "../model/base";
 import { Profile } from "../model/profile";
 import { CoursePlaysRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlCoursePlaysRepository implements CoursePlaysRepository {
   constructor(private readonly _txn: Transaction) {}
@@ -34,7 +35,7 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
     for (const [k, v] of plays) {
       const saveSql = sql
         .insert("idz_course_plays", {
-          id: generateId(),
+          id: this._txn.generateId(),
           profile_id: profileId,
           course_no: k,
           count: v,

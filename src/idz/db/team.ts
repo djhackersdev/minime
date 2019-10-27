@@ -3,8 +3,8 @@ import sql from "sql-bricks-postgres";
 import { ExtId } from "../model/base";
 import { Team } from "../model/team";
 import { TeamSpec, TeamRepository } from "../repo";
-import { generateExtId } from "../../model";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id, generateExtId } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlTeamRepository implements TeamRepository {
   constructor(private readonly _txn: Transaction) {}
@@ -21,7 +21,7 @@ export class SqlTeamRepository implements TeamRepository {
       throw new Error(`Team not found for ExtID ${extId}`);
     }
 
-    return BigInt(row.id) as Id<Team>;
+    return row.id as Id<Team>;
   }
 
   async load(id: Id<Team>): Promise<Team> {
@@ -57,7 +57,7 @@ export class SqlTeamRepository implements TeamRepository {
   }
 
   async create(team: TeamSpec): Promise<[Id<Team>, ExtId<Team>]> {
-    const id = generateId() as Id<Team>;
+    const id = this._txn.generateId<Team>();
     const extId = generateExtId() as ExtId<Team>;
 
     const createSql = sql.insert("idz_team", {

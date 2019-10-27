@@ -1,12 +1,23 @@
 import * as sql from "sql-bricks-postgres";
 
-export type Id<T> = bigint & { __id: T };
+import { Id } from "../model";
 
 export interface Row {
   [key: string]: string;
 }
 
 export interface Transaction {
+  /**
+   * Generate a new random primary key.
+   *
+   * On SQLite this is a random 63-bit integer (the high bit is always zero
+   * so that all IDs are positive, mostly for aesthetic reasons although this
+   * may also usefully reserve a namespace for automated testing).
+   *
+   * On Postgres this might generate UUIDv4s instead.
+   */
+  generateId<T>(): Id<T>;
+
   modify(stmt: sql.Statement): Promise<void>;
 
   fetchRow(stmt: sql.SelectStatement): Promise<Row | undefined>;

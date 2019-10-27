@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { Car, CarSelector } from "../model/car";
 import { Profile } from "../model/profile";
 import { CarRepository } from "../repo";
-import { Id, Row, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Row, Transaction } from "../../sql";
 
 function _extractRow(row: Row): Car {
   return {
@@ -69,7 +70,7 @@ export class SqlCarRepository implements CarRepository {
   async saveCar(profileId: Id<Profile>, car: Car): Promise<void> {
     const saveSql = sql
       .insert("idz_car", {
-        id: generateId(),
+        id: this._txn.generateId(),
         profile_id: profileId,
         selector: car.selector,
         field_00: car.field_00,

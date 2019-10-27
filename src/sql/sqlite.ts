@@ -1,7 +1,9 @@
 import Database from "better-sqlite3";
+import { randomBytes } from "crypto";
 import * as sql from "sql-bricks-postgres";
 
 import { DataSource, Row, Transaction } from "./api";
+import { Id } from "../model";
 
 type MixedRow = {
   [key: string]: any;
@@ -51,6 +53,17 @@ function _postprocess(obj: MixedRow): Row {
 
 class SqliteTransaction implements Transaction {
   constructor(private readonly _db: Database.Database) {}
+
+  generateId<T>(): Id<T> {
+    const buf = randomBytes(8);
+
+    buf[0] &= 0x7f; // Force number to be non-negative
+
+    const val = buf.readBigUInt64BE(0);
+    const str = val.toString();
+
+    return str as Id<T>;
+  }
 
   modify(stmt: sql.Statement): Promise<void> {
     const params = _preprocess(stmt);

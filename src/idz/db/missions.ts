@@ -3,7 +3,8 @@ import sql from "sql-bricks-postgres";
 import { MissionGrid, MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { FacetRepository } from "../repo";
-import { Id, Transaction, generateId } from "../../sql";
+import { Id } from "../../model";
+import { Transaction } from "../../sql";
 
 export class SqlMissionsRepository implements FacetRepository<MissionState> {
   constructor(private readonly _txn: Transaction) {}
@@ -59,7 +60,7 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
 
         const saveSql = sql
           .insert("idz_solo_mission_state", {
-            id: generateId(),
+            id: this._txn.generateId(),
             profile_id: profileId,
             grid_no: i,
             cell_no: j,
