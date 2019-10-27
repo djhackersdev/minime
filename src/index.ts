@@ -1,4 +1,11 @@
+// Import environment variables from .env ASAP...
+
 import "dotenv/config";
+
+// ..but globally force all date and time processing to operate in UTC.
+// Do not allow this to be overridden by .env either.
+
+process.env.TZ = "UTC";
 
 import fs from "fs";
 import https from "https";
