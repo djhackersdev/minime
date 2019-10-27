@@ -92,6 +92,7 @@ class SqliteDataSource implements DataSource {
     const db = new Database(this._path);
 
     db.defaultSafeIntegers();
+    db.prepare("pragma foreign_keys = on").run();
     db.prepare("begin").run();
 
     try {
