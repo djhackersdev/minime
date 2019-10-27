@@ -2,9 +2,9 @@ import logger from "debug";
 import { Socket } from "net";
 
 import { dispatch } from "./handler";
-import { AimeRequest } from "./request";
 import { setup } from "./pipeline";
 import { DataSource } from "../sql/api";
+import { SqlRepositories } from "./sql";
 
 const debug = logger("app:aimedb:session");
 
@@ -17,8 +17,10 @@ export default function aimedb(db: DataSource) {
     for await (const obj of input) {
       try {
         const now = new Date();
-        const req = obj as AimeRequest;
-        const res = await db.transaction(txn => dispatch(txn, req, now));
+        const req = obj;
+        const res = await db.transaction(txn =>
+          dispatch(new SqlRepositories(txn), req, now)
+        );
 
         if (res === undefined) {
           debug("Closing connection");

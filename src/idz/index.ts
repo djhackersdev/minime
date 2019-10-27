@@ -4,6 +4,7 @@ import { Socket } from "net";
 import { dispatch } from "./handler";
 import { setup } from "./setup";
 import { DataSource } from "../sql";
+import { SqlRepositories } from "./sql";
 
 const debug = logger("app:idz:session");
 
@@ -15,7 +16,11 @@ export default function idz(db: DataSource) {
 
     try {
       for await (const req of input) {
-        output.write(await db.transaction(txn => dispatch(txn, req)));
+        const res = await db.transaction(txn =>
+          dispatch(new SqlRepositories(txn), req)
+        );
+
+        output.write(res);
       }
     } catch (e) {
       if (debug.enabled) {

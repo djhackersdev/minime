@@ -40,18 +40,14 @@ import { updateTeamMember } from "./updateTeamMember";
 import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
+import { Repositories } from "../repo";
 import { Request } from "../request";
 import { Response } from "../response";
-import { Repositories } from "../repo";
-import { Transaction } from "../../sql";
-import { SqlRepositories } from "../db";
 
 export async function dispatch(
-  txn: Transaction,
+  w: Repositories,
   req: Request
 ): Promise<Response> {
-  const w = new SqlRepositories(txn);
-
   switch (req.type) {
     case "check_team_name_req":
       return checkTeamName(w, req);
