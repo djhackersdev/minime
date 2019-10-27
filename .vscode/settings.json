@@ -1,3 +1,5 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.formatOnSave": true,
+  "editor.rulers": [79],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
