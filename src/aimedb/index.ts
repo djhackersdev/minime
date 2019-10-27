@@ -28,7 +28,9 @@ export default function aimedb(db: DataSource) {
 
         output.write(res);
       } catch (e) {
-        debug(`Connection error:\n${e.toString()}\n`);
+        if (debug.enabled) {
+          debug("Connection error: %s", e.stack);
+        }
 
         break;
       }

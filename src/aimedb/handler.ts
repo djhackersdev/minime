@@ -53,7 +53,7 @@ async function lookup(
   req: Req.LookupRequest,
   now: Date
 ): Promise<Res.LookupResponse> {
-  debug(`Mifare lookup v1: luid=${req.luid}`);
+  debug("Mifare lookup: luid=%s", req.luid);
 
   return {
     type: req.type,
@@ -68,7 +68,7 @@ async function lookup2(
   req: Req.LookupRequest2,
   now: Date
 ): Promise<Res.LookupResponse2> {
-  debug(`Mifare lookup v2: luid=${req.luid}`);
+  debug("FeliCa lookup: luid=%s", req.luid);
 
   return {
     type: req.type,
@@ -83,7 +83,7 @@ async function register(
   req: Req.RegisterRequest,
   now: Date
 ): Promise<Res.RegisterResponse> {
-  debug(`User register: luid=${req.luid}`);
+  debug("User register: luid=%s", req.luid);
 
   return {
     type: req.type,

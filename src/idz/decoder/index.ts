@@ -184,8 +184,10 @@ export class Decoder extends Transform {
     const reqBuf = this.state.slice(0, 0x30 + msgLen);
     const payloadBuf = reqBuf.slice(0x30);
 
-    debug(`Raw: ${reqBuf.toString("hex")}`);
-    debug(`Header: ${JSON.stringify(header)}`);
+    if (debug.enabled) {
+      debug("Raw: %s", reqBuf.toString("hex"));
+      debug("Header: %j", header);
+    }
 
     const reader = readerFns.get(msgCode);
 
@@ -197,7 +199,7 @@ export class Decoder extends Transform {
 
     const payload = reader(payloadBuf);
 
-    debug(`Payload: ${JSON.stringify(payload)}`);
+    debug("Payload: %j", payload);
 
     return callback(null, payload);
   }

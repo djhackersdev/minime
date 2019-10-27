@@ -42,7 +42,7 @@ async function initdb(txn: Transaction): Promise<void> {
   debug("Initializing database");
 
   for (const script of scripts) {
-    debug(`Executing ${script}`);
+    debug("Executing %s", script);
 
     const scriptPath = resolve(initPath, script);
     const scriptSql = readFileSync(scriptPath, "utf-8");
@@ -56,7 +56,7 @@ async function initdb(txn: Transaction): Promise<void> {
 
   await txn.modify(metaInsert);
 
-  debug(`Initialized new database to schema version ${schemaver}`);
+  debug("Initialized new database to schema version %s", schemaver);
 }
 
 async function migratedb(
@@ -72,7 +72,7 @@ async function migratedb(
     const captures = filename.match(migrateRx);
 
     if (captures === null) {
-      debug(`Warning: Unexpected file ${filename} in SQL migrations dir`);
+      debug("Warning: Unexpected file %s in SQL migrations dir", filename);
 
       continue;
     }
@@ -83,7 +83,7 @@ async function migratedb(
       continue;
     }
 
-    debug(`Executing database upgrade: ${filename}`);
+    debug("Executing database upgrade: %s", filename);
 
     const scriptPath = resolve(migratePath, filename);
     const scriptSql = readFileSync(scriptPath, "utf-8");
@@ -126,7 +126,7 @@ export default async function checkdb(db: DataSource): Promise<void> {
   const newver = await db.transaction(txn => migratedb(txn, schemaver));
 
   if (newver !== undefined) {
-    debug(`Upgraded database to version ${newver}`);
+    debug("Upgraded database to version %s", newver);
 
     await db.vacuum();
 

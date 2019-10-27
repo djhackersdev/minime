@@ -42,13 +42,13 @@ app.use(express.json());
 // Trace requests and responses
 
 app.use(function(req, resp, next) {
-  debug(`\n--- Chunithm ${req.url} ---\n`);
-  debug(`Request: ${JSON.stringify(req.body)}\n`);
+  debug("\n--- Chunithm %s ---\n", req.url);
+  debug("Request: %j", req.body);
 
   const prevJson = resp.json;
 
   resp.json = function(obj) {
-    debug(`Response: ${JSON.stringify(obj)}`);
+    debug("Response: %j", obj);
 
     resp.json = prevJson;
     resp.json.apply(this, arguments);

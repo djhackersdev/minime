@@ -18,7 +18,9 @@ export default function idz(db: DataSource) {
         output.write(await db.transaction(txn => dispatch(txn, req)));
       }
     } catch (e) {
-      debug(`Error:\n${e.toString()}`);
+      if (debug.enabled) {
+        debug("Error: %s", e.stack);
+      }
     }
 
     debug("Connection closed");

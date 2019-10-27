@@ -150,11 +150,13 @@ export class Encoder extends Transform {
   }
 
   _transform(res: Response, encoding, callback) {
-    debug(`Object: ${JSON.stringify(res)}`);
+    debug("Object: %j", res);
 
     const buf = encode(res);
 
-    debug(`Encoded: ${buf.toString("hex")}`);
+    if (debug.enabled) {
+      debug("Encoded: %s", buf.toString("hex"));
+    }
 
     if (buf.readInt16LE(0) === 0) {
       throw new Error("Missing message type code");

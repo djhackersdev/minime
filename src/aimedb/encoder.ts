@@ -30,7 +30,7 @@ export class Encoder extends Transform {
   }
 
   _transform(msg: AimeResponse, encoding, callback) {
-    debug(`Encode ${JSON.stringify(msg)}`);
+    debug("Encode %j", msg);
 
     let buf: Buffer;
 
@@ -108,7 +108,9 @@ export class Encoder extends Transform {
         return callback(new Error("Unimplemented response type"));
     }
 
-    debug(`Send ${buf.toString("hex")}`);
+    if (debug.enabled) {
+      debug("Send %s", buf.toString("hex"));
+    }
 
     return callback(null, buf);
   }

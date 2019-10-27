@@ -121,7 +121,7 @@ export class Decoder extends Transform {
 
     const obj = reader(msg);
 
-    debug(`Decode ${JSON.stringify(obj)}`);
+    debug("Decode %j", obj);
 
     return callback(null, obj);
   }

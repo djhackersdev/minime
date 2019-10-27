@@ -25,7 +25,7 @@ app.use(async function(req, res, next) {
   const send_ = res.send;
 
   res.send = function(kvps) {
-    debug(`Response: ${JSON.stringify(kvps)}\n`);
+    debug("Response: %j", kvps);
 
     const bits: string[] = [];
 
@@ -68,7 +68,7 @@ app.use(async function(req, res, next) {
     req.body = body;
 
     debug("\n--- Diva ---\n");
-    debug(`Request: ${JSON.stringify(req.body)}\n`);
+    debug("Request: %j", req.body);
 
     return next();
   } else if (req.is("multipart/form-data")) {
@@ -82,7 +82,7 @@ app.use(async function(req, res, next) {
       req.body = { ...files, ...fields };
 
       debug("\n--- Diva (Multipart) ---\n");
-      debug(`Request: ${JSON.stringify(req.body)}\n`);
+      debug("Request: %j", req.body);
 
       return next();
     });

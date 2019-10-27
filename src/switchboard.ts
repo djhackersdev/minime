@@ -73,8 +73,8 @@ export function startupUri(model: string): string {
 // Diagnostic dump
 //
 
-debug(`HOST_EXT: ${HOST_EXT} (Service host name sent to clients)`);
-debug(`HOST_INT: ${HOST_INT} (Bind address)`);
+debug("HOST_EXT: %s (Service host name sent to clients)", HOST_EXT);
+debug("HOST_INT: %s (Bind address)", HOST_INT);
 
 if (cfgHostExt === undefined || cfgHostInt === undefined) {
   debug(

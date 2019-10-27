@@ -36,7 +36,9 @@ export class Deframer extends Transform {
 
     const frame = this.state.slice(0, len);
 
-    debug(`Recv ${frame.toString("hex")}`);
+    if (debug.enabled) {
+      debug("Recv %s", frame.toString("hex"));
+    }
 
     this.state = this.state.slice(len);
 

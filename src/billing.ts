@@ -62,7 +62,7 @@ app.use(async function(req, res, next) {
 });
 
 app.post("/request/", function(req, res) {
-  debug(`Billing request: ${JSON.stringify(req.body)}`);
+  debug("Billing request: %j", req.body);
 
   const first = req.body[0];
 
@@ -135,7 +135,7 @@ app.post("/request/", function(req, res) {
     playhistory: "000000/0:000000/0:000000/0",
   });
 
-  debug(`Billing response: ${JSON.stringify(resItems)}`);
+  debug("Billing response: %j", resItems);
 
   res.set("content-type", "text/plain");
   res.send(resItems);
