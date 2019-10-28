@@ -9,10 +9,9 @@ class CardRepositoryImpl implements CardRepository {
 
   async lookup(luid: string, now: Date): Promise<AimeId | undefined> {
     const fetchSql = sql
-      .select("c.id", "p.ext_id")
-      .from("aime_card c")
-      .join("aime_player p", { "c.player_id": "p.id" })
-      .where("c.nfc_id", luid);
+      .select("p.id", "p.ext_id")
+      .from("aime_player p")
+      .where("p.luid", luid);
 
     const row = await this._txn.fetchRow(fetchSql);
 
@@ -24,7 +23,7 @@ class CardRepositoryImpl implements CardRepository {
     const extId = row.ext_id;
 
     const touchSql = sql
-      .update("aime_card")
+      .update("aime_player")
       .set({ access_time: now })
       .where("id", id);
 
@@ -34,27 +33,18 @@ class CardRepositoryImpl implements CardRepository {
   }
 
   async register(luid: string, now: Date): Promise<AimeId> {
-    const playerId = this._txn.generateId();
-    const cardId = this._txn.generateId();
+    const id = this._txn.generateId();
     const aimeId = generateExtId() as AimeId;
 
-    const playerSql = sql.insert("aime_player", {
-      id: playerId,
+    const insertSql = sql.insert("aime_player", {
+      id: id,
       ext_id: aimeId,
-      register_time: now,
-    });
-
-    await this._txn.modify(playerSql);
-
-    const cardSql = sql.insert("aime_card", {
-      id: cardId,
-      player_id: playerId,
-      nfc_id: luid,
+      luid: luid,
       register_time: now,
       access_time: now,
     });
 
-    await this._txn.modify(cardSql);
+    await this._txn.modify(insertSql);
 
     return aimeId;
   }
