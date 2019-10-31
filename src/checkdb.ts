@@ -9,6 +9,7 @@ const scripts = [
   // Order matters! Later scripts reference schema instantiated earlier.
   "meta.sql",
   "aime.sql",
+  "cm.sql",
   "idz.sql",
 ];
 

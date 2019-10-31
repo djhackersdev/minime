@@ -45,7 +45,7 @@ import * as Swb from "./switchboard";
   http.createServer(allnet).listen(Swb.PORT_ALLNET, Swb.HOST_INT);
   https.createServer(tls, billing).listen(Swb.PORT_BILLING, Swb.HOST_INT);
 
-  http.createServer(chunithm).listen(Swb.PORT_CHUNITHM, Swb.HOST_INT);
+  http.createServer(chunithm(db)).listen(Swb.PORT_CHUNITHM, Swb.HOST_INT);
   http.createServer(diva).listen(Swb.PORT_DIVA, Swb.HOST_INT);
 
   net.createServer(idz(db)).listen(Swb.PORT_IDZ.USERDB.TCP, Swb.HOST_INT);

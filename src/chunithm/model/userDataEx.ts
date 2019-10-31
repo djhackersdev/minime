@@ -1,0 +1,36 @@
+export interface UserDataExItem {
+  compatibleCmVersion: string;
+  medal: number;
+  mapIconId: number;
+  voiceId: number;
+  ext1: number;
+  ext2: number;
+  ext3: number;
+  ext4: number;
+  ext5: number;
+  ext6: number;
+  ext7: number;
+  ext8: number;
+  ext9: number;
+  ext10: number;
+  ext11: number;
+  ext12: number;
+  ext13: number;
+  ext14: number;
+  ext15: number;
+  ext16: number;
+  ext17: number;
+  ext18: number;
+  ext19: number;
+  ext20: number;
+  extStr1: string;
+  extStr2: string;
+  extStr3: string;
+  extStr4: string;
+  extStr5: string;
+  extLong1: bigint;
+  extLong2: bigint;
+  extLong3: bigint;
+  extLong4: bigint;
+  extLong5: bigint;
+}
