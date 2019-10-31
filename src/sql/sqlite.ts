@@ -45,7 +45,13 @@ function _postprocess(obj: MixedRow): Row {
   const result = {};
 
   for (const [k, v] of Object.entries(obj)) {
-    result[k] = v.toString();
+    // Return NULL values as js null, everything else as a string.
+
+    if (v === null) {
+      result[k] = null;
+    } else {
+      result[k] = v.toString();
+    }
   }
 
   return result;
