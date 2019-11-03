@@ -47,15 +47,14 @@ export default async function getUserItem(
 
   // Pack the next pagination cookie into bigint compound form
 
-  const compoundOut =
-    itemKindN * itemKindMul + BigInt(maxCount + items.length);
+  const xout = itemKindN * itemKindMul + BigInt(maxCount + items.length);
 
   // Done:
 
   return {
     userId: req.userId,
     length: items.length.toString(),
-    nextIndex: items.length < maxCount ? "-1" : compoundOut.toString(),
+    nextIndex: items.length < maxCount ? "-1" : xout.toString(),
     itemKind: itemKind.toString(),
     userItemList: items.map(writeUserItem),
   };
