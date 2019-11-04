@@ -16,7 +16,7 @@ export class SqlTeamReservationRepository
       .where("t.id", teamId)
       .forUpdate();
 
-    await this._txn.modify(lockSql);
+    await this._txn.fetchRow(lockSql);
   }
 
   async occupancyHack(teamId: Id<Team>): Promise<number> {
