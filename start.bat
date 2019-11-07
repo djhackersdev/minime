@@ -40,8 +40,10 @@ if not exist node_modules (
     echo.
 )
 
+rem Project Diva requires TLSv1.0
+
 set DEBUG=app:*
-node .\bin\index.js
+node --tls-min-v1.0 .\bin\index.js
 
 :end
 echo.
