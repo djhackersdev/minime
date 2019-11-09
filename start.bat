@@ -1,5 +1,7 @@
 @echo off
 
+pushd %~dp0
+
 where /q node
 if errorlevel 1 (
     echo NodeJS does not appear to be installed.
