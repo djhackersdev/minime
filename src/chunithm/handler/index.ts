@@ -117,7 +117,7 @@ export default function chunithm(db: DataSource) {
 
   app.use(quirks);
   app.use(compression({ threshold: 0 }));
-  app.use(express.json());
+  app.use(express.json({ limit: "50mb" })); // that ought to be enough
   app.use(trace);
 
   app.use("/ChuniServlet", wrapper);
