@@ -74,7 +74,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       .where("id", teamId)
       .forUpdate();
 
-    await this._txn.modify(lockSql);
+    await this._txn.fetchRow(lockSql);
 
     // Double-check (with lock held) that there is room to join this team.
     // If this fails then the error will propagate to the client and it will
