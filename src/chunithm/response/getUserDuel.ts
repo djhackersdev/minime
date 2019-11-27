@@ -1,3 +1,5 @@
+import { UserDuelListJson } from "../proto/userDuelList";
+
 export interface GetUserDuelResponse {
   /** Integer, AiMe ID */
   userId: string;
@@ -5,6 +7,9 @@ export interface GetUserDuelResponse {
   /** Integer, number of results returned */
   length: string;
 
-  /** TBD */
-  userDuelList: [];
+  /**
+   * List of duel entities, either all duel entities associated with `userId`
+   * or single requested by `duelId` in request.
+   */
+  userDuelList: UserDuelListJson[];
 }

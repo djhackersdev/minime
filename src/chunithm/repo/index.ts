@@ -4,6 +4,7 @@ import { UserActivityRepository } from "./userActivity";
 import { UserCharacterRepository } from "./userCharacter";
 import { UserDataRepository } from "./userData";
 import { UserDataExRepository } from "./userDataEx";
+import { UserDuelListRepository } from "./userDuelList";
 import { UserGameOptionRepository } from "./userGameOption";
 import { UserGameOptionExRepository } from "./userGameOptionEx";
 import { UserItemRepository } from "./userItem";
@@ -19,6 +20,8 @@ export interface Repositories {
   userData(): UserDataRepository;
 
   userDataEx(): UserDataExRepository;
+
+  userDuelList(): UserDuelListRepository;
 
   userGameOption(): UserGameOptionRepository;
 

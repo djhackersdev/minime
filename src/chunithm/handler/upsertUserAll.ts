@@ -11,6 +11,7 @@ import { readUserItem } from "../proto/userItem";
 import { readUserMusicDetail } from "../proto/userMusic";
 import { readUserActivity } from "../proto/userActivity";
 import { readUserDataEx } from "../proto/userDataEx";
+import { readUserDuelList } from "../proto/userDuelList";
 import { readUserPlaylog } from "../proto/userPlaylog";
 
 // It shouldn't need to be said really, but seeing as this message (A) requires
@@ -67,6 +68,10 @@ export default async function upsertUserAll(
 
   for (const item of payload.userDataEx || []) {
     await rep.userDataEx().save(profileId, readUserDataEx(item));
+  }
+
+  for (const item of payload.userDuelList || []) {
+    await rep.userDuelList().save(profileId, readUserDuelList(item));
   }
 
   return { returnCode: "1" };
