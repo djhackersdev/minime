@@ -2,6 +2,7 @@ import { SqlUserActivityRepository } from "./userActivity";
 import { SqlUserCharacterRepository } from "./userCharacter";
 import { SqlUserDataRepository } from "./userData";
 import { SqlUserDataExRepository } from "./userDataEx";
+import { SqlUserDuelListRepository } from "./userDuelList";
 import { SqlUserGameOptionRepository } from "./userGameOption";
 import { SqlUserGameOptionExRepository } from "./userGameOptionEx";
 import { SqlUserItemRepository } from "./userItem";
@@ -13,6 +14,7 @@ import { UserActivityRepository } from "../repo/userActivity";
 import { UserCharacterRepository } from "../repo/userCharacter";
 import { UserDataRepository } from "../repo/userData";
 import { UserDataExRepository } from "../repo/userDataEx";
+import { UserDuelListRepository } from "../repo/userDuelList";
 import { UserGameOptionRepository } from "../repo/userGameOption";
 import { UserGameOptionExRepository } from "../repo/userGameOptionEx";
 import { UserItemRepository } from "../repo/userItem";
@@ -38,6 +40,10 @@ export class SqlRepositories implements Repositories {
 
   userDataEx(): UserDataExRepository {
     return new SqlUserDataExRepository(this._txn);
+  }
+
+  userDuelList(): UserDuelListRepository {
+    return new SqlUserDuelListRepository(this._txn);
   }
 
   userGameOption(): UserGameOptionRepository {
