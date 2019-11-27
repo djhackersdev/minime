@@ -7,5 +7,4 @@ export interface SaveSettingsRequest {
   dpoint: number; // ?? why
   settings: Settings;
   field_0010: number;
-  field_0013: number;
 }

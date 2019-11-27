@@ -22,6 +22,7 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
     }
 
     return {
+      auras: parseInt(row.auras),
       cup: parseInt(row.cup),
       gauges: parseInt(row.gauges),
       music: parseInt(row.music),
@@ -33,13 +34,14 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
     const saveSql = sql
       .insert("idz_unlocks", {
         id: profileId,
+        auras: unlocks.auras,
         cup: unlocks.cup,
         gauges: unlocks.gauges,
         music: unlocks.music,
         last_mileage_reward: unlocks.lastMileageReward,
       })
       .onConflict("id")
-      .doUpdate(["cup", "gauges", "music", "last_mileage_reward"]);
+      .doUpdate(["auras", "cup", "gauges", "music", "last_mileage_reward"]);
 
     await this._txn.modify(saveSql);
   }

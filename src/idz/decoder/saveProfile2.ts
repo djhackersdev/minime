@@ -67,6 +67,7 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest2 {
       rows: storyRows,
     },
     unlocks: {
+      auras: buf.readUInt16LE(0x010c),
       cup: buf.readUInt8(0x0110),
       gauges: buf.readUInt16LE(0x0114),
       music: buf.readUInt16LE(0x0140),
@@ -90,6 +91,7 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest2 {
     settings: {
       music: buf.readUInt16LE(0x045a),
       pack: buf.readUInt32LE(0x0034),
+      aura: buf.readUInt8(0x002c),
       paperCup: buf.readUInt8(0x00f6),
       gauges: buf.readUInt8(0x00f7),
     },

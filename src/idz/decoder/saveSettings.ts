@@ -16,8 +16,8 @@ export function saveSettings(buf: Buffer): SaveSettingsRequest {
       pack: buf.readUInt32LE(0x000c),
       paperCup: buf.readUInt8(0x0011),
       gauges: buf.readUInt8(0x0012),
+      aura: buf.readUInt8(0x0013),
     },
     field_0010: buf.readUInt8(0x0010),
-    field_0013: buf.readUInt8(0x0013),
   };
 }
