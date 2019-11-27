@@ -1,3 +1,5 @@
+import { UserCourseJson } from "../proto/userCourse";
+
 export interface GetUserCourseResponse {
   /** Integer, AiMe ID */
   userId: string;
@@ -8,6 +10,5 @@ export interface GetUserCourseResponse {
   /** Integer, pagination cookie */
   nextIndex: string;
 
-  /** TBD */
-  userCourseList: [];
+  userCourseList: UserCourseJson[];
 }

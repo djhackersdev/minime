@@ -13,6 +13,7 @@ import { readUserActivity } from "../proto/userActivity";
 import { readUserDataEx } from "../proto/userDataEx";
 import { readUserDuelList } from "../proto/userDuelList";
 import { readUserPlaylog } from "../proto/userPlaylog";
+import { readUserCourse } from "../proto/userCourse";
 
 // It shouldn't need to be said really, but seeing as this message (A) requires
 // fairly lengthy processing and (B) is only sent right at the end of a credit,
@@ -64,6 +65,10 @@ export default async function upsertUserAll(
 
   for (const item of payload.userPlaylogList || []) {
     await rep.userPlaylog().save(profileId, readUserPlaylog(item));
+  }
+
+  for (const item of payload.userCourseList || []) {
+    await rep.userCourse().save(profileId, readUserCourse(item));
   }
 
   for (const item of payload.userDataEx || []) {
