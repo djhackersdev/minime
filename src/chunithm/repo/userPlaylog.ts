@@ -7,4 +7,5 @@ export interface UserPlaylogRepository {
   // is nice to have.
 
   save(profileId: Id<UserDataItem>, obj: UserPlaylogItem): Promise<void>;
+  loadLatest(profileId: Id<UserDataItem>, size: number): Promise<UserPlaylogItem[]>;
 }

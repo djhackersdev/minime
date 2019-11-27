@@ -7,7 +7,7 @@ import { UserPlaylogRepository } from "../repo/userPlaylog";
 import { Transaction } from "../../sql";
 import { T, createSqlMapper } from "../../sql/util";
 
-const { writeRow } = createSqlMapper({
+const { readRow, writeRow } = createSqlMapper({
   orderId: T.number,
   sortNumber: T.number,
   placeId: T.number,
@@ -71,5 +71,17 @@ export class SqlUserPlaylogRepository implements UserPlaylogRepository {
     });
 
     return this._txn.modify(stmt);
+  }
+
+  async loadLatest(profileId: Id<UserDataItem>, size: number): Promise<UserPlaylogItem[]> {
+    const stmt = sql
+      .select("music_id", "score", "level","user_play_date")
+      .from("cm_user_playlog")
+      .where("profile_id", profileId)
+      .limit(size).order("user_play_date DESC");
+
+    const rows = await this._txn.fetchRows(stmt);
+
+    return rows.map(readRow);
   }
 }
