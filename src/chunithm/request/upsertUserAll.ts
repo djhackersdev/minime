@@ -8,6 +8,7 @@ import { UserMusicDetailJson } from "../proto/userMusic";
 import { UserActivityJson } from "../proto/userActivity";
 import { UserRecentRatingJson } from "../proto/userRecentRating";
 import { UserPlaylogJson } from "../proto/userPlaylog";
+import { UserCourseJson } from "../proto/userCourse";
 import { UserDataExJson } from "../proto/userDataEx";
 import { UserDuelListJson } from "../proto/userDuelList";
 
@@ -26,6 +27,7 @@ export interface UpsertUserAllRequest {
     userActivityList?: UserActivityJson[];
     userRecentRatingList?: UserRecentRatingJson[];
     userPlaylogList?: UserPlaylogJson[];
+    userCourseList?: UserCourseJson[];
     userDataEx?: UserDataExJson[];
     userDuelList?: UserDuelListJson[];
 

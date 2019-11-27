@@ -22,6 +22,8 @@ import { UserMapRepository } from "../repo/userMap";
 import { UserMusicRepository } from "../repo/userMusic";
 import { UserPlaylogRepository } from "../repo/userPlaylog";
 import { Transaction } from "../../sql";
+import { UserCourseRepository } from "../repo/userCourse";
+import { SqlUserCourseRepository } from "./userCourse";
 
 export class SqlRepositories implements Repositories {
   constructor(private readonly _txn: Transaction) {}
@@ -68,5 +70,9 @@ export class SqlRepositories implements Repositories {
 
   userPlaylog(): UserPlaylogRepository {
     return new SqlUserPlaylogRepository(this._txn);
+  }
+
+  userCourse(): UserCourseRepository {
+    return new SqlUserCourseRepository(this._txn);
   }
 }
