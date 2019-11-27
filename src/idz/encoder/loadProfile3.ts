@@ -71,6 +71,7 @@ export function loadProfile3(res: LoadProfileResponse3) {
   }
 
   buf.writeUInt16LE(0x012e, 0x0000);
+  buf.writeUInt16LE(res.unlocks.auras, 0x00b0);
   buf.writeUInt8(res.unlocks.cup, 0x00b4);
   buf.writeUInt16LE(res.unlocks.gauges, 0x00b8);
   buf.writeUInt32LE(res.unlocks.lastMileageReward, 0x0218);
@@ -92,6 +93,7 @@ export function loadProfile3(res: LoadProfileResponse3) {
   encodeMission(res.missions.solo).copy(buf, 0x0858);
   encodeChara(res.chara).copy(buf, 0x0880);
   encodeBitmap(res.titles, 0xb4).copy(buf, 0x0894);
+  buf.writeUInt8(res.settings.aura, 0x094a);
   buf.writeUInt8(res.settings.paperCup, 0x094d);
   buf.writeUInt8(res.settings.gauges, 0x094e);
   buf.writeUInt32LE(res.teamId || 0xffffffff, 0x0954);

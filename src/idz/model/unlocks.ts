@@ -1,4 +1,5 @@
 export interface Unlocks {
+  auras: number;
   cup: number;
   gauges: number;
   music: number;

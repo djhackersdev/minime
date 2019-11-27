@@ -98,6 +98,7 @@ create table "idz_settings" (
             on delete cascade,
     "music" integer not null,
     "pack" integer not null,
+    "aura" integer not null,
     "paper_cup" integer not null, -- Not a boolean, oddly enough
     "gauges" integer not null
 );
@@ -192,6 +193,7 @@ create table "idz_unlocks" (
     "id" integer primary key not null
             references "idz_profile"("id")
             on delete cascade,
+    "auras" integer not null,
     "cup" integer not null,
     "gauges" integer not null,
     "music" integer not null,
