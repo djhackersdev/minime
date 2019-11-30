@@ -1,7 +1,8 @@
 import sql from "sql-bricks-postgres";
 
-import { RouteNo } from "../model/base";
+import { ExtId, RouteNo } from "../model/base";
 import { CarSelector } from "../model/car";
+import { Team } from "../model/team";
 import { Profile } from "../model/profile";
 import { TimeAttackScore } from "../model/timeAttack";
 import { TimeAttackRepository, TopTenResult } from "../repo";
@@ -27,10 +28,30 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     routeNo: RouteNo,
     minTimestamp: Date
   ): Promise<TopTenResult[]> {
+    // We're not using an ORM here so this join-heavy SQL is unfortunately
+    // going to be a boilerplated mess.
+
     const loadSql = sql
-      .select("p.name", "ta.*")
+      .select(
+        // Profile
+        "p.name as profile_name",
+        // Team
+        "t.ext_id as team_ext_id",
+        "t.name as team_name",
+        "t.name_bg as team_name_bg",
+        "t.name_fx as team_name_fx",
+        "t.register_time as team_register_time",
+        // Time Attack
+        "ta.*"
+      )
       .from("idz_ta_best ta")
       .join("idz_profile p", { "ta.profile_id": "p.id" })
+      // This is an inner join, so it will exclude anybody who is not currently
+      // a member of a team from the leader boards. Since the only way to play
+      // without a team is to be ejected from one we can consider this an edge
+      // case that we probably don't need to worry about.
+      .join("idz_team_member tm", { "ta.profile_id": "tm.id" })
+      .join("idz_team t", { "tm.team_id": "t.id" })
       .where("ta.route_no", routeNo)
       .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
@@ -39,7 +60,14 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map(row => ({
-      driverName: row.name,
+      driverName: row.profile_name,
+      team: {
+        extId: parseInt(row.team_ext_id) as ExtId<Team>,
+        name: row.team_name,
+        nameBg: parseInt(row.team_name_bg),
+        nameFx: parseInt(row.team_name_fx),
+        registerTime: new Date(row.team_register_time),
+      },
       ta: _extractRow(row),
     }));
   }
