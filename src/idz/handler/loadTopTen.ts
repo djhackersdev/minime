@@ -18,7 +18,7 @@ export async function loadTopTen(
     }
 
     const { routeNo, minTimestamp } = selector;
-    const src = await w.timeAttack().loadTopTen(routeNo, minTimestamp);
+    const src = await w.timeAttack().loadTop(routeNo, minTimestamp, 10);
 
     if (src.length === 0) {
       continue;

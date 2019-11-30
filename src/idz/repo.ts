@@ -116,9 +116,10 @@ export interface TopTenResult {
 }
 
 export interface TimeAttackRepository {
-  loadTopTen(
+  loadTop(
     routeNo: Model.RouteNo,
-    minTimestamp: Date
+    minTimestamp: Date,
+    limit: number
   ): Promise<TopTenResult[]>;
 
   loadAll(profileId: Id<Model.Profile>): Promise<Model.TimeAttackScore[]>;
