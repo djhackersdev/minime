@@ -111,6 +111,7 @@ export interface TeamReservationRepository {
 // TODO extend and factorize
 export interface TopTenResult {
   driverName: string;
+  team: Model.Team;
   ta: Model.TimeAttackScore;
 }
 
