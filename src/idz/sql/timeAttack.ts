@@ -24,9 +24,10 @@ function _extractRow(row: Row): TimeAttackScore {
 export class SqlTimeAttackRepository implements TimeAttackRepository {
   constructor(private readonly _txn: Transaction) {}
 
-  async loadTopTen(
+  async loadTop(
     routeNo: RouteNo,
-    minTimestamp: Date
+    minTimestamp: Date,
+    limit: number
   ): Promise<TopTenResult[]> {
     // We're not using an ORM here so this join-heavy SQL is unfortunately
     // going to be a boilerplated mess.
@@ -55,7 +56,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       .where("ta.route_no", routeNo)
       .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
-      .limit(10);
+      .limit(limit);
 
     const rows = await this._txn.fetchRows(loadSql);
 
