@@ -7,10 +7,12 @@ export interface LoadTopTenResponseRow {
   field_0F: boolean;
   field_10: number;
   driverName: string;
-  teamName: string;
   shopName: string;
-  field_74: number;
-  field_78: number;
+  team: {
+    name: string;
+    nameBg: number;
+    nameFx: number;
+  };
   field_7C: number;
   field_7D: number;
   ta: TimeAttackScore;

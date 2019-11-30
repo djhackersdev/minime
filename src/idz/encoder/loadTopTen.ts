@@ -50,13 +50,13 @@ export function loadTopTen(res: LoadTopTenResponse): Buffer {
       buf.writeUInt8(row.field_0F ? 1 : 0, innerOff + 0x000f); // Boolean
       buf.writeUInt8(row.field_10, innerOff + 0x0010);
       iconv.encode(row.driverName, "shift_jis").copy(buf, innerOff + 0x0014);
-      iconv.encode(row.teamName, "shift_jis").copy(buf, innerOff + 0x0028);
+      iconv.encode(row.team.name, "shift_jis").copy(buf, innerOff + 0x0028);
       iconv.encode(row.shopName, "shift_jis").copy(buf, innerOff + 0x0048);
-      buf.writeUInt32LE(row.field_74, innerOff + 0x0074);
-      buf.writeUInt16LE(row.field_78, innerOff + 0x0078);
+      buf.writeUInt32LE(row.team.nameBg, innerOff + 0x0074);
+      buf.writeUInt16LE(row.team.nameFx, innerOff + 0x0078);
       buf.writeUInt8(row.field_7C, innerOff + 0x007c);
       buf.writeUInt8(row.field_7D, innerOff + 0x007d);
-      // 66 bytes of fucking nothing what
+      // 66 bytes of empty space at the end. Maybe a string used to live here?
     }
   }
 
