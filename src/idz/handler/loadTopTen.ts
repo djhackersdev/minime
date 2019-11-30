@@ -34,11 +34,7 @@ export async function loadTopTen(
         field_10: 0,
         driverName: srcItem.driverName,
         shopName: process.env.SHOP_NAME || "",
-        team: {
-          name: process.env.TEAM_NAME || "",
-          nameBg: 0,
-          nameFx: 0,
-        },
+        team: srcItem.team,
         field_7C: 0,
         field_7D: 0,
         ta: srcItem.ta,
