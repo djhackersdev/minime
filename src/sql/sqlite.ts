@@ -1,13 +1,9 @@
-import Database from "better-sqlite3";
+import Database, { ResultRow } from "@decafcode/sqlite";
 import { randomBytes } from "crypto";
 import * as sql from "sql-bricks-postgres";
 
 import { DataSource, Row, Transaction } from "./api";
 import { Id } from "../model";
-
-type MixedRow = {
-  [key: string]: any;
-};
 
 // bless me father for i have sinned
 const fuFixup = new RegExp(" FOR UPDATE$");
@@ -41,7 +37,7 @@ function _preprocess(stmt: sql.Statement) {
   };
 }
 
-function _postprocess(obj: MixedRow): Row {
+function _postprocess(obj: ResultRow): Row {
   const result = {};
 
   for (const [k, v] of Object.entries(obj)) {
@@ -58,7 +54,7 @@ function _postprocess(obj: MixedRow): Row {
 }
 
 class SqliteTransaction implements Transaction {
-  constructor(private readonly _db: Database.Database) {}
+  constructor(private readonly _db: Database) {}
 
   generateId<T>(): Id<T> {
     const buf = randomBytes(8);
@@ -73,26 +69,43 @@ class SqliteTransaction implements Transaction {
 
   modify(stmt: sql.Statement): Promise<void> {
     const params = _preprocess(stmt);
+    const prepared = this._db.prepare(params.text);
 
-    this._db.prepare(params.text).run(...params.values);
+    try {
+      prepared.run(params.values);
+    } finally {
+      prepared.close();
+    }
 
     return Promise.resolve();
   }
 
   fetchRow(stmt: sql.SelectStatement): Promise<Row | undefined> {
     const params = _preprocess(stmt);
-    const raw = this._db.prepare(params.text).get(...params.values);
-    const result = raw && _postprocess(raw);
+    const prepared = this._db.prepare(params.text);
 
-    return Promise.resolve(result);
+    try {
+      const raw = prepared.one(params.values);
+      const result = raw && _postprocess(raw);
+
+      return Promise.resolve(result);
+    } finally {
+      prepared.close();
+    }
   }
 
   fetchRows(stmt: sql.SelectStatement): Promise<Row[]> {
     const params = _preprocess(stmt);
-    const raw = this._db.prepare(params.text).all(...params.values);
-    const result = raw.map(_postprocess);
+    const prepared = this._db.prepare(params.text);
 
-    return Promise.resolve(result);
+    try {
+      const raw = prepared.all(params.values);
+      const result = raw.map(_postprocess);
+
+      return Promise.resolve(result);
+    } finally {
+      prepared.close();
+    }
   }
 
   raw(sql: string): Promise<void> {
@@ -110,28 +123,32 @@ class SqliteDataSource implements DataSource {
   ): Promise<T> {
     const db = new Database(this._path);
 
-    db.defaultSafeIntegers();
-    db.prepare("pragma foreign_keys = on").run();
-    db.prepare("begin").run();
-
     try {
+      db.exec("begin");
+
       const txn = new SqliteTransaction(db);
       const result = await callback(txn);
 
-      db.prepare("commit").run();
+      db.exec("commit");
 
       return result;
     } catch (e) {
-      db.prepare("rollback").run();
+      db.exec("rollback");
 
       return Promise.reject(e);
+    } finally {
+      db.close();
     }
   }
 
   vacuum(): Promise<void> {
     const db = new Database(this._path);
 
-    db.prepare("vacuum").run();
+    try {
+      db.exec("vacuum");
+    } finally {
+      db.close();
+    }
 
     return Promise.resolve();
   }
