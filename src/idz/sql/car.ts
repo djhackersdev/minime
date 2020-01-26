@@ -40,11 +40,18 @@ export class SqlCarRepository implements CarRepository {
     return parseInt(row!.result);
   }
 
-  async loadAllCars(profileId: Id<Profile>): Promise<Car[]> {
+  async loadCars(
+    profileId: Id<Profile>,
+    limit: number,
+    offset: number
+  ): Promise<Car[]> {
     const loadSql = sql
       .select("c.*")
       .from("idz_car c")
-      .where("c.profile_id", profileId);
+      .where("c.profile_id", profileId)
+      .orderBy("selector asc")
+      .limit(limit)
+      .offset(offset);
 
     const rows = await this._txn.fetchRows(loadSql);
 

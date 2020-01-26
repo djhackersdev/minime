@@ -11,7 +11,11 @@ export type TeamSpec = Subtract<
 export interface CarRepository {
   countCars(profileId: Id<Model.Profile>): Promise<number>;
 
-  loadAllCars(profileId: Id<Model.Profile>): Promise<Model.Car[]>;
+  loadCars(
+    profileId: Id<Model.Profile>,
+    limit: number,
+    offset: number
+  ): Promise<Model.Car[]>;
 
   loadSelectedCar(profileId: Id<Model.Profile>): Promise<Model.Car>;
 

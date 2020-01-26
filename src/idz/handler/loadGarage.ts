@@ -10,6 +10,6 @@ export async function loadGarage(
 
   return {
     type: "load_garage_res",
-    cars: await w.car().loadAllCars(profileId),
+    cars: await w.car().loadCars(profileId, 10, req.fetchOffset),
   };
 }
