@@ -7,7 +7,7 @@ declare module "sql-bricks-postgres" {
   }
 
   interface LimitClause extends sql.SelectStatement {
-    offset(value: number): sql.Statement;
+    offset(value: number): sql.SelectStatement;
   }
 
   export interface PgInsertStatement extends sql.InsertStatement {
