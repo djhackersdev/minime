@@ -104,6 +104,7 @@ export default function chunithm(db: DataSource) {
   wrapper.rpc("/GetUserOptionApi", getUserOption);
   wrapper.rpc("/GetUserOptionExApi", getUserOptionEx);
   wrapper.rpc("/GetUserPreviewApi", getUserPreview);
+  wrapper.rpc("/GetUserRecentPlayerApi", getUserRecentRating);
   wrapper.rpc("/GetUserRecentRatingApi", getUserRecentRating);
   wrapper.rpc("/GetUserRegionApi", getUserRegion);
   wrapper.rpc("/UpsertClientBookkeepingApi", upsertClientBookkeeping);
