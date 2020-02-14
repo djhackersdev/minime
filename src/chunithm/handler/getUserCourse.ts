@@ -18,7 +18,6 @@ export default async function getUserCourse(
     .userCourse()
     .load(profileId, { limit: maxCount, offset: nextIndex });
 
-
   return {
     userId: req.userId,
     length: items.length.toString(),
