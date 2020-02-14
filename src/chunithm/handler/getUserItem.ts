@@ -47,7 +47,7 @@ export default async function getUserItem(
 
   // Pack the next pagination cookie into bigint compound form
 
-  const xout = itemKindN * itemKindMul + BigInt(maxCount + items.length);
+  const xout = itemKindN * itemKindMul + nextIndexN + BigInt(items.length);
 
   // Done:
 
