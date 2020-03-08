@@ -18,8 +18,8 @@ import billing from "./billing";
 import checkdb from "./checkdb";
 import chunithm from "./chunithm";
 import diva from "./diva";
-import idz from "./idz";
 import idzPing from "./idz/ping";
+import idzUserDb from "./idz/userdb";
 import { openSqlite } from "./sql";
 import * as Swb from "./switchboard";
 
@@ -48,7 +48,9 @@ import * as Swb from "./switchboard";
   http.createServer(chunithm(db)).listen(Swb.PORT_CHUNITHM, Swb.HOST_INT);
   http.createServer(diva).listen(Swb.PORT_DIVA, Swb.HOST_INT);
 
-  net.createServer(idz(db)).listen(Swb.PORT_IDZ.USERDB.TCP, Swb.HOST_INT);
+  net
+    .createServer(idzUserDb(db))
+    .listen(Swb.PORT_IDZ.USERDB.TCP, Swb.HOST_INT);
   idzPing(10001, Swb.HOST_INT); // ?? tbd
   idzPing(Swb.PORT_IDZ.MATCH.UDP_SEND, Swb.HOST_INT);
   idzPing(Swb.PORT_IDZ.ECHO1, Swb.HOST_INT);
