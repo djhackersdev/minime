@@ -12,14 +12,14 @@ export function loadServerList(
     status: 1,
     userDb: {
       addr: HOST_EXT,
-      tcp: 10000,
+      tcp: PORT_IDZ.USERDB.TCP,
       http: 10001,
     },
     matchAddr: HOST_EXT,
     matchPort: {
-      tcp: 10002,
-      udpSend: 10003,
-      udpRecv: 10004,
+      tcp: PORT_IDZ.MATCH.TCP,
+      udpSend: PORT_IDZ.MATCH.UDP_SEND,
+      udpRecv: PORT_IDZ.MATCH.UDP_RECV,
     },
     tagMatchPort: {
       tcp: 10005,
