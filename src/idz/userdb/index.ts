@@ -1,8 +1,10 @@
 import logger from "debug";
 import { Socket } from "net";
 
+import readRequestStream from "./decoder";
+import writeResponse from "./encoder";
 import { dispatch } from "./handler";
-import { setup } from "./setup";
+import setup from "../common";
 import { DataSource } from "../../sql";
 import { SqlRepositories } from "./sql";
 
@@ -10,26 +12,28 @@ const debug = logger("app:idz:userdb");
 
 export default function idz(db: DataSource) {
   return async function(socket: Socket) {
-    const { input, output } = setup(socket);
-
-    debug("Connection opened");
+    debug("Connection established");
 
     try {
-      for await (const req of input) {
+      const { clientHello, aesStream } = await setup(socket);
+
+      debug("Handshake OK", clientHello);
+
+      for await (const req of readRequestStream(aesStream)) {
         const res = await db.transaction(txn =>
           dispatch(new SqlRepositories(txn), req)
         );
 
-        output.write(res);
+        await aesStream.write(writeResponse(res));
       }
-    } catch (e) {
+    } catch (error) {
       if (debug.enabled) {
-        debug("Error: %s", e.stack);
+        debug("Error: %s", error.stack);
       }
     }
 
     debug("Connection closed");
 
-    input.end();
+    socket.end();
   };
 }

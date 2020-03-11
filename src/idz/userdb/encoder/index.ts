@@ -141,27 +141,18 @@ function encode(res: Response): Buffer {
   }
 }
 
-export class Encoder extends Transform {
-  constructor() {
-    super({
-      readableObjectMode: true,
-      writableObjectMode: true,
-    });
+export default function writeResponse(res: Response) {
+  debug("Object: %j", res);
+
+  const buf = encode(res);
+
+  if (debug.enabled) {
+    debug("Encoded: %s", buf.toString("hex"));
   }
 
-  _transform(res: Response, encoding, callback) {
-    debug("Object: %j", res);
-
-    const buf = encode(res);
-
-    if (debug.enabled) {
-      debug("Encoded: %s", buf.toString("hex"));
-    }
-
-    if (buf.readInt16LE(0) === 0) {
-      throw new Error("Missing message type code");
-    }
-
-    return callback(null, buf);
+  if (buf.readInt16LE(0) === 0) {
+    throw new Error("Programming error: missing message type code");
   }
+
+  return buf;
 }
