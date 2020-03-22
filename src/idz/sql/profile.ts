@@ -7,15 +7,15 @@ import { Row, Transaction } from "../../sql";
 
 export function _extractProfile(row: Row): Profile {
   return {
-    aimeId: parseInt(row.aime_id) as AimeId,
-    name: row.name,
-    lv: parseInt(row.lv),
-    exp: parseInt(row.exp),
-    fame: parseInt(row.fame),
-    dpoint: parseInt(row.dpoint),
-    mileage: parseInt(row.mileage),
-    accessTime: new Date(row.access_time),
-    registerTime: new Date(row.register_time),
+    aimeId: parseInt(row.aime_id!) as AimeId,
+    name: row.name!,
+    lv: parseInt(row.lv!),
+    exp: parseInt(row.exp!),
+    fame: parseInt(row.fame!),
+    dpoint: parseInt(row.dpoint!),
+    mileage: parseInt(row.mileage!),
+    accessTime: new Date(row.access_time!),
+    registerTime: new Date(row.register_time!),
   };
 }
 

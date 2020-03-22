@@ -111,7 +111,7 @@ export default async function checkdb(db: DataSource): Promise<void> {
     const row = await db.transaction(txn => txn.fetchRow(stmt));
 
     if (row !== undefined) {
-      maybe = parseInt(row.schemaver);
+      maybe = parseInt(row.schemaver!);
     }
   } catch (e) {
     return db.transaction(initdb);

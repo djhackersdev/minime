@@ -22,11 +22,11 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
     }
 
     return {
-      music: parseInt(row.music),
-      pack: parseInt(row.pack),
-      aura: parseInt(row.aura),
-      paperCup: parseInt(row.paper_cup),
-      gauges: parseInt(row.gauges),
+      music: parseInt(row.music!),
+      pack: parseInt(row.pack!),
+      aura: parseInt(row.aura!),
+      paperCup: parseInt(row.paper_cup!),
+      gauges: parseInt(row.gauges!),
     };
   }
 

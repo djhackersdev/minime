@@ -28,7 +28,7 @@ export class SqlTeamReservationRepository
       .where("tm.team_id", teamId);
 
     const memberRes = await this._txn.fetchRow(memberSql);
-    const memberCount = parseInt(memberRes!.count);
+    const memberCount = parseInt(memberRes!.count!);
 
     const reservSql = sql
       .select("count(*) as count")
@@ -36,7 +36,7 @@ export class SqlTeamReservationRepository
       .where("tr.team_id", teamId);
 
     const reservRes = await this._txn.fetchRow(reservSql);
-    const reservCount = parseInt(reservRes!.count);
+    const reservCount = parseInt(reservRes!.count!);
 
     return memberCount + reservCount;
   }

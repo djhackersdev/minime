@@ -8,21 +8,21 @@ import { Row, Transaction } from "../../sql";
 
 function _extractRow(row: Row): Car {
   return {
-    selector: parseInt(row.selector) as CarSelector,
-    field_00: parseInt(row.field_00),
-    field_02: parseInt(row.field_02),
-    field_04: row.field_04.split(",").map((x: string) => parseInt(x)),
-    field_46: parseInt(row.field_46),
-    field_48: parseInt(row.field_48),
-    field_4a: parseInt(row.field_4a),
-    field_4c: parseInt(row.field_4c),
-    field_50_lo: parseInt(row.field_50_lo),
-    field_50_hi: parseInt(row.field_50_hi),
-    field_58: parseInt(row.field_58),
-    field_5a: parseInt(row.field_5a),
-    field_5b: parseInt(row.field_5b),
-    field_5c: parseInt(row.field_5c),
-    field_5e: parseInt(row.field_5e),
+    selector: parseInt(row.selector!) as CarSelector,
+    field_00: parseInt(row.field_00!),
+    field_02: parseInt(row.field_02!),
+    field_04: row.field_04!.split(",").map((x: string) => parseInt(x)),
+    field_46: parseInt(row.field_46!),
+    field_48: parseInt(row.field_48!),
+    field_4a: parseInt(row.field_4a!),
+    field_4c: parseInt(row.field_4c!),
+    field_50_lo: parseInt(row.field_50_lo!),
+    field_50_hi: parseInt(row.field_50_hi!),
+    field_58: parseInt(row.field_58!),
+    field_5a: parseInt(row.field_5a!),
+    field_5b: parseInt(row.field_5b!),
+    field_5c: parseInt(row.field_5c!),
+    field_5e: parseInt(row.field_5e!),
   };
 }
 
@@ -37,7 +37,7 @@ export class SqlCarRepository implements CarRepository {
 
     const row = await this._txn.fetchRow(countSql);
 
-    return parseInt(row!.result);
+    return parseInt(row!.result!);
   }
 
   async loadCars(

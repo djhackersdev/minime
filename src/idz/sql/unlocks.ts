@@ -22,11 +22,11 @@ export class SqlUnlocksRepository implements FacetRepository<Unlocks> {
     }
 
     return {
-      auras: parseInt(row.auras),
-      cup: parseInt(row.cup),
-      gauges: parseInt(row.gauges),
-      music: parseInt(row.music),
-      lastMileageReward: parseInt(row.last_mileage_reward),
+      auras: parseInt(row.auras!),
+      cup: parseInt(row.cup!),
+      gauges: parseInt(row.gauges!),
+      music: parseInt(row.music!),
+      lastMileageReward: parseInt(row.last_mileage_reward!),
     };
   }
 

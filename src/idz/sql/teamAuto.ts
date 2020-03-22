@@ -20,8 +20,8 @@ export class SqlTeamAutoRepository implements TeamAutoRepository {
     return (
       row && [
         {
-          serialNo: parseInt(row.serial_no),
-          nameIdx: parseInt(row.name_idx),
+          serialNo: parseInt(row.serial_no!),
+          nameIdx: parseInt(row.name_idx!),
         },
         row.id as Id<Team>,
       ]

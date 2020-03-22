@@ -21,7 +21,7 @@ export class SqlTicketsRepository implements FacetRepository<Tickets> {
 
     return {
       freeCar: row && {
-        validFrom: new Date(row.valid_from),
+        validFrom: new Date(row.valid_from!),
       },
     };
   }
