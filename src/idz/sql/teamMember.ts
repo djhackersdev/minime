@@ -57,7 +57,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
       profile: _extractProfile(row),
       chara: _extractChara(row),
       leader: !!row.leader,
-      joinTime: new Date(row.join_time),
+      joinTime: new Date(row.join_time!),
     }));
   }
 
@@ -92,7 +92,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
 
     const row = await this._txn.fetchRow(countSql);
 
-    if (parseInt(row!.count) >= 6) {
+    if (parseInt(row!.count!) >= 6) {
       throw new Error(`Team ${teamId} is full`);
     }
 

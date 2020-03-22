@@ -3,7 +3,7 @@ import * as sql from "sql-bricks-postgres";
 import { Id } from "../model";
 
 export interface Row {
-  [key: string]: string;
+  [key: string]: string | null;
 }
 
 export interface Transaction {

@@ -19,8 +19,8 @@ class CardRepositoryImpl implements CardRepository {
       return undefined;
     }
 
-    const id = row.id;
-    const extId = row.ext_id;
+    const id = row.id!;
+    const extId = row.ext_id!;
 
     const touchSql = sql
       .update("aime_player")

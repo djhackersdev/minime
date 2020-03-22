@@ -19,8 +19,8 @@ export class SqlCoursePlaysRepository implements CoursePlaysRepository {
     const result = new Map<CourseNo, number>();
 
     for (const row of rows) {
-      const courseNo = parseInt(row.course_no) as CourseNo;
-      const count = parseInt(row.count);
+      const courseNo = parseInt(row.course_no!) as CourseNo;
+      const count = parseInt(row.count!);
 
       result.set(courseNo, count);
     }

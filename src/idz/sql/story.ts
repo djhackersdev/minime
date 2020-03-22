@@ -20,8 +20,8 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     // Must succeed even if nonexistent (required by save method below)
 
     const result = {
-      x: header !== undefined ? parseInt(header.x) : 0,
-      y: header !== undefined ? parseInt(header.y) : 0,
+      x: header !== undefined ? parseInt(header.x!) : 0,
+      y: header !== undefined ? parseInt(header.y!) : 0,
       rows: new Array<StoryRow>(),
     };
 
@@ -43,12 +43,12 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     const rows = await this._txn.fetchRows(loadCellSql);
 
     for (const row of rows) {
-      const rowNo = parseInt(row.row_no);
-      const colNo = parseInt(row.col_no);
+      const rowNo = parseInt(row.row_no!);
+      const colNo = parseInt(row.col_no!);
       const cell = result.rows[rowNo].cells[colNo];
 
-      cell.a = parseInt(row.a);
-      cell.b = parseInt(row.b);
+      cell.a = parseInt(row.a!);
+      cell.b = parseInt(row.b!);
     }
 
     return result;

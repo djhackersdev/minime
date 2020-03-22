@@ -37,11 +37,11 @@ export class SqlTeamRepository implements TeamRepository {
     }
 
     return {
-      extId: parseInt(row.ext_id) as ExtId<Team>,
-      name: row.name,
-      nameBg: parseInt(row.name_bg),
-      nameFx: parseInt(row.name_fx),
-      registerTime: new Date(row.register_time),
+      extId: parseInt(row.ext_id!) as ExtId<Team>,
+      name: row.name!,
+      nameBg: parseInt(row.name_bg!),
+      nameFx: parseInt(row.name_fx!),
+      registerTime: new Date(row.register_time!),
     };
   }
 

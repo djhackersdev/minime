@@ -19,7 +19,7 @@ export class SqlTitlesRepository implements FlagRepository<TitleCode> {
     const result = new Set<TitleCode>();
 
     for (const row of rows) {
-      result.add(parseInt(row.title_no) as TitleCode);
+      result.add(parseInt(row.title_no!) as TitleCode);
     }
 
     return result;

@@ -11,13 +11,13 @@ import { Row, Transaction } from "../../sql";
 
 function _extractRow(row: Row): TimeAttackScore {
   return {
-    routeNo: parseInt(row.route_no) as RouteNo,
-    timestamp: new Date(row.timestamp),
-    flags: parseInt(row.flags),
-    totalTime: parseFloat(row.total_time),
-    sectionTimes: row.section_times.split(",").map(parseFloat),
-    grade: parseInt(row.grade),
-    carSelector: parseInt(row.car_selector) as CarSelector,
+    routeNo: parseInt(row.route_no!) as RouteNo,
+    timestamp: new Date(row.timestamp!),
+    flags: parseInt(row.flags!),
+    totalTime: parseFloat(row.total_time!),
+    sectionTimes: row.section_times!.split(",").map(parseFloat),
+    grade: parseInt(row.grade!),
+    carSelector: parseInt(row.car_selector!) as CarSelector,
   };
 }
 
@@ -61,13 +61,13 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
     const rows = await this._txn.fetchRows(loadSql);
 
     return rows.map(row => ({
-      driverName: row.profile_name,
+      driverName: row.profile_name!,
       team: {
-        extId: parseInt(row.team_ext_id) as ExtId<Team>,
-        name: row.team_name,
-        nameBg: parseInt(row.team_name_bg),
-        nameFx: parseInt(row.team_name_fx),
-        registerTime: new Date(row.team_register_time),
+        extId: parseInt(row.team_ext_id!) as ExtId<Team>,
+        name: row.team_name!,
+        nameBg: parseInt(row.team_name_bg!),
+        nameFx: parseInt(row.team_name_fx!),
+        registerTime: new Date(row.team_register_time!),
       },
       ta: _extractRow(row),
     }));
@@ -122,7 +122,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
 
       await this._txn.modify(insertSql);
     } else {
-      if (score.totalTime < parseFloat(row.total_time)) {
+      if (score.totalTime < parseFloat(row.total_time!)) {
         const updateSql = sql
           .update("idz_ta_best", {
             total_time: score.totalTime,

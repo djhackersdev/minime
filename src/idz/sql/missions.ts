@@ -36,9 +36,9 @@ export class SqlMissionsRepository implements FacetRepository<MissionState> {
     const rows = await this._txn.fetchRows(loadSoloSql);
 
     for (const row of rows) {
-      const gridNo = parseInt(row.grid_no);
-      const cellNo = parseInt(row.cell_no);
-      const value = parseInt(row.value);
+      const gridNo = parseInt(row.grid_no!);
+      const cellNo = parseInt(row.cell_no!);
+      const value = parseInt(row.value!);
 
       result.solo[gridNo].cells[cellNo] = value;
     }
