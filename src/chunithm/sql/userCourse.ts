@@ -37,7 +37,10 @@ export class SqlUserCourseRepository implements UserCourseRepository {
       .from("cm_user_course")
       .where("profile_id", profileId);
 
-    if (page) {
+    /**
+     * UserCourse has no paging before CHUNITHM Amazon
+     */
+    if (page && !isNaN(page.limit)) {
       stmt.limit(page.limit).offset(page.offset);
     }
 
