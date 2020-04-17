@@ -56,7 +56,47 @@ export class SqlUserDataExRepository implements UserDataExRepository {
     const row = await this._txn.fetchRow(stmt);
 
     if (row === undefined) {
-      throw new Error("UserDataEx record not found");
+      /**
+       * When upgrading from CHUNITHM Star Plus & earlier
+       * to Amazon, there is no UserDataEx, so we return
+       * a "default" row.
+       */
+      return {
+        compatibleCmVersion: "",
+        medal: 0,
+        mapIconId: 0,
+        voiceId: 0,
+        ext1: 0,
+        ext2: 0,
+        ext3: 0,
+        ext4: 0,
+        ext5: 0,
+        ext6: 0,
+        ext7: 0,
+        ext8: 0,
+        ext9: 0,
+        ext10: 0,
+        ext11: 0,
+        ext12: 0,
+        ext13: 0,
+        ext14: 0,
+        ext15: 0,
+        ext16: 0,
+        ext17: 0,
+        ext18: 0,
+        ext19: 0,
+        ext20: 0,
+        extStr1: "",
+        extStr2: "",
+        extStr3: "",
+        extStr4: "",
+        extStr5: "",
+        extLong1: 0n,
+        extLong2: 0n,
+        extLong3: 0n,
+        extLong4: 0n,
+        extLong5: 0n,
+      };
     }
 
     return readRow(row);
