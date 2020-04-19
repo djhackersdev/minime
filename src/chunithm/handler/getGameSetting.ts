@@ -23,7 +23,7 @@ export default async function getGameSetting(
       isBackgroundDistribute: "false",
       maxCountCharacter: "300",
       maxCountItem: "300",
-      maxCountMusic: "300",
+      maxCountMusic: "100",
     },
     isDumpUpload: "false",
     isAou: "false",
