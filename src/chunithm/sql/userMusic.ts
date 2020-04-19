@@ -34,14 +34,22 @@ export class SqlUserMusicRepository implements UserMusicRepository {
     profileId: Id<UserDataItem>,
     page?: Page
   ): Promise<UserMusicDetailItem[]> {
+    const preStmt = sql
+      .select("DISTINCT(music_id)")
+      .from("cm_user_music")
+      .where("profile_id", profileId)
+      .orderBy("music_id");
+    if (page) {
+      preStmt.limit(page.limit).offset(page.offset);
+    }
+    const preRows = await this._txn.fetchRows(preStmt);
+    const musicIds = preRows.map(r => r.music_id);
+
     const stmt = sql
       .select("*")
       .from("cm_user_music")
-      .where("profile_id", profileId);
-
-    if (page) {
-      stmt.limit(page.limit).offset(page.offset);
-    }
+      .where("profile_id", profileId)
+      .and(sql.in('music_id', musicIds));
 
     const rows = await this._txn.fetchRows(stmt);
 
