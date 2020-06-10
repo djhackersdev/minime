@@ -14,7 +14,7 @@ registerLevels.set("segaid", 2);
 function begin(length: number) {
   const buf = Buffer.alloc(length);
 
-  buf.writeUInt16LE(0xa13e, 0x0000); // Magic?
+  buf.writeUInt16LE(0xa13e, 0x0000); // Magic: aime
   buf.writeUInt16LE(0x3087, 0x0002); // ???
   buf.writeUInt16LE(length, 0x0006);
 
@@ -40,6 +40,18 @@ export class Encoder extends Transform {
         buf.writeUInt16LE(0x0003, 0x0004); // cmd code
         buf.writeUInt16LE(msg.status, 0x0008);
         buf.write(msg.accessCode, 0x0024, "hex");
+
+        break;
+
+      case "felica_lookup2":
+        buf = begin(0x0140);
+        buf.writeUInt16LE(0x0012, 0x0004); // cmd code
+        buf.writeUInt16LE(msg.status, 0x0008);
+        buf.writeInt32LE(msg.aimeId || -1, 0x0020);
+        buf.writeUInt32LE(0xffffffff, 0x0024); // FF
+        buf.writeUInt32LE(0xffffffff, 0x0028); // FF
+        buf.write(msg.accessCode, 0x002c, "hex");
+        buf.writeUInt16LE(0x0001, 0x0037); // 00 01
 
         break;
 

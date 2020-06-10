@@ -31,6 +31,15 @@ function readFeliCaLookupRequest(msg: Buffer): Request.FeliCaLookupRequest {
   };
 }
 
+function readFeliCaLookupRequest2(msg: Buffer): Request.FeliCaLookup2Request {
+  return {
+    ...begin(msg),
+    type: "felica_lookup2",
+    idm: msg.slice(0x0030, 0x0038).toString("hex"),
+    pmm: msg.slice(0x0038, 0x0040).toString("hex"),
+  };
+}
+
 function readLogRequest(msg: Buffer): Request.LogRequest {
   // idk what any of this stuff means yet
   // field20 and field28 appear to be an aime id but that is all.
@@ -98,6 +107,7 @@ readers.set(0x0009, readLogRequest);
 readers.set(0x000b, readCampaignRequest);
 readers.set(0x000d, readRegisterRequest);
 readers.set(0x000f, readLookupRequest2);
+readers.set(0x0011, readFeliCaLookupRequest2);
 readers.set(0x0064, readHelloRequest);
 readers.set(0x0066, readGoodbyeRequest);
 

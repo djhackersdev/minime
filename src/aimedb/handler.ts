@@ -46,6 +46,28 @@ function feliCaLookup(
   return { type: req.type, status: 1, accessCode };
 }
 
+async function feliCaLookup2(
+  rep: Repositories,
+  req: Req.FeliCaLookup2Request,
+  now: Date
+): Promise<Res.FeliCaLookup2Response> {
+  debug("FeliCa access code lookup");
+
+  const num = BigInt("0x" + req.idm);
+  let accessCode = num.toString();
+
+  while (accessCode.length < 20) {
+    accessCode = "0" + accessCode;
+  }
+
+  return {
+    type: req.type,
+    status: 1,
+    accessCode,
+    aimeId: await rep.cards().lookup(accessCode, now),
+  };
+}
+
 async function lookup(
   rep: Repositories,
   req: Req.LookupRequest,
@@ -114,6 +136,9 @@ export async function dispatch(
 
     case "felica_lookup":
       return feliCaLookup(rep, req, now);
+
+    case "felica_lookup2":
+      return feliCaLookup2(rep, req, now);
 
     case "lookup":
       return lookup(rep, req, now);
