@@ -9,6 +9,12 @@ export interface FeliCaLookupRequest extends AimeRequestBase {
   pmm: string;
 }
 
+export interface FeliCaLookup2Request extends AimeRequestBase {
+  type: "felica_lookup2";
+  idm: string;
+  pmm: string;
+}
+
 export interface RegisterRequest extends AimeRequestBase {
   type: "register";
   luid: string;
@@ -50,6 +56,7 @@ export interface GoodbyeRequest {
 
 export type AimeRequest =
   | FeliCaLookupRequest
+  | FeliCaLookup2Request
   | CampaignRequest
   | GoodbyeRequest
   | HelloRequest

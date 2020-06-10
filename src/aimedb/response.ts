@@ -11,6 +11,12 @@ export interface FeliCaLookupResponse extends AimeResponseBase {
   accessCode: string;
 }
 
+export interface FeliCaLookup2Response extends AimeResponseBase {
+  type: "felica_lookup2";
+  accessCode: string;
+  aimeId?: AimeId;
+}
+
 export interface CampaignResponse extends AimeResponseBase {
   type: "campaign";
 }
@@ -44,6 +50,7 @@ export interface RegisterResponse extends AimeResponseBase {
 
 export type AimeResponse =
   | FeliCaLookupResponse
+  | FeliCaLookup2Response
   | CampaignResponse
   | HelloResponse
   | LogResponse
