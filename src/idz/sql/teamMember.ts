@@ -56,7 +56,7 @@ export class SqlTeamMemberRepository implements TeamMemberRepository {
     return rows.map(row => ({
       profile: _extractProfile(row),
       chara: _extractChara(row),
-      leader: !!row.leader,
+      leader: row.leader === "true",
       joinTime: new Date(row.join_time!),
     }));
   }

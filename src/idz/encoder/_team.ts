@@ -13,10 +13,11 @@ export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
     buf.writeInt16LE(0x0078, 0x0000);
   }
 
-  const leader = res.members.find(item => item.leader);
-
+  const leader = res.members.find(item => item.leader === true);
   buf.writeUInt32LE(res.team.extId, 0x000c);
+  iconv.encode(leader ? leader.profile.name : "Error\0", "shift_jis").copy(buf, 0x0010);
   iconv.encode(res.team.name, "shift_jis").copy(buf, 0x0024);
+  iconv.encode(process.env.SHOP_NAME ? process.env.SHOP_NAME : "\0", "shift_jis").copy(buf, 0x0044);
   buf.writeUInt32LE(res.team.nameBg, 0x00d8);
   buf.writeUInt32LE(res.team.nameFx, 0x00dc);
   buf.fill(0xff, 0x00e0, 0x00f9); // Bitset: Unlocked BGs probably
