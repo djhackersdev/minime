@@ -32,6 +32,7 @@ import upsertClientError from "./upsertClientError";
 import upsertClientSetting from "./upsertClientSetting";
 import upsertClientTestmode from "./upsertClientTestmode";
 import upsertUserAll from "./upsertUserAll";
+import upsertUserChargelogApi from "./upsertUserChargelogApi";
 import createSqlWrapper from "../sql";
 import { DataSource } from "../../sql";
 
@@ -113,6 +114,7 @@ export default function chunithm(db: DataSource) {
   wrapper.rpc("/UpsertClientSettingApi", upsertClientSetting);
   wrapper.rpc("/UpsertClientTestmodeApi", upsertClientTestmode);
   wrapper.rpc("/UpsertUserAllApi", upsertUserAll);
+  wrapper.rpc("/UpsertUserChargelogApi", upsertUserChargelogApi)
 
   const app = express();
 
