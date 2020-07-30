@@ -1,3 +1,5 @@
+import { UserChargeJson } from "../proto/userCharge";
+
 export interface GetUserChargeResponse {
   /** Integer, AiMe ID */
   userId: string;
@@ -5,6 +7,5 @@ export interface GetUserChargeResponse {
   /** Integer, number of results returned */
   length: string;
 
-  /** TBD */
-  userChargeList: [];
+  userChargeList: UserChargeJson[];
 }
