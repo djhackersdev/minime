@@ -26,6 +26,6 @@ export default async function getGameSetting(
       maxCountMusic: "100",
     },
     isDumpUpload: "false",
-    isAou: "false",
+    isAou: "true",
   };
 }
