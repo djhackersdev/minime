@@ -11,6 +11,7 @@ import { SqlUserItemRepository } from "./userItem";
 import { SqlUserMapRepository } from "./userMap";
 import { SqlUserMusicRepository } from "./userMusic";
 import { SqlUserPlaylogRepository } from "./userPlaylog";
+import { SqlUserRecentRatingRepository } from "./userRecentRating";
 import { Repositories } from "../repo";
 import { UserActivityRepository } from "../repo/userActivity";
 import { UserCharacterRepository } from "../repo/userCharacter";
@@ -25,6 +26,7 @@ import { UserItemRepository } from "../repo/userItem";
 import { UserMapRepository } from "../repo/userMap";
 import { UserMusicRepository } from "../repo/userMusic";
 import { UserPlaylogRepository } from "../repo/userPlaylog";
+import { UserRecentRatingRepository } from "../repo/userRecentRating";
 import { Transaction } from "../../sql";
 
 export class SqlRepositories implements Repositories {
@@ -80,5 +82,9 @@ export class SqlRepositories implements Repositories {
 
   userPlaylog(): UserPlaylogRepository {
     return new SqlUserPlaylogRepository(this._txn);
+  }
+
+  userRecentRating(): UserRecentRatingRepository {
+    return new SqlUserRecentRatingRepository(this._txn);
   }
 }

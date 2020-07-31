@@ -357,3 +357,16 @@ create table "cm_user_playlog" (
     "place_name" text not null,
     "is_maimai" text not null
 );
+
+create table "cm_user_recent_rating" (
+    "id" integer primary key not null,
+    "profile_id" integer not null
+            references "cm_user_data"("id")
+            on delete cascade,
+    "sort_order" integer not null,
+    "music_id" integer not null,
+    "difficult_id" integer not null,
+    "rom_version_code" integer not null,
+    "score" integer not null,
+    constraint "cm_user_recent_rating_uq" unique ("profile_id", "sort_order")
+);
