@@ -105,7 +105,7 @@ test("decode lookup", () => {
 
   const obj = decode(req);
 
-  expect(obj.type).toBe("lookup");
+  expect(obj.type).toBe("lookup2");
   expect(obj.gameId).toBe("SDBT");
   expect(obj.keychipId).toBe("A69E01A9999");
   expect(obj.luid).toBe("01036495850523030676");
