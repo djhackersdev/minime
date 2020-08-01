@@ -1,0 +1,15 @@
+image: node:12-buster
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+
+do_build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
