@@ -34,6 +34,12 @@ export class SqlUserRecentRatingRepository
     profileId: Id<UserDataItem>,
     objs: UserRecentRatingItem[]
   ): Promise<void> {
+    // Don't do anything if there's nothing to save,
+    // since trying to execute an empty insert statement fails.
+    if (objs.length === 0) {
+      return Promise.resolve();
+    }
+
     const stmt = sql
       .insert(
         "cm_user_recent_rating",
