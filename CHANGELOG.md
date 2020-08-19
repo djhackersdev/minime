@@ -4,9 +4,9 @@
 
 * Chunithm: Fix large data loads (NeumPhis)
 * Chunithm: Add some support for older versions (NeumPhis)
-* Chunithm: Fix large data loads (Matt Bilker)
-* Chunithm: Enable all events (Matt Bilker)
-* Chunithm: Remove server maintenance period (Matt Bilker)
+* Chunithm: Fix large data loads (Felix)
+* Chunithm: Enable all events (Felix)
+* Chunithm: Remove server maintenance period (Felix)
 * Chunithm: Fix data loss (esterTion)
 * Chunithm: Add some support for older versions (esterTion)
 * IDZ: Team-related fixes (Emi Midnight)
