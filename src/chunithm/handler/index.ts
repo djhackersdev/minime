@@ -18,6 +18,7 @@ import getUserCourse from "./getUserCourse";
 import getUserData from "./getUserData";
 import getUserDataEx from "./getUserDataEx";
 import getUserDuel from "./getUserDuel";
+import getUserFavoriteMusic from "./getUserFavoriteMusic";
 import getUserItem from "./getUserItem";
 import getUserMap from "./getUserMap";
 import getUserMusic from "./getUserMusic";
@@ -99,6 +100,7 @@ export default function chunithm(db: DataSource) {
   wrapper.rpc("/GetUserDataApi", getUserData);
   wrapper.rpc("/GetUserDataExApi", getUserDataEx);
   wrapper.rpc("/GetUserDuelApi", getUserDuel);
+  wrapper.rpc("/GetUserFavoriteMusicApi", getUserFavoriteMusic);
   wrapper.rpc("/GetUserItemApi", getUserItem);
   wrapper.rpc("/GetUserMapApi", getUserMap);
   wrapper.rpc("/GetUserMusicApi", getUserMusic);
