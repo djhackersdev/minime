@@ -27,12 +27,12 @@
     "@types/jest": "^24.0.11",
     "@types/multiparty": "^0.0.32",
     "@types/node": "^12.11.7",
-    "jest": "^24.5.0",
-    "jest-haste-map": "^24.5.0",
+    "jest": "^26.4.2",
+    "jest-haste-map": "^26.3.0",
     "jest-resolve": "^24.5.0",
     "prettier": "^1.16.4",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.6.4",
+    "ts-jest": "^26.3.0",
+    "typescript": "^3.8.3",
     "utility-types": "^3.6.1"
   },
   "scripts": {
