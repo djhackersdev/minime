@@ -104,30 +104,32 @@ async function migratedb(
 }
 
 export default async function checkdb(db: DataSource): Promise<void> {
-  const stmt = sql.select("schemaver").from("meta");
-  let maybe: number | undefined;
+  let schemaver: number | undefined;
 
-  try {
-    const row = await db.transaction(txn => txn.fetchRow(stmt));
+  await db.transaction(async txn => {
+    const stmt = sql.select("schemaver").from("meta");
 
-    if (row !== undefined) {
-      maybe = parseInt(row.schemaver!);
+    try {
+      const row = await txn.fetchRow(stmt);
+
+      if (row !== undefined) {
+        schemaver = parseInt(row.schemaver!);
+      }
+    } catch (e) {
+      return await initdb(txn);
     }
-  } catch (e) {
-    return db.transaction(initdb);
-  }
 
-  if (maybe === undefined) {
-    throw new Error(
-      "Database corrupted: `meta` table singleton row is missing"
-    );
-  }
+    if (schemaver === undefined) {
+      throw new Error(
+        "Database corrupted: `meta` table singleton row is missing"
+      );
+    }
 
-  const schemaver = maybe;
-  const newver = await db.transaction(txn => migratedb(txn, schemaver));
+    schemaver = await migratedb(txn, schemaver);
+  });
 
-  if (newver !== undefined) {
-    debug("Upgraded database to version %s", newver);
+  if (schemaver !== undefined) {
+    debug("Upgraded database to version %s", schemaver);
 
     await db.vacuum();
 
