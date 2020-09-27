@@ -28,7 +28,28 @@ export interface Transaction {
 }
 
 export interface DataSource {
+  /**
+   * Execute an async callback in the context of a database transaction.
+   *
+   * This method will open a database transaction and await the callback.
+   * A transaction object will be passed to the callback, and this transaction
+   * object can be used to perform queries against the database in the context
+   * of the transaction. This database abstraction layer does not permit
+   * queries to be executed outside of a transaction context.
+   *
+   * If the returned promise resolves then the transaction will be committed,
+   * and if the promise rejects then the transaction will roll back. As you
+   * would expect, really.
+   *
+   * Returns a promise equivalent to the promise returned by the callback.
+   */
   transaction<T>(callback: (txn: Transaction) => Promise<T>): Promise<T>;
 
+  /**
+   * Perform housekeeping operations on the database's on-disk data structures.
+   *
+   * This method is called after schema changes are performed, since these
+   * are likely to completely rebuild one or more tables.
+   */
   vacuum(): Promise<void>;
 }
