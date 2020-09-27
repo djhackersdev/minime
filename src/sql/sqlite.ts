@@ -1,9 +1,12 @@
 import Database, { ResultRow } from "@decafcode/sqlite";
 import { randomBytes } from "crypto";
+import logger from "debug";
 import * as sql from "sql-bricks-postgres";
 
 import { DataSource, Row, Transaction } from "./api";
 import { Id } from "../model";
+
+const debug = logger("app:sqlite");
 
 // bless me father for i have sinned
 const fuFixup = new RegExp(" FOR UPDATE$");
@@ -51,6 +54,12 @@ function _postprocess(obj: ResultRow): Row {
   }
 
   return result;
+}
+
+export class MaintenanceError extends Error {
+  constructor(msg: string, public readonly fkViolations: any[]) {
+    super(msg);
+  }
 }
 
 class SqliteTransaction implements Transaction {
@@ -128,6 +137,41 @@ class SqliteDataSource implements DataSource {
 
       const txn = new SqliteTransaction(db);
       const result = await callback(txn);
+
+      db.exec("commit");
+
+      return result;
+    } catch (e) {
+      db.exec("rollback");
+
+      throw e;
+    } finally {
+      db.close();
+    }
+  }
+
+  async maintenance<T>(
+    callback: (txn: Transaction) => Promise<T>
+  ): Promise<T> {
+    const db = new Database(this._path);
+
+    try {
+      db.exec("pragma foreign_keys=off");
+      db.exec("begin");
+
+      const txn = new SqliteTransaction(db);
+      const result = await callback(txn);
+
+      const fkViolations = db.prepare("pragma foreign_key_check").all();
+
+      if (fkViolations.length > 0) {
+        debug("Foreign key violations: %O", fkViolations);
+
+        throw new MaintenanceError(
+          "Maintenance failed, db unchanged. Consult 'app:sqlite' debug log.",
+          fkViolations
+        );
+      }
 
       db.exec("commit");
 

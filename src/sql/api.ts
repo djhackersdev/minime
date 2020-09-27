@@ -46,6 +46,16 @@ export interface DataSource {
   transaction<T>(callback: (txn: Transaction) => Promise<T>): Promise<T>;
 
   /**
+   * Execute an async callback in the context of a "maintenance" transaction.
+   *
+   * This method should be used when altering the data store's schema. On
+   * SQLite it will temporarily disable foreign key constraints (and then
+   * re-enable and validate them immediately prior to committing the
+   * transaction) so that tables may be dropped and re-created.
+   */
+  maintenance<T>(callback: (txn: Transaction) => Promise<T>): Promise<T>;
+
+  /**
    * Perform housekeeping operations on the database's on-disk data structures.
    *
    * This method is called after schema changes are performed, since these
