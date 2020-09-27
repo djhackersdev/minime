@@ -14,7 +14,7 @@ export async function saveTimeAttack(
     // avoidance time warping stuff
 
     const now = new Date();
-    const profileId = await w.profile().find(req.aimeId);
+    const profileId = await w.profile().find(req.aimeId, req.version);
 
     await w.timeAttack().save(profileId, { ...req.payload, timestamp: now });
   }

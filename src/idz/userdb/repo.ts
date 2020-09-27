@@ -49,9 +49,12 @@ export interface FlagRepository<T extends number> {
 }
 
 export interface ProfileRepository {
-  find(aimeId: AimeId): Promise<Id<Model.Profile>>;
+  find(aimeId: AimeId, version: number): Promise<Id<Model.Profile>>;
 
-  peek(aimeId: AimeId): Promise<Id<Model.Profile> | undefined>;
+  peek(
+    aimeId: AimeId,
+    version: number
+  ): Promise<Id<Model.Profile> | undefined>;
 
   load(id: Id<Model.Profile>): Promise<Model.Profile>;
 
@@ -61,7 +64,10 @@ export interface ProfileRepository {
 }
 
 export interface TeamRepository {
-  find(extId: Model.ExtId<Model.Team>): Promise<Id<Model.Team>>;
+  find(
+    extId: Model.ExtId<Model.Team>,
+    version: number
+  ): Promise<Id<Model.Team>>;
 
   load(id: Id<Model.Team>): Promise<Model.Team>;
 
@@ -73,7 +79,7 @@ export interface TeamRepository {
 }
 
 export interface TeamAutoRepository {
-  peek(): Promise<[Model.TeamAuto, Id<Model.Team>] | undefined>;
+  peek(version: number): Promise<[Model.TeamAuto, Id<Model.Team>] | undefined>;
 
   push(teamId: Id<Model.Team>, auto: Model.TeamAuto): Promise<void>;
 }

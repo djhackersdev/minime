@@ -6,8 +6,8 @@ export async function updateTeamLeader(
   w: Repositories,
   req: UpdateTeamLeaderRequest
 ): Promise<UpdateTeamLeaderResponse> {
-  const profileId = await w.profile().find(req.aimeId);
-  const teamId = await w.teams().find(req.teamExtId);
+  const profileId = await w.profile().find(req.aimeId, req.version);
+  const teamId = await w.teams().find(req.teamExtId, req.version);
 
   await w.teamMembers().makeLeader(teamId, profileId);
 

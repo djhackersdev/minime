@@ -7,7 +7,7 @@ export async function createTeam(
   w: Repositories,
   req: CreateTeamRequest
 ): Promise<CreateTeamResponse> {
-  const profileId = await w.profile().find(req.aimeId);
+  const profileId = await w.profile().find(req.aimeId, req.version);
   const prevTeamId = await w.teamMembers().findTeam(profileId);
   const now = new Date();
 
@@ -15,6 +15,7 @@ export async function createTeam(
 
   const teamSpec = {
     name: req.teamName,
+    version: req.version,
     nameBg: req.nameBg,
     nameFx: 0,
     registerTime: now,

@@ -6,9 +6,9 @@ export async function loadProfile(
   w: Repositories,
   req: LoadProfileRequest
 ): Promise<LoadProfileResponse> {
-  const { aimeId } = req;
+  const { aimeId, version } = req;
 
-  const profileId = await w.profile().find(aimeId);
+  const profileId = await w.profile().find(aimeId, version);
   const teamId = await w.teamMembers().findTeam(profileId);
   const leaderId = teamId && (await w.teamMembers().findLeader(teamId));
 

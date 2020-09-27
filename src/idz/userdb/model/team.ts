@@ -4,6 +4,7 @@ import { Profile } from "./profile";
 
 export interface Team {
   extId: ExtId<Team>;
+  version: number;
   name: string;
   nameBg: number;
   nameFx: number;

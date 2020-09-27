@@ -6,7 +6,7 @@ export async function discoverProfile(
   w: Repositories,
   req: DiscoverProfileRequest
 ): Promise<DiscoverProfileResponse> {
-  const profileId = await w.profile().peek(req.aimeId);
+  const profileId = await w.profile().peek(req.aimeId, req.version);
 
   return {
     type: "discover_profile_res",

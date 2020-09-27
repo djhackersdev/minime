@@ -37,6 +37,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
         // Profile
         "p.name as profile_name",
         // Team
+        "t.version as team_version",
         "t.ext_id as team_ext_id",
         "t.name as team_name",
         "t.name_bg as team_name_bg",
@@ -64,6 +65,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       driverName: row.profile_name!,
       team: {
         extId: parseInt(row.team_ext_id!) as ExtId<Team>,
+        version: parseInt(row.team_version!),
         name: row.team_name!,
         nameBg: parseInt(row.team_name_bg!),
         nameFx: parseInt(row.team_name_fx!),

@@ -6,7 +6,7 @@ export async function saveStocker(
   w: Repositories,
   req: SaveStockerRequest
 ): Promise<GenericResponse> {
-  const profileId = await w.profile().find(req.aimeId);
+  const profileId = await w.profile().find(req.aimeId, req.version);
 
   await Promise.all([
     w.backgrounds().saveAll(profileId, req.backgrounds),
