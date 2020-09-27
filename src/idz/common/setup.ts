@@ -2,13 +2,24 @@ import { Socket } from "net";
 
 import AesEcbStream from "./aes";
 import { readBigInt, modPow, writeBigInt } from "./bigint";
-import IoByteStream from "../../util/stream";
+import IoByteStream, { ByteStream } from "../../util/stream";
 
 interface RsaKey {
   N: bigint;
   d: bigint;
   e: bigint;
   hashN: number;
+}
+
+export interface ClientHello {
+  pcbId: string;
+  protocol: string;
+  model: string;
+}
+
+export interface IdzConnection {
+  aesStream: ByteStream;
+  clientHello: ClientHello;
 }
 
 // Proof-of-concept, so we only ever use one of the ten RSA key pairs
@@ -22,7 +33,7 @@ const rsaKey = {
 // Proof-of-concept, so we only use one fixed session key
 const aesKey = Buffer.from("ffddeeccbbaa99887766554433221100", "hex");
 
-function writeServerHello(aesKey: Buffer, rsaKey: RsaKey) {
+function writeServerHello(aesKey: Buffer, rsaKey: RsaKey): Buffer {
   const M = readBigInt(aesKey);
   const keyEnc = modPow(M, rsaKey.e, rsaKey.N);
   const result = Buffer.alloc(0x48);
@@ -50,7 +61,7 @@ function readClientHello(buf: Buffer) {
   };
 }
 
-export default async function setup(socket: Socket) {
+export default async function setup(socket: Socket): Promise<IdzConnection> {
   const tcpStream = new IoByteStream(socket);
   const serverHello = writeServerHello(aesKey, rsaKey);
 
