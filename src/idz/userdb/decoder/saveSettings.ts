@@ -5,8 +5,6 @@ saveSettings.msgCode = 0x00a5;
 saveSettings.msgLen = 0x0020;
 
 export function saveSettings(buf: Buffer): SaveSettingsRequest {
-  const pack = buf.readUInt32LE(0x000c);
-
   return {
     type: "save_settings_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
