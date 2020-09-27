@@ -135,7 +135,7 @@ class SqliteDataSource implements DataSource {
     } catch (e) {
       db.exec("rollback");
 
-      return Promise.reject(e);
+      throw e;
     } finally {
       db.close();
     }
