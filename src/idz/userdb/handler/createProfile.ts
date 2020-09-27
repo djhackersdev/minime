@@ -27,7 +27,13 @@ export async function createProfile(
   };
 
   const missions: MissionState = { team: [], solo: [] };
-  const settings: Settings = { music: 0, pack: 13640, aura: 0, paperCup: 0, gauges: 5 };
+  const settings: Settings = {
+    music: 0,
+    pack: 13640,
+    aura: 0,
+    paperCup: 0,
+    gauges: 5,
+  };
   const story: Story = { x: 0, y: 0, rows: [] };
   const unlocks: Unlocks = {
     auras: 1,
