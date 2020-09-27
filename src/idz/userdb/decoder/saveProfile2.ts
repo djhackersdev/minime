@@ -47,6 +47,7 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest2 {
     type: "save_profile_req",
     format: 2,
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     lv: buf.readUInt16LE(0x0026),
     exp: buf.readUInt32LE(0x0028),
     fame: buf.readUInt32LE(0x0468),

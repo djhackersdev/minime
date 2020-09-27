@@ -11,7 +11,7 @@ export function saveStocker(buf: Buffer): SaveStockerRequest {
   return {
     type: "save_stocker_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
-
+    version: 1,
     backgrounds: bitmap(buf.slice(0x0008, 0x002c)),
     selectedCar: buf.readUInt16LE(0x009c) as CarSelector,
     chara: chara(buf.slice(0x009e, 0x00b2)),

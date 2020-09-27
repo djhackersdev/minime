@@ -10,6 +10,7 @@ export function saveNewCar(buf: Buffer): SaveNewCarRequest {
   return {
     type: "save_new_car_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     luid: readAsciiStr(buf, 0x0008, 0x001e),
     car: car(buf.slice(0x0020, 0x0080)),
     field_0080: buf.readUInt32LE(0x0080),

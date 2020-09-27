@@ -11,6 +11,7 @@ export function updateTeamLeader(buf: Buffer): UpdateTeamLeaderRequest {
   return {
     type: "update_team_leader_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     teamExtId: buf.readUInt32LE(0x0008) as ExtId<Team>,
     field_000C: readAsciiStr(buf, 0x000c, 0x0020),
   };

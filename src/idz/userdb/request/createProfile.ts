@@ -5,6 +5,7 @@ import { AimeId } from "../../../model";
 export interface CreateProfileRequest {
   type: "create_profile_req";
   aimeId: AimeId;
+  version: number;
   luid: string;
   name: string;
   field_0034: number;

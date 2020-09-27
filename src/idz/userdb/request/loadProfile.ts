@@ -3,6 +3,7 @@ import { AimeId } from "../../../model";
 interface LoadProfileRequestBase {
   type: "load_profile_req";
   aimeId: AimeId;
+  version: number;
   luid: string;
 }
 

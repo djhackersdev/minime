@@ -6,5 +6,6 @@ export interface UpdateTeamMemberRequest {
   type: "update_team_member_req";
   action: "add" | "remove";
   aimeId: AimeId;
+  version: number;
   teamExtId: ExtId<Team>;
 }

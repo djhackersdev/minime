@@ -6,6 +6,7 @@ import { AimeId } from "../../../model";
 export interface SaveStockerRequest {
   type: "save_stocker_req";
   aimeId: AimeId;
+  version: number;
   selectedCar: CarSelector;
   backgrounds: Set<BackgroundCode>;
   chara: Chara;

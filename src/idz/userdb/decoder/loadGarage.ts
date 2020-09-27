@@ -8,6 +8,7 @@ export function loadGarage(buf: Buffer): LoadGarageRequest {
   return {
     type: "load_garage_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     fetchOffset: buf.readUInt8(0x0008),
     field_000A: buf.readUInt16LE(0x000a),
   };

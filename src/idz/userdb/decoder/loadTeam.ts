@@ -11,6 +11,7 @@ export function loadTeam(buf: Buffer): LoadTeamRequest {
   return {
     type: "load_team_req",
     aimeId: buf.readUInt32LE(0x0004),
+    version: 1,
     teamExtId: extId !== 0xffffffff ? (extId as ExtId<Team>) : undefined,
   };
 }
