@@ -33,7 +33,7 @@ function writeStr(
   str: string,
   encoding: string
 ) {
-  const tmp = iconv.encode(str + "\0", encoding);
+  const tmp = iconv.encode(str, encoding);
 
   if (tmp.length >= end - begin) {
     throw new Error("String field overflow");
