@@ -10,7 +10,7 @@ export function updateProvisionalStoreRank(
   buf.writeInt16LE(0x0083, 0x0000);
 
   for (let i = 0; i < 10; i++) {
-    const offset = 0x44 + i;
+    const offset = 0x0008 + i * 0x44;
     const row = res.rows[i];
 
     if (row !== undefined) {
