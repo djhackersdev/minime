@@ -8,8 +8,8 @@ export async function updateTeamMember(
   req: UpdateTeamMemberRequest
 ): Promise<UpdateTeamMemberResponse> {
   const now = new Date();
-  const profileId = await w.profile().find(req.aimeId);
-  const teamId = await w.teams().find(req.teamExtId);
+  const profileId = await w.profile().find(req.aimeId, req.version);
+  const teamId = await w.teams().find(req.teamExtId, req.version);
 
   switch (req.action) {
     case "add":

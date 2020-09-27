@@ -44,9 +44,9 @@ export async function createAutoTeam(
   req: CreateAutoTeamRequest
 ): Promise<CreateAutoTeamResponse> {
   const now = new Date();
-  const { aimeId } = req;
+  const { aimeId, version } = req;
 
-  const peek = await w.teamAuto().peek();
+  const peek = await w.teamAuto().peek(version);
   let nextAuto: TeamAuto;
 
   //
@@ -100,6 +100,7 @@ export async function createAutoTeam(
   // Register the new team, make the requestor its leader
 
   const spec = {
+    version,
     name,
     nameBg: autoTeams[nameIdx].nameBg,
     nameFx: 0,

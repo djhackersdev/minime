@@ -26,7 +26,9 @@ export async function _fixupPrevTeam(
     // (need to look up new leader's db id from aime id. ick)
 
     const newLeader = remaining[remaining.length - 1];
-    const newLeaderId = await w.profile().find(newLeader.profile.aimeId);
+    const newLeaderId = await w
+      .profile()
+      .find(newLeader.profile.aimeId, newLeader.profile.version);
 
     await w.teamMembers().makeLeader(prevTeamId, newLeaderId);
   }

@@ -8,6 +8,7 @@ import { Row, Transaction } from "../../../sql";
 export function _extractProfile(row: Row): Profile {
   return {
     aimeId: parseInt(row.aime_id!) as AimeId,
+    version: parseInt(row.version!),
     name: row.name!,
     lv: parseInt(row.lv!),
     exp: parseInt(row.exp!),
@@ -22,8 +23,8 @@ export function _extractProfile(row: Row): Profile {
 export class SqlProfileRepository implements ProfileRepository {
   constructor(private readonly _txn: Transaction) {}
 
-  async find(aimeId: AimeId): Promise<Id<Profile>> {
-    const profileId = await this.peek(aimeId);
+  async find(aimeId: AimeId, version: number): Promise<Id<Profile>> {
+    const profileId = await this.peek(aimeId, version);
 
     if (profileId === undefined) {
       throw new Error(`Profile not found for Aime ID ${aimeId}`);
@@ -32,12 +33,16 @@ export class SqlProfileRepository implements ProfileRepository {
     return profileId;
   }
 
-  async peek(aimeId: AimeId): Promise<Id<Profile> | undefined> {
+  async peek(
+    aimeId: AimeId,
+    version: number
+  ): Promise<Id<Profile> | undefined> {
     const lookupSql = sql
       .select("p.id")
       .from("idz_profile p")
       .join("aime_player r", { "p.player_id": "r.id" })
-      .where("r.ext_id", aimeId);
+      .where("r.ext_id", aimeId)
+      .and("r.version", version);
 
     const row = await this._txn.fetchRow(lookupSql);
 

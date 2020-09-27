@@ -37,6 +37,7 @@ export class SqlTeamRepository implements TeamRepository {
     }
 
     return {
+      version: parseInt(row.version!),
       extId: parseInt(row.ext_id!) as ExtId<Team>,
       name: row.name!,
       nameBg: parseInt(row.name_bg!),

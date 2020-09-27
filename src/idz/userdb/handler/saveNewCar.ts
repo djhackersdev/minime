@@ -6,7 +6,7 @@ export async function saveNewCar(
   w: Repositories,
   req: SaveNewCarRequest
 ): Promise<SaveNewCarResponse> {
-  const profileId = await w.profile().find(req.aimeId);
+  const profileId = await w.profile().find(req.aimeId, req.version);
 
   await w.car().saveCar(profileId, req.car);
 

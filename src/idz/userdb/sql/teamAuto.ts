@@ -8,10 +8,12 @@ import { Transaction } from "../../../sql";
 export class SqlTeamAutoRepository implements TeamAutoRepository {
   constructor(private readonly _txn: Transaction) {}
 
-  async peek(): Promise<[TeamAuto, Id<Team>] | undefined> {
+  async peek(version: number): Promise<[TeamAuto, Id<Team>] | undefined> {
     const peekSql = sql
       .select("tt.*")
       .from("idz_team_auto tt")
+      .join("idz_team t", { "tt.id": "t.id" })
+      .where("t.version", version)
       .orderBy("serial_no desc", "name_idx desc")
       .limit(1);
 

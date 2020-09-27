@@ -7,6 +7,10 @@ create table "idz_profile" (
     "player_id" integer not null
             references "aime_player"("id")
             on delete cascade,
+    -- Major version of Initial D Zero, either 1 or 2.
+    -- The two major versions are incompatible with each other and do not
+    -- permit the player to carry progress over from one to the other.
+    "version" integer not null,
     -- TODO shop_id
     "name" text not null,
     "lv" integer not null,
@@ -16,7 +20,7 @@ create table "idz_profile" (
     "mileage" integer not null,
     "register_time" timestamp not null,
     "access_time" timestamp not null,
-    constraint "idz_profile_player_uq" unique ("player_id")
+    constraint "idz_profile_player_uq" unique ("player_id", "version")
 );
 
 create table "idz_chara" (
@@ -202,12 +206,13 @@ create table "idz_unlocks" (
 
 create table "idz_team" (
     "id" integer primary key not null,
+    "version" integer not null,
     "ext_id" integer not null,
     "name" text not null,
     "name_bg" integer not null,
     "name_fx" integer not null,
     "register_time" timestamp not null,
-    constraint "idz_team_uq" unique ("ext_id")
+    constraint "idz_team_uq" unique ("version", "ext_id")
 );
 
 create table "idz_team_auto" (

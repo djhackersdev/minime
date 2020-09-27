@@ -11,11 +11,12 @@ export async function createProfile(
   w: Repositories,
   req: CreateProfileRequest
 ): Promise<GenericResponse> {
-  const { aimeId, name } = req;
+  const { aimeId, version, name } = req;
   const now = new Date();
 
   const profile: Profile = {
     aimeId,
+    version,
     name,
     lv: 1,
     exp: 0,
