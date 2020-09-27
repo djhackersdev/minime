@@ -1,10 +1,9 @@
-import iconv from "iconv-lite";
-
 import { encodeBitmap } from "./_bitmap";
 import { encodeCar } from "./_car";
 import { encodeChara } from "./_chara";
 import { encodeMission } from "./_mission";
 import { LoadProfileResponse2 } from "../response/loadProfile";
+import { writeSjisStr } from "../../util/bin";
 
 export function loadProfile2(res: LoadProfileResponse2) {
   const buf = Buffer.alloc(0x0d30);
@@ -87,7 +86,7 @@ export function loadProfile2(res: LoadProfileResponse2) {
   buf.writeUInt32LE(res.settings.pack, 0x03d8);
   buf.writeUInt32LE(res.dpoint, 0x03e8);
   buf.writeUInt32LE(res.fame, 0x0404);
-  iconv.encode(res.name + "\0", "shift_jis").copy(buf, 0x03ee);
+  writeSjisStr(buf, 0x03ee, 0x40e, res.name);
   buf.writeUInt8(res.story.y, 0x0670);
   buf.writeUInt16LE(res.story.x, 0x06bc);
   encodeMission(res.missions.solo).copy(buf, 0x06e4);

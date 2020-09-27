@@ -1,6 +1,5 @@
-import iconv from "iconv-lite";
-
 import { LoadGeneralRewardResponse } from "../response/loadGeneralReward";
+import { writeSjisStr } from "../../util/bin";
 
 export function loadGeneralReward(res: LoadGeneralRewardResponse) {
   const buf = Buffer.alloc(0x0330);
@@ -15,7 +14,7 @@ export function loadGeneralReward(res: LoadGeneralRewardResponse) {
     const item = res.items[i];
     const base = 0x04 + 0x50 * i;
 
-    iconv.encode(item.field_04, "shift_jis").copy(buf, base + 0x04);
+    writeSjisStr(buf, base + 0x04, base + 0x2c, item.field_04);
     buf.writeUInt32LE(item.field_2C, base + 0x2c);
     buf.writeUInt8(item.field_38, base + 0x38);
     buf.writeUInt8(item.field_39, base + 0x39);
