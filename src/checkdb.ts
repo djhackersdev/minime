@@ -106,7 +106,7 @@ async function migratedb(
 export default async function checkdb(db: DataSource): Promise<void> {
   let schemaver: number | undefined;
 
-  await db.transaction(async txn => {
+  await db.maintenance(async txn => {
     const stmt = sql.select("schemaver").from("meta");
 
     try {
