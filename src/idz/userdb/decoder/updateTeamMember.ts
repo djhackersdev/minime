@@ -11,6 +11,7 @@ export function updateTeamMember(buf: Buffer): UpdateTeamMemberRequest {
     type: "update_team_member_req",
     action: buf.readUInt8(0x0004) === 0 ? "add" : "remove",
     aimeId: buf.readUInt32LE(0x0008) as AimeId,
+    version: 1,
     teamExtId: buf.readUInt32LE(0x000c) as ExtId<Team>,
   };
 }

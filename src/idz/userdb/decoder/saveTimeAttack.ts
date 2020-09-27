@@ -7,6 +7,7 @@ function saveTimeAttack(buf: Buffer): SaveTimeAttackRequest {
   return {
     type: "save_time_attack_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     dayNight: buf.readUInt8(0x0054) & 1,
     payload: {
       routeNo: (buf.readUInt8(0x0054) >> 1) as RouteNo,

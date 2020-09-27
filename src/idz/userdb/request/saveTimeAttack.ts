@@ -4,6 +4,7 @@ import { AimeId } from "../../../model";
 export interface SaveTimeAttackRequest {
   type: "save_time_attack_req";
   aimeId: AimeId;
+  version: number;
   dayNight: number;
   payload: TimeAttackScore;
   field_0002: number; // u16, always 1

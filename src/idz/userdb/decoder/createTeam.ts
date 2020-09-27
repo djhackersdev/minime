@@ -9,6 +9,7 @@ export function createTeam(buf: Buffer): CreateTeamRequest {
   return {
     type: "create_team_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     teamName: readSjisStr(buf, 0x0008, 0x0028),
     field_0028: buf.readUInt16LE(0x0028),
     field_002C: buf.readUInt32LE(0x002c),

@@ -9,6 +9,7 @@ export function saveTeamBanner(buf: Buffer): SaveTeamBannerRequest {
   return {
     type: "save_team_banner_req",
     teamExtId: buf.readUInt32LE(0x0004) as ExtId<Team>,
+    version: 1,
     nameBg: buf.readUInt32LE(0x0008),
     nameFx: buf.readUInt32LE(0x000c),
   };

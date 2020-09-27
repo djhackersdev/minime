@@ -10,6 +10,7 @@ import { AimeId } from "../../../model";
 interface SaveProfileRequestBase {
   type: "save_profile_req";
   aimeId: AimeId;
+  version: number;
   lv: number;
   exp: number;
   fame: number;

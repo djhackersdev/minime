@@ -8,5 +8,6 @@ export function loadStocker(buf: Buffer): LoadStockerRequest {
   return {
     type: "load_stocker_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
   };
 }

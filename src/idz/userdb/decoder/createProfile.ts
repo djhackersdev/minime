@@ -11,6 +11,7 @@ export function createProfile(buf: Buffer): CreateProfileRequest {
   return {
     type: "create_profile_req",
     aimeId: buf.readInt32LE(0x0004) as AimeId,
+    version: 1,
     luid: readAsciiStr(buf, 0x0008, 0x001e),
     name: readSjisStr(buf, 0x001e, 0x0034),
     field_0034: buf.readUInt32LE(0x0034),

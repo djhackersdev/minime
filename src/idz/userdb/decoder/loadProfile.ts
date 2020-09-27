@@ -13,6 +13,7 @@ export function loadProfile2(buf: Buffer): LoadProfileRequest2 {
     type: "load_profile_req",
     format: 2,
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     luid: readAsciiStr(buf, 0x0008, 0x0020),
   };
 }
@@ -25,6 +26,7 @@ export function loadProfile3(buf: Buffer): LoadProfileRequest3 {
     type: "load_profile_req",
     format: 3,
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     luid: readAsciiStr(buf, 0x0008, 0x0020),
   };
 }

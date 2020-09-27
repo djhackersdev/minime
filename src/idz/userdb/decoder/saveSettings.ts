@@ -8,6 +8,7 @@ export function saveSettings(buf: Buffer): SaveSettingsRequest {
   return {
     type: "save_settings_req",
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    version: 1,
     dpoint: buf.readUInt32LE(0x0008),
     settings: {
       music: buf.readUInt16LE(0x0002),
