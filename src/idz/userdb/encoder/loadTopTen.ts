@@ -1,5 +1,4 @@
-import iconv from "iconv-lite";
-
+import { writeSjisStr } from "../../util/bin";
 import { LoadTopTenResponse } from "../response/loadTopTen";
 
 export function loadTopTen(res: LoadTopTenResponse): Buffer {
@@ -49,9 +48,9 @@ export function loadTopTen(res: LoadTopTenResponse): Buffer {
       buf.writeUInt8(row.field_0E ? 1 : 0, innerOff + 0x000e); // Boolean
       buf.writeUInt8(row.field_0F ? 1 : 0, innerOff + 0x000f); // Boolean
       buf.writeUInt8(row.field_10, innerOff + 0x0010);
-      iconv.encode(row.driverName, "shift_jis").copy(buf, innerOff + 0x0014);
-      iconv.encode(row.team.name, "shift_jis").copy(buf, innerOff + 0x0028);
-      iconv.encode(row.shopName, "shift_jis").copy(buf, innerOff + 0x0048);
+      writeSjisStr(buf, innerOff + 0x0014, innerOff + 0x0028, row.driverName);
+      writeSjisStr(buf, innerOff + 0x0028, innerOff + 0x0048, row.team.name);
+      writeSjisStr(buf, innerOff + 0x0048, innerOff + 0x0074, row.shopName);
       buf.writeUInt32LE(row.team.nameBg, innerOff + 0x0074);
       buf.writeUInt16LE(row.team.nameFx, innerOff + 0x0078);
       buf.writeUInt8(row.field_7C, innerOff + 0x007c);
@@ -70,7 +69,7 @@ export function loadTopTen(res: LoadTopTenResponse): Buffer {
       buf.writeUInt8(trailer.courseId, offset + 0x02);
       buf.writeUInt8(trailer.isNight ? 1 : 0, offset + 0x03);
       buf.writeUInt32LE(trailer.totalMsec, offset + 0x04);
-      iconv.encode(trailer.name, "shift_jis").copy(buf, offset + 0x08);
+      writeSjisStr(buf, offset + 0x08, offset + 0x1c, trailer.name);
     } else {
       buf.writeUInt8(0xff, offset + 0x02);
     }

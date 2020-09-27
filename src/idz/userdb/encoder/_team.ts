@@ -1,5 +1,4 @@
-import iconv from "iconv-lite";
-
+import { writeSjisStr } from "../../util/bin";
 import { CreateAutoTeamResponse } from "../response/createAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 import { encodeChara } from "./_chara";
@@ -15,9 +14,9 @@ export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
 
   const leader = res.members.find(item => item.leader === true);
   buf.writeUInt32LE(res.team.extId, 0x000c);
-  iconv.encode(leader ? leader.profile.name : "Error\0", "shift_jis").copy(buf, 0x0010);
-  iconv.encode(res.team.name, "shift_jis").copy(buf, 0x0024);
-  iconv.encode(process.env.SHOP_NAME ? process.env.SHOP_NAME : "\0", "shift_jis").copy(buf, 0x0044);
+  writeSjisStr(buf, 0x0010, 0x0024, leader ? leader.profile.name : "Error");
+  writeSjisStr(buf, 0x0024, 0x0044, res.team.name);
+  writeSjisStr(buf, 0x0044, 0x00d8, process.env.SHOP_NAME || "");
   buf.writeUInt32LE(res.team.nameBg, 0x00d8);
   buf.writeUInt32LE(res.team.nameFx, 0x00dc);
   buf.fill(0xff, 0x00e0, 0x00f9); // Bitset: Unlocked BGs probably
@@ -36,7 +35,7 @@ export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
     const accessTime = (profile.accessTime.getTime() / 1000) | 0;
 
     buf.writeInt32LE(profile.aimeId, base + 0x0000);
-    iconv.encode(profile.name + "\0", "shift_jis").copy(buf, base + 0x0004);
+    writeSjisStr(buf, 0x0004, 0x0018, profile.name);
     buf.writeInt32LE(profile.lv, base + 0x0018);
     buf.writeInt32LE(0, base + 0x0024); // Month points, TODO
     buf.writeUInt32LE(accessTime, base + 0x0034);

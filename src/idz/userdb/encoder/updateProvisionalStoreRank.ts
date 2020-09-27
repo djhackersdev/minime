@@ -1,6 +1,5 @@
-import iconv from "iconv-lite";
-
 import { UpdateProvisionalStoreRankResponse } from "../response/updateProvisionalStoreRank";
+import { writeSjisStr } from "../../util/bin";
 
 export function updateProvisionalStoreRank(
   res: UpdateProvisionalStoreRankResponse
@@ -16,8 +15,8 @@ export function updateProvisionalStoreRank(
     if (row !== undefined) {
       buf.writeInt16LE(row.field_0000, offset + 0x0000);
       buf.writeInt32LE(row.field_0004, offset + 0x0004);
-      iconv.encode(row.field_0010, "shift_jis").copy(buf, offset + 0x0010);
-      iconv.encode(row.field_003B, "shift_jis").copy(buf, offset + 0x003b);
+      writeSjisStr(buf, offset + 0x0010, offset + 0x003b, row.field_0010);
+      writeSjisStr(buf, offset + 0x003b, offset + 0x0044, row.field_003B);
     }
   }
 
