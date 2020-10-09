@@ -15,7 +15,6 @@ export function saveExpedition(
   } else {
     return {
       type: "save_expedition_res",
-      format: req.format as any,
     };
   }
 }

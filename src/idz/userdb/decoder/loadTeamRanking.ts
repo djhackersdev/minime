@@ -1,9 +1,9 @@
 import { LoadTeamRankingRequest } from "../request/loadTeamRanking";
 
-loadTeamRanking.msgCode = 0x00b9;
-loadTeamRanking.msgLen = 0x0010;
+loadTeamRanking1.msgCode = 0x00b9;
+loadTeamRanking1.msgLen = 0x0010;
 
-export function loadTeamRanking(buf: Buffer): LoadTeamRankingRequest {
+export function loadTeamRanking1(buf: Buffer): LoadTeamRankingRequest {
   return {
     type: "load_team_ranking_req",
   };

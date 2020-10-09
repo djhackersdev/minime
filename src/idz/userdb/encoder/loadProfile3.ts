@@ -2,10 +2,10 @@ import { encodeBitmap } from "./_bitmap";
 import { encodeCar } from "./_car";
 import { encodeChara } from "./_chara";
 import { encodeMission } from "./_mission";
-import { LoadProfileResponse3 } from "../response/loadProfile";
+import { LoadProfileResponse } from "../response/loadProfile";
 import { writeSjisStr } from "../../util/bin";
 
-export function loadProfile3(res: LoadProfileResponse3) {
+export function loadProfile3(res: LoadProfileResponse) {
   const buf = Buffer.alloc(0x0ea0);
 
   // Initialize all TA grades to uhh... fuck knows

@@ -19,12 +19,12 @@ export default function idz(db: DataSource) {
 
       debug("Handshake OK", clientHello);
 
-      for await (const req of readRequestStream(aesStream)) {
+      for await (const req of readRequestStream(clientHello, aesStream)) {
         const res = await db.transaction(txn =>
           dispatch(new SqlRepositories(txn), req)
         );
 
-        await aesStream.write(writeResponse(res));
+        await aesStream.write(writeResponse(res, clientHello));
       }
     } catch (error) {
       if (debug.enabled) {
