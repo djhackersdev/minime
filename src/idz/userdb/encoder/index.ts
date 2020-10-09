@@ -1,5 +1,4 @@
 import logger from "debug";
-import { Transform } from "stream";
 
 import { _team } from "./_team";
 import { checkTeamName } from "./checkTeamName";
