@@ -18,7 +18,7 @@ import { loadRewardTable } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker } from "./loadStocker";
 import { loadTeam } from "./loadTeam";
-import { loadTeamRanking, loadTeamRanking2 } from "./loadTeamRanking";
+import { loadTeamRanking1, loadTeamRanking2 } from "./loadTeamRanking";
 import { loadTopTen1 } from "./loadTopTen1";
 import { loadTopTen2 } from "./loadTopTen2";
 import { lockGarage } from "./lockGarage";
@@ -48,7 +48,7 @@ import { updateTeamPoints } from "./updateTeamPoints";
 import { updateUiReport } from "./updateUiReport";
 import { updateUserLog } from "./updateUserLog";
 import { lockProfileExtend } from "./lockProfileExtend";
-import { BLOCK_SIZE } from "../../common";
+import { BLOCK_SIZE, ClientHello } from "../../common";
 import { ByteStream } from "../../../util/stream";
 
 const debug = logger("app:idz:userdb:decoder");
@@ -58,53 +58,55 @@ export type ReaderFn = ((buf: Buffer) => Request) & {
   msgLen: number;
 };
 
-const funcList: ReaderFn[] = [
+function makeReaderMap(funcList: ReaderFn[]): Map<number, ReaderFn> {
+  const result = new Map<number, ReaderFn>();
+
+  for (const fn of funcList) {
+    result.set(fn.msgCode, fn);
+  }
+
+  return result;
+}
+
+// TODO confirm v1.21.00 proto version
+const funcList110: ReaderFn[] = [
   checkTeamName,
   createAutoTeam,
   createProfile,
   createTeam,
   discoverProfile,
   load2on2_v1,
-  load2on2_v2,
   loadConfig,
   loadConfig2,
   loadEventInfo,
   loadGacha,
   loadGarage,
   loadGeneralReward1,
-  loadGeneralReward2,
   loadGhost,
   loadProfile2,
-  loadProfile3,
   loadRewardTable,
   loadServerList,
   loadStocker,
   loadTeam,
-  loadTeamRanking,
-  loadTeamRanking2,
-  loadTopTen1,
-  loadTopTen2,
+  loadTeamRanking1,
   lockGarage,
   lockProfile,
   lockProfileExtend,
+  loadTopTen1,
   msg00AD,
   saveExpedition1,
-  saveExpedition2,
   saveGarage,
   saveNewCar,
   saveProfile2,
-  saveProfile3,
   saveSettings,
   saveStocker,
   saveTeamBanner,
   saveTimeAttack1,
-  saveTimeAttack2,
   saveTopic,
   unlockProfile,
   updateProvisionalStoreRank,
   updateResult,
   updateStoryClearNum1,
-  updateStoryClearNum2,
   updateTeamLeader,
   updateTeamMember,
   updateTeamPoints,
@@ -112,15 +114,66 @@ const funcList: ReaderFn[] = [
   updateUserLog,
 ];
 
-const readerFns = new Map<number, ReaderFn>();
-const msgLengths = new Map<number, number>();
+const funcList130: ReaderFn[] = [
+  checkTeamName,
+  createAutoTeam,
+  createProfile,
+  createTeam,
+  discoverProfile,
+  load2on2_v2,
+  updateStoryClearNum2,
+  loadConfig,
+  loadConfig2,
+  loadEventInfo,
+  loadGacha,
+  loadGarage,
+  loadGeneralReward2,
+  loadGhost,
+  loadProfile3,
+  loadRewardTable,
+  loadServerList,
+  loadStocker,
+  loadTeam,
+  loadTeamRanking2,
+  loadTopTen2,
+  lockGarage,
+  lockProfile,
+  lockProfileExtend,
+  msg00AD,
+  saveExpedition2,
+  saveGarage,
+  saveNewCar,
+  saveProfile3,
+  saveSettings,
+  saveStocker,
+  saveTeamBanner,
+  saveTimeAttack2,
+  saveTopic,
+  unlockProfile,
+  updateProvisionalStoreRank,
+  updateResult,
+  updateTeamLeader,
+  updateTeamMember,
+  updateTeamPoints,
+  updateUiReport,
+  updateUserLog,
+];
 
-for (const fn of funcList) {
-  readerFns.set(fn.msgCode, fn);
-  msgLengths.set(fn.msgCode, fn.msgLen);
-}
+const protocols = new Map<string, Map<number, ReaderFn>>();
 
-async function readRequest(stm: ByteStream): Promise<Request | undefined> {
+protocols.set("110", makeReaderMap(funcList110));
+protocols.set("130", makeReaderMap(funcList130));
+
+async function readRequest(
+  clientHello: ClientHello,
+  stm: ByteStream
+): Promise<Request | undefined> {
+  const protocol = protocols.get(clientHello.protocol);
+
+  if (protocol === undefined) {
+    throw new Error(`Unsupported protocol version ${clientHello.protocol}`);
+  }
+
   const head = await stm.read(BLOCK_SIZE);
 
   if (head.length === 0) {
@@ -129,16 +182,16 @@ async function readRequest(stm: ByteStream): Promise<Request | undefined> {
   }
 
   const msgCode = head.readUInt16LE(0x0000);
-  const msgLen = msgLengths.get(msgCode);
+  const readerFn = protocol.get(msgCode);
 
-  if (msgLen === undefined) {
+  if (readerFn === undefined) {
     throw new Error(`Message ${msgCode.toString(16)}: Unknown command code`);
   }
 
-  const tail = await stm.read(msgLen - BLOCK_SIZE);
+  const tail = await stm.read(readerFn.msgLen - BLOCK_SIZE);
   const msg = Buffer.concat([head, tail]);
 
-  if (msg.length < msgLen) {
+  if (msg.length < readerFn.msgLen) {
     throw new Error(`Message ${msgCode.toString(16)}: Truncated read`);
   }
 
@@ -146,22 +199,19 @@ async function readRequest(stm: ByteStream): Promise<Request | undefined> {
     debug("Raw: %s", msg.toString("hex"));
   }
 
-  const reader = readerFns.get(msgCode);
-
-  if (reader === undefined) {
-    throw new Error(`Message ${msgCode.toString(16)}: No read handler`);
-  }
-
-  const payload = reader(msg);
+  const payload = readerFn(msg);
 
   debug("Payload: %j", payload);
 
   return payload;
 }
 
-export default async function* readRequestStream(stm: ByteStream) {
+export default async function* readRequestStream(
+  clientHello: ClientHello,
+  stm: ByteStream
+) {
   while (true) {
-    const req = await readRequest(stm);
+    const req = await readRequest(clientHello, stm);
 
     if (req === undefined) {
       return;

@@ -7,7 +7,7 @@ import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
 import { AimeId } from "../../../model";
 
-interface SaveProfileRequestBase {
+export interface SaveProfileRequest {
   type: "save_profile_req";
   aimeId: AimeId;
   version: number;
@@ -27,13 +27,3 @@ interface SaveProfileRequestBase {
   tickets: Tickets;
   settings: Settings;
 }
-
-export interface SaveProfileRequest2 extends SaveProfileRequestBase {
-  format: 2;
-}
-
-export interface SaveProfileRequest3 extends SaveProfileRequestBase {
-  format: 3;
-}
-
-export type SaveProfileRequest = SaveProfileRequest2 | SaveProfileRequest3;

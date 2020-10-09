@@ -2,10 +2,10 @@ import { encodeBitmap } from "./_bitmap";
 import { encodeCar } from "./_car";
 import { encodeChara } from "./_chara";
 import { encodeMission } from "./_mission";
-import { LoadProfileResponse2 } from "../response/loadProfile";
+import { LoadProfileResponse } from "../response/loadProfile";
 import { writeSjisStr } from "../../util/bin";
 
-export function loadProfile2(res: LoadProfileResponse2) {
+export function loadProfile2(res: LoadProfileResponse) {
   const buf = Buffer.alloc(0x0d30);
 
   // FLAMETHROWER ANALYSIS (watch out for C strings)

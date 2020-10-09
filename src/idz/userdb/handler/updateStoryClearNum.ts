@@ -8,6 +8,5 @@ export function updateStoryClearNum(
 ): UpdateStoryClearNumResponse {
   return {
     type: "update_story_clear_num_res",
-    format: req.format as any,
   };
 }

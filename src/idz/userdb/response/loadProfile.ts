@@ -9,7 +9,7 @@ import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
 import { AimeId } from "../../../model";
 
-interface LoadProfileResponseBase {
+export interface LoadProfileResponse {
   type: "load_profile_res";
   name: string;
   aimeId: AimeId;
@@ -33,20 +33,3 @@ interface LoadProfileResponseBase {
   tickets: Tickets;
   // giga TODO
 }
-
-export interface LoadProfileResponse1 extends LoadProfileResponseBase {
-  format: 1;
-}
-
-export interface LoadProfileResponse2 extends LoadProfileResponseBase {
-  format: 2;
-}
-
-export interface LoadProfileResponse3 extends LoadProfileResponseBase {
-  format: 3;
-}
-
-export type LoadProfileResponse =
-  | LoadProfileResponse1
-  | LoadProfileResponse2
-  | LoadProfileResponse3;

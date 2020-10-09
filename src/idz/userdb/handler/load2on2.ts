@@ -8,6 +8,5 @@ export function load2on2(
 ): Load2on2Response {
   return {
     type: "load_2on2_res",
-    format: req.format as any,
   };
 }

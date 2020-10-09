@@ -31,7 +31,6 @@ export async function loadProfile(
 
   return {
     type: "load_profile_res",
-    format: req.format as any, // TS fart
     name: profile.name,
     aimeId,
     lv: profile.lv,

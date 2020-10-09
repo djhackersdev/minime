@@ -1,14 +1,14 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
 import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
-import { SaveProfileRequest2 } from "../request/saveProfile";
+import { SaveProfileRequest } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
 import { AimeId } from "../../../model";
 
 saveProfile2.msgCode = 0x0068;
 saveProfile2.msgLen = 0x0940;
 
-export function saveProfile2(buf: Buffer): SaveProfileRequest2 {
+export function saveProfile2(buf: Buffer): SaveProfileRequest {
   const storyRows = new Array();
 
   for (let i = 0; i < 9; i++) {
@@ -45,7 +45,6 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest2 {
 
   return {
     type: "save_profile_req",
-    format: 2,
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
     version: 1,
     lv: buf.readUInt16LE(0x0026),
