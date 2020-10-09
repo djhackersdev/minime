@@ -1,4 +1,4 @@
-import { BackgroundCode, CourseNo, ExtId, TitleCode } from "../model/base";
+import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { MissionState } from "../model/mission";
 import { Settings } from "../model/settings";
