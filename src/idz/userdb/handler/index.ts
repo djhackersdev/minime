@@ -5,7 +5,6 @@ import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2 } from "./load2on2";
 import { loadConfig } from "./loadConfig";
-import { loadConfig2 } from "./loadConfig2";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
@@ -66,9 +65,6 @@ export async function dispatch(
 
     case "load_config_req":
       return loadConfig(w, req);
-
-    case "load_config_v2_req":
-      return loadConfig2(w, req);
 
     case "discover_profile_req":
       return discoverProfile(w, req);
