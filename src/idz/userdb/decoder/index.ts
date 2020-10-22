@@ -6,8 +6,7 @@ import { createTeam } from "./createTeam";
 import { createAutoTeam } from "./createAutoTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2_v1, load2on2_v2 } from "./load2on2";
-import { loadConfig } from "./loadConfig";
-import { loadConfig2 } from "./loadConfig2";
+import { loadConfig1, loadConfig2 } from "./loadConfig";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
@@ -76,7 +75,7 @@ const funcList110: ReaderFn[] = [
   createTeam,
   discoverProfile,
   load2on2_v1,
-  loadConfig,
+  loadConfig1,
   loadConfig2,
   loadEventInfo,
   loadGacha,
@@ -122,7 +121,7 @@ const funcList130: ReaderFn[] = [
   discoverProfile,
   load2on2_v2,
   updateStoryClearNum2,
-  loadConfig,
+  loadConfig1,
   loadConfig2,
   loadEventInfo,
   loadGacha,

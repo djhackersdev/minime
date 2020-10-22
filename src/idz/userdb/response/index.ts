@@ -5,7 +5,6 @@ import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
 import { Load2on2Response } from "./load2on2";
 import { LoadConfigResponse } from "./loadConfig";
-import { LoadConfigResponse2 } from "./loadConfig2";
 import { LoadEventInfoResponse } from "./loadEventInfo";
 import { LoadGachaResponse } from "./loadGacha";
 import { LoadGarageResponse } from "./loadGarage";
@@ -39,7 +38,6 @@ export type Response =
   | GenericResponse
   | Load2on2Response
   | LoadConfigResponse
-  | LoadConfigResponse2
   | LoadEventInfoResponse
   | LoadGachaResponse
   | LoadGarageResponse

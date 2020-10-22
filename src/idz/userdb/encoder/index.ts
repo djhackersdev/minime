@@ -8,8 +8,7 @@ import { generic } from "./generic";
 import { lockProfile } from "./lockProfile";
 import { lockProfileExtend } from "./lockProfileExtend";
 import { load2on2_v1, load2on2_v2 } from "./load2on2";
-import { loadConfig } from "./loadConfig";
-import { loadConfig2 } from "./loadConfig2";
+import { loadConfig1, loadConfig2 } from "./loadConfig";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
@@ -61,10 +60,7 @@ function encode110(res: Response): Buffer {
       return load2on2_v1(res);
 
     case "load_config_res":
-      return loadConfig(res);
-
-    case "load_config_v2_res":
-      return loadConfig2(res);
+      return loadConfig1(res);
 
     case "load_event_info_res":
       return loadEventInfo(res);
@@ -166,9 +162,6 @@ function encode130(res: Response): Buffer {
       return load2on2_v2(res);
 
     case "load_config_res":
-      return loadConfig(res);
-
-    case "load_config_v2_res":
       return loadConfig2(res);
 
     case "load_event_info_res":
