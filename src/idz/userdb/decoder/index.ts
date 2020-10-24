@@ -22,7 +22,6 @@ import { loadTopTen1 } from "./loadTopTen1";
 import { loadTopTen2 } from "./loadTopTen2";
 import { lockGarage } from "./lockGarage";
 import { lockProfile } from "./lockProfile";
-import { msg00AD } from "./msg00AD";
 import { saveExpedition1, saveExpedition2 } from "./saveExpedition";
 import { saveGarage } from "./saveGarage";
 import { saveNewCar } from "./saveNewCar";
@@ -33,6 +32,7 @@ import { saveStocker } from "./saveStocker";
 import { saveTeamBanner } from "./saveTeamBanner";
 import { saveTimeAttack1, saveTimeAttack2 } from "./saveTimeAttack";
 import { saveTopic } from "./saveTopic";
+import { unknownA } from "./unknownA";
 import { unlockProfile } from "./unlockProfile";
 import { updateProvisionalStoreRank } from "./updateProvisionalStoreRank";
 import { updateTeamLeader } from "./updateTeamLeader";
@@ -92,7 +92,6 @@ const funcList110: ReaderFn[] = [
   lockProfile,
   lockProfileExtend,
   loadTopTen1,
-  msg00AD,
   saveExpedition1,
   saveGarage,
   saveNewCar,
@@ -102,6 +101,7 @@ const funcList110: ReaderFn[] = [
   saveTeamBanner,
   saveTimeAttack1,
   saveTopic,
+  unknownA,
   unlockProfile,
   updateProvisionalStoreRank,
   updateResult,
@@ -138,7 +138,6 @@ const funcList130: ReaderFn[] = [
   lockGarage,
   lockProfile,
   lockProfileExtend,
-  msg00AD,
   saveExpedition2,
   saveGarage,
   saveNewCar,
@@ -148,6 +147,7 @@ const funcList130: ReaderFn[] = [
   saveTeamBanner,
   saveTimeAttack2,
   saveTopic,
+  unknownA,
   unlockProfile,
   updateProvisionalStoreRank,
   updateResult,
