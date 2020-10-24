@@ -20,3 +20,13 @@ export function loadGeneralReward2(buf: Buffer): LoadGeneralRewardRequest {
     aimeId: buf.readUInt32LE(0x0004) as AimeId,
   };
 }
+
+loadGeneralReward3.msgCode = 0x093b;
+loadGeneralReward3.msgLen = 0x0010;
+
+export function loadGeneralReward3(buf: Buffer): LoadGeneralRewardRequest {
+  return {
+    type: "load_general_reward_req",
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
+  };
+}
