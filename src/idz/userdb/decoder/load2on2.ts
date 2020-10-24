@@ -26,3 +26,15 @@ export function load2on2_v2(buf: Buffer): Load2on2Request {
     teamId: buf.readUInt32LE(0x0008) as ExtId<Team>,
   };
 }
+
+load2on2_v3.msgCode = 0x00a3;
+load2on2_v3.msgLen = 0x0010;
+
+export function load2on2_v3(buf: Buffer): Load2on2Request {
+  return {
+    type: "load_2on2_req",
+    field_0002: buf.readUInt16LE(0x0002),
+    aimeId: buf.readUInt32LE(0x0004) as AimeId,
+    teamId: buf.readUInt32LE(0x0008) as ExtId<Team>,
+  };
+}

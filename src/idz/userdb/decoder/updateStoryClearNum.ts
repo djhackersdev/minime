@@ -17,3 +17,12 @@ export function updateStoryClearNum2(buf: Buffer): UpdateStoryClearNumRequest {
     type: "update_story_clear_num_req",
   };
 }
+
+updateStoryClearNum3.msgCode = 0x097f;
+updateStoryClearNum3.msgLen = 0x0010;
+
+export function updateStoryClearNum3(buf: Buffer): UpdateStoryClearNumRequest {
+  return {
+    type: "update_story_clear_num_req",
+  };
+}
