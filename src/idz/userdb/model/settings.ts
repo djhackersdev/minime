@@ -4,4 +4,5 @@ export interface Settings {
   aura: number;
   paperCup: number;
   gauges: number;
+  drivingStyle: number;
 }

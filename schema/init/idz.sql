@@ -104,7 +104,8 @@ create table "idz_settings" (
     "pack" integer not null,
     "aura" integer not null,
     "paper_cup" integer not null, -- Not a boolean, oddly enough
-    "gauges" integer not null
+    "gauges" integer not null,
+    "driving_style" integer not null
 );
 
 create table "idz_story_state" (

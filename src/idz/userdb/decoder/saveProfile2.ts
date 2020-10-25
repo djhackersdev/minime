@@ -95,6 +95,7 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest {
       aura: buf.readUInt8(0x002c),
       paperCup: buf.readUInt8(0x00f6),
       gauges: buf.readUInt8(0x00f7),
+      drivingStyle: 0, // Not supported until idz2
     },
   };
 }

@@ -16,6 +16,7 @@ export function saveSettings(buf: Buffer): SaveSettingsRequest {
       paperCup: buf.readUInt8(0x0011),
       gauges: buf.readUInt8(0x0012),
       aura: buf.readUInt8(0x0013),
+      drivingStyle: 0, // Not supported until idz2
     },
     field_0010: buf.readUInt8(0x0010),
   };

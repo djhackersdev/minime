@@ -27,6 +27,7 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
       aura: parseInt(row.aura!),
       paperCup: parseInt(row.paper_cup!),
       gauges: parseInt(row.gauges!),
+      drivingStyle: parseInt(row.driving_style!),
     };
   }
 
