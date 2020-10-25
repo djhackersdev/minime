@@ -3,6 +3,8 @@ declare module "sql-bricks-postgres" {
   export * from "sql-bricks";
 
   interface OnConflictClause {
+    doNothing(): sql.Statement;
+
     doUpdate(colNames: string[]): sql.Statement;
   }
 
