@@ -34,6 +34,7 @@ export async function createProfile(
     aura: 0,
     paperCup: 0,
     gauges: 5,
+    drivingStyle: 0, // Not supported until idz2
   };
   const story: Story = {
     x: 0,
