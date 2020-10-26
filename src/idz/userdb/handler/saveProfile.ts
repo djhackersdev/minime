@@ -36,6 +36,14 @@ export async function saveProfile(
   await w.settings().save(profileId, req.settings);
   await w.tickets().save(profileId, req.tickets);
 
+  if (req.selectedStamps) {
+    await w.stamps().saveSelection(profileId, req.selectedStamps);
+  }
+
+  if (req.stamps) {
+    await w.stamps().saveAll(profileId, req.stamps);
+  }
+
   return {
     type: "generic_res",
     status: 1,

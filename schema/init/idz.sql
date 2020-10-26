@@ -108,6 +108,25 @@ create table "idz_settings" (
     "driving_style" integer not null
 );
 
+create table "idz_stamp_selections" (
+    "id" integer primary key not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "stamp_01" integer not null,
+    "stamp_02" integer not null,
+    "stamp_03" integer not null,
+    "stamp_04" integer not null
+);
+
+create table "idz_stamp_unlock" (
+    "id" integer primary key not null,
+    "profile_id" integer not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "stamp_no",
+    constraint "idz_stamp_unlock_uq" unique ("profile_id", "stamp_no")
+);
+
 create table "idz_story_state" (
     "id" integer primary key not null
             references "idz_profile"("id")

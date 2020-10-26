@@ -28,6 +28,8 @@ export async function loadProfile(
   const unlocks = await w.unlocks().load(profileId);
   const tickets = await w.tickets().load(profileId);
   const team = teamId && (await w.teams().load(teamId));
+  const stamps = await w.stamps().loadAll(profileId);
+  const selectedStamps = await w.stamps().loadSelection(profileId);
 
   return {
     type: "load_profile_res",
@@ -51,5 +53,7 @@ export async function loadProfile(
     story,
     unlocks,
     tickets,
+    stamps,
+    selectedStamps,
   };
 }
