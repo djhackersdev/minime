@@ -29,6 +29,19 @@ create table "idz_stamp_unlock" (
     constraint "idz_stamp_unlock_uq" unique ("profile_id", "stamp_no")
 );
 
+create table "idz_weekly_missions" (
+    "id" integer primary key not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "weekly_reset" timestamp not null,
+    "mission_left" integer not null,
+    "progress_left" integer not null,
+    "params_left" integer not null,
+    "mission_right" integer not null,
+    "progress_right" integer not null,
+    "params_right" integer not null
+);
+
 insert into "new_idz_settings" (
     "id",
     "music",

@@ -156,6 +156,15 @@ export interface TimeAttackRepository {
   ): Promise<void>;
 }
 
+export interface WeeklyMissionsRepository {
+  load(profileId: Id<Model.Profile>): Promise<Model.WeeklyMissions>;
+
+  save(
+    profileId: Id<Model.Profile>,
+    weeklyMissions: Model.WeeklyMissions
+  ): Promise<void>;
+}
+
 export interface Repositories {
   backgrounds(): FlagRepository<Model.BackgroundCode>;
 
@@ -192,4 +201,6 @@ export interface Repositories {
   titles(): FlagRepository<Model.TitleCode>;
 
   unlocks(): FacetRepository<Model.Unlocks>;
+
+  weeklyMissions(): WeeklyMissionsRepository;
 }

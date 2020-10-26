@@ -8,6 +8,7 @@ import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { TimeAttackScore } from "../model/timeAttack";
 import { Unlocks } from "../model/unlocks";
+import { WeeklyMissions } from "../model/weeklyMissions";
 import { AimeId } from "../../../model";
 
 export interface LoadProfileResponse {
@@ -34,5 +35,6 @@ export interface LoadProfileResponse {
   tickets: Tickets;
   stamps: Set<StampCode>;
   selectedStamps: SelectedStamps;
+  weeklyMissions: WeeklyMissions;
   // giga TODO
 }

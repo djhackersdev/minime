@@ -6,6 +6,7 @@ import { SelectedStamps } from "../model/stamps";
 import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
+import { WeeklyMissions } from "../model/weeklyMissions";
 import { AimeId } from "../../../model";
 
 export interface SaveProfileRequest {
@@ -29,4 +30,5 @@ export interface SaveProfileRequest {
   settings: Settings;
   selectedStamps?: SelectedStamps;
   stamps?: Set<StampCode>;
+  weeklyMissions?: WeeklyMissions;
 }
