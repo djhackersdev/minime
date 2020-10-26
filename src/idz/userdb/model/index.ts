@@ -17,3 +17,4 @@ export { Team, TeamAuto, TeamMember } from "./team";
 export { Tickets } from "./tickets";
 export { TimeAttackScore } from "./timeAttack";
 export { Unlocks } from "./unlocks";
+export { WeeklyMissions } from "./weeklyMissions";

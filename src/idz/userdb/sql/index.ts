@@ -15,6 +15,7 @@ import { SqlTicketsRepository } from "./tickets";
 import { SqlTimeAttackRepository } from "./timeAttack";
 import { SqlTitlesRepository } from "./titles";
 import { SqlUnlocksRepository } from "./unlocks";
+import { SqlWeeklyMissionsRepository } from "./weeklyMissions";
 import * as Model from "../model";
 import * as Repo from "../repo";
 import { Transaction } from "../../../sql";
@@ -88,5 +89,9 @@ export class SqlRepositories implements Repo.Repositories {
 
   unlocks(): Repo.FacetRepository<Model.Unlocks> {
     return new SqlUnlocksRepository(this._txn);
+  }
+
+  weeklyMissions(): Repo.WeeklyMissionsRepository {
+    return new SqlWeeklyMissionsRepository(this._txn);
   }
 }

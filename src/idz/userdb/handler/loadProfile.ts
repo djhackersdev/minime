@@ -30,6 +30,7 @@ export async function loadProfile(
   const team = teamId && (await w.teams().load(teamId));
   const stamps = await w.stamps().loadAll(profileId);
   const selectedStamps = await w.stamps().loadSelection(profileId);
+  const weeklyMissions = await w.weeklyMissions().load(profileId);
 
   return {
     type: "load_profile_res",
@@ -55,5 +56,6 @@ export async function loadProfile(
     tickets,
     stamps,
     selectedStamps,
+    weeklyMissions,
   };
 }

@@ -265,3 +265,16 @@ create table "idz_team_reservation" (
     "join_time" timestamp not null,
     "leader" boolean not null
 );
+
+create table "idz_weekly_missions" (
+    "id" integer primary key not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "weekly_reset" timestamp not null,
+    "mission_left" integer not null,
+    "progress_left" integer not null,
+    "params_left" integer not null,
+    "mission_right" integer not null,
+    "progress_right" integer not null,
+    "params_right" integer not null
+);
