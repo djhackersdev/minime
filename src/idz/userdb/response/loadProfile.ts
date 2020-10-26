@@ -1,8 +1,9 @@
-import { TitleCode } from "../model/base";
+import { StampCode, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { Chara } from "../model/chara";
 import { MissionState } from "../model/mission";
 import { Settings } from "../model/settings";
+import { SelectedStamps } from "../model/stamps";
 import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { TimeAttackScore } from "../model/timeAttack";
@@ -31,5 +32,7 @@ export interface LoadProfileResponse {
   story: Story;
   unlocks: Unlocks;
   tickets: Tickets;
+  stamps: Set<StampCode>;
+  selectedStamps: SelectedStamps;
   // giga TODO
 }

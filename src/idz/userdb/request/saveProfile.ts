@@ -1,7 +1,8 @@
-import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
+import { BackgroundCode, CourseNo, StampCode, TitleCode } from "../model/base";
 import { Car } from "../model/car";
 import { MissionState } from "../model/mission";
 import { Settings } from "../model/settings";
+import { SelectedStamps } from "../model/stamps";
 import { Story } from "../model/story";
 import { Tickets } from "../model/tickets";
 import { Unlocks } from "../model/unlocks";
@@ -26,4 +27,6 @@ export interface SaveProfileRequest {
   unlocks: Unlocks;
   tickets: Tickets;
   settings: Settings;
+  selectedStamps?: SelectedStamps;
+  stamps?: Set<StampCode>;
 }

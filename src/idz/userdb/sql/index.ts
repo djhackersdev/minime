@@ -5,6 +5,7 @@ import { SqlCoursePlaysRepository } from "./coursePlays";
 import { SqlMissionsRepository } from "./missions";
 import { SqlProfileRepository } from "./profile";
 import { SqlSettingsRepository } from "./settings";
+import { SqlStampsRepository } from "./stamps";
 import { SqlStoryRepository } from "./story";
 import { SqlTeamRepository } from "./team";
 import { SqlTeamAutoRepository } from "./teamAuto";
@@ -47,6 +48,10 @@ export class SqlRepositories implements Repo.Repositories {
 
   settings(): Repo.FacetRepository<Model.Settings> {
     return new SqlSettingsRepository(this._txn);
+  }
+
+  stamps(): Repo.StampsRepository {
+    return new SqlStampsRepository(this._txn);
   }
 
   story(): Repo.FacetRepository<Model.Story> {

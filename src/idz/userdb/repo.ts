@@ -63,6 +63,22 @@ export interface ProfileRepository {
   create(profile: Model.Profile): Promise<Id<Model.Profile>>;
 }
 
+export interface StampsRepository {
+  loadSelection(profileId: Id<Model.Profile>): Promise<Model.SelectedStamps>;
+
+  loadAll(profileId: Id<Model.Profile>): Promise<Set<Model.StampCode>>;
+
+  saveAll(
+    profileId: Id<Model.Profile>,
+    items: Set<Model.StampCode>
+  ): Promise<void>;
+
+  saveSelection(
+    profileId: Id<Model.Profile>,
+    selection: Model.SelectedStamps
+  ): Promise<void>;
+}
+
 export interface TeamRepository {
   find(
     extId: Model.ExtId<Model.Team>,
@@ -155,6 +171,8 @@ export interface Repositories {
   profile(): ProfileRepository;
 
   settings(): FacetRepository<Model.Settings>;
+
+  stamps(): StampsRepository;
 
   // Also not a facet. w/e one step at a time.
   story(): FacetRepository<Model.Story>;
