@@ -3,6 +3,7 @@ import { SqlCarRepository } from "./car";
 import { SqlCharaRepository } from "./chara";
 import { SqlCoursePlaysRepository } from "./coursePlays";
 import { SqlMissionsRepository } from "./missions";
+import { SqlMyCharaRepository } from "./myChara";
 import { SqlProfileRepository } from "./profile";
 import { SqlSettingsRepository } from "./settings";
 import { SqlStampsRepository } from "./stamps";
@@ -41,6 +42,10 @@ export class SqlRepositories implements Repo.Repositories {
 
   missions(): Repo.FacetRepository<Model.MissionState> {
     return new SqlMissionsRepository(this._txn);
+  }
+
+  myChara(): Repo.FlagRepository<Model.MyCharaCode> {
+    return new SqlMyCharaRepository(this._txn);
   }
 
   profile(): Repo.ProfileRepository {

@@ -177,6 +177,8 @@ export interface Repositories {
   // not really a facet tbh
   missions(): FacetRepository<Model.MissionState>;
 
+  myChara(): FlagRepository<Model.MyCharaCode>;
+
   profile(): ProfileRepository;
 
   settings(): FacetRepository<Model.Settings>;

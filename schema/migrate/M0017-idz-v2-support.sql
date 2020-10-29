@@ -1,3 +1,12 @@
+create table "idz_my_chara" (
+    "id" integer primary key not null,
+    "profile_id" integer not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "my_chara_no" integer not null,
+    constraint "idz_my_chara_uq" unique ("profile_id", "my_chara_no")
+);
+
 create table "new_idz_settings" (
     "id" integer primary key not null
             references "idz_profile"("id")
