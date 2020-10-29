@@ -1,4 +1,4 @@
-import { BackgroundCode, StampCode } from "../model/base";
+import { BackgroundCode, MyCharaCode, StampCode } from "../model/base";
 import { CarSelector } from "../model/car";
 import { Chara } from "../model/chara";
 import { SelectedStamps } from "../model/stamps";
@@ -11,6 +11,7 @@ export interface SaveStockerRequest {
   selectedCar: CarSelector;
   backgrounds: Set<BackgroundCode>;
   chara: Chara;
+  myChara?: Set<MyCharaCode>;
   selectedStamps?: SelectedStamps;
   stamps?: Set<StampCode>;
 }

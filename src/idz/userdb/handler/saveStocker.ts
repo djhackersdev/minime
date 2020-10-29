@@ -12,6 +12,7 @@ export async function saveStocker(
     w.backgrounds().saveAll(profileId, req.backgrounds),
     w.chara().save(profileId, req.chara),
     w.car().saveSelection(profileId, req.selectedCar),
+    req.myChara && w.myChara().saveAll(profileId, req.myChara),
     req.selectedStamps &&
       w.stamps().saveSelection(profileId, req.selectedStamps),
     req.stamps && w.stamps().saveAll(profileId, req.stamps),
