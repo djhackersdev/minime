@@ -2,6 +2,7 @@ export {
   BackgroundCode,
   CourseNo,
   ExtId,
+  MyCharaCode,
   RouteNo,
   StampCode,
   TitleCode,
