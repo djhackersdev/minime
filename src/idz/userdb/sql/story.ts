@@ -6,6 +6,21 @@ import { FacetRepository } from "../repo";
 import { Id } from "../../../model";
 import { Transaction } from "../../../sql";
 
+function cellChanged(
+  lhs: StoryCell | undefined,
+  rhs: StoryCell | undefined
+): boolean {
+  if (!lhs) {
+    return true;
+  }
+
+  if (!rhs) {
+    return true;
+  }
+
+  return lhs.a !== rhs.a || lhs.b !== rhs.b;
+}
+
 export class SqlStoryRepository implements FacetRepository<Story> {
   constructor(private readonly _txn: Transaction) {}
 
@@ -19,21 +34,11 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
     // Must succeed even if nonexistent (required by save method below)
 
-    const result = {
+    const result: Story = {
       x: header !== undefined ? parseInt(header.x!) : 0,
       y: header !== undefined ? parseInt(header.y!) : 0,
-      rows: new Array<StoryRow>(),
+      rows: new Map<number, StoryRow>(),
     };
-
-    for (let i = 0; i < 27; i++) {
-      const row: StoryRow = { cells: new Array<StoryCell>() };
-
-      for (let j = 0; j < 9; j++) {
-        row.cells.push({ a: 0, b: 0 });
-      }
-
-      result.rows.push(row);
-    }
 
     const loadCellSql = sql
       .select("sc.*")
@@ -45,7 +50,23 @@ export class SqlStoryRepository implements FacetRepository<Story> {
     for (const row of rows) {
       const rowNo = parseInt(row.row_no!);
       const colNo = parseInt(row.col_no!);
-      const cell = result.rows[rowNo].cells[colNo];
+
+      if (!result.rows.has(rowNo)) {
+        result.rows.set(rowNo, {
+          cells: new Map<number, StoryCell>(),
+        });
+      }
+
+      const gridRow = result.rows.get(rowNo)!;
+
+      if (gridRow.cells.has(colNo)) {
+        gridRow.cells.set(colNo, {
+          a: 0,
+          b: 0,
+        });
+      }
+
+      const cell = gridRow.cells.get(colNo)!;
 
       cell.a = parseInt(row.a!);
       cell.b = parseInt(row.b!);
@@ -68,15 +89,15 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
     await this._txn.modify(headSql);
 
-    for (let i = 0; i < story.rows.length; i++) {
-      const exRow = existing.rows[i];
-      const row = story.rows[i];
+    for (const i of story.rows.keys()) {
+      const exRow = existing.rows.get(i);
+      const row = story.rows.get(i)!;
 
-      for (let j = 0; j < row.cells.length; j++) {
-        const exCell = exRow.cells[j];
-        const cell = row.cells[j];
+      for (const j of row.cells.keys()) {
+        const exCell = exRow !== undefined ? exRow.cells.get(j) : undefined;
+        const cell = row.cells.get(j)!;
 
-        if (cell.a === exCell.a && cell.b === exCell.b) {
+        if (!cellChanged(cell, exCell)) {
           continue; // Most if not all cells are unchanged on profile save.
         }
 

@@ -1,7 +1,7 @@
 import { MissionState } from "../model/mission";
 import { Profile } from "../model/profile";
 import { Settings } from "../model/settings";
-import { Story } from "../model/story";
+import { Story, StoryRow } from "../model/story";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
 import { CreateProfileResponse } from "../response/createProfile";
@@ -35,7 +35,11 @@ export async function createProfile(
     paperCup: 0,
     gauges: 5,
   };
-  const story: Story = { x: 0, y: 0, rows: [] };
+  const story: Story = {
+    x: 0,
+    y: 0,
+    rows: new Map<number, StoryRow>(),
+  };
   const unlocks: Unlocks = {
     auras: 1,
     cup: 0,
