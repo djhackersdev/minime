@@ -1,6 +1,6 @@
 import { encodeBitmap } from "./_bitmap";
 import { encodeCar } from "./_car";
-import { encodeChara } from "./_chara";
+import { encodeChara1 } from "./_chara";
 import { encodeMission } from "./_mission";
 import { LoadProfileResponse } from "../response/loadProfile";
 import { writeSjisStr } from "../../util/bin";
@@ -98,7 +98,7 @@ export function loadProfile2(res: LoadProfileResponse) {
   buf.writeUInt8(res.story.y, 0x0670);
   buf.writeUInt16LE(res.story.x, 0x06bc);
   encodeMission(res.missions.solo).copy(buf, 0x06e4);
-  encodeChara(res.chara).copy(buf, 0x070c);
+  encodeChara1(res.chara).copy(buf, 0x070c);
   encodeBitmap(res.titles, 0xb4).copy(buf, 0x720);
   buf.writeUInt8(res.settings.aura, 0x07d6);
   buf.writeUInt8(res.settings.paperCup, 0x07d9);

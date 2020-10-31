@@ -16,3 +16,11 @@ export function load2on2_v2(res: Load2on2Response): Buffer {
 
   return buf;
 }
+
+export function load2on2_v3(res: Load2on2Response): Buffer {
+  const buf = Buffer.alloc(0x1290);
+
+  buf.writeInt16LE(0x00a4, 0x0000);
+
+  return buf;
+}
