@@ -19,7 +19,8 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest {
     for (let j = 0; j < 9; j++) {
       const a = buf.readUInt32LE(rowOffset + 0x04 + j * 4);
       const b = buf.readUInt16LE(rowOffset + 0x28 + j * 2);
-      const cell = { a, b };
+      const c = 0; // Added in idz2
+      const cell = { a, b, c };
 
       cells.set(j, cell);
     }

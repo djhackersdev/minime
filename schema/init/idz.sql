@@ -144,6 +144,7 @@ create table "idz_story_cell_state" (
     "col_no" integer not null,
     "a" integer not null,
     "b" integer not null,
+    "c" integer not null,
     constraint "idz_story_cell_state_uq" unique (
             "profile_id",
             "row_no",

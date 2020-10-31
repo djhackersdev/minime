@@ -38,6 +38,23 @@ create table "idz_stamp_unlock" (
     constraint "idz_stamp_unlock_uq" unique ("profile_id", "stamp_no")
 );
 
+create table "new_idz_story_cell_state" (
+    "id" integer primary key not null,
+    "profile_id" integer not null
+            references "idz_profile"("id")
+            on delete cascade,
+    "row_no" integer not null,
+    "col_no" integer not null,
+    "a" integer not null,
+    "b" integer not null,
+    "c" integer not null,
+    constraint "idz_story_cell_state_uq" unique (
+            "profile_id",
+            "row_no",
+            "col_no"
+    )
+);
+
 create table "idz_weekly_missions" (
     "id" integer primary key not null
             references "idz_profile"("id")
@@ -69,6 +86,26 @@ insert into "new_idz_settings" (
     0
 from "idz_settings" as x;
 
+insert into "new_idz_story_cell_state" (
+    "id",
+    "profile_id",
+    "row_no",
+    "col_no",
+    "a",
+    "b",
+    "c"
+) select
+    x."id",
+    x."profile_id",
+    x."row_no",
+    x."col_no",
+    x."a",
+    x."b",
+    0
+from "idz_story_cell_state" as x;
+
 drop table "idz_settings";
+drop table "idz_story_cell_state";
 
 alter table "new_idz_settings" rename to "idz_settings";
+alter table "new_idz_story_cell_state" rename to "idz_story_cell_state";
