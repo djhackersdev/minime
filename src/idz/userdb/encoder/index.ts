@@ -2,6 +2,7 @@ import logger from "debug";
 
 import { _team } from "./_team";
 import { checkTeamName } from "./checkTeamName";
+import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { generic } from "./generic";
@@ -46,6 +47,9 @@ function encode110(res: Response): Buffer {
 
     case "create_auto_team_res":
       return _team(res);
+
+    case "create_profile_res":
+      return createProfile(res);
 
     case "create_team_res":
       return createTeam(res);
@@ -148,6 +152,9 @@ function encode130(res: Response): Buffer {
 
     case "create_auto_team_res":
       return _team(res);
+
+    case "create_profile_res":
+      return createProfile(res);
 
     case "create_team_res":
       return createTeam(res);
