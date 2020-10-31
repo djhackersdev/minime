@@ -37,13 +37,21 @@ export function loadProfile2(res: LoadProfileResponse) {
     }
   }
 
-  for (let i = 0; i < 9 && i < res.story.rows.length; i++) {
-    const row = res.story.rows[i];
+  for (let i = 0; i < 9; i++) {
+    const row = res.story.rows.get(i);
     const rowOffset = 0x0228 + i * 0x26;
 
-    for (let j = 0; j < 9 && j < row.cells.length; j++) {
-      const cell = row.cells[j];
+    if (row === undefined) {
+      continue;
+    }
+
+    for (let j = 0; j < 9; j++) {
+      const cell = row.cells.get(j);
       const cellOffset = rowOffset + j * 4;
+
+      if (cell === undefined) {
+        continue;
+      }
 
       buf.writeUInt16LE(cell.a, cellOffset + 0);
       buf.writeUInt16LE(cell.b, cellOffset + 2);

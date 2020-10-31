@@ -1,6 +1,7 @@
 import { car } from "./_car";
 import { mission } from "./_mission";
 import { BackgroundCode, CourseNo, TitleCode } from "../model/base";
+import { StoryCell, StoryRow } from "../model/story";
 import { SaveProfileRequest } from "../request/saveProfile";
 import { bitmap } from "./_bitmap";
 import { AimeId } from "../../../model";
@@ -9,10 +10,10 @@ saveProfile2.msgCode = 0x0068;
 saveProfile2.msgLen = 0x0940;
 
 export function saveProfile2(buf: Buffer): SaveProfileRequest {
-  const storyRows = new Array();
+  const storyRows = new Map<number, StoryRow>();
 
   for (let i = 0; i < 9; i++) {
-    const cells = new Array();
+    const cells = new Map<number, StoryCell>();
     const rowOffset = 0x01a8 + i * 0x3c;
 
     for (let j = 0; j < 9; j++) {
@@ -20,12 +21,12 @@ export function saveProfile2(buf: Buffer): SaveProfileRequest {
       const b = buf.readUInt16LE(rowOffset + 0x28 + j * 2);
       const cell = { a, b };
 
-      cells.push(cell);
+      cells.set(j, cell);
     }
 
     const row = { cells };
 
-    storyRows.push(row);
+    storyRows.set(i, row);
   }
 
   const coursePlays = new Map<CourseNo, number>();
