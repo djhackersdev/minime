@@ -21,7 +21,8 @@ export function saveProfile3(buf: Buffer): SaveProfileRequest {
     for (let j = 0; j < 9; j++) {
       const a = buf.readUInt8(rowOffset + 0x00 + j);
       const b = buf.readUInt8(rowOffset + 0x09 + j);
-      const cell = { a, b };
+      const c = 0; // Added in idz2
+      const cell = { a, b, c };
 
       cells.set(j, cell);
     }

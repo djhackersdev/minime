@@ -18,7 +18,7 @@ function cellChanged(
     return true;
   }
 
-  return lhs.a !== rhs.a || lhs.b !== rhs.b;
+  return lhs.a !== rhs.a || lhs.b !== rhs.b || lhs.c !== rhs.c;
 }
 
 export class SqlStoryRepository implements FacetRepository<Story> {
@@ -63,6 +63,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
         gridRow.cells.set(colNo, {
           a: 0,
           b: 0,
+          c: 0,
         });
       }
 
@@ -70,6 +71,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
       cell.a = parseInt(row.a!);
       cell.b = parseInt(row.b!);
+      cell.c = parseInt(row.c!);
     }
 
     return result;
@@ -109,9 +111,10 @@ export class SqlStoryRepository implements FacetRepository<Story> {
             col_no: j,
             a: cell.a,
             b: cell.b,
+            c: cell.c,
           })
           .onConflict("profile_id", "row_no", "col_no")
-          .doUpdate(["a", "b"]);
+          .doUpdate(["a", "b", "c"]);
 
         await this._txn.modify(cellSql);
       }

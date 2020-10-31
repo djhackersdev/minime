@@ -1,6 +1,7 @@
 export interface StoryCell {
   a: number;
   b: number;
+  c: number;
 }
 
 export interface StoryRow {
