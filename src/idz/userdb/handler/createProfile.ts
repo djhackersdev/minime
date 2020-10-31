@@ -4,13 +4,13 @@ import { Settings } from "../model/settings";
 import { Story } from "../model/story";
 import { Unlocks } from "../model/unlocks";
 import { CreateProfileRequest } from "../request/createProfile";
-import { GenericResponse } from "../response/generic";
+import { CreateProfileResponse } from "../response/createProfile";
 import { Repositories } from "../repo";
 
 export async function createProfile(
   w: Repositories,
   req: CreateProfileRequest
-): Promise<GenericResponse> {
+): Promise<CreateProfileResponse> {
   const { aimeId, version, name } = req;
   const now = new Date();
 
@@ -58,7 +58,7 @@ export async function createProfile(
   await w.teamReservations().commitHack(aimeId);
 
   return {
-    type: "generic_res",
-    status: aimeId, // "Generic response" my fucking *ass*
+    type: "create_profile_res",
+    aimeId: aimeId,
   };
 }

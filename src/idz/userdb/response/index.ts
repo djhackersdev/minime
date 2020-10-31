@@ -1,5 +1,6 @@
 import { CheckTeamNameResponse } from "./checkTeamName";
 import { CreateAutoTeamResponse } from "./createAutoTeam";
+import { CreateProfileResponse } from "./createProfile";
 import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
@@ -33,6 +34,7 @@ import { UnlockProfileResponse } from "./unlockProfile";
 export type Response =
   | CheckTeamNameResponse
   | CreateAutoTeamResponse
+  | CreateProfileResponse
   | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
