@@ -1,7 +1,7 @@
 import { writeSjisStr } from "../../util/bin";
 import { CreateAutoTeamResponse } from "../response/createAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
-import { encodeChara } from "./_chara";
+import { encodeChara1 } from "./_chara";
 
 function _team(
   res: CreateAutoTeamResponse | LoadTeamResponse,
@@ -42,7 +42,7 @@ function _team(
     buf.writeInt32LE(profile.lv, base + 0x0018);
     buf.writeInt32LE(0, base + 0x0024); // Month points, TODO
     buf.writeUInt32LE(accessTime, base + 0x0034);
-    encodeChara(chara).copy(buf, base + 0x0044);
+    encodeChara1(chara).copy(buf, base + 0x0044);
   }
 
   // Team Time Attack:
@@ -60,10 +60,18 @@ function _team(
   return buf;
 }
 
-export function createAutoTeam(res: CreateAutoTeamResponse): Buffer {
+export function createAutoTeam1(res: CreateAutoTeamResponse): Buffer {
   return _team(res, 0x007c);
 }
 
-export function loadTeam(res: LoadTeamResponse): Buffer {
+export function loadTeam1(res: LoadTeamResponse): Buffer {
   return _team(res, 0x0078);
+}
+
+export function createAutoTeam2(res: CreateAutoTeamResponse): Buffer {
+  return _team(res, 0x0078);
+}
+
+export function loadTeam2(res: LoadTeamResponse): Buffer {
+  return _team(res, 0x0074);
 }
