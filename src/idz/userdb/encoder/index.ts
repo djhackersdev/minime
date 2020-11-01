@@ -1,6 +1,6 @@
 import logger from "debug";
 
-import { _team } from "./_team";
+import { createAutoTeam, loadTeam } from "./_team";
 import { checkTeamName } from "./checkTeamName";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
@@ -46,7 +46,7 @@ function encode110(res: Response): Buffer {
       return checkTeamName(res);
 
     case "create_auto_team_res":
-      return _team(res);
+      return createAutoTeam(res);
 
     case "create_profile_res":
       return createProfile(res);
@@ -94,7 +94,7 @@ function encode110(res: Response): Buffer {
       return loadStocker(res);
 
     case "load_team_res":
-      return _team(res);
+      return loadTeam(res);
 
     case "load_team_ranking_res":
       return loadTeamRanking(res);
@@ -151,7 +151,7 @@ function encode130(res: Response): Buffer {
       return checkTeamName(res);
 
     case "create_auto_team_res":
-      return _team(res);
+      return createAutoTeam(res);
 
     case "create_profile_res":
       return createProfile(res);
@@ -199,7 +199,7 @@ function encode130(res: Response): Buffer {
       return loadStocker(res);
 
     case "load_team_res":
-      return _team(res);
+      return loadTeam(res);
 
     case "load_team_ranking_res":
       return loadTeamRanking(res);

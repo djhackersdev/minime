@@ -3,7 +3,10 @@ import { CreateAutoTeamResponse } from "../response/createAutoTeam";
 import { LoadTeamResponse } from "../response/loadTeam";
 import { encodeChara } from "./_chara";
 
-export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
+function _team(
+  res: CreateAutoTeamResponse | LoadTeamResponse,
+  msgCode: number
+) {
   const buf = Buffer.alloc(0x0ca0);
 
   if (res.type === "create_auto_team_res") {
@@ -55,4 +58,12 @@ export function _team(res: CreateAutoTeamResponse | LoadTeamResponse) {
   }*/
 
   return buf;
+}
+
+export function createAutoTeam(res: CreateAutoTeamResponse): Buffer {
+  return _team(res, 0x007c);
+}
+
+export function loadTeam(res: LoadTeamResponse): Buffer {
+  return _team(res, 0x0078);
 }
