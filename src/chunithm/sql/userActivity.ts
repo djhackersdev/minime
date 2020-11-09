@@ -29,7 +29,8 @@ export class SqlUserActivityRepository implements UserActivityRepository {
       .from("cm_user_activity")
       .where("profile_id", profileId)
       .where("kind", kind)
-      .orderBy("sort_number DESC");
+      .orderBy("sort_number DESC")
+      .limit(100);
 
     const rows = await this._txn.fetchRows(stmt);
 
