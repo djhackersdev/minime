@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v013
+
+- IDZ: Miscellaneous refactoring (Tau)
+- Chunithm: Add stubs to support Amazon Plus (Felix)
+
 ## v012
 
 - Chunithm: Fix large data loads (NeumPhis)
