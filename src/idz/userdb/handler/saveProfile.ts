@@ -44,6 +44,10 @@ export async function saveProfile(
     await w.stamps().saveAll(profileId, req.stamps);
   }
 
+  if (req.weeklyMissions) {
+    await w.weeklyMissions().save(profileId, req.weeklyMissions);
+  }
+
   return {
     type: "generic_res",
     status: 1,
