@@ -59,7 +59,7 @@ export class SqlStoryRepository implements FacetRepository<Story> {
 
       const gridRow = result.rows.get(rowNo)!;
 
-      if (gridRow.cells.has(colNo)) {
+      if (!gridRow.cells.has(colNo)) {
         gridRow.cells.set(colNo, {
           a: 0,
           b: 0,
