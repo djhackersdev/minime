@@ -37,8 +37,8 @@ export class SqlStampsRepository implements StampsRepository {
   async loadSelection(id: Id<Profile>): Promise<SelectedStamps> {
     const loadSql = sql
       .select("stamp.*")
-      .from("idz_stamp_selection stamp")
-      .join("idz_profile p", { "stamp.profile_id": "p.id" })
+      .from("idz_stamp_selections stamp")
+      .join("idz_profile p", { "stamp.id": "p.id" })
       .where("p.id", id);
 
     const row = await this._txn.fetchRow(loadSql);
@@ -60,15 +60,14 @@ export class SqlStampsRepository implements StampsRepository {
     selection: SelectedStamps
   ): Promise<void> {
     const saveSql = sql
-      .insert("idz_stamp_selection", {
-        id: this._txn.generateId(),
-        profile_id: profileId,
+      .insert("idz_stamp_selections", {
+        id: profileId,
         stamp_01: selection.stamp01,
         stamp_02: selection.stamp02,
         stamp_03: selection.stamp03,
         stamp_04: selection.stamp04,
       })
-      .onConflict("profile_id")
+      .onConflict("id")
       .doUpdate(["stamp_01", "stamp_02", "stamp_03", "stamp_04"]);
 
     await this._txn.modify(saveSql);
