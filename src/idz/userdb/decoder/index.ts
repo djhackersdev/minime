@@ -5,7 +5,11 @@ import { createProfile1, createProfile2 } from "./createProfile";
 import { createTeam1, createTeam2 } from "./createTeam";
 import { createAutoTeam1, createAutoTeam2 } from "./createAutoTeam";
 import { discoverProfile1, discoverProfile2 } from "./discoverProfile";
-import { load2on2_v1, load2on2_v2, load2on2_v3 } from "./load2on2";
+import {
+  load2on2RankingPoints1,
+  load2on2Info,
+  load2on2RankingPoints2,
+} from "./load2on2";
 import { loadConfig1, loadConfig2 } from "./loadConfig";
 import { loadEventInfo1, loadEventInfo2 } from "./loadEventInfo";
 import { loadGacha1, loadGacha2 } from "./loadGacha";
@@ -87,7 +91,7 @@ const funcList110: ReaderFn[] = [
   createProfile1,
   createTeam1,
   discoverProfile1,
-  load2on2_v1,
+  load2on2RankingPoints1,
   loadConfig1,
   loadConfig2,
   loadEventInfo1,
@@ -132,7 +136,7 @@ const funcList130: ReaderFn[] = [
   createProfile1,
   createTeam1,
   discoverProfile1,
-  load2on2_v2,
+  load2on2Info,
   updateStoryClearNum2,
   loadConfig1,
   loadConfig2,
@@ -177,7 +181,8 @@ const funcList210: ReaderFn[] = [
   createProfile2,
   createTeam2,
   discoverProfile2,
-  load2on2_v3,
+  load2on2Info,
+  load2on2RankingPoints2,
   updateStoryClearNum3,
   loadConfig1,
   loadConfig2,

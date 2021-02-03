@@ -3,7 +3,7 @@ import { CreateProfileRequest } from "./createProfile";
 import { CreateTeamRequest } from "./createTeam";
 import { DiscoverProfileRequest } from "./discoverProfile";
 import { CreateAutoTeamRequest } from "./createAutoTeam";
-import { Load2on2Request } from "./load2on2";
+import { Load2on2InfoRequest, Load2on2RankingPointsRequest } from "./load2on2";
 import { LoadConfigRequest } from "./loadConfig";
 import { LoadEventInfoRequest } from "./loadEventInfo";
 import { LoadGachaRequest } from "./loadGacha";
@@ -46,7 +46,8 @@ export type Request =
   | CreateProfileRequest
   | CreateTeamRequest
   | DiscoverProfileRequest
-  | Load2on2Request
+  | Load2on2InfoRequest
+  | Load2on2RankingPointsRequest
   | LoadConfigRequest
   | LoadEventInfoRequest
   | LoadGachaRequest

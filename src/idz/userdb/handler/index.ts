@@ -3,7 +3,7 @@ import { createAutoTeam } from "./createAutoTeam";
 import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
-import { load2on2 } from "./load2on2";
+import { load2on2Info, load2on2RankingPoints } from "./load2on2";
 import { loadConfig } from "./loadConfig";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGacha } from "./loadGacha";
@@ -62,8 +62,11 @@ export async function dispatch(
     case "create_team_req":
       return createTeam(w, req);
 
-    case "load_2on2_req":
-      return load2on2(w, req);
+    case "load_2on2_info_req":
+      return load2on2Info(w, req);
+
+    case "load_2on2_ranking_points_req":
+      return load2on2RankingPoints(w, req);
 
     case "load_config_req":
       return loadConfig(w, req);
