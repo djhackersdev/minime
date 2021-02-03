@@ -64,6 +64,7 @@ export class SqlTeamRepository implements TeamRepository {
     const createSql = sql.insert("idz_team", {
       id: id,
       ext_id: extId,
+      version: team.version,
       name: team.name,
       name_bg: team.nameBg,
       name_fx: team.nameFx,
