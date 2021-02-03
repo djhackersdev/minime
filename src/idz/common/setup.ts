@@ -48,6 +48,12 @@ function writeServerHello(aesKey: Buffer, rsaKey: RsaKey): Buffer {
 function readClientHello(buf: Buffer) {
   const magic = buf.readUInt32LE(0x00);
 
+  if (magic === 0xFE78571D) {
+    throw new Error(
+      "Server Box data, ignore."
+    );
+  }
+
   if (magic !== 0x01020304) {
     throw new Error(
       "Invalid magic number, cryptographic processing probably incorrect."
