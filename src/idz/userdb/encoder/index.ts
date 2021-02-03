@@ -250,7 +250,7 @@ function encode130(res: Response): Buffer {
       return saveExpedition2(res);
 
     case "save_garage_res":
-      return saveGarage2(res);
+      return saveGarage1(res);
 
     case "save_new_car_res":
       return saveNewCar2(res);
@@ -361,7 +361,7 @@ function encode210(res: Response): Buffer {
       return saveExpedition2(res);
 
     case "save_garage_res":
-      return saveGarage1(res);
+      return saveGarage2(res);
 
     case "save_new_car_res":
       return saveNewCar1(res);
