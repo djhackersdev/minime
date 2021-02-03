@@ -4,7 +4,10 @@ import { CreateProfileResponse } from "./createProfile";
 import { CreateTeamResponse } from "./createTeam";
 import { DiscoverProfileResponse } from "./discoverProfile";
 import { GenericResponse } from "./generic";
-import { Load2on2Response } from "./load2on2";
+import {
+  Load2on2InfoResponse,
+  Load2on2RankingPointsResponse,
+} from "./load2on2";
 import { LoadConfigResponse } from "./loadConfig";
 import { LoadEventInfoResponse } from "./loadEventInfo";
 import { LoadGachaResponse } from "./loadGacha";
@@ -38,7 +41,8 @@ export type Response =
   | CreateTeamResponse
   | DiscoverProfileResponse
   | GenericResponse
-  | Load2on2Response
+  | Load2on2InfoResponse
+  | Load2on2RankingPointsResponse
   | LoadConfigResponse
   | LoadEventInfoResponse
   | LoadGachaResponse

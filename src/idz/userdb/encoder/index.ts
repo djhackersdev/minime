@@ -13,7 +13,12 @@ import { discoverProfile1, discoverProfile2 } from "./discoverProfile";
 import { generic } from "./generic";
 import { lockProfile1, lockProfile2 } from "./lockProfile";
 import { lockProfileExtend1, lockProfileExtend2 } from "./lockProfileExtend";
-import { load2on2_v1, load2on2_v2, load2on2_v3 } from "./load2on2";
+import {
+  load2on2RankingPoints1,
+  load2on2Info1,
+  load2on2RankingPoints2,
+  load2on2Info2,
+} from "./load2on2";
 import { loadConfig1, loadConfig2 } from "./loadConfig";
 import { loadEventInfo1, loadEventInfo2 } from "./loadEventInfo";
 import { loadGacha1, loadGacha2 } from "./loadGacha";
@@ -69,8 +74,11 @@ function encode110(res: Response): Buffer {
     case "generic_res":
       return generic(res);
 
-    case "load_2on2_res":
-      return load2on2_v1(res);
+    case "load_2on2_ranking_points_res":
+      return load2on2RankingPoints1(res);
+
+    case "load_2on2_info_res":
+      return load2on2Info1(res);
 
     case "load_config_res":
       return loadConfig1(res);
@@ -174,8 +182,11 @@ function encode130(res: Response): Buffer {
     case "generic_res":
       return generic(res);
 
-    case "load_2on2_res":
-      return load2on2_v2(res);
+    case "load_2on2_ranking_points_res":
+      return load2on2RankingPoints1(res);
+
+    case "load_2on2_info_res":
+      return load2on2Info1(res);
 
     case "load_config_res":
       return loadConfig2(res);
@@ -279,8 +290,11 @@ function encode210(res: Response): Buffer {
     case "generic_res":
       return generic(res);
 
-    case "load_2on2_res":
-      return load2on2_v3(res);
+    case "load_2on2_ranking_points_res":
+      return load2on2RankingPoints2(res);
+
+    case "load_2on2_info_res":
+      return load2on2Info2(res);
 
     case "load_config_res":
       return loadConfig2(res);
