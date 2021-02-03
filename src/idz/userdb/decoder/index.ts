@@ -37,7 +37,7 @@ import {
   loadTeamRanking4,
 } from "./loadTeamRanking";
 import { loadTopTen1 } from "./loadTopTen1";
-import { loadTopTen2 } from "./loadTopTen2";
+import { loadTopTen2, loadTopTen3 } from "./loadTopTen2";
 import { lockGarage1, lockGarage2 } from "./lockGarage";
 import { lockProfile1, lockProfile2 } from "./lockProfile";
 import { saveExpedition1, saveExpedition2 } from "./saveExpedition";
@@ -205,7 +205,7 @@ const funcList210: ReaderFn[] = [
   loadTeam2,
   loadTeamRanking2,
   loadTeamRanking4,
-  loadTopTen2,
+  loadTopTen3,
   lockGarage2,
   lockProfile2,
   lockProfileExtend2,

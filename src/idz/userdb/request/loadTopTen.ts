@@ -9,6 +9,7 @@ export interface LoadTopTenRequestSelector {
 
 export interface LoadTopTenRequest {
   type: "load_top_ten_req";
+  version: number;
   field_2: number;
   selectors: LoadTopTenRequestSelector[];
   field_C4: number;

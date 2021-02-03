@@ -24,6 +24,7 @@ export function loadTopTen1(buf: Buffer): LoadTopTenRequest {
 
   return {
     type: "load_top_ten_req",
+    version: 1,
     field_2: buf.readUInt16LE(0x0002), // Bitmask selector
     selectors,
     field_C4: buf.readUInt8(0x00c4), // Boolean, true if profile ID is set
