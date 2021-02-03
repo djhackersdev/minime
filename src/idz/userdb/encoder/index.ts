@@ -10,7 +10,7 @@ import { checkTeamName1, checkTeamName2 } from "./checkTeamName";
 import { createProfile1, createProfile2 } from "./createProfile";
 import { createTeam1, createTeam2 } from "./createTeam";
 import { discoverProfile1, discoverProfile2 } from "./discoverProfile";
-import { generic } from "./generic";
+import { generic1, generic2 } from "./generic";
 import { lockProfile1, lockProfile2 } from "./lockProfile";
 import { lockProfileExtend1, lockProfileExtend2 } from "./lockProfileExtend";
 import {
@@ -79,7 +79,7 @@ function encode110(res: Response): Buffer {
       return discoverProfile1(res);
 
     case "generic_res":
-      return generic(res);
+      return generic1(res);
 
     case "load_2on2_ranking_points_res":
       return load2on2RankingPoints1(res);
@@ -190,7 +190,7 @@ function encode130(res: Response): Buffer {
       return discoverProfile1(res);
 
     case "generic_res":
-      return generic(res);
+      return generic1(res);
 
     case "load_2on2_ranking_points_res":
       return load2on2RankingPoints1(res);
@@ -301,7 +301,7 @@ function encode210(res: Response): Buffer {
       return discoverProfile2(res);
 
     case "generic_res":
-      return generic(res);
+      return generic2(res);
 
     case "load_2on2_ranking_points_res":
       return load2on2RankingPoints2(res);
