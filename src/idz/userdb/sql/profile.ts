@@ -42,7 +42,7 @@ export class SqlProfileRepository implements ProfileRepository {
       .from("idz_profile p")
       .join("aime_player r", { "p.player_id": "r.id" })
       .where("r.ext_id", aimeId)
-      .and("r.version", version);
+      .and("p.version", version);
 
     const row = await this._txn.fetchRow(lookupSql);
 
@@ -102,6 +102,7 @@ export class SqlProfileRepository implements ProfileRepository {
     const createSql = sql.insert("idz_profile", {
       id: id,
       player_id: playerId,
+      version: profile.version,
       name: profile.name,
       lv: profile.lv,
       exp: profile.exp,
