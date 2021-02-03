@@ -232,7 +232,7 @@ function encode130(res: Response): Buffer {
       return loadStocker2(res);
 
     case "load_team_res":
-      return loadTeam2(res);
+      return loadTeam1(res);
 
     case "load_team_ranking_res":
       return loadTeamRanking2(res);
@@ -343,7 +343,7 @@ function encode210(res: Response): Buffer {
       return loadStocker1(res);
 
     case "load_team_res":
-      return loadTeam1(res);
+      return loadTeam2(res);
 
     case "load_team_ranking_res":
       return loadTeamRanking1(res);
