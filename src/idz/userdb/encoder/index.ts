@@ -29,7 +29,7 @@ import { loadEventInfo1, loadEventInfo2 } from "./loadEventInfo";
 import { loadGacha1, loadGacha2 } from "./loadGacha";
 import { loadGarage1, loadGarage2 } from "./loadGarage";
 import { loadGeneralReward } from "./loadGeneralReward";
-import { loadGhost } from "./loadGhost";
+import { loadGhost1, loadGhost2 } from "./loadGhost";
 import { loadProfile2 } from "./loadProfile2";
 import { loadProfile3 } from "./loadProfile3";
 import { loadProfile4 } from "./loadProfile4";
@@ -106,7 +106,7 @@ function encode110(res: Response): Buffer {
       return loadGeneralReward(res);
 
     case "load_ghost_res":
-      return loadGhost(res);
+      return loadGhost1(res);
 
     case "load_profile_res":
       return loadProfile2(res);
@@ -217,7 +217,7 @@ function encode130(res: Response): Buffer {
       return loadGeneralReward(res);
 
     case "load_ghost_res":
-      return loadGhost(res);
+      return loadGhost1(res);
 
     case "load_profile_res":
       return loadProfile3(res);
@@ -328,7 +328,7 @@ function encode210(res: Response): Buffer {
       return loadGeneralReward(res);
 
     case "load_ghost_res":
-      return loadGhost(res);
+      return loadGhost2(res);
 
     case "load_profile_res":
       return loadProfile4(res);
