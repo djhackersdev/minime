@@ -143,6 +143,7 @@ export interface TopTenResult {
 
 export interface TimeAttackRepository {
   loadTop(
+    version: number,
     routeNo: Model.RouteNo,
     minTimestamp: Date,
     limit: number

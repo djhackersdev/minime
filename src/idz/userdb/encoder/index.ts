@@ -38,6 +38,7 @@ import { loadServerList } from "./loadServerList";
 import { loadStocker1, loadStocker2 } from "./loadStocker";
 import { loadTeamRanking1, loadTeamRanking2 } from "./loadTeamRanking";
 import { loadTopTen } from "./loadTopTen1";
+import { loadTopTen2 } from "./loadTopTen2";
 import { saveExpedition1, saveExpedition2 } from "./saveExpedition";
 import { saveGarage1, saveGarage2 } from "./saveGarage";
 import { saveNewCar1, saveNewCar2 } from "./saveNewCar";
@@ -347,7 +348,7 @@ function encode210(res: Response): Buffer {
       return loadTeamRanking1(res);
 
     case "load_top_ten_res":
-      return loadTopTen(res);
+      return loadTopTen2(res);
 
     case "lock_profile_extend_res":
       return lockProfileExtend1(res);

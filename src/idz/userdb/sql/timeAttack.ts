@@ -25,6 +25,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
   constructor(private readonly _txn: Transaction) {}
 
   async loadTop(
+    version: number,
     routeNo: RouteNo,
     minTimestamp: Date,
     limit: number
@@ -54,6 +55,7 @@ export class SqlTimeAttackRepository implements TimeAttackRepository {
       // case that we probably don't need to worry about.
       .join("idz_team_member tm", { "ta.profile_id": "tm.id" })
       .join("idz_team t", { "tm.team_id": "t.id" })
+      .where("p.version", version)
       .where("ta.route_no", routeNo)
       .where(sql.gt("ta.timestamp", minTimestamp))
       .orderBy(["ta.total_time asc", "ta.timestamp asc"])
