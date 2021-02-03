@@ -1,11 +1,11 @@
 import { LoadGhostResponse } from "../response/loadGhost";
 
-export function loadGhost(res: LoadGhostResponse): Buffer {
+function _loadGhost(msgCode: number, res: LoadGhostResponse): Buffer {
   const buf = Buffer.alloc(0x0070);
 
   // No idea what any of this even does.
 
-  buf.writeUInt16LE(0x00a1, 0x0000);
+  buf.writeUInt16LE(msgCode, 0x0000);
   buf.writeUInt16LE(0x0005, 0x0002); // Chunk presence flags: 4 | 1
 
   for (let i = 0; i < 2; i++) {
@@ -28,4 +28,12 @@ export function loadGhost(res: LoadGhostResponse): Buffer {
   }
 
   return buf;
+}
+
+export function loadGhost1(res: LoadGhostResponse): Buffer {
+  return _loadGhost(0x00a1, res);
+}
+
+export function loadGhost2(res: LoadGhostResponse): Buffer {
+  return _loadGhost(0x0096, res);
 }
