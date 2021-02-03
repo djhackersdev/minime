@@ -57,7 +57,7 @@ export class SqlWeeklyMissionsRepository implements WeeklyMissionsRepository {
         progress_right: weeklyMissions.weeklyProgressRight,
         params_right: weeklyMissions.weeklyParamsRight,
       })
-      .onConflict("profile_id")
+      .onConflict("id")
       .doUpdate([
         "weekly_reset",
         "mission_left",
