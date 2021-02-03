@@ -40,9 +40,17 @@ export class SqlSettingsRepository implements FacetRepository<Settings> {
         aura: settings.aura,
         paper_cup: settings.paperCup,
         gauges: settings.gauges,
+        driving_style: settings.drivingStyle,
       })
       .onConflict("id")
-      .doUpdate(["music", "pack", "aura", "paper_cup", "gauges"]);
+      .doUpdate([
+        "music",
+        "pack",
+        "aura",
+        "paper_cup",
+        "gauges",
+        "driving_style",
+      ]);
 
     await this._txn.modify(saveSql);
   }
