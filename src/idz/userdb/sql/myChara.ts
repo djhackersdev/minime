@@ -12,7 +12,7 @@ export class SqlMyCharaRepository implements FlagRepository<MyCharaCode> {
   async loadAll(id: Id<Profile>): Promise<Set<MyCharaCode>> {
     const loadSql = sql
       .select("mc.my_chara_no")
-      .from("idz_mychara_unlock mc")
+      .from("idz_my_chara mc")
       .join("idz_profile p", { "mc.profile_id": "p.id" })
       .where("p.id", id);
 
@@ -38,7 +38,7 @@ export class SqlMyCharaRepository implements FlagRepository<MyCharaCode> {
       }
 
       const saveSql = sql
-        .insert("idz_mychara_unlock", {
+        .insert("idz_my_chara", {
           id: this._txn.generateId(),
           profile_id: profileId,
           my_chara_no: flag,
