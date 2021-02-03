@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v014
+
+- IDZ: Add support for Initial D v2.1 (BemaniWitch)
+
 ## v013
 
 - IDZ: Miscellaneous refactoring (Tau)
