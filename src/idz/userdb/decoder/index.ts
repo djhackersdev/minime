@@ -32,6 +32,7 @@ import { loadStocker1, loadStocker2 } from "./loadStocker";
 import { loadTeam1, loadTeam2 } from "./loadTeam";
 import {
   loadTeamRanking1,
+  loadTeamRanking2,
   loadTeamRanking3,
   loadTeamRanking4,
 } from "./loadTeamRanking";
@@ -155,6 +156,7 @@ const funcList130: ReaderFn[] = [
   loadServerList,
   loadStocker1,
   loadTeam1,
+  loadTeamRanking1,
   loadTeamRanking3,
   loadTopTen2,
   lockGarage1,
@@ -201,6 +203,7 @@ const funcList210: ReaderFn[] = [
   loadServerList,
   loadStocker2,
   loadTeam2,
+  loadTeamRanking2,
   loadTeamRanking4,
   loadTopTen2,
   lockGarage2,
