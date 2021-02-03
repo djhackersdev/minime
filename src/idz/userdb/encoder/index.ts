@@ -220,7 +220,7 @@ function encode130(res: Response): Buffer {
       return loadGhost(res);
 
     case "load_profile_res":
-      return loadProfile4(res);
+      return loadProfile3(res);
 
     case "load_reward_table_res":
       return loadRewardTable(res);
@@ -331,7 +331,7 @@ function encode210(res: Response): Buffer {
       return loadGhost(res);
 
     case "load_profile_res":
-      return loadProfile3(res);
+      return loadProfile4(res);
 
     case "load_reward_table_res":
       return loadRewardTable(res);

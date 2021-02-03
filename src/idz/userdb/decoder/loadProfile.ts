@@ -14,7 +14,7 @@ export function loadProfile2(buf: Buffer): LoadProfileRequest {
   };
 }
 
-loadProfile3.msgCode = 0x0012f;
+loadProfile3.msgCode = 0x012f;
 loadProfile3.msgLen = 0x0020;
 
 export function loadProfile3(buf: Buffer): LoadProfileRequest {
@@ -26,7 +26,7 @@ export function loadProfile3(buf: Buffer): LoadProfileRequest {
   };
 }
 
-loadProfile4.msgCode = 0x0667;
+loadProfile4.msgCode = 0x012f;
 loadProfile4.msgLen = 0x0020;
 
 export function loadProfile4(buf: Buffer): LoadProfileRequest {
