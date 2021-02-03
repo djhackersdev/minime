@@ -205,13 +205,13 @@ function encode130(res: Response): Buffer {
       return loadConfigB_1(res);
 
     case "load_event_info_res":
-      return loadEventInfo2(res);
+      return loadEventInfo1(res);
 
     case "load_gacha_res":
-      return loadGacha2(res);
+      return loadGacha1(res);
 
     case "load_garage_res":
-      return loadGarage2(res);
+      return loadGarage1(res);
 
     case "load_general_reward_res":
       return loadGeneralReward(res);
@@ -229,52 +229,52 @@ function encode130(res: Response): Buffer {
       return loadServerList1(res);
 
     case "load_stocker_res":
-      return loadStocker2(res);
+      return loadStocker1(res);
 
     case "load_team_res":
       return loadTeam1(res);
 
     case "load_team_ranking_res":
-      return loadTeamRanking2(res);
+      return loadTeamRanking1(res);
 
     case "load_top_ten_res":
       return loadTopTen(res);
 
     case "lock_profile_extend_res":
-      return lockProfileExtend2(res);
+      return lockProfileExtend1(res);
 
     case "lock_profile_res":
-      return lockProfile2(res);
+      return lockProfile1(res);
 
     case "save_expedition_res":
-      return saveExpedition2(res);
+      return saveExpedition1(res);
 
     case "save_garage_res":
       return saveGarage1(res);
 
     case "save_new_car_res":
-      return saveNewCar2(res);
+      return saveNewCar1(res);
 
     case "save_time_attack_res":
       return saveTimeAttack1(res);
 
     case "unlock_profile_res":
-      return unlockProfile2(res);
+      return unlockProfile1(res);
 
     case "update_provisional_store_rank_res":
-      return updateProvisionalStoreRank2(res);
+      return updateProvisionalStoreRank1(res);
 
     case "update_story_clear_num_res":
       return updateStoryClearNum2(res);
 
     case "update_team_leader_res":
-      return updateTeamLeader2(res);
+      return updateTeamLeader1(res);
 
     case "update_team_member_res":
-      return updateTeamMember2(res);
+      return updateTeamMember1(res);
 
     case "save_topic_res":
-      return saveTopic2(res);
+      return saveTopic1(res);
 
     default:
       const exhaustCheck: never = res;
@@ -316,13 +316,13 @@ function encode210(res: Response): Buffer {
       return loadConfigB_2(res);
 
     case "load_event_info_res":
-      return loadEventInfo1(res);
+      return loadEventInfo2(res);
 
     case "load_gacha_res":
-      return loadGacha1(res);
+      return loadGacha2(res);
 
     case "load_garage_res":
-      return loadGarage1(res);
+      return loadGarage2(res);
 
     case "load_general_reward_res":
       return loadGeneralReward(res);
@@ -340,22 +340,22 @@ function encode210(res: Response): Buffer {
       return loadServerList2(res);
 
     case "load_stocker_res":
-      return loadStocker1(res);
+      return loadStocker2(res);
 
     case "load_team_res":
       return loadTeam2(res);
 
     case "load_team_ranking_res":
-      return loadTeamRanking1(res);
+      return loadTeamRanking2(res);
 
     case "load_top_ten_res":
       return loadTopTen2(res);
 
     case "lock_profile_extend_res":
-      return lockProfileExtend1(res);
+      return lockProfileExtend2(res);
 
     case "lock_profile_res":
-      return lockProfile1(res);
+      return lockProfile2(res);
 
     case "save_expedition_res":
       return saveExpedition2(res);
@@ -364,28 +364,28 @@ function encode210(res: Response): Buffer {
       return saveGarage2(res);
 
     case "save_new_car_res":
-      return saveNewCar1(res);
+      return saveNewCar2(res);
 
     case "save_time_attack_res":
       return saveTimeAttack2(res);
 
     case "unlock_profile_res":
-      return unlockProfile1(res);
+      return unlockProfile2(res);
 
     case "update_provisional_store_rank_res":
-      return updateProvisionalStoreRank1(res);
+      return updateProvisionalStoreRank2(res);
 
     case "update_story_clear_num_res":
       return updateStoryClearNum3(res);
 
     case "update_team_leader_res":
-      return updateTeamLeader1(res);
+      return updateTeamLeader2(res);
 
     case "update_team_member_res":
-      return updateTeamMember1(res);
+      return updateTeamMember2(res);
 
     case "save_topic_res":
-      return saveTopic1(res);
+      return saveTopic2(res);
 
     default:
       const exhaustCheck: never = res;
