@@ -255,7 +255,7 @@ function encode130(res: Response): Buffer {
       return saveNewCar2(res);
 
     case "save_time_attack_res":
-      return saveTimeAttack2(res);
+      return saveTimeAttack1(res);
 
     case "unlock_profile_res":
       return unlockProfile2(res);
@@ -366,7 +366,7 @@ function encode210(res: Response): Buffer {
       return saveNewCar1(res);
 
     case "save_time_attack_res":
-      return saveTimeAttack1(res);
+      return saveTimeAttack2(res);
 
     case "unlock_profile_res":
       return unlockProfile1(res);
