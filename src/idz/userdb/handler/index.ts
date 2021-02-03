@@ -42,10 +42,12 @@ import { updateUserLog } from "./updateUserLog";
 import { Repositories } from "../repo";
 import { Request } from "../request";
 import { Response } from "../response";
+import { ClientHello } from "../../common";
 
 export async function dispatch(
   w: Repositories,
-  req: Request
+  req: Request,
+  clientHello: ClientHello
 ): Promise<Response> {
   switch (req.type) {
     case "check_team_name_req":

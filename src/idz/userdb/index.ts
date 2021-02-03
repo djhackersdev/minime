@@ -21,7 +21,7 @@ export default function idz(db: DataSource) {
 
       for await (const req of readRequestStream(clientHello, aesStream)) {
         const res = await db.transaction(txn =>
-          dispatch(new SqlRepositories(txn), req)
+          dispatch(new SqlRepositories(txn), req, clientHello)
         );
 
         await aesStream.write(writeResponse(res, clientHello));
