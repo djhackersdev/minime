@@ -33,7 +33,7 @@ import { loadGhost1, loadGhost2 } from "./loadGhost";
 import { loadProfile2 } from "./loadProfile2";
 import { loadProfile3 } from "./loadProfile3";
 import { loadProfile4 } from "./loadProfile4";
-import { loadRewardTable } from "./loadRewardTable";
+import { loadRewardTable1, loadRewardTable2 } from "./loadRewardTable";
 import { loadServerList } from "./loadServerList";
 import { loadStocker1, loadStocker2 } from "./loadStocker";
 import { loadTeamRanking1, loadTeamRanking2 } from "./loadTeamRanking";
@@ -112,7 +112,7 @@ function encode110(res: Response): Buffer {
       return loadProfile2(res);
 
     case "load_reward_table_res":
-      return loadRewardTable(res);
+      return loadRewardTable1(res);
 
     case "load_server_list_res":
       return loadServerList(res);
@@ -223,7 +223,7 @@ function encode130(res: Response): Buffer {
       return loadProfile3(res);
 
     case "load_reward_table_res":
-      return loadRewardTable(res);
+      return loadRewardTable1(res);
 
     case "load_server_list_res":
       return loadServerList(res);
@@ -334,7 +334,7 @@ function encode210(res: Response): Buffer {
       return loadProfile4(res);
 
     case "load_reward_table_res":
-      return loadRewardTable(res);
+      return loadRewardTable2(res);
 
     case "load_server_list_res":
       return loadServerList(res);
