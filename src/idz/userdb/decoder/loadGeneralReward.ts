@@ -11,7 +11,7 @@ export function loadGeneralReward1(buf: Buffer): LoadGeneralRewardRequest {
   };
 }
 
-loadGeneralReward2.msgCode = 0x013b;
+loadGeneralReward2.msgCode = 0x093b;
 loadGeneralReward2.msgLen = 0x0010;
 
 export function loadGeneralReward2(buf: Buffer): LoadGeneralRewardRequest {
@@ -21,7 +21,7 @@ export function loadGeneralReward2(buf: Buffer): LoadGeneralRewardRequest {
   };
 }
 
-loadGeneralReward3.msgCode = 0x093b;
+loadGeneralReward3.msgCode = 0x013b;
 loadGeneralReward3.msgLen = 0x0010;
 
 export function loadGeneralReward3(buf: Buffer): LoadGeneralRewardRequest {

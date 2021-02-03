@@ -154,7 +154,7 @@ const funcList130: ReaderFn[] = [
   loadEventInfo1,
   loadGacha1,
   loadGarage1,
-  loadGeneralReward2,
+  loadGeneralReward3,
   loadGhost1,
   loadProfile3,
   loadRewardTable1,
