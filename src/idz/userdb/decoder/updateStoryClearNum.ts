@@ -9,7 +9,7 @@ export function updateStoryClearNum1(buf: Buffer): UpdateStoryClearNumRequest {
   };
 }
 
-updateStoryClearNum2.msgCode = 0x013d;
+updateStoryClearNum2.msgCode = 0x097f;
 updateStoryClearNum2.msgLen = 0x0010;
 
 export function updateStoryClearNum2(buf: Buffer): UpdateStoryClearNumRequest {
@@ -18,7 +18,7 @@ export function updateStoryClearNum2(buf: Buffer): UpdateStoryClearNumRequest {
   };
 }
 
-updateStoryClearNum3.msgCode = 0x097f;
+updateStoryClearNum3.msgCode = 0x013d;
 updateStoryClearNum3.msgLen = 0x0010;
 
 export function updateStoryClearNum3(buf: Buffer): UpdateStoryClearNumRequest {

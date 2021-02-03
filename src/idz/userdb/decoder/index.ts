@@ -148,6 +148,7 @@ const funcList130: ReaderFn[] = [
   discoverProfile1,
   load2on2Info,
   updateStoryClearNum2,
+  updateStoryClearNum3,
   loadConfigA_1,
   loadConfigB_1,
   loadEventInfo1,

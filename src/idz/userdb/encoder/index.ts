@@ -52,6 +52,7 @@ import {
 import {
   updateStoryClearNum1,
   updateStoryClearNum2,
+  updateStoryClearNum3,
 } from "./updateStoryClearNum";
 import { updateTeamLeader1, updateTeamLeader2 } from "./updateTeamLeader";
 import { updateTeamMember1, updateTeamMember2 } from "./updateTeamMember";
@@ -375,7 +376,7 @@ function encode210(res: Response): Buffer {
       return updateProvisionalStoreRank1(res);
 
     case "update_story_clear_num_res":
-      return updateStoryClearNum2(res);
+      return updateStoryClearNum3(res);
 
     case "update_team_leader_res":
       return updateTeamLeader1(res);
