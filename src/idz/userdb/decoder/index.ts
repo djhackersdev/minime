@@ -10,7 +10,12 @@ import {
   load2on2Info,
   load2on2RankingPoints2,
 } from "./load2on2";
-import { loadConfig1, loadConfig2 } from "./loadConfig";
+import {
+  loadConfigA_1,
+  loadConfigB_1,
+  loadConfigA_2,
+  loadConfigB_2,
+} from "./loadConfig";
 import { loadEventInfo1, loadEventInfo2 } from "./loadEventInfo";
 import { loadGacha1, loadGacha2 } from "./loadGacha";
 import { loadGarage1, loadGarage2 } from "./loadGarage";
@@ -92,8 +97,8 @@ const funcList110: ReaderFn[] = [
   createTeam1,
   discoverProfile1,
   load2on2RankingPoints1,
-  loadConfig1,
-  loadConfig2,
+  loadConfigA_1,
+  loadConfigB_1,
   loadEventInfo1,
   loadGacha1,
   loadGarage1,
@@ -138,8 +143,8 @@ const funcList130: ReaderFn[] = [
   discoverProfile1,
   load2on2Info,
   updateStoryClearNum2,
-  loadConfig1,
-  loadConfig2,
+  loadConfigA_1,
+  loadConfigB_1,
   loadEventInfo1,
   loadGacha1,
   loadGarage1,
@@ -184,8 +189,8 @@ const funcList210: ReaderFn[] = [
   load2on2Info,
   load2on2RankingPoints2,
   updateStoryClearNum3,
-  loadConfig1,
-  loadConfig2,
+  loadConfigA_2,
+  loadConfigB_2,
   loadEventInfo2,
   loadGacha2,
   loadGarage2,

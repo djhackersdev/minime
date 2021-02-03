@@ -8,7 +8,7 @@ import {
   Load2on2InfoResponse,
   Load2on2RankingPointsResponse,
 } from "./load2on2";
-import { LoadConfigResponse } from "./loadConfig";
+import { LoadConfigResponseA, LoadConfigResponseB } from "./loadConfig";
 import { LoadEventInfoResponse } from "./loadEventInfo";
 import { LoadGachaResponse } from "./loadGacha";
 import { LoadGarageResponse } from "./loadGarage";
@@ -43,7 +43,8 @@ export type Response =
   | GenericResponse
   | Load2on2InfoResponse
   | Load2on2RankingPointsResponse
-  | LoadConfigResponse
+  | LoadConfigResponseA
+  | LoadConfigResponseB
   | LoadEventInfoResponse
   | LoadGachaResponse
   | LoadGarageResponse

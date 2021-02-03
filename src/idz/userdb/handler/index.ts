@@ -4,7 +4,7 @@ import { createProfile } from "./createProfile";
 import { createTeam } from "./createTeam";
 import { discoverProfile } from "./discoverProfile";
 import { load2on2Info, load2on2RankingPoints } from "./load2on2";
-import { loadConfig } from "./loadConfig";
+import { loadConfig1, loadConfig2 } from "./loadConfig";
 import { loadEventInfo } from "./loadEventInfo";
 import { loadGacha } from "./loadGacha";
 import { loadGarage } from "./loadGarage";
@@ -68,8 +68,11 @@ export async function dispatch(
     case "load_2on2_ranking_points_req":
       return load2on2RankingPoints(w, req);
 
-    case "load_config_req":
-      return loadConfig(w, req);
+    case "load_config_A_req":
+      return loadConfig1(w, req, clientHello);
+
+    case "load_config_B_req":
+      return loadConfig2(w, req);
 
     case "discover_profile_req":
       return discoverProfile(w, req);
