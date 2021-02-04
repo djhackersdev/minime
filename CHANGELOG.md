@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v016
+
+- IDZ: Fix SQL syntax error (Tau)
+
 ## v015
 
 - IDZ: Team fixes (BemaniWitch)
