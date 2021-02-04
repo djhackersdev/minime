@@ -242,7 +242,6 @@ create table "idz_team_auto" (
             on delete cascade,
     "serial_no" integer not null,
     "name_idx" integer not null,
-    constraint "idz_team_auto_uq" unique ("serial_no", "name_idx")
 );
 
 create table "idz_team_member" (
