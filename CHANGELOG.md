@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v015
+
+- IDZ: Team fixes (BemaniWitch)
+
 ## v014
 
 - IDZ: Add support for Initial D v2.1 (BemaniWitch)
