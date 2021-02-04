@@ -241,7 +241,7 @@ create table "idz_team_auto" (
             references "idz_team"("id")
             on delete cascade,
     "serial_no" integer not null,
-    "name_idx" integer not null,
+    "name_idx" integer not null
 );
 
 create table "idz_team_member" (
