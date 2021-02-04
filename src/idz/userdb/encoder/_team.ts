@@ -33,7 +33,7 @@ function _team1(
     const accessTime = (profile.accessTime.getTime() / 1000) | 0;
 
     buf.writeInt32LE(profile.aimeId, base + 0x0000);
-    writeSjisStr(buf, 0x0004, 0x0018, profile.name);
+    writeSjisStr(buf, base + 0x0004, base + 0x0018, profile.name);
     buf.writeInt32LE(profile.lv, base + 0x0018);
     buf.writeInt32LE(0, base + 0x0024); // Month points, TODO
     buf.writeUInt32LE(accessTime, base + 0x0034);
@@ -85,7 +85,7 @@ function _team2(
     const accessTime = (profile.accessTime.getTime() / 1000) | 0;
 
     buf.writeInt32LE(profile.aimeId, base + 0x0000);
-    writeSjisStr(buf, 0x0004, 0x0018, profile.name);
+    writeSjisStr(buf, base + 0x0004, base + 0x0018, profile.name);
     buf.writeInt32LE(profile.lv, base + 0x0018);
     buf.writeInt32LE(0, base + 0x0024); // Month points, TODO
     buf.writeUInt32LE(accessTime, base + 0x0034);
