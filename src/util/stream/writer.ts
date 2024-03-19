@@ -14,7 +14,7 @@ export default function makeWriter(stm: Writable) {
       stm.write(buf, error => {
         busy = false;
 
-        if (error !== undefined) {
+        if (error !== null && error !== undefined) {
           reject(error);
         } else {
           resolve();
